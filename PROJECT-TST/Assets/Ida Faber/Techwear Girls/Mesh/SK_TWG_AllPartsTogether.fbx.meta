@@ -1,0 +1,385 @@
+fileFormatVersion: 2
+guid: 7f21cc05dc0b42b4d9d9b7beba44edb1
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_ACCESSORIES
+    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_ACCESSORIES1
+    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_ACCESSORIES2
+    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_ACCESSORIES3
+    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_ACCESSORIES4
+    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_ACCESSORIES5
+    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY1
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY10
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY11
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY12
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY13
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY14
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY15
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY16
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY17
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY18
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY19
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY2
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY20
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY21
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY22
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY23
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY24
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY25
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY3
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY4
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY5
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY6
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY7
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY8
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_BODY9
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_EYES1
+    second: {fileID: 2100000, guid: 29a19dd82702f8c4babfac3e8af6a080, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_HAIR
+    second: {fileID: 2100000, guid: 96f3a10492b8ac745a2663d96f88fbfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_HAIR1
+    second: {fileID: 2100000, guid: 96f3a10492b8ac745a2663d96f88fbfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_HAIR2
+    second: {fileID: 2100000, guid: c8c025c4241fe6042ad2c2434fa1372f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_HAIR3
+    second: {fileID: 2100000, guid: c8c025c4241fe6042ad2c2434fa1372f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_HEAD1
+    second: {fileID: 2100000, guid: 50fbecae663cdc949b9c72dd4388a26b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_LASHES1
+    second: {fileID: 2100000, guid: 6fa5faaf4f80ece4c9c7ab7b94ddd2ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_PANTS_01
+    second: {fileID: 2100000, guid: 13807da32f324874f92de608c724f96b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_PANTS_02
+    second: {fileID: 2100000, guid: 90ff7cf7733d06449bda17dc94573043, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_PANTS_03
+    second: {fileID: 2100000, guid: 90ff7cf7733d06449bda17dc94573043, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_PANTS_04
+    second: {fileID: 2100000, guid: 90ff7cf7733d06449bda17dc94573043, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_PANTS_05
+    second: {fileID: 2100000, guid: 08118e9baec97c24587dd550d6d77d67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_PANTS_06
+    second: {fileID: 2100000, guid: 08118e9baec97c24587dd550d6d77d67, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_SHOES_01
+    second: {fileID: 2100000, guid: 93da588f209060a40a4fcd8e7a0e8a2d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_SHOES_02
+    second: {fileID: 2100000, guid: 126cab256ed6c2e47ab2fad75754d589, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TEARS1
+    second: {fileID: 2100000, guid: 80c69044e9f4a4d49a24a2eabc180f3c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TEETH1
+    second: {fileID: 2100000, guid: fc399ff94963eb543b0235c5cfb96e9b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_01
+    second: {fileID: 2100000, guid: a55974aaa227a6144ac96cdbee1bc998, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_02
+    second: {fileID: 2100000, guid: a55974aaa227a6144ac96cdbee1bc998, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_03
+    second: {fileID: 2100000, guid: a55974aaa227a6144ac96cdbee1bc998, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_04
+    second: {fileID: 2100000, guid: 16fa24cf2be95f243bb3cba18bfc2ac3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_05
+    second: {fileID: 2100000, guid: 5944097dac1e55f48a54a25ab39ac4c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_06
+    second: {fileID: 2100000, guid: 5944097dac1e55f48a54a25ab39ac4c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_TWG_TOP_07
+    second: {fileID: 2100000, guid: 71440f24c184b1346a0a6bd9a1594b3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MAT_VAMPIREGIRL_BODY1
+    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
