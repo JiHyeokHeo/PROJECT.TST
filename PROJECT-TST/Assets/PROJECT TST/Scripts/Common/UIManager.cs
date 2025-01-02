@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace TST
 {
@@ -57,6 +58,8 @@ namespace TST
                 UICamera = uiCameraGo.AddComponent<Camera>();
                 UICamera.cullingMask = 1 << LayerMask.NameToLayer("UI");
                 UICamera.clearFlags = CameraClearFlags.Depth;
+                var cameraData = UICamera.GetUniversalAdditionalCameraData();
+                cameraData.renderType = CameraRenderType.Overlay;
             }
 
             if (panelRoot == null)

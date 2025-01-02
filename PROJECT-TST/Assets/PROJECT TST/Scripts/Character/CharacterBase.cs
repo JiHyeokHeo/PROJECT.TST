@@ -100,7 +100,7 @@ namespace TST
         public RigBuilder rigBuilder;
         public Rig aimingRig;
         public Rig lefthandRig;
-        public Rig throwRig;
+        //public Rig throwRig;
 
         public Vector3 offsetPosition;
         public Vector3 offsetRotation;
@@ -213,7 +213,7 @@ namespace TST
             float value = isActive ? 1f : 0f;
             aimingRigWeightBlend = value;
             lefthandRigWeightBlend = value;
-            throwRig.weight = value;
+            //throwRig.weight = value;
         }
 
 
@@ -221,7 +221,7 @@ namespace TST
         {
             aimingRig.weight = 0f;
             lefthandRig.weight = 0f;
-            throwRig.weight = 0f;
+            //throwRig.weight = 0f;
             rigBuilder.Build();
 
             // 데이터 관련
@@ -282,7 +282,7 @@ namespace TST
             lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isReloading && !isRolling ? 1f : 0f, Time.deltaTime * 10f);
             lefthandRig.weight = lefthandRigWeightBlend;
 
-            throwRig.weight = IsThrowMode ? 1f : 0f;
+            //throwRig.weight = IsThrowMode ? 1f : 0f;
 
             // 문 여닫이 IK 관련
             if (isDoorOpening)

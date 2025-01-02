@@ -39,7 +39,7 @@ namespace TST
                 OnInput_Jump?.Invoke();
             }
 
-            if (OptionManager.Instance.IsGameStopped)
+            if (OptionManager.Singleton.IsGameStopped)
             {
                 SetCursorVisible(true);
                 return;

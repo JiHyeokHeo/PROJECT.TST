@@ -21,11 +21,10 @@ namespace TST
         public int UIButtonOrder;
     }
 
-    public class OptionManager : MonoBehaviour
+    public class OptionManager : SingletonBase<OptionManager>
     {
         public GameObject crossHairCanvas;
         public GameObject usingCrossHair;
-        public static OptionManager Instance { get; private set; }
         public List<CrossHairData> crossHairContainer = new List<CrossHairData>();
         public GameObject UICanvas;
         public CrossHairBase usingCrossHairComponent;
@@ -54,23 +53,22 @@ namespace TST
 
         private void Start()
         {
-            Instance = this;
             // 초기값 크로스헤어 A 
             //crossHairCanvas = UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI).gameObject;
 
-            for (int i = 0; i < crossHairCanvas.transform.childCount; i++)
-            {
-                var childObj = crossHairCanvas.transform.GetChild(i);
+            //for (int i = 0; i < crossHairCanvas.transform.childCount; i++)
+            //{
+            //    var childObj = crossHairCanvas.transform.GetChild(i);
 
-                CrossHairType type = StringToEnum<CrossHairType>(childObj.name);
-                CrossHairData data = new CrossHairData();
-                data.type = type;
-                data.prefab = childObj.gameObject;
-                data.UIButtonOrder = 0;
-                crossHairContainer.Add(data);
-            }
+            //    CrossHairType type = StringToEnum<CrossHairType>(childObj.name);
+            //    CrossHairData data = new CrossHairData();
+            //    data.type = type;
+            //    data.prefab = childObj.gameObject;
+            //    data.UIButtonOrder = 0;
+            //    crossHairContainer.Add(data);
+            //}
 
-            ChangeCrossHair(CrossHairType.CrossHair_A);
+            //ChangeCrossHair(CrossHairType.CrossHair_A);
         }
 
         public GameObject ChangeCrossHair(CrossHairType crossHairType)

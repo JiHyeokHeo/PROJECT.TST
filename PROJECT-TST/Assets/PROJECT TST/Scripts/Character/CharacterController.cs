@@ -198,7 +198,7 @@ namespace TST
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                OptionManager.Instance.IsGameStopped = !OptionManager.Instance.IsGameStopped;
+                OptionManager.Singleton.IsGameStopped = !OptionManager.Singleton.IsGameStopped;
             }
 
             Vector3 aimingPoint = Vector3.zero;
@@ -249,7 +249,7 @@ namespace TST
             if (linkedCharacter.IsArmed && linkedCharacter.gunWeapon.CurrentAmmo > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
-                OptionManager.Instance.usingCrossHairComponent.IsRecoilChange = true;
+                OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = true;
             }
 
             currentRecoil = Mathf.Clamp(currentRecoil, 0.0f, recoilMaxThreshold);
@@ -257,7 +257,7 @@ namespace TST
 
         public void PauseRecoil()
         {
-            OptionManager.Instance.usingCrossHairComponent.IsRecoilChange = false;
+            OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = false;
             currentRecoil = 0.0f;
         }
 
