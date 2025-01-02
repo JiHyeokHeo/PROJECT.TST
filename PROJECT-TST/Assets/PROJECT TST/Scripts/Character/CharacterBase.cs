@@ -643,12 +643,19 @@ namespace TST
         private float verticalVelocity;
         private bool isJumping = false;
         private bool isGrounded = false;
+
+        private int jumpCnt = 0;
+        private int jumpMaxCnt = 2;
         public void Jump()
         {
-            if ((!isJumping && isGrounded))
+            if ((!isJumping /*&& isGrounded*/))
             {
+                if (jumpCnt >= jumpMaxCnt)
+                    return;
+
                 isJumping = true;
                 animator.SetTrigger("Jump Trigger");
+                jumpCnt++;
             }
         }
         private void JumpAndGravity()
@@ -659,7 +666,7 @@ namespace TST
                 {
                     verticalVelocity = -2f;
                 }
-                if (isJumping && jumpTimeoutDelta <= 0.0f)
+                if (isJumping && jumpTimeoutDelta <= 0.0f) // 이쪽 관련 코드가 점프와 연관되어 있음 // 더블 점프도 이쪽에서 컨트롤 하면 문제 없을듯함
                 {
                     jumpTimeoutDelta = jumpTimeout;
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -669,9 +676,19 @@ namespace TST
                 {
                     jumpTimeoutDelta -= Time.deltaTime;
                 }
+
+                if (jumpCnt >= jumpMaxCnt)
+                {
+                    jumpCnt = 0;
+                }
             }
             else
             {
+                if (isJumping == true && jumpCnt <= jumpMaxCnt)
+                {
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                }
+
                 jumpTimeoutDelta = jumpTimeout;
                 isJumping = false;
             }

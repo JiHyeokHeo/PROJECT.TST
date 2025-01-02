@@ -406,6 +406,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ac3616ac7e7b6e64289bc89c096ab7a9, type: 2}
+    - target: {fileID: 4510468300888784291, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
       propertyPath: aimingRig
@@ -438,10 +443,30 @@ PrefabInstance:
       objectReference: {fileID: 1833736673}
     - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
+      propertyPath: weaponSocket
+      value: 
+      objectReference: {fileID: 1092235794}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
       propertyPath: characterStat
       value: 
       objectReference: {fileID: 11400000, guid: de7acec97f0d22c4f8f340b715e98aa6,
         type: 2}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: crouchOffset.y
+      value: -0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: groundedOffset
+      value: -0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
       propertyPath: rollSpeedCurve.m_PreInfinity
@@ -532,6 +557,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ac3616ac7e7b6e64289bc89c096ab7a9, type: 2}
+    - target: {fileID: 7148227997742349667, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7148227997742349667, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
       propertyPath: m_IsActive
@@ -796,6 +826,7 @@ GameObject:
   m_Component:
   - component: {fileID: 971450084}
   - component: {fileID: 971450085}
+  - component: {fileID: 971450086}
   m_Layer: 0
   m_Name: TPS Camera
   m_TagString: Untagged
@@ -858,6 +889,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1895751957}
+--- !u!114 &971450086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971450083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!1 &1092235793
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,11 +23,23 @@ namespace TST
 
     public class OptionManager : SingletonBase<OptionManager>
     {
+        public CrossHairBase UsingCrossHairComponent
+        {
+            get 
+            {
+                if (usingCrossHairComponent == null)
+                    return null;
+
+                return usingCrossHairComponent; 
+            }
+            private set { }
+        }
+
         public GameObject crossHairCanvas;
         public GameObject usingCrossHair;
         public List<CrossHairData> crossHairContainer = new List<CrossHairData>();
         public GameObject UICanvas;
-        public CrossHairBase usingCrossHairComponent;
+        private CrossHairBase usingCrossHairComponent;
 
         public bool IsGameStopped
         {

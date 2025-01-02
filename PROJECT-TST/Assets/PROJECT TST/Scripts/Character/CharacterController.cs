@@ -249,7 +249,7 @@ namespace TST
             if (linkedCharacter.IsArmed && linkedCharacter.gunWeapon.CurrentAmmo > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
-                OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = true;
+                //OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = true;
             }
 
             currentRecoil = Mathf.Clamp(currentRecoil, 0.0f, recoilMaxThreshold);
@@ -257,7 +257,7 @@ namespace TST
 
         public void PauseRecoil()
         {
-            OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = false;
+            //OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = false;
             currentRecoil = 0.0f;
         }
 
