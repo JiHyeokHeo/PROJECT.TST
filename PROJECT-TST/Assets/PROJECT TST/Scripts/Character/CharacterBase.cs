@@ -690,6 +690,7 @@ namespace TST
                 }
 
                 jumpTimeoutDelta = jumpTimeout;
+                jumpTimeoutDelta = jumpTimeout;
                 isJumping = false;
             }
             if (verticalVelocity < terminalVelocity)
