@@ -654,7 +654,8 @@ namespace TST
                     return;
 
                 isJumping = true;
-                animator.SetTrigger("Jump Trigger");
+                //if (jumpCnt <= 0)
+                    animator.SetTrigger("Jump Trigger");
                 jumpCnt++;
             }
         }

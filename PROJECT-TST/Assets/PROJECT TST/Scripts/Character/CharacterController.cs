@@ -30,7 +30,7 @@ namespace TST
             linkedCharacter = GetComponent<CharacterBase>();
 
             //InputSystem.Singleton.OnInput_HelpPopupToggle += OnExecuteHelpPopup;
-            InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
+            
         }
 
         void OnExecuteJump()
@@ -65,6 +65,7 @@ namespace TST
         {
             //transform.position = UserDataModel.Singleton.IngamePlayerData.Values[0].Position;
             //transform.rotation = UserDataModel.Singleton.IngamePlayerData.PlayerRotation;
+            InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
         }
 
         private void Update()
