@@ -19,35 +19,34 @@ namespace TST
         Ingame,
     }
 
-    public class Main : MonoBehaviour
+    public class Main : SingletonBase<Main>
     {
-        public static Main Instance { get; private set; }
+        private bool isInitialized = false;
 
-        private void Awake()
+        private void Start()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Initialize();
+#if UNITY_EDITOR
+            Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+            if (activeScene.name.Equals("Main"))
+            {
+                ChangeScene(SceneType.Title);
+            }
+#else
+            ChangeScene(SceneType.Title);
+#endif
         }
 
-        private void OnDestroy()
+        public void Initialize()
         {
-            Instance = null;
-        }
+            if (isInitialized)
+                return;
 
-        IEnumerator Start()
-        {
-            yield return StartCoroutine(MainSystemInitialize());
-        }
+            isInitialized = true;
 
-        public IEnumerator MainSystemInitialize()
-        {
             // 필요한 기본 시스템 초기화
             UIManager.Singleton.Initialize();
             UserDataModel.Singleton.Initialize();
-
-            yield return null;
-
-            ChangeScene(SceneType.Title);
         }
 
         public void SystemQuit()
