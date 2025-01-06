@@ -11,6 +11,9 @@ namespace TST
 
         protected override void Init()
         {
+            if (rigid == null)
+                rigid = GetComponent<Rigidbody>();
+
             if (isPlayerBullet)
                 rigid.AddForce(transform.forward * moveForce, ForceMode.Impulse);
 

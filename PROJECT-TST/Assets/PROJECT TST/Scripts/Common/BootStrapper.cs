@@ -39,7 +39,7 @@ namespace TST
             Main.Singleton.Initialize();
             // TODO : Custom BootStrapper Logic
             SceneManager.LoadScene(SceneType.Ingame.ToString(), LoadSceneMode.Single);
-            //UIManager.Show<CrossHairBase>
+            UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
         }
     }
 }

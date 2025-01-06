@@ -22,7 +22,7 @@ namespace TST
         private int currentAmmo; // 현재 탄창에 남은 총알 수
         private float lastFireTime; // 마지막 발사 시간
 
-        public Rigidbody bulletPrefab;
+        public GameObject bulletPrefab;
         public float bulletSpeed;
         public float bulletLifeTime = 3f;
         #endregion
@@ -46,7 +46,7 @@ namespace TST
                 currentAmmo--;
 
                 // TODO : 실제 총알 복제/발사
-                Rigidbody newBullet = Instantiate(bulletPrefab, firePoint.transform.position, firePoint.transform.rotation);
+                GameObject newBullet = Instantiate(bulletPrefab, firePoint.transform.position, firePoint.transform.rotation);
                 newBullet.gameObject.SetActive(true);
 
                 Destroy(newBullet.gameObject, bulletLifeTime);
