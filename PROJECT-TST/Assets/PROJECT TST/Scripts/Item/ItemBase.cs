@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TST
 {
-    public class ItemBase : MonoBehaviour/*, IInteractable*/
+    public class ItemBase : MonoBehaviour, IInteractable
     {
         [field: SerializeField] public ItemData ItemData { get; private set; }
         public string Message => ItemData.ItemName;

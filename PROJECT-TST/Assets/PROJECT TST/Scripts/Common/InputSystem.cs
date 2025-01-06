@@ -8,6 +8,8 @@ namespace TST
     {
         public System.Action OnInput_Jump;
         public System.Action OnInput_HelpPopupToggle;
+        public System.Action OnInput_MainWeapon;
+        public System.Action OnInput_SubWeapon;
 
         private void Start()
         {
@@ -37,6 +39,10 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 OnInput_Jump?.Invoke();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                OnInput_MainWeapon?.Invoke();
             }
 
             if (OptionManager.Singleton.IsGameStopped)

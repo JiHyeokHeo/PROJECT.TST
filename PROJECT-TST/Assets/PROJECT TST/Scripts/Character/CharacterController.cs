@@ -28,14 +28,30 @@ namespace TST
         private void Awake()
         {
             linkedCharacter = GetComponent<CharacterBase>();
+        }
 
-            //InputSystem.Singleton.OnInput_HelpPopupToggle += OnExecuteHelpPopup;
-            
+        private void Start()
+        {
+            //transform.position = UserDataModel.Singleton.IngamePlayerData.Values[0].Position;
+            //transform.rotation = UserDataModel.Singleton.IngamePlayerData.PlayerRotation;
+            InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
+            InputSystem.Singleton.OnInput_MainWeapon += OnExecuteMainWeaponSwap;
+            InputSystem.Singleton.OnInput_SubWeapon += OnExecuteSubWeaponSwap;
         }
 
         void OnExecuteJump()
         {
             linkedCharacter.Jump();
+        }
+
+        void OnExecuteMainWeaponSwap()
+        {
+            linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
+        }
+
+        void OnExecuteSubWeaponSwap()
+        {
+            linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
         }
 
         private void OnDestroy()
@@ -61,12 +77,6 @@ namespace TST
         //    }
         //}
 
-        private void Start()
-        {
-            //transform.position = UserDataModel.Singleton.IngamePlayerData.Values[0].Position;
-            //transform.rotation = UserDataModel.Singleton.IngamePlayerData.PlayerRotation;
-            InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
-        }
 
         private void Update()
         {
@@ -92,11 +102,6 @@ namespace TST
             if (Input.GetMouseButtonUp(1))
             {
                 CameraSystem.Instance.IsCameraZoom = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
             }
 
             //if (Input.GetKeyDown(KeyCode.Alpha2))
