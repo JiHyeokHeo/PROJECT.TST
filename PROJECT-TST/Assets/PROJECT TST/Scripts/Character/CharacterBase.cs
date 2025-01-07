@@ -130,10 +130,14 @@ namespace TST
         public RigBuilder rigBuilder;
         public Rig aimingRig;
         public Rig lefthandRig;
+        public Transform leftHandTarget;
+        public Transform leftHandHint;
         //public Rig throwRig;
 
         public Vector3 offsetPosition;
-        public Vector3 offsetRotation;
+        public Vector3 offsetRotation;        
+        public Vector3 subOffsetPosition;
+        public Vector3 subOffsetRotation;
 
         [Title("Character Stat")]
         public CharacterStat characterStat;
@@ -615,8 +619,10 @@ namespace TST
             animator.SetFloat("Armed Type", armedType);
         }
 
+        // 이쪽 관련 부분 scriptableObject로 빼던 해야할듯
         private void SetCurrentWeapon(EArmedType weaponType)
         {
+            Vector3 rotation = Vector3.zero;
             switch (weaponType) 
             {
                 case EArmedType.None:
@@ -624,9 +630,30 @@ namespace TST
                     break;
                 case EArmedType.Rifle:
                     currentWeapon = primaryWeapon;
+                    offsetPosition = new Vector3(0.217f, -0.032f, 0.023f);
+                    offsetRotation = new Vector3(0f, -90, -90);
+
+                    leftHandTarget.localPosition = new Vector3(0.276f, -0.051f, 0.018f);
+                    rotation = new Vector3(-57.174f, 246.766f, -74.789f);
+                    leftHandTarget.localRotation = Quaternion.Euler(rotation);
+
+                    leftHandHint.localPosition = new Vector3(-0.684f, -0.727f, 0.078f);
+                    rotation = new Vector3(7.882f, 9.891f, 44.927f);
+                    leftHandTarget.localRotation = Quaternion.Euler(rotation);
+
                     break;
                 case EArmedType.Pistol:
                     currentWeapon = subWeapon;
+                    offsetPosition = new Vector3(0.184f, -0.042f, 0.067f);
+                    offsetRotation = new Vector3(0f, -90, -90);
+
+                    leftHandTarget.localPosition = new Vector3(0.04f, -0.0849f, -0.0417f);
+                    rotation = new Vector3(21.75f, 162.175f, 5.948f);
+                    leftHandTarget.localRotation = Quaternion.Euler(rotation);
+
+                    leftHandHint.localPosition = new Vector3(-0.113f, -0.272f, -0.087f);
+                    rotation = new Vector3(7.882f, 9.891f, 44.927f);
+                    leftHandTarget.localRotation = Quaternion.Euler(rotation);
                     break;
             }
         }
@@ -647,10 +674,10 @@ namespace TST
         {
             int activated = evt.intParameter;
             float armedType = evt.floatParameter;
-
+            EArmedType type = (EArmedType)armedType;
             if (activated == 1)
             {
-                SetCurrentWeapon((EArmedType)armedType);
+                SetCurrentWeapon(type);
 
                 currentWeapon.transform.SetParent(weaponHolder);
                 currentWeapon.transform.localPosition = offsetPosition;
@@ -658,7 +685,6 @@ namespace TST
             }
             else
             {
-                EArmedType type = (EArmedType)armedType;
                 switch (type)
                 {
                     case EArmedType.Rifle:
