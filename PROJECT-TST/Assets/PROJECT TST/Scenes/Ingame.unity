@@ -219,7 +219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 124018, guid: 6fada4a4e8fc86d4cbfe3b8ceeb8aae1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 126652, guid: 6fada4a4e8fc86d4cbfe3b8ceeb8aae1, type: 3}
       propertyPath: m_IsActive
@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &260721402
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1275,6 +1275,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: de7acec97f0d22c4f8f340b715e98aa6,
         type: 2}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: primaryWeapon
+      value: 
+      objectReference: {fileID: 593480122}
     - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
       propertyPath: crouchOffset.y

@@ -36,13 +36,20 @@ namespace TST
             {
                 OnInput_HelpPopupToggle?.Invoke();
             }
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 OnInput_Jump?.Invoke();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 OnInput_MainWeapon?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                OnInput_SubWeapon?.Invoke();
             }
 
             if (OptionManager.Singleton.IsGameStopped)

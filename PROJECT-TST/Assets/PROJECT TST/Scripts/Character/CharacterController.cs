@@ -46,11 +46,13 @@ namespace TST
 
         void OnExecuteMainWeaponSwap()
         {
+            linkedCharacter.ArmedType = EArmedType.Rifle; 
             linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
         }
 
         void OnExecuteSubWeaponSwap()
         {
+            linkedCharacter.ArmedType = EArmedType.Pistol;
             linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
         }
 
@@ -252,7 +254,7 @@ namespace TST
      
         public void AddRecoil()
         {
-            if (linkedCharacter.IsArmed && linkedCharacter.gunWeapon.CurrentAmmo > 0)
+            if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.CurrentAmmo > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
                 //OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = true;

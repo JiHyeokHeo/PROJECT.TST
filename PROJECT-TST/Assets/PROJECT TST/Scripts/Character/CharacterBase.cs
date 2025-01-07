@@ -17,6 +17,13 @@ using static UnityEngine.Rendering.DebugUI;
 
 namespace TST
 {
+    public enum EArmedType
+    {
+        None = 0,
+        Rifle,
+        Pistol,
+    }
+
     public enum EInteractionType
     {
         Looting = 0,
@@ -48,6 +55,7 @@ namespace TST
             set
             {
                 isArmed = value;
+
                 SetEquipWeapon(isArmed);
             }
         }
@@ -89,9 +97,31 @@ namespace TST
         public Transform cameraPivot;
         public Rigidbody[] ragdollRigidbodies;
 
-        public WeaponBase gunWeapon;
+        public EArmedType ArmedType
+        {
+            get => armedType;
+            set
+            {
+                // 만약 기존에 라이플을 들고있는데 한번 더 라이플을 든다면? 밀어버리고 return
+                // 스왑을 한 상태라면 상태전환 시작
+                if (armedType == value)
+                {
+                    armedType = EArmedType.None;
+                    return;
+                }
+
+                armedType = value;
+                SetArmedType((float)armedType);
+            }
+        }
+
+        private EArmedType armedType;
+        public WeaponBase currentWeapon;
+        public WeaponBase primaryWeapon;
+        public WeaponBase subWeapon;
         public WeaponBase grenadeWeapon;
         public Transform weaponSocket;
+        public Transform subWeaponSocket;
         public Transform weaponHolder;
         public Transform aimingPoint;
 
@@ -462,8 +492,8 @@ namespace TST
             {
                 if (IsArmed && isArmedCompleted)
                 {
-                    bool isFireSuccess = gunWeapon.Fire();
-                    if (!isFireSuccess && gunWeapon.CurrentAmmo <= 0)
+                    bool isFireSuccess = currentWeapon.Fire();
+                    if (!isFireSuccess && currentWeapon.CurrentAmmo <= 0)
                     {
                         Reload();
                         return;
@@ -487,8 +517,8 @@ namespace TST
             {
                 if (IsArmed && isArmedCompleted)
                 {
-                    bool isFireSuccess = gunWeapon.Fire();
-                    if (!isFireSuccess && gunWeapon.CurrentAmmo <= 0)
+                    bool isFireSuccess = currentWeapon.Fire();
+                    if (!isFireSuccess && currentWeapon.CurrentAmmo <= 0)
                     {
                         Reload();
                         characterController.PauseRecoil();
@@ -567,7 +597,7 @@ namespace TST
             if (isLoot)
                 return;
 
-            if (!isReloading && gunWeapon.CurrentAmmo != gunWeapon.clipSize)
+            if (!isReloading && currentWeapon.CurrentAmmo != currentWeapon.clipSize)
             {
                 isReloading = true;
                 animator.SetTrigger("Reload Trigger");
@@ -576,8 +606,29 @@ namespace TST
 
         public void SetReloadComplete()
         {
-            gunWeapon.Reload();
+            currentWeapon.Reload();
             isReloading = false;
+        }
+
+        private void SetArmedType(float armedType)
+        {
+            animator.SetFloat("Armed Type", armedType);
+        }
+
+        private void SetCurrentWeapon(EArmedType weaponType)
+        {
+            switch (weaponType) 
+            {
+                case EArmedType.None:
+                    currentWeapon = null;
+                    break;
+                case EArmedType.Rifle:
+                    currentWeapon = primaryWeapon;
+                    break;
+                case EArmedType.Pistol:
+                    currentWeapon = subWeapon;
+                    break;
+            }
         }
 
         private void SetEquipWeapon(bool isArmed)
@@ -592,19 +643,35 @@ namespace TST
             }
         }
 
-        public void SetEquipmentVisual(int activated)
+        public void SetEquipmentVisual(AnimationEvent evt)
         {
+            int activated = evt.intParameter;
+            float armedType = evt.floatParameter;
+
             if (activated == 1)
             {
-                gunWeapon.transform.SetParent(weaponHolder);
-                gunWeapon.transform.localPosition = offsetPosition;
-                gunWeapon.transform.localRotation = Quaternion.Euler(offsetRotation);
+                SetCurrentWeapon((EArmedType)armedType);
+
+                currentWeapon.transform.SetParent(weaponHolder);
+                currentWeapon.transform.localPosition = offsetPosition;
+                currentWeapon.transform.localRotation = Quaternion.Euler(offsetRotation);
             }
             else
             {
-                gunWeapon.transform.SetParent(weaponSocket);
-                gunWeapon.transform.localPosition = Vector3.zero;
-                gunWeapon.transform.localRotation = Quaternion.identity;
+                EArmedType type = (EArmedType)armedType;
+                switch (type)
+                {
+                    case EArmedType.Rifle:
+                        currentWeapon.transform.SetParent(weaponSocket);
+                        break;
+                    case EArmedType.Pistol:
+                        currentWeapon.transform.SetParent(subWeaponSocket);
+                        break;
+                }
+                currentWeapon.transform.localPosition = Vector3.zero;
+                currentWeapon.transform.localRotation = Quaternion.identity;
+
+                SetCurrentWeapon(EArmedType.None);
             }
         }
 
