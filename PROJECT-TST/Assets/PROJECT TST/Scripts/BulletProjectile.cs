@@ -28,17 +28,17 @@ namespace TST
             if (collision.collider.material.name.Contains("Metal"))
             {
                 // Metal Effect Spawn
-                effect = EffectManager.Instance.SpawnEffect(EffectType.Impact_Metal);
+                effect = EffectManager.Singleton.SpawnEffect(EffectType.Metal_Impact);
             }
             else if (collision.collider.material.name.Contains("Brick"))
             {
                 // Dirt Effect Spawn
-                effect = EffectManager.Instance.SpawnEffect(EffectType.Impact_Brick);
+                effect = EffectManager.Singleton.SpawnEffect(EffectType.Brick_Impact);
             }
             else
             {
                 // Default Effect Spawn
-                effect = EffectManager.Instance.SpawnEffect(EffectType.Impact_Dirt);
+                effect = EffectManager.Singleton.SpawnEffect(EffectType.Dirt_Impact);
             }
 
             effect.transform.SetPositionAndRotation(collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));

@@ -52,7 +52,7 @@ namespace TST
                 Destroy(newBullet.gameObject, bulletLifeTime);
 
                 
-                var effect = EffectManager.Instance.SpawnEffect(EffectType.Muzzle_6);
+                var effect = EffectManager.Singleton.SpawnEffect(EffectType.MuzzleFlash6);
                 effect.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 
                 return true;

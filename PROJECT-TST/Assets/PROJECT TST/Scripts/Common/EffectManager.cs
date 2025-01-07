@@ -10,14 +10,18 @@ namespace TST
 {
     public enum EffectType
     {
-        Muzzle_1,
-        Muzzle_6,
-        Muzzle_9,
+        FLASHES_START,
+        MuzzleFlash1,
+        MuzzleFlash6,
+        MuzzleFlash9,
 
+        FLASHES_END,
 
-        Impact_Brick,
-        Impact_Dirt,
-        Impact_Metal,
+        IMPACTS_START,
+        Brick_Impact,
+        Dirt_Impact,
+        Metal_Impact,
+        IMPACTS_END,
     }
 
     [System.Serializable]
@@ -28,15 +32,39 @@ namespace TST
         public float duration;
     }
 
-    public class EffectManager : MonoBehaviour
+    public class EffectManager : SingletonBase<EffectManager>
     {
-        public static EffectManager Instance { get; private set; }
-
         public List<EffectData> effectContainer = new List<EffectData>();
 
-        private void Awake()
+        private const string EFFECT_PREFAB_PATH = "Effects/";
+
+        public void Initialize()
         {
-            Instance = this;
+            for (int idx = (int)EffectType.FLASHES_START + 1; idx < (int)EffectType.FLASHES_END; idx++)
+            {
+                EffectType effectType = (EffectType)idx;
+                string effectName = effectType.ToString();
+
+                EffectData effectData = new EffectData();
+                effectData.type = effectType;
+                effectData.prefab = Resources.Load<GameObject>(EFFECT_PREFAB_PATH + "Flashes/" + effectName);
+                effectData.duration = 3.0f;
+                effectContainer.Add(effectData);
+            }
+
+            for (int idx = (int)EffectType.IMPACTS_START + 1; idx < (int)EffectType.IMPACTS_END; idx++)
+            {
+                EffectType effectType = (EffectType)idx;
+                string effectName = effectType.ToString();
+                string[] arr = effectName.Split('_');
+                string newEffectName = string.Join("",arr);
+
+                EffectData effectData = new EffectData();
+                effectData.type = effectType;
+                effectData.prefab = Resources.Load<GameObject>(EFFECT_PREFAB_PATH + "Impacts/" + newEffectName);
+                effectData.duration = 3.0f;
+                effectContainer.Add(effectData);
+            }
         }
 
         public GameObject SpawnEffect(EffectType type)

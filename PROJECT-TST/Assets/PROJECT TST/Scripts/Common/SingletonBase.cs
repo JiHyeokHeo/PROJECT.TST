@@ -19,6 +19,7 @@ using UnityEditor;
             }
         }
 
+        // 지연 객체 초기화 방식
         private static readonly Lazy<T> _instance =
            new Lazy<T>(() =>
            {

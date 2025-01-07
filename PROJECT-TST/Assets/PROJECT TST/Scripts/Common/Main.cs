@@ -47,6 +47,7 @@ namespace TST
             // 필요한 기본 시스템 초기화
             UIManager.Singleton.Initialize();
             UserDataModel.Singleton.Initialize();
+            EffectManager.Singleton.Initialize();
         }
 
         public void SystemQuit()
