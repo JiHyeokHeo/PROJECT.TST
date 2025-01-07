@@ -102,14 +102,6 @@ namespace TST
             get => armedType;
             set
             {
-                // 만약 기존에 라이플을 들고있는데 한번 더 라이플을 든다면? 밀어버리고 return
-                // 스왑을 한 상태라면 상태전환 시작
-                if (armedType == value)
-                {
-                    armedType = EArmedType.None;
-                    return;
-                }
-
                 armedType = value;
                 SetArmedType((float)armedType);
             }
@@ -145,6 +137,7 @@ namespace TST
         private float horizontal;
         private float vertical;
         private float speedBlend;
+        private float idleBlend;
         private float armedBlend;
         private float crouchBlend;
 
@@ -292,12 +285,14 @@ namespace TST
             FreeFall();
             CheckGround();
 
+            idleBlend = Mathf.Lerp(idleBlend, (float)armedType, Time.deltaTime * 10f);
             armedBlend = Mathf.Lerp(armedBlend, IsArmed ? 1f : 0f, Time.deltaTime * 10f);
             speedBlend = Mathf.Lerp(speedBlend, targetSpeed, Time.deltaTime * 10f);
             horizontal = Mathf.Lerp(horizontal, targetHorizontal, Time.deltaTime * 10f);
             vertical = Mathf.Lerp(vertical, targetVertical, Time.deltaTime * 10f);
             crouchBlend = Mathf.Lerp(crouchBlend, isCrouch ? 1f : 0f, Time.deltaTime * 10.0f);
 
+            animator.SetFloat("Idle Blend", idleBlend);
             animator.SetFloat("Armed", armedBlend);
             animator.SetFloat("Speed", speedBlend);
             animator.SetFloat("Horizontal", horizontal);
@@ -639,7 +634,7 @@ namespace TST
 
                     leftHandHint.localPosition = new Vector3(-0.684f, -0.727f, 0.078f);
                     rotation = new Vector3(7.882f, 9.891f, 44.927f);
-                    leftHandTarget.localRotation = Quaternion.Euler(rotation);
+                    leftHandHint.localRotation = Quaternion.Euler(rotation);
 
                     break;
                 case EArmedType.Pistol:
@@ -653,9 +648,11 @@ namespace TST
 
                     leftHandHint.localPosition = new Vector3(-0.113f, -0.272f, -0.087f);
                     rotation = new Vector3(7.882f, 9.891f, 44.927f);
-                    leftHandTarget.localRotation = Quaternion.Euler(rotation);
-                    break;
+                    leftHandHint.localRotation = Quaternion.Euler(rotation);
+                    break;  
             }
+
+            ArmedType = weaponType;
         }
 
         private void SetEquipWeapon(bool isArmed)

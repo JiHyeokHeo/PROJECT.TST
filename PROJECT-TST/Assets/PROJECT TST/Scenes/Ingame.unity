@@ -1099,6 +1099,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 133035094}
     m_Modifications:
+    - target: {fileID: -3986240951747650029, guid: 509769be64760fb47ae59bafe324432a,
+        type: 3}
+      propertyPath: firePoint
+      value: 
+      objectReference: {fileID: 539003096}
+    - target: {fileID: -3986240951747650029, guid: 509769be64760fb47ae59bafe324432a,
+        type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1200989094}
     - target: {fileID: 1491317940165468, guid: 509769be64760fb47ae59bafe324432a, type: 3}
       propertyPath: m_Name
       value: Deagle
@@ -1753,6 +1763,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7527850138847373273, guid: 2f8674ce0d499554597ce3125fd4a663,
     type: 3}
   m_PrefabInstance: {fileID: 526939873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &539003096 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4520213074274078457, guid: 509769be64760fb47ae59bafe324432a,
+    type: 3}
+  m_PrefabInstance: {fileID: 522145059}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &593480122 stripped
 MonoBehaviour:
