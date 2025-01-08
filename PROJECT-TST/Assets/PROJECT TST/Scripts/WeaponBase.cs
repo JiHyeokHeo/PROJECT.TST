@@ -2,57 +2,46 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace TST
 {
     public class WeaponBase : MonoBehaviour
     {
-        // 클래스 분할이 필요할까요?
-        #region Bullet
-        public Transform firePoint; // 총알 발사 위치
+        public AmmoBase ammo;
+        public Transform firePoint;
         public float fireRate = 0.1f; // 연사 속도
-        public int clipSize = 10; // 탄창 크기[1탄창:총알 갯수]
-
-        public int CurrentAmmo
-        {
-            get => currentAmmo;
-            private set { }
-        }
-
-        private int currentAmmo; // 현재 탄창에 남은 총알 수
         private float lastFireTime; // 마지막 발사 시간
 
-        public GameObject bulletPrefab;
-        public float bulletSpeed;
-        public float bulletLifeTime = 3f;
-        #endregion
-
-        #region Bomb
-        public Transform bombHoldPoint;
-        public Vector3 offSet;
-        #endregion
-
+        public event Func<AmmoBase> SetPlayerAmmo_Event;
 
         private void Awake()
         {
-            currentAmmo = clipSize;
+            
+        }
+
+        public void Update()
+        {
+            if (ammo != null)
+                Debug.Log($"{ammo.data.name}");
         }
 
         public bool Fire()
         {
-            if (currentAmmo > 0 && Time.time - lastFireTime >= fireRate)
+            if (ammo == null)
+                ammo = SetPlayerAmmo_Event?.Invoke();
+
+
+            if (ammo.CurrentAmmo > 0 && Time.time - lastFireTime >= fireRate)
             {
                 lastFireTime = Time.time;
-                currentAmmo--;
+                ammo.CurrentAmmo--;
 
-                // TODO : 실제 총알 복제/발사
-                GameObject newBullet = Instantiate(bulletPrefab, firePoint.transform.position, firePoint.transform.rotation);
+                //// TODO : 실제 총알 복제/발사
+                GameObject newBullet = Instantiate(ammo.data.AmmoVisualPrefab, firePoint.transform.position, firePoint.transform.rotation);
                 newBullet.gameObject.SetActive(true);
 
-                Destroy(newBullet.gameObject, bulletLifeTime);
-
-                
-                var effect = EffectManager.Singleton.SpawnEffect(EffectType.MuzzleFlash6);
+                var effect = EffectManager.Singleton.SpawnEffect(ammo.data.AmmoEffectPrefab);
                 effect.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 
                 return true;
@@ -63,7 +52,18 @@ namespace TST
 
         public void Reload()
         {
-            currentAmmo = clipSize;
+            if (ammo == null)
+                ammo = SetPlayerAmmo_Event?.Invoke();
+
+            if (ammo.CurrentAmmo <= 0)
+            {
+                // 노말만 충전
+                if (ammo.data.name.Contains("Normal"))
+                    ammo.CurrentAmmo = ammo.clipSize;
+
+                // 노말이 아니면 다음 ammo로 넘어감
+                ammo = SetPlayerAmmo_Event?.Invoke();
+            }
         }
     }
 }

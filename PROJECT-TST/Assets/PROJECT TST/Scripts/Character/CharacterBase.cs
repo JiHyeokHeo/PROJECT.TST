@@ -10,6 +10,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Windows;
+using static UnityEditor.PlayerSettings;
+
 //using static TST.LootAnimation;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -54,8 +56,12 @@ namespace TST
             get => isArmed;
             set
             {
-                isArmed = value;
+                var animatorInfo = animator.GetCurrentAnimatorStateInfo(1);
 
+                if (animatorInfo.IsName("Empty") == false)
+                    return;
+
+                isArmed = value;
                 SetEquipWeapon(isArmed);
             }
         }
@@ -102,8 +108,17 @@ namespace TST
             get => armedType;
             set
             {
+                // 장착되어있는데 다른 타입이 들어온다면 
+                if (isArmed)
+                {
+                    if (armedType != value)
+                        SetEquipWeapon(!isArmed);
+
+                    return;
+                }
+
                 armedType = value;
-                SetArmedType((float)armedType);
+                animator.SetFloat("Armed Type", (float)armedType);
             }
         }
 
@@ -200,19 +215,51 @@ namespace TST
         [field: SerializeField] Vector3 crouchOffset;
 
         private float targetRotation = 0f;
-
-
-        // FOR AI // 클래스 분할 필요할듯?
-        // Action 
-        //public event System.Action<GameObject> OnDamaged;
-        //public event System.Action<GameObject> OnDetect;
-        //public event System.Action<GameObject> OnCombatDetect;
-        //public event System.Action<GameObject> OnIdle;
-
         public Vector3 aiSpawnPosition;
-        //
+
+        public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
+        public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
+
+        public AmmoBase SetRifleAmmo()
+        {
+            for (int i = 0; i < rifleAmmos.Count; i++)
+            {
+                if (rifleAmmos[i].CurrentAmmo > 0)
+                    return rifleAmmos[i];
+            }
+
+            return null;
+        }
+
+        public AmmoBase SetPistolAmmo()
+        {
+            for (int i = 0; i < pistolAmmos.Count; i++)
+            {
+                if (pistolAmmos[i].CurrentAmmo > 0)
+                    return pistolAmmos[i];
+            }
+            return null;
+        }
+
+        private void InitAmmos()
+        {
+            for (int i = 0; i < rifleAmmos.Count; i++)
+            {
+                rifleAmmos[i].Initialize();
+            }
+
+            for (int i = 0; i < pistolAmmos.Count; i++)
+            {
+                pistolAmmos[i].Initialize();
+            }
+        }
+
         private void Awake()
         {
+            InitAmmos();
+            primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
+            subWeapon.SetPlayerAmmo_Event += SetPistolAmmo;
+
             animator = GetComponent<Animator>();
             unityCharacterController = GetComponent<UnityEngine.CharacterController>();
             characterController = GetComponent<CharacterController>();
@@ -492,7 +539,7 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
-                    if (!isFireSuccess && currentWeapon.CurrentAmmo <= 0)
+                    if (!isFireSuccess && currentWeapon.ammo.CurrentAmmo <= 0)
                     {
                         Reload();
                         return;
@@ -517,7 +564,7 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
-                    if (!isFireSuccess && currentWeapon.CurrentAmmo <= 0)
+                    if (!isFireSuccess && currentWeapon.ammo.CurrentAmmo <= 0)
                     {
                         Reload();
                         characterController.PauseRecoil();
@@ -596,7 +643,7 @@ namespace TST
             if (isLoot)
                 return;
 
-            if (!isReloading && currentWeapon.CurrentAmmo != currentWeapon.clipSize)
+            if (!isReloading && currentWeapon.ammo.CurrentAmmo != currentWeapon.ammo.clipSize)
             {
                 isReloading = true;
                 animator.SetTrigger("Reload Trigger");
@@ -607,11 +654,6 @@ namespace TST
         {
             currentWeapon.Reload();
             isReloading = false;
-        }
-
-        private void SetArmedType(float armedType)
-        {
-            animator.SetFloat("Armed Type", armedType);
         }
 
         // 이쪽 관련 부분 scriptableObject로 빼던 해야할듯
@@ -672,6 +714,7 @@ namespace TST
             int activated = evt.intParameter;
             float armedType = evt.floatParameter;
             EArmedType type = (EArmedType)armedType;
+
             if (activated == 1)
             {
                 SetCurrentWeapon(type);
@@ -819,23 +862,4 @@ namespace TST
         }
     }
 }
-        //// 데미지를 입거나, Combat Range에 들어오면 전투
-        //public void ApplyDamage(float damage, GameObject target)
-        //{
-        //    OnDamaged?.Invoke(target);
-        //}
 
-        //public void Detect(GameObject target)
-        //{
-        //    OnDetect?.Invoke(target);
-        //}
-
-        //public void UnDetect(GameObject target)
-        //{
-        //    OnIdle?.Invoke(target);
-        //}
-
-        //public void CombatDetect(GameObject target)
-        //{
-        //    OnCombatDetect?.Invoke(target);
-        //}

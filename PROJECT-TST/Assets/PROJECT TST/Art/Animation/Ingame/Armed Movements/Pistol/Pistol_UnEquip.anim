@@ -61405,7 +61405,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.8333333
+  - time: 1.1666666
     functionName: SetEquipmentVisual
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 1e33667fdcc392743b617e5a4a18f519,

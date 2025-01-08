@@ -38,7 +38,7 @@ namespace TST
             else
             {
                 // Default Effect Spawn
-                effect = EffectManager.Singleton.SpawnEffect(EffectType.Dirt_Impact);
+                effect = EffectManager.Singleton.SpawnEffect(EffectType.Dirt_Impact);   
             }
 
             effect.transform.SetPositionAndRotation(collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));

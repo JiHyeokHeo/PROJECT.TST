@@ -67,6 +67,24 @@ namespace TST
             }
         }
 
+        public GameObject SpawnEffect(GameObject effectObject)
+        {
+            EffectData data = effectContainer.Find(x => x.prefab.name == effectObject.name);
+
+            if (data == null)
+            {
+                Debug.LogError("Effect not found");
+                return null;
+            }
+
+            GameObject effect = Instantiate(data.prefab);
+            effect.gameObject.SetActive(true);
+
+            Destroy(effect, data.duration);
+
+            return effect;
+        }
+
         public GameObject SpawnEffect(EffectType type)
         {
             EffectData data = effectContainer.Find(x => x.type == type);
