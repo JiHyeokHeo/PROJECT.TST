@@ -12,7 +12,13 @@ namespace TST
     {
         FLASHES_START,
         MuzzleFlash1,
+        MuzzleFlash2,
+        MuzzleFlash3,
+        MuzzleFlash4,
+        MuzzleFlash5,
         MuzzleFlash6,
+        MuzzleFlash7,
+        MuzzleFlash8,
         MuzzleFlash9,
 
         FLASHES_END,
