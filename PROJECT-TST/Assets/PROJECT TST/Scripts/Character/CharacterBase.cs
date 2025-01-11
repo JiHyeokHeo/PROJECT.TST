@@ -2,30 +2,11 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.Windows;
-using static UnityEditor.PlayerSettings;
-
-//using static TST.LootAnimation;
-using static UnityEngine.Rendering.DebugUI;
-
-
 
 namespace TST
 {
-    public enum EArmedType
-    {
-        None = 0,
-        Rifle,
-        Pistol,
-    }
-
     public enum EInteractionType
     {
         Looting = 0,
@@ -51,24 +32,8 @@ namespace TST
             set => aimingPoint.position = value;
         }
 
-        public bool IsArmed
-        {
-            get => isArmed;
-            set
-            {
-                var animatorInfo = animator.GetCurrentAnimatorStateInfo(1);
-
-                if (animatorInfo.IsName("Empty") == false)
-                    return;
-
-                isArmed = value;
-                SetEquipWeapon(isArmed);
-            }
-        }
-
+        public bool IsArmed => currentWeapon != null;
         public bool IsArmedCompleted => isArmedCompleted;
-
-        private bool isArmed = false;
         private bool isArmedCompleted = false;
 
         public bool IsThrowMode
@@ -93,6 +58,10 @@ namespace TST
             }
         }
         private bool isThrowMode = false;
+
+        public bool IsSwitchingWeapon => isSwitchingWeapon;
+        private bool isSwitchingWeapon = false;
+
         public Rigidbody CurrentThrowObject { get; private set; }
         public Rigidbody throwObject;
         public Transform throwStartPoint;
@@ -103,30 +72,13 @@ namespace TST
         public Transform cameraPivot;
         public Rigidbody[] ragdollRigidbodies;
 
-        public EArmedType ArmedType
-        {
-            get => armedType;
-            set
-            {
-                // 장착되어있는데 다른 타입이 들어온다면 
-                if (isArmed)
-                {
-                    if (armedType != value)
-                        SetEquipWeapon(!isArmed);
-
-                    return;
-                }
-
-                armedType = value;
-                animator.SetFloat("Armed Type", (float)armedType);
-            }
-        }
-
-        private EArmedType armedType;
-        public WeaponBase currentWeapon;
         public WeaponBase primaryWeapon;
         public WeaponBase subWeapon;
         public WeaponBase grenadeWeapon;
+
+        public WeaponBase currentWeapon;  // 코드상에서 자동으로 통제하는 변수
+        public WeaponBase weaponToEquip;  // 코드상에서 자동으로 통제하는 변수
+
         public Transform weaponSocket;
         public Transform subWeaponSocket;
         public Transform weaponHolder;
@@ -332,7 +284,9 @@ namespace TST
             FreeFall();
             CheckGround();
 
-            idleBlend = Mathf.Lerp(idleBlend, (float)armedType, Time.deltaTime * 10f);
+            float targetIdleBlend = currentWeapon == null ? 0f : (float)currentWeapon.WeaponType;
+            idleBlend = Mathf.Lerp(idleBlend, targetIdleBlend, Time.deltaTime * 10f);
+
             armedBlend = Mathf.Lerp(armedBlend, IsArmed ? 1f : 0f, Time.deltaTime * 10f);
             speedBlend = Mathf.Lerp(speedBlend, targetSpeed, Time.deltaTime * 10f);
             horizontal = Mathf.Lerp(horizontal, targetHorizontal, Time.deltaTime * 10f);
@@ -350,6 +304,8 @@ namespace TST
                 StartRoll();
         }
 
+
+        // ArmedComplete대신 함수로 하나 빼서 작업하자 // IsAimingRigFunctable 같은 거로 생성하자
         private void LateUpdate()
         {
             aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, (isArmedCompleted && !isRolling) ? 1f : 0f, Time.deltaTime * 10f);
@@ -497,7 +453,6 @@ namespace TST
                 return false;
 
             // 내적 = 각 벡터의 길이 * cos세타
-            
             if (IsArmed)
             {
                 Vector3 target = targetPoint;
@@ -657,16 +612,12 @@ namespace TST
         }
 
         // 이쪽 관련 부분 scriptableObject로 빼던 해야할듯
-        private void SetCurrentWeapon(EArmedType weaponType)
+        private void SetCurrentWeapon(WeaponType weaponType)
         {
             Vector3 rotation = Vector3.zero;
             switch (weaponType) 
             {
-                case EArmedType.None:
-                    currentWeapon = null;
-                    break;
-                case EArmedType.Rifle:
-                    currentWeapon = primaryWeapon;
+                case WeaponType.Rifle:
                     offsetPosition = new Vector3(0.217f, -0.032f, 0.023f);
                     offsetRotation = new Vector3(0f, -90, -90);
 
@@ -679,8 +630,7 @@ namespace TST
                     leftHandHint.localRotation = Quaternion.Euler(rotation);
 
                     break;
-                case EArmedType.Pistol:
-                    currentWeapon = subWeapon;
+                case WeaponType.Pistol:
                     offsetPosition = new Vector3(0.184f, -0.042f, 0.067f);
                     offsetRotation = new Vector3(0f, -90, -90);
 
@@ -693,52 +643,159 @@ namespace TST
                     leftHandHint.localRotation = Quaternion.Euler(rotation);
                     break;  
             }
-
-            ArmedType = weaponType;
         }
 
-        private void SetEquipWeapon(bool isArmed)
+        public void SetWeaponAttachToHand(WeaponBase weapon)
         {
-            if (isArmed)
+            weapon.transform.SetParent(weaponHolder);
+            weapon.transform.localPosition = offsetPosition;
+            weapon.transform.localRotation = Quaternion.Euler(offsetRotation);
+        }
+
+        public void SetWeaponAttachToHolster(WeaponBase weapon)
+        {
+            switch (weapon.WeaponType)
             {
-                animator.SetTrigger("Equip Trigger");
+                case WeaponType.Rifle:
+                    weapon.transform.SetParent(weaponSocket);
+                    break;
+                case WeaponType.Pistol:
+                    weapon.transform.SetParent(subWeaponSocket);
+                    break;
+            }
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localRotation = Quaternion.identity;
+        }
+
+        public void ToggleEquipPrimaryWeapon()
+        {
+            if (currentWeapon != null && currentWeapon == primaryWeapon)
+            {
+                HolsterWeapon();
+                return;
+            }
+
+            weaponToEquip = primaryWeapon;
+            if (currentWeapon != null)
+            {
+                HolsterWeapon();
             }
             else
             {
-                animator.SetTrigger("Holster Trigger");
-            }
-        }
-
-        public void SetEquipmentVisual(AnimationEvent evt)
-        {
-            int activated = evt.intParameter;
-            float armedType = evt.floatParameter;
-            EArmedType type = (EArmedType)armedType;
-
-            if (activated == 1)
-            {
-                SetCurrentWeapon(type);
-
-                currentWeapon.transform.SetParent(weaponHolder);
-                currentWeapon.transform.localPosition = offsetPosition;
-                currentWeapon.transform.localRotation = Quaternion.Euler(offsetRotation);
-            }
-            else
-            {
-                switch (type)
+                isSwitchingWeapon = true;
+                switch (primaryWeapon.WeaponType)
                 {
-                    case EArmedType.Rifle:
-                        currentWeapon.transform.SetParent(weaponSocket);
+                    case WeaponType.Rifle:
+                        animator.SetTrigger("Equip Trigger Rifle");
+                        animator.SetFloat("Armed Type", (float)primaryWeapon.WeaponType);
                         break;
-                    case EArmedType.Pistol:
-                        currentWeapon.transform.SetParent(subWeaponSocket);
+                    case WeaponType.Pistol:
+                        animator.SetTrigger("Equip Trigger Pistol");
+                        animator.SetFloat("Armed Type", (float)primaryWeapon.WeaponType);
                         break;
                 }
-                currentWeapon.transform.localPosition = Vector3.zero;
-                currentWeapon.transform.localRotation = Quaternion.identity;
-
-                SetCurrentWeapon(EArmedType.None);
             }
+        }
+
+        public void ToggleEquipSecondaryWeapon()
+        {
+            if (currentWeapon != null && currentWeapon == subWeapon)
+            {
+                HolsterWeapon();
+                return;
+            }
+
+            weaponToEquip = subWeapon;
+            if (currentWeapon != null)
+            {
+                HolsterWeapon();
+            }
+            else
+            {
+                isSwitchingWeapon = true;
+                switch (subWeapon.WeaponType)
+                {
+                    case WeaponType.Rifle:
+                        animator.SetTrigger("Equip Trigger Rifle");
+                        animator.SetFloat("Armed Type", (float)subWeapon.WeaponType);
+                        break;
+                    case WeaponType.Pistol:
+                        animator.SetTrigger("Equip Trigger Pistol");
+                        animator.SetFloat("Armed Type", (float)subWeapon.WeaponType);
+                        break;
+                }
+            }
+        }
+
+        private void HolsterWeapon()
+        {
+            if (isSwitchingWeapon)
+                return;
+
+            if (currentWeapon != null)
+            {
+                isSwitchingWeapon = true;
+                switch (currentWeapon.WeaponType)
+                {
+                    case WeaponType.Rifle:
+                        animator.SetTrigger("Holster Trigger Rifle");
+                        
+                        break;
+                    case WeaponType.Pistol:
+                        animator.SetTrigger("Holster Trigger Pistol");
+                        break;
+                }
+            }
+        }
+
+        /// <summary> Animator의 해당 모션의 Animation Event 를 통해서 호출되는 함수 </summary>
+        private void OnEquip()
+        {
+            if (weaponToEquip != null)
+            {
+                currentWeapon = weaponToEquip;
+                weaponToEquip = null;
+
+                SetWeaponAttachToHand(currentWeapon);
+                SetCurrentWeapon(currentWeapon.WeaponType);
+            }
+        }
+
+        /// <summary> Animator의 해당 모션의 Animation Event 를 통해서 호출되는 함수 </summary>
+        private void OnHolster()
+        {
+            if (currentWeapon != null)
+            {
+                SetWeaponAttachToHolster(currentWeapon);
+                currentWeapon = null;
+            }
+
+            if (weaponToEquip != null)
+            {
+                switch (weaponToEquip.WeaponType)
+                {
+                    case WeaponType.Rifle:
+                        ToggleEquipPrimaryWeapon();
+                        break;
+                    case WeaponType.Pistol:
+                        ToggleEquipSecondaryWeapon();
+                        break;
+                }
+            }
+        }
+
+        /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>
+        public void EquipFinished()
+        {
+            isSwitchingWeapon = false;
+            isArmedCompleted = true;
+        }
+
+        /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>
+        public void HolsterFinished()
+        {
+            isSwitchingWeapon = false;
+            isArmedCompleted = false;
         }
 
         public void RollingFinished(int flag)
@@ -747,22 +804,20 @@ namespace TST
             rollTime = 0.0f;
         }
 
-        public void SetArmedComplete(int flag)
-        {
-            isArmedCompleted = flag > 0;
-        }
-
-        bool IKWeightValue = false;
-        bool isDoorOpening = false;
+        #region IKWeight
+        private bool IKWeightValue = false;
+        private bool isDoorOpening = false;
         public void SetIKWeight(int flag)
         {
-            if (isArmed)
+            if (IsArmed)
             {
                 IKWeightValue = flag > 0;
                 isDoorOpening = flag < 1;
             }
         }
+        #endregion
 
+        #region Jump
         public float jumpHeight = 1.2f;          // JumpHeight : 점프력 최대 올라갈 수 있는 높이.
         public float gravity = -15.0f;           // Gravity : Rigidbody를 사용하지 않기 때문에, 별도 중력 값
         public float jumpTimeout = 0.3f;         // JumpTimeout : 점프 후 - 다시 점프 입력을 받을 수 있는 텀[:시간]
@@ -860,6 +915,6 @@ namespace TST
             isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayer, QueryTriggerInteraction.Ignore);
             animator.SetBool("IsGrounded", isGrounded);
         }
+        #endregion
     }
 }
-

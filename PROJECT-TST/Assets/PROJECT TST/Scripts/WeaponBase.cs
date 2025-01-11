@@ -6,8 +6,19 @@ using UnityEngine.Assertions;
 
 namespace TST
 {
+    public enum WeaponType
+    {
+        None = 0,
+        Rifle,
+        Pistol,
+    }
+
     public class WeaponBase : MonoBehaviour
     {
+        public WeaponType WeaponType => weaponType;
+
+        [SerializeField] private WeaponType weaponType;
+
         public AmmoBase ammo;
         public Transform firePoint;
         public float fireRate = 0.1f; // 연사 속도
@@ -37,7 +48,6 @@ namespace TST
                 lastFireTime = Time.time;
                 ammo.CurrentAmmo--;
 
-                //// TODO : 실제 총알 복제/발사
                 GameObject newBullet = Instantiate(ammo.data.AmmoVisualPrefab, firePoint.transform.position, firePoint.transform.rotation);
                 newBullet.gameObject.SetActive(true);
 

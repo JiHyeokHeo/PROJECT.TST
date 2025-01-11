@@ -46,14 +46,16 @@ namespace TST
 
         void OnExecuteMainWeaponSwap()
         {
-            linkedCharacter.ArmedType = EArmedType.Rifle; 
-            linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
+            // 1번 키를 눌럿을 때, 들어오는 이벤트
+            // 1번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
+            linkedCharacter.ToggleEquipPrimaryWeapon();
         }
 
         void OnExecuteSubWeaponSwap()
         {
-            linkedCharacter.ArmedType = EArmedType.Pistol;
-            linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
+            // 2번 키를 눌럿을 때, 들어오는 이벤트
+            // 2번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
+            linkedCharacter.ToggleEquipSecondaryWeapon();
         }
 
         private void OnDestroy()
