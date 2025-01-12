@@ -612,7 +612,7 @@ namespace TST
         }
 
         // 이쪽 관련 부분 scriptableObject로 빼던 해야할듯
-        private void SetCurrentWeapon(WeaponType weaponType)
+        private void SetEquipmentIKPosAndRotation(WeaponType weaponType)
         {
             Vector3 rotation = Vector3.zero;
             switch (weaponType) 
@@ -739,7 +739,6 @@ namespace TST
                 {
                     case WeaponType.Rifle:
                         animator.SetTrigger("Holster Trigger Rifle");
-                        
                         break;
                     case WeaponType.Pistol:
                         animator.SetTrigger("Holster Trigger Pistol");
@@ -756,8 +755,8 @@ namespace TST
                 currentWeapon = weaponToEquip;
                 weaponToEquip = null;
 
+                SetEquipmentIKPosAndRotation(currentWeapon.WeaponType);
                 SetWeaponAttachToHand(currentWeapon);
-                SetCurrentWeapon(currentWeapon.WeaponType);
             }
         }
 
@@ -766,6 +765,7 @@ namespace TST
         {
             if (currentWeapon != null)
             {
+                isArmedCompleted = false;
                 SetWeaponAttachToHolster(currentWeapon);
                 currentWeapon = null;
             }
@@ -784,18 +784,27 @@ namespace TST
             }
         }
 
+        public void EquipStart()
+        {
+
+        }
+
+        public void HolsterStart()
+        {
+            isArmedCompleted = false;
+        }
+
         /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>
         public void EquipFinished()
         {
-            isSwitchingWeapon = false;
             isArmedCompleted = true;
+            isSwitchingWeapon = false;
         }
 
         /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>
         public void HolsterFinished()
         {
             isSwitchingWeapon = false;
-            isArmedCompleted = false;
         }
 
         public void RollingFinished(int flag)

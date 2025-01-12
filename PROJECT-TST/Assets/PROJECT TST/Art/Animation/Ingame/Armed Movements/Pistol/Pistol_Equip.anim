@@ -42888,18 +42888,10 @@ AnimationClip:
   m_HasMotionFloatCurves: 1
   m_Events:
   - time: 0.033333335
-    functionName: SetEquipmentVisual
-    data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 1e33667fdcc392743b617e5a4a18f519,
-      type: 3}
-    floatParameter: 2
-    intParameter: 1
-    messageOptions: 0
-  - time: 0.36666667
-    functionName: SetArmedComplete
+    functionName: OnEquip
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 1e33667fdcc392743b617e5a4a18f519,
       type: 3}
     floatParameter: 0
-    intParameter: 1
+    intParameter: 0
     messageOptions: 0
