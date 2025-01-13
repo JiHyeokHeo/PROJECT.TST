@@ -180,10 +180,10 @@ namespace TST
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                //for (int i = 0; i < currentInteractables.Count; i++)
-                //{
-                //    currentInteractables[i].Interact(linkedCharacter.gameObject);
-                //}
+                for (int i = 0; i < currentInteractables.Count; i++)
+                {
+                    currentInteractables[i].Interact(linkedCharacter.gameObject);
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.G))
@@ -230,22 +230,31 @@ namespace TST
 
 
         public float interactionRange = 2f;
-        //public List<IInteractable> currentInteractables = new List<IInteractable>();
+        [field : SerializeField]public List<IInteractable> currentInteractables = new List<IInteractable>();
+
+        private void OnDrawGizmos()
+        {
+            Color transparentRed = new Color(0f, 1f, 0f, 0.1f);
+            Gizmos.color = transparentRed;
+            Gizmos.DrawSphere(
+                new Vector3(transform.position.x, transform.position.y, transform.position.z),
+                interactionRange);
+        }
 
         private void FixedUpdate()
         {
-            //currentInteractables.Clear();
-            //Collider[] overlappedObjects = Physics.OverlapSphere(transform.position, interactionRange);
-            //for (int i = 0; i < overlappedObjects.Length; i++)
-            //{
-            //    if (overlappedObjects[i].TryGetComponent(out IInteractable interactable))
-            //    {
-            //        if (false == currentInteractables.Contains(interactable))
-            //        {
-            //            currentInteractables.Add(interactable);
-            //        }
-            //    }
-            //}
+            currentInteractables.Clear();
+            Collider[] overlappedObjects = Physics.OverlapSphere(transform.position, interactionRange);
+            for (int i = 0; i < overlappedObjects.Length; i++)
+            {
+                if (overlappedObjects[i].TryGetComponent(out IInteractable interactable))
+                {
+                    if (false == currentInteractables.Contains(interactable))
+                    {
+                        currentInteractables.Add(interactable);
+                    }
+                }
+            }
         }
 
         private void LateUpdate()
