@@ -43,10 +43,10 @@ namespace TST
 
             effect.transform.SetPositionAndRotation(collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));
 
-            //if (collision.transform.root.TryGetComponent(out IDamage damageInterface))
-            //{
-            //    damageInterface.ApplyDamage(10, owner);
-            //}
+            if (collision.transform.root.TryGetComponent(out IDamage damageInterface))
+            {
+                damageInterface.ApplyDamage(10, this.gameObject);
+            }
 
             Destroy(gameObject);
         }
