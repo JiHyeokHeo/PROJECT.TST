@@ -15,7 +15,7 @@ namespace TST
         None,
     }
 
-    public class CharacterBase : MonoBehaviour/*, IDamage, IDetect*/
+    public class CharacterBase : MonoBehaviour, IDamage /*IDetect*/
     {
         void OnDrawGizmos()
         {
@@ -94,7 +94,7 @@ namespace TST
         //public Rig throwRig;
 
         public Vector3 offsetPosition;
-        public Vector3 offsetRotation;        
+        public Vector3 offsetRotation;
         public Vector3 subOffsetPosition;
         public Vector3 subOffsetRotation;
 
@@ -148,7 +148,7 @@ namespace TST
             {
                 // 자동 달리기 모드일 때만
                 //if (IsAutoRunMode)
-                    isWalk = value;
+                isWalk = value;
             }
         }
 
@@ -158,7 +158,7 @@ namespace TST
             set => isZip = value;
         }
 
-        [field : SerializeField] private bool isSprint = true;
+        [field: SerializeField] private bool isSprint = true;
         private bool isAutoRunMode = false;
         private bool isWalk = false;
         private bool isRolling = false;
@@ -228,12 +228,12 @@ namespace TST
             {
                 rb.isKinematic = !isActive;
             }
-      
+
             animator.enabled = !isActive;
             unityCharacterController.enabled = !isActive;
         }
 
-        
+
         public void SetIKActive(bool isActive)
         {
             float value = isActive ? 1f : 0f;
@@ -338,7 +338,7 @@ namespace TST
             }
 
             Vector3 movement = Vector3.zero;
-            if (input.magnitude > 0f)   
+            if (input.magnitude > 0f)
             {
                 if (!IsArmed)
                 {
@@ -359,7 +359,7 @@ namespace TST
                     movement = transform.forward * characterStat.moveSpeed * Time.deltaTime;
                 }
 
-                targetSpeed = isWalk? 0.0f : 2.1f;
+                targetSpeed = isWalk ? 0.0f : 2.1f;
             }
             else
             {
@@ -408,7 +408,7 @@ namespace TST
         {
             if (BehaviorExceptionCheck())
                 return;
-            
+
             if (!isRolling)
             {
                 animator.SetTrigger("Roll Trigger");
@@ -615,7 +615,7 @@ namespace TST
         private void SetEquipmentIKPosAndRotation(WeaponType weaponType)
         {
             Vector3 rotation = Vector3.zero;
-            switch (weaponType) 
+            switch (weaponType)
             {
                 case WeaponType.Rifle:
                     offsetPosition = new Vector3(0.217f, -0.032f, 0.023f);
@@ -641,7 +641,7 @@ namespace TST
                     leftHandHint.localPosition = new Vector3(-0.113f, -0.272f, -0.087f);
                     rotation = new Vector3(7.882f, 9.891f, 44.927f);
                     leftHandHint.localRotation = Quaternion.Euler(rotation);
-                    break;  
+                    break;
             }
         }
 
@@ -852,7 +852,7 @@ namespace TST
 
                 isJumping = true;
                 //if (jumpCnt <= 0)
-                    animator.SetTrigger("Jump Trigger");
+                animator.SetTrigger("Jump Trigger");
                 jumpCnt++;
             }
         }
@@ -924,6 +924,12 @@ namespace TST
             isGrounded = Physics.CheckSphere(spherePosition, groundedRadius, groundLayer, QueryTriggerInteraction.Ignore);
             animator.SetBool("IsGrounded", isGrounded);
         }
-        #endregion
+
+   
+        #endregion    
+        public void ApplyDamage(float damage, GameObject attacker)
+        {
+            Debug.Log($"{attacker.name}로부터 {damage}데미지 를 받는 중 ");
+        }
     }
 }
