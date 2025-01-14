@@ -22,6 +22,7 @@ namespace TST
         Indicator_UI,
         InventoryUI,
         InteractionUI,
+        DamageNumberUI,
 
         UI_POPUP_END,
     }

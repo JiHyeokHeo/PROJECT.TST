@@ -89,6 +89,7 @@ namespace TST
         public RigBuilder rigBuilder;
         public Rig aimingRig;
         public Rig lefthandRig;
+        public GameObject multiParent;
         public Transform leftHandTarget;
         public Transform leftHandHint;
         //public Rig throwRig;
@@ -601,6 +602,8 @@ namespace TST
             if (!isReloading && currentWeapon.ammo.CurrentAmmo != currentWeapon.ammo.clipSize)
             {
                 isReloading = true;
+                multiParent.SetActive(true);
+                rigBuilder.Build();
                 animator.SetTrigger("Reload Trigger");
             }
         }
@@ -609,6 +612,7 @@ namespace TST
         {
             currentWeapon.Reload();
             isReloading = false;
+            multiParent.SetActive(false);
         }
 
         // 이쪽 관련 부분 scriptableObject로 빼던 해야할듯
