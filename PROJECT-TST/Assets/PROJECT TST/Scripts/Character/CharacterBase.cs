@@ -1,9 +1,9 @@
 using Sirenix.OdinInspector;
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.Rendering;
 
 namespace TST
 {
@@ -84,6 +84,10 @@ namespace TST
         public Transform weaponHolder;
         public Transform aimingPoint;
 
+
+        #region Rendering Volume
+        public UnityEngine.Rendering.Volume hitVolume;
+        #endregion
         //public Drone drone;
 
         public RigBuilder rigBuilder;
@@ -284,6 +288,7 @@ namespace TST
             JumpAndGravity();
             FreeFall();
             CheckGround();
+            CheckHitEffectVolume();
 
             float targetIdleBlend = currentWeapon == null ? 0f : (float)currentWeapon.WeaponType;
             idleBlend = Mathf.Lerp(idleBlend, targetIdleBlend, Time.deltaTime * 10f);
@@ -305,6 +310,7 @@ namespace TST
                 StartRoll();
         }
 
+    
 
         // ArmedComplete대신 함수로 하나 빼서 작업하자 // IsAimingRigFunctable 같은 거로 생성하자
         private void LateUpdate()
@@ -929,11 +935,72 @@ namespace TST
             animator.SetBool("IsGrounded", isGrounded);
         }
 
-   
-        #endregion    
+
+        #endregion
+
+        // 맞으면 hit 판정
+        // 3초 지나면 복구되는 시간
+        public float restorationTime = 3.0f;
+        private float hitTime = 0.0f;
+        private bool isHit = false;
+        public float effectVolumeBlend;
         public void ApplyDamage(float damage, GameObject attacker)
         {
+            CheckIsHit(true);
             Debug.Log($"{attacker.name}로부터 {damage}데미지 를 받는 중 ");
         }
+
+
+        // hit가 됐으면 쿨 확인
+        private bool CheckHitEffectVolume()
+        {
+            // 다시 되돌아 갈 수 있는지 확인
+            if (CheckHitTime() == false) // false일 시 계속해서 히트 volume 커져있어야함
+            {
+                Mathf.Lerp(effectVolumeBlend, 0.5f, Time.deltaTime * 10.0f);
+                return true;
+            }
+            else
+            {
+                Mathf.Lerp(effectVolumeBlend, 0f, Time.deltaTime * 10.0f);
+                return false;
+            }
+
+            hitVolume = gameObject.GetComponent<Volume>();
+            
+        }
+
+        // 원상태로 돌아가는 시간 측정 // 하지만 다시 맞는다는 판정을 어떻게 처리해야할까
+        private bool CheckHitTime()
+        {
+            // 계속해서 시간을 더해줌
+            hitTime += Time.deltaTime;
+
+            if (restorationTime <= hitTime)
+            {
+                isHit = false;
+                return true;
+            }
+
+            return false;
+        }
+
+        private void CheckIsHit(bool isHitted)
+        {
+            // 너가 만약 첫 피격 판정을 당했다 히트 시간을 초기화 시킴
+            if (isHit == false && isHitted == true)
+            {
+                hitTime = 0.0f;
+            }
+
+            // 만약 맞았는데 또 맞았네?
+            if (isHit == true && isHitted == true)
+            {
+                hitTime = 0.0f;
+            }
+
+            isHit = isHitted;
+        }
+
     }
 }
