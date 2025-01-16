@@ -40,6 +40,7 @@ namespace TST
             // TODO : Custom BootStrapper Logic
             SceneManager.LoadScene(SceneType.Ingame.ToString(), LoadSceneMode.Single);
             UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
+            UIManager.Show<MainHudUI>(UIList.MainUI);
         }
     }
 }

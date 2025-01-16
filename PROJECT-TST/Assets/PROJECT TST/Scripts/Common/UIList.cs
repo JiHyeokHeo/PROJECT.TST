@@ -13,6 +13,7 @@ namespace TST
         LoadingUI,
         TitleUI,
         IngameUI,
+        MainUI,
 
         UI_PANEL_END,
         UI_POPUP_START,

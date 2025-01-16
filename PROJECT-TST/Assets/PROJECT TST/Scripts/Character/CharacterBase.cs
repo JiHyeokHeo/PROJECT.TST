@@ -114,7 +114,10 @@ namespace TST
             set
             {
                 if (currentHp <= 0f)
+                {
                     currentHp = 0f;
+                    return;
+                }
 
                 currentHp = value;
             }
@@ -1016,6 +1019,9 @@ namespace TST
                 isHit = false;
                 return true;
             }
+
+            if (isHit == false)
+                return true;
 
             return false;
         }
