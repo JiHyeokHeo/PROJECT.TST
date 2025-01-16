@@ -86,6 +86,7 @@ namespace TST
 
 
         #region Rendering Volume
+        public GameObject hitVolumeObject;
         public UnityEngine.Rendering.Volume hitVolume;
         #endregion
         //public Drone drone;
@@ -223,6 +224,8 @@ namespace TST
             ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
             SetRagdollActive(false);
 
+            hitVolume = hitVolumeObject.GetComponent<Volume>();
+
             // AI 관련코드 이거 추후에 클래스 나누는 리팩토링 작업이 필요할듯함
             aiSpawnPosition = gameObject.transform.position;
         }
@@ -305,6 +308,8 @@ namespace TST
             animator.SetFloat("Horizontal", horizontal);
             animator.SetFloat("Vertical", vertical);
             animator.SetFloat("Crouch", crouchBlend);
+
+            hitVolume.weight = effectVolumeBlend;
 
             if (isRolling)
                 StartRoll();
@@ -957,17 +962,14 @@ namespace TST
             // 다시 되돌아 갈 수 있는지 확인
             if (CheckHitTime() == false) // false일 시 계속해서 히트 volume 커져있어야함
             {
-                Mathf.Lerp(effectVolumeBlend, 0.5f, Time.deltaTime * 10.0f);
+                effectVolumeBlend = Mathf.Lerp(effectVolumeBlend, 0.5f, Time.deltaTime * 10.0f);
                 return true;
             }
             else
             {
-                Mathf.Lerp(effectVolumeBlend, 0f, Time.deltaTime * 10.0f);
+                effectVolumeBlend = Mathf.Lerp(effectVolumeBlend, 0f, Time.deltaTime * 10.0f);
                 return false;
             }
-
-            hitVolume = gameObject.GetComponent<Volume>();
-            
         }
 
         // 원상태로 돌아가는 시간 측정 // 하지만 다시 맞는다는 판정을 어떻게 처리해야할까
