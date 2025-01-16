@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -104,8 +105,23 @@ namespace TST
         public Vector3 subOffsetPosition;
         public Vector3 subOffsetRotation;
 
+
+        #region Character Status
         [Title("Character Stat")]
         public CharacterStat characterStat;
+
+        public float CurrentHp { get => currentHp; 
+            set
+            {
+                if (currentHp <= 0f)
+                    currentHp = 0f;
+
+                currentHp = value;
+            }
+        }
+
+        private float currentHp;
+        #endregion
 
         private float horizontal;
         private float vertical;
@@ -178,6 +194,7 @@ namespace TST
         public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
         public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
 
+        // 이쪽 부분은 추후 인벤 개념 들어가면 구도를 좀 바꿔야함
         public AmmoBase SetRifleAmmo()
         {
             for (int i = 0; i < rifleAmmos.Count; i++)
@@ -217,6 +234,8 @@ namespace TST
             InitAmmos();
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
             subWeapon.SetPlayerAmmo_Event += SetPistolAmmo;
+
+            currentHp = characterStat.maxHp;
 
             animator = GetComponent<Animator>();
             unityCharacterController = GetComponent<UnityEngine.CharacterController>();
@@ -293,6 +312,8 @@ namespace TST
             CheckGround();
             CheckHitEffectVolume();
 
+            CheckPlayerStatus();
+
             float targetIdleBlend = currentWeapon == null ? 0f : (float)currentWeapon.WeaponType;
             idleBlend = Mathf.Lerp(idleBlend, targetIdleBlend, Time.deltaTime * 10f);
 
@@ -315,7 +336,17 @@ namespace TST
                 StartRoll();
         }
 
-    
+        private void CheckPlayerStatus()
+        {
+            characterStat.currentHp = currentHp;
+
+            if (currentWeapon == null)
+                return;
+
+            characterStat.currentWeapon = currentWeapon;
+            characterStat.currentBullet = currentWeapon.ammo.CurrentAmmo;
+            characterStat.maxBullet = currentWeapon.clipSize;
+        }
 
         // ArmedComplete대신 함수로 하나 빼서 작업하자 // IsAimingRigFunctable 같은 거로 생성하자
         private void LateUpdate()
@@ -531,6 +562,7 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
+                    
                     if (!isFireSuccess && currentWeapon.ammo.CurrentAmmo <= 0)
                     {
                         Reload();
@@ -610,7 +642,7 @@ namespace TST
             if (isLoot)
                 return;
 
-            if (!isReloading && currentWeapon.ammo.CurrentAmmo != currentWeapon.ammo.clipSize)
+            if (!isReloading && currentWeapon.ammo.CurrentAmmo != currentWeapon.clipSize)
             {
                 isReloading = true;
                 multiParent.SetActive(true);
@@ -953,6 +985,7 @@ namespace TST
         {
             CheckIsHit(true);
             Debug.Log($"{attacker.name}로부터 {damage}데미지 를 받는 중 ");
+            CurrentHp -= damage;
         }
 
 

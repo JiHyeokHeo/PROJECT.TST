@@ -19,6 +19,7 @@ namespace TST
 
         [SerializeField] private WeaponType weaponType;
 
+        public int clipSize = 30;
         public AmmoBase ammo;
         public Transform firePoint;
         public float fireRate = 0.1f; // 연사 속도
@@ -28,13 +29,19 @@ namespace TST
 
         private void Awake()
         {
-            
+            if (weaponType == WeaponType.Rifle)
+                clipSize = 30;
+            if (weaponType == WeaponType.Pistol)
+                clipSize = 7;
         }
 
         public void Update()
         {
             if (ammo != null)
                 Debug.Log($"{ammo.data.name}");
+
+            if (ammo == null)
+                ammo = SetPlayerAmmo_Event?.Invoke();
         }
 
         public bool Fire()
@@ -69,7 +76,7 @@ namespace TST
             {
                 // 노말만 충전
                 if (ammo.data.name.Contains("Normal"))
-                    ammo.CurrentAmmo = ammo.clipSize;
+                    ammo.CurrentAmmo = clipSize;
 
                 // 노말이 아니면 다음 ammo로 넘어감
                 ammo = SetPlayerAmmo_Event?.Invoke();

@@ -18,5 +18,6 @@ namespace TST
         [field: SerializeField] public GameObject AmmoVisualPrefab { get; private set; } 
         [field: SerializeField] public GameObject AmmoEffectPrefab { get; private set; } 
         [field: SerializeField] public AmmoType AmmoType { get; private set; }
+        [field: SerializeField] public int initAmmoCount { get; private set; }
     }
 }
