@@ -19,10 +19,10 @@ namespace TST
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                cancel.Cancel();
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    cancel.Cancel();
+            //}
         }
 
         private async UniTask TestUni(CancellationToken cancellationToken)
