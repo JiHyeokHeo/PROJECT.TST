@@ -20,14 +20,14 @@ namespace TST
         // Update is called once per frame
         void Update()
         {
-            hpText.text = $"{characterStat.currentHp} / {characterStat.maxHp}";
+            //hpText.text = $"{characterStat.currentHp} / {characterStat.maxHp}";
 
-            if (characterStat.currentWeapon != null)
-                weaponText.text = $"{characterStat.currentWeapon.name}";
-            else
-                weaponText.text = $"Idle";
+            //if (characterStat.currentWeapon != null)
+            //    weaponText.text = $"{characterStat.currentWeapon.name}";
+            //else
+            //    weaponText.text = $"Idle";
 
-            bulletText.text = $"{characterStat.currentBullet} / {characterStat.maxBullet}";
+            //bulletText.text = $"{characterStat.currentBullet} / {characterStat.maxBullet}";
         }
     }
 }

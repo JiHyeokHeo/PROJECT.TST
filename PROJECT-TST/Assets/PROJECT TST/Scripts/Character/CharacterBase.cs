@@ -108,7 +108,10 @@ namespace TST
 
         #region Character Status
         [Title("Character Stat")]
-        public CharacterStat characterStat;
+        [field: SerializeField] private CharacterStat CharacterStat { get; set; }
+
+        [SerializeField] private CharacterStat currentStat;
+        [SerializeField] private CharacterStat maxStat;
 
         public float CurrentHp { get => currentHp; 
             set
@@ -238,7 +241,7 @@ namespace TST
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
             subWeapon.SetPlayerAmmo_Event += SetPistolAmmo;
 
-            currentHp = characterStat.maxHp;
+            CurrentHp = maxStat.hp;
 
             animator = GetComponent<Animator>();
             unityCharacterController = GetComponent<UnityEngine.CharacterController>();
@@ -341,20 +344,20 @@ namespace TST
 
         private void CheckPlayerStatus()
         {
-            characterStat.currentHp = currentHp;
+            currentStat.hp = currentHp;
 
             if (currentWeapon == null)
                 return;
 
-            characterStat.currentWeapon = currentWeapon;
-            characterStat.currentBullet = currentWeapon.ammo.CurrentAmmo;
-            characterStat.maxBullet = currentWeapon.clipSize;
+            //characterStat.currentWeapon = currentWeapon;
+            currentStat.currentBullet = currentWeapon.ammo.CurrentAmmo;
+            currentStat.maxBullet = currentWeapon.clipSize;
         }
 
         // ArmedComplete대신 함수로 하나 빼서 작업하자 // IsAimingRigFunctable 같은 거로 생성하자
         private void LateUpdate()
         {
-            aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, (isArmedCompleted && !isRolling) ? 1f : 0f, Time.deltaTime * 10f);
+            aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, (isArmedCompleted && !isRolling && !isReloading) ? 1f : 0f, Time.deltaTime * 10f);
             aimingRig.weight = aimingRigWeightBlend;
 
             lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isRolling ? 1f : 0f, Time.deltaTime * 10f);
@@ -397,12 +400,12 @@ namespace TST
                 {
                     targetHorizontal = input.x;
                     targetVertical = input.y;
-                    movement = (transform.forward * input.y + transform.right * input.x) * characterStat.moveSpeed * Time.deltaTime;
+                    movement = (transform.forward * input.y + transform.right * input.x) * currentStat.moveSpeed * Time.deltaTime;
                 }
                 else
                 {
                     targetVertical = 1f;
-                    movement = transform.forward * characterStat.moveSpeed * Time.deltaTime;
+                    movement = transform.forward * currentStat.moveSpeed * Time.deltaTime;
                 }
 
                 targetSpeed = isWalk ? 0.0f : 2.1f;
