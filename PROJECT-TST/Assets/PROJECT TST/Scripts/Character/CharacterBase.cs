@@ -71,6 +71,7 @@ namespace TST
         public UnityEngine.CharacterController unityCharacterController;
         public CharacterController characterController;
         public Transform cameraPivot;
+        public Transform fpsCameraPivot;
         public Rigidbody[] ragdollRigidbodies;
 
         public WeaponBase primaryWeapon;
@@ -108,7 +109,7 @@ namespace TST
 
         #region Character Status
         [Title("Character Stat")]
-        [field: SerializeField] private CharacterStat CharacterStat { get; set; }
+        [field: SerializeField] private CharacterStatSetting CharacterStatConfig { get; set; }
 
         [SerializeField] private CharacterStat currentStat;
         [SerializeField] private CharacterStat maxStat;
@@ -241,7 +242,9 @@ namespace TST
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
             subWeapon.SetPlayerAmmo_Event += SetPistolAmmo;
 
-            CurrentHp = maxStat.hp;
+            // 추후에 이걸 클래스화로 나누자
+            maxStat = CharacterStatConfig.CharacterStatData.Max;
+            currentStat = maxStat;
 
             animator = GetComponent<Animator>();
             unityCharacterController = GetComponent<UnityEngine.CharacterController>();

@@ -8,6 +8,7 @@ namespace TST
     {
         public CharacterBase linkedCharacter;
         public Transform cameraPivot;
+        public Transform fpsCameraPivot;
 
         public LayerMask aimingLayer;
         public LineRenderer trajectoryRenderer;
@@ -301,6 +302,7 @@ namespace TST
 
             // 카메라 회전 적용
             linkedCharacter.cameraPivot.transform.rotation = Quaternion.Euler(targetPitch, targetYaw , 0f);
+            linkedCharacter.fpsCameraPivot.transform.rotation = Quaternion.Euler(targetPitch, targetYaw, 0f);
 
             //// Recoil 감소 (자연스럽게 원래 위치로 돌아가기) 추후 컨텐츠에 따라 선택하자 아직은 비활성화
             //currentRecoil = Mathf.Lerp(currentRecoil, 0f, Time.deltaTime * recoilSpeed);
