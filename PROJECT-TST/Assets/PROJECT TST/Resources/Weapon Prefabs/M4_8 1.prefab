@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1265061764721360691}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MagPosition Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 7852108891329988540}
   - component: {fileID: 2465865428448217583}
   - component: {fileID: 8079178874530213689}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 2819693920155405637}
   - component: {fileID: 8838116910680901309}
   - component: {fileID: 3138238060035582450}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8130018430683730042}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 8924977780369082709}
   - component: {fileID: 119906314188849205}
   - component: {fileID: 7769446209901957095}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 7275349042253842877}
   - component: {fileID: 4063333368114631564}
   - component: {fileID: 2848399022609692605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rear_Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 3283519522418562738}
   - component: {fileID: 1547400690399954196}
   - component: {fileID: 1941263369403281749}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4_8 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,6 +499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  clipSize: 0
   ammo: {fileID: 0}
   firePoint: {fileID: 8130018430683730042}
   fireRate: 0.1
@@ -513,7 +514,7 @@ GameObject:
   - component: {fileID: 3019499592217548675}
   - component: {fileID: 6404969753902838636}
   - component: {fileID: 8096677874114908263}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +599,7 @@ GameObject:
   - component: {fileID: 2339885384712843121}
   - component: {fileID: 2755763007522460288}
   - component: {fileID: 3142431017315720761}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

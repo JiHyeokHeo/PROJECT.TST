@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4592446655130872}
   - component: {fileID: 33266524172611164}
   - component: {fileID: 23897524114895764}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 33532184169662646}
   - component: {fileID: 23869175491929116}
   - component: {fileID: -3986240951747650029}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Deagle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  clipSize: 0
   ammo: {fileID: 0}
   firePoint: {fileID: 0}
   fireRate: 0.1
@@ -198,7 +199,7 @@ GameObject:
   - component: {fileID: 4467154719646976}
   - component: {fileID: 33711472303671448}
   - component: {fileID: 23219012377275896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Magazin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +283,7 @@ GameObject:
   - component: {fileID: 4870711601835300}
   - component: {fileID: 33886750681782822}
   - component: {fileID: 23520182644007608}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +366,7 @@ GameObject:
   - component: {fileID: 4054168333057888}
   - component: {fileID: 33830214120901726}
   - component: {fileID: 23923812084409242}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +447,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4520213074274078457}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

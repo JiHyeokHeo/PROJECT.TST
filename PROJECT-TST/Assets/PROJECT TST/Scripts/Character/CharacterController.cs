@@ -38,6 +38,9 @@ namespace TST
             InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
             InputSystem.Singleton.OnInput_MainWeapon += OnExecuteMainWeaponSwap;
             InputSystem.Singleton.OnInput_SubWeapon += OnExecuteSubWeaponSwap;
+            InputSystem.Singleton.OnInput_ToggleFpsRightButton += OnExcuteFpsZoom;
+            InputSystem.Singleton.OnInput_MaintainZoom += OnExecuteMaintainZoom;
+            InputSystem.Singleton.OnInput_ReturnToTps += OnExecuteReturnToTps;
         }
 
         void OnExecuteJump()
@@ -57,6 +60,21 @@ namespace TST
             // 2번 키를 눌럿을 때, 들어오는 이벤트
             // 2번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipSecondaryWeapon();
+        }
+
+        void OnExcuteFpsZoom()
+        {
+            CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
+        }
+
+        void OnExecuteMaintainZoom()
+        {
+            CameraSystem.Instance.IsCameraZoom = true;
+        }
+
+        void OnExecuteReturnToTps()
+        {
+            CameraSystem.Instance.IsCameraZoom = false;
         }
 
         private void OnDestroy()
@@ -97,16 +115,6 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 CameraSystem.Instance.IsCameraSideOnRight = !CameraSystem.Instance.IsCameraSideOnRight;
-            }
-
-            if (Input.GetMouseButtonDown(1))
-            {
-                CameraSystem.Instance.IsCameraZoom = true;
-            }
-
-            if (Input.GetMouseButtonUp(1))
-            {
-                CameraSystem.Instance.IsCameraZoom = false;
             }
 
             //if (Input.GetKeyDown(KeyCode.Alpha2))

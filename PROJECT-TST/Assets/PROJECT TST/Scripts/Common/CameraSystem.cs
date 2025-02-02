@@ -13,8 +13,22 @@ namespace TST
         [field: SerializeField] public bool IsCameraZoom { get; set; } = false;
         [field: SerializeField] public bool IsCameraSideOnRight { get; set; } = true;
 
+        public bool IsFpsMode
+        {
+            get
+            {
+                return isFpsMode;
+            }
+            set
+            {
+                isFpsMode = value;
+                TransitionToFpsCamera(isFpsMode);
+            }
+        }
 
+        private bool isFpsMode;
         public Cinemachine.CinemachineVirtualCamera tpsCamera;
+        public Cinemachine.CinemachineVirtualCamera fpsCamera;
         public Vector2 cameraDistance = new Vector2(2f, 1.0f);
 
         private Cinemachine3rdPersonFollow tpsCameraFollow;
@@ -48,6 +62,15 @@ namespace TST
             cameraoffSetTarget = offSet;
         }
 
+        // Èì ¸¾¿¡ ¾Èµå´Âµ¥
+        public void TransitionToFpsCamera(bool isChange)
+        {
+            if (isChange)
+                fpsCamera.Priority = 9;
+
+            if (isChange == false)
+                fpsCamera.Priority = 11;
+        }
        
     }
 }

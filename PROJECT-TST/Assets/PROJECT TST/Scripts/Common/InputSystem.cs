@@ -10,6 +10,14 @@ namespace TST
         public System.Action OnInput_HelpPopupToggle;
         public System.Action OnInput_MainWeapon;
         public System.Action OnInput_SubWeapon;
+        public System.Action OnInput_ToggleFpsRightButton;
+        public System.Action OnInput_MaintainZoom;
+        public System.Action OnInput_ReturnToTps;
+
+        private float aimStartTime = 0f;
+        private float threshold = 0.25f;
+        private bool shoulderZoom = false;
+        private bool scopeZoom = false;
 
         private void Start()
         {
@@ -35,6 +43,45 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 OnInput_HelpPopupToggle?.Invoke();
+            }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                aimStartTime = Time.time;
+                shoulderZoom = false;
+            }
+
+            if (Input.GetMouseButton(1))
+            {
+                if (shoulderZoom == false && Time.time - aimStartTime >= threshold) 
+                {
+                    shoulderZoom = true;
+                    // 견착
+                    OnInput_MaintainZoom?.Invoke();
+                }
+            }
+            
+            if (Input.GetMouseButtonUp(1))
+            {
+                // 만약 견착 모드라면 해제
+                if (shoulderZoom)
+                {
+                    OnInput_ReturnToTps?.Invoke();
+                    shoulderZoom = false;
+                }
+                else // 짧게 누른 상태라면 스코프모드
+                {
+                    if (scopeZoom)
+                    {
+                        OnInput_ToggleFpsRightButton?.Invoke();
+                        scopeZoom = false;
+                    }
+                    else
+                    {
+                        OnInput_ToggleFpsRightButton?.Invoke();
+                        scopeZoom = true;
+                    }
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Space))

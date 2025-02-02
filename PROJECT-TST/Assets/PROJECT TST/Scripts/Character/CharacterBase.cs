@@ -360,17 +360,32 @@ namespace TST
         // ArmedComplete대신 함수로 하나 빼서 작업하자 // IsAimingRigFunctable 같은 거로 생성하자
         private void LateUpdate()
         {
-            aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, (isArmedCompleted && !isRolling && !isReloading) ? 1f : 0f, Time.deltaTime * 10f);
+            SetHandsIK();
+
+         
+
+            // 문 여닫이 IK 관련
+            if (isDoorOpening || isReloading)
+                SetIKActive(IKWeightValue);
+        }
+
+        private void SetHandsIK()
+        {
+            aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, CheckIKSuccess() ? 1f : 0f, Time.deltaTime * 10f);
             aimingRig.weight = aimingRigWeightBlend;
 
             lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isRolling ? 1f : 0f, Time.deltaTime * 10f);
             lefthandRig.weight = lefthandRigWeightBlend;
 
             //throwRig.weight = IsThrowMode ? 1f : 0f;
+        }
 
-            // 문 여닫이 IK 관련
-            if (isDoorOpening)
-                SetIKActive(IKWeightValue);
+        private bool CheckIKSuccess()
+        {
+            if (!isArmedCompleted || isRolling && isReloading)
+                return false;
+
+            return true;
         }
 
         // 이것도 virtual 키워드로 바꿔야할듯
