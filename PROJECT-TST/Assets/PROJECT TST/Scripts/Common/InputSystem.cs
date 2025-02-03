@@ -10,7 +10,7 @@ namespace TST
         public System.Action OnInput_HelpPopupToggle;
         public System.Action OnInput_MainWeapon;
         public System.Action OnInput_SubWeapon;
-        public System.Action OnInput_ToggleFpsRightButton;
+        public System.Action OnInput_ToggleFpsRightButtonTransition;
         public System.Action OnInput_MaintainZoom;
         public System.Action OnInput_ReturnToTps;
 
@@ -73,12 +73,12 @@ namespace TST
                 {
                     if (scopeZoom)
                     {
-                        OnInput_ToggleFpsRightButton?.Invoke();
+                        OnInput_ToggleFpsRightButtonTransition?.Invoke();
                         scopeZoom = false;
                     }
                     else
                     {
-                        OnInput_ToggleFpsRightButton?.Invoke();
+                        OnInput_ToggleFpsRightButtonTransition?.Invoke();
                         scopeZoom = true;
                     }
                 }

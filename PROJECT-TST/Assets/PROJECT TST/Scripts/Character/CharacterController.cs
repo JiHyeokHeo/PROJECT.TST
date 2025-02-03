@@ -38,7 +38,7 @@ namespace TST
             InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
             InputSystem.Singleton.OnInput_MainWeapon += OnExecuteMainWeaponSwap;
             InputSystem.Singleton.OnInput_SubWeapon += OnExecuteSubWeaponSwap;
-            InputSystem.Singleton.OnInput_ToggleFpsRightButton += OnExcuteFpsZoom;
+            InputSystem.Singleton.OnInput_ToggleFpsRightButtonTransition += OnExcuteFpsZoomTransition;
             InputSystem.Singleton.OnInput_MaintainZoom += OnExecuteMaintainZoom;
             InputSystem.Singleton.OnInput_ReturnToTps += OnExecuteReturnToTps;
         }
@@ -62,7 +62,7 @@ namespace TST
             linkedCharacter.ToggleEquipSecondaryWeapon();
         }
 
-        void OnExcuteFpsZoom()
+        void OnExcuteFpsZoomTransition()
         {
             CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
         }
