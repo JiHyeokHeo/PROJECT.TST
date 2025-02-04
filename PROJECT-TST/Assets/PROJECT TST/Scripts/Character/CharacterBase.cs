@@ -2,9 +2,11 @@ using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
+using static UnityEngine.Video.VideoPlayer;
 
 namespace TST
 {
@@ -293,6 +295,9 @@ namespace TST
         IngamePlayerDataDTO ingamePlayerData;
         public void Initialize()
         {
+            SubscribeEventActions();
+           
+
             // TODO : 데이터 관련
             // 일단 데이터 받기부터
             var ingameData = UserDataModel.Singleton.IngamePlayerData;
@@ -1005,13 +1010,25 @@ namespace TST
         private float hitTime = 0.0f;
         private bool isHit = false;
         public float effectVolumeBlend;
+
+        public EventHandler eventHandler;
+
+        private void CaculateDamage()
+        {
+            
+        }
+
         public void ApplyDamage(float damage, GameObject attacker)
         {
             CheckIsHit(true);
-            Debug.Log($"{attacker.name}로부터 {damage}데미지 를 받는 중 ");
-            CurrentHp -= damage;
+
+            eventHandler.OnDamaged(damage, attacker);
         }
 
+        private void SubscribeEventActions()
+        {
+            eventHandler.OnDamagedAction += CaculateDamage;
+        }
 
         // hit가 됐으면 쿨 확인
         private bool CheckHitEffectVolume()

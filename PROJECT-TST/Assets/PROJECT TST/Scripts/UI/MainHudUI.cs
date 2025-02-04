@@ -10,7 +10,8 @@ namespace TST
         public TextMeshProUGUI hpText;
         public TextMeshProUGUI weaponText;
         public TextMeshProUGUI bulletText;
-        public CharacterStat characterStat;
+        public CharacterBase linkedCharacter;
+
         // Start is called before the first frame update
         void Start()
         {
