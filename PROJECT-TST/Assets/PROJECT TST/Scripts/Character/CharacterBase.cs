@@ -28,16 +28,120 @@ namespace TST
                 new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z),
                 groundedRadius);
         }
+        #region Armed Status
+        [Title("Armed Status", titleAlignment: TitleAlignments.Centered)]
+        public bool IsArmed => currentWeapon != null;
+        public bool IsArmedCompleted => isArmedCompleted;
+        private bool isArmedCompleted = false;
 
+        private bool isThrowMode = false;
+
+        public bool IsSwitchingWeapon => isSwitchingWeapon;
+        private bool isSwitchingWeapon = false;
+
+        public Rigidbody CurrentThrowObject { get; private set; }
+        public Rigidbody throwObject;
+        public Transform throwStartPoint;
+        #endregion
+
+        public Animator animator;
+        public UnityEngine.CharacterController unityCharacterController;
+        public CharacterController characterController;
+        public Transform cameraPivot;
+        public Transform fpsCameraPivot;
+
+        #region Weapons & AimingPoint & Weapon Socket
+        [Title("Weapons & AimingPoint", titleAlignment: TitleAlignments.Centered)]
+        public WeaponBase primaryWeapon;
+        public WeaponBase subWeapon;
+        public WeaponBase grenadeWeapon;
+
+        public WeaponBase currentWeapon;  // 코드상에서 자동으로 통제하는 변수
+        public WeaponBase weaponToEquip;  // 코드상에서 자동으로 통제하는 변수
+
+        public Transform weaponSocket;
+        public Transform subWeaponSocket;
+        public Transform weaponHolder;
+        public Transform aimingPoint;
+        #endregion
+
+        private bool isReloading = false;
+
+        #region Rendering Volume
+        [Title("Rendering Volume", titleAlignment: TitleAlignments.Centered)]
+        public GameObject hitVolumeObject;
+        public UnityEngine.Rendering.Volume hitVolume;
+        #endregion
+        //public Drone drone;
+
+        #region Rig & IK
+        [Title("Rig & IK", titleAlignment: TitleAlignments.Centered)]
+        public Rigidbody[] ragdollRigidbodies;
+        public RigBuilder rigBuilder;
+        public Rig aimingRig;
+        public Rig lefthandRig;
+        public GameObject multiParent;
+        public Transform leftHandTarget;
+        public Transform leftHandHint;
+        //public Rig throwRig;
+
+        public Vector3 offsetPosition;
+        public Vector3 offsetRotation;
+        public Vector3 subOffsetPosition;
+        public Vector3 subOffsetRotation;
+        #endregion
+
+        #region Character Status
+        [Title("Character Status", titleAlignment: TitleAlignments.Centered)]
+
+        [SerializeField] private CharacterStat currentStat;
+        [SerializeField] private CharacterStat maxStat;
+        [field: SerializeField] private CharacterStatSetting CharacterStatConfig { get; set; }
+
+        public float CurrentHp { get => currentHp; 
+            set
+            {
+                if (currentHp <= 0f)
+                {
+                    currentHp = 0f;
+                    return;
+                }
+
+                currentHp = value;
+            }
+        }
+
+        private float currentHp;
+
+        public float rollSpeed = 4.0f;
+        private float rollTime;
+        public AnimationCurve rollSpeedCurve;
+        #endregion
+
+        #region Blend Member Variable
+        [Title("Blend Member Variable", titleAlignment: TitleAlignments.Centered)]
+        private float horizontal;
+        private float vertical;
+        private float speedBlend;
+        private float idleBlend;
+        private float armedBlend;
+        private float crouchBlend;
+
+        private float targetSpeed;
+        private float targetHorizontal;
+        private float targetVertical;
+
+        private float aimingRigWeightBlend;
+        private float lefthandRigWeightBlend;
+        #endregion
+
+        #region Property
+        [Title("Property", titleAlignment: TitleAlignments.Centered)]
         public Vector3 AimingPosition
         {
             get => aimingPoint.position;
             set => aimingPoint.position = value;
         }
-
-        public bool IsArmed => currentWeapon != null;
-        public bool IsArmedCompleted => isArmedCompleted;
-        private bool isArmedCompleted = false;
 
         public bool IsThrowMode
         {
@@ -60,97 +164,6 @@ namespace TST
                 }
             }
         }
-        private bool isThrowMode = false;
-
-        public bool IsSwitchingWeapon => isSwitchingWeapon;
-        private bool isSwitchingWeapon = false;
-
-        public Rigidbody CurrentThrowObject { get; private set; }
-        public Rigidbody throwObject;
-        public Transform throwStartPoint;
-
-        public Animator animator;
-        public UnityEngine.CharacterController unityCharacterController;
-        public CharacterController characterController;
-        public Transform cameraPivot;
-        public Transform fpsCameraPivot;
-        public Rigidbody[] ragdollRigidbodies;
-
-        public WeaponBase primaryWeapon;
-        public WeaponBase subWeapon;
-        public WeaponBase grenadeWeapon;
-
-        public WeaponBase currentWeapon;  // 코드상에서 자동으로 통제하는 변수
-        public WeaponBase weaponToEquip;  // 코드상에서 자동으로 통제하는 변수
-
-        public Transform weaponSocket;
-        public Transform subWeaponSocket;
-        public Transform weaponHolder;
-        public Transform aimingPoint;
-
-
-        #region Rendering Volume
-        public GameObject hitVolumeObject;
-        public UnityEngine.Rendering.Volume hitVolume;
-        #endregion
-        //public Drone drone;
-
-        public RigBuilder rigBuilder;
-        public Rig aimingRig;
-        public Rig lefthandRig;
-        public GameObject multiParent;
-        public Transform leftHandTarget;
-        public Transform leftHandHint;
-        //public Rig throwRig;
-
-        public Vector3 offsetPosition;
-        public Vector3 offsetRotation;
-        public Vector3 subOffsetPosition;
-        public Vector3 subOffsetRotation;
-
-
-        #region Character Status
-        [Title("Character Stat")]
-        [field: SerializeField] private CharacterStatSetting CharacterStatConfig { get; set; }
-
-        [SerializeField] private CharacterStat currentStat;
-        [SerializeField] private CharacterStat maxStat;
-
-        public float CurrentHp { get => currentHp; 
-            set
-            {
-                if (currentHp <= 0f)
-                {
-                    currentHp = 0f;
-                    return;
-                }
-
-                currentHp = value;
-            }
-        }
-
-        private float currentHp;
-        #endregion
-
-        private float horizontal;
-        private float vertical;
-        private float speedBlend;
-        private float idleBlend;
-        private float armedBlend;
-        private float crouchBlend;
-
-        private float targetSpeed;
-        private float targetHorizontal;
-        private float targetVertical;
-
-        private bool isReloading = false;
-
-        private float aimingRigWeightBlend;
-        private float lefthandRigWeightBlend;
-
-        public float rollSpeed = 4.0f;
-        private float rollTime;
-        public AnimationCurve rollSpeedCurve;
 
         public bool IsSprint
         {
@@ -188,7 +201,10 @@ namespace TST
             get => isZip;
             set => isZip = value;
         }
+        #endregion
 
+        #region Boolean & Crouch
+        [Title("Boolean & Crouch", titleAlignment: TitleAlignments.Centered)]
         [field: SerializeField] private bool isSprint = true;
         private bool isAutoRunMode = false;
         private bool isWalk = false;
@@ -196,15 +212,18 @@ namespace TST
         private bool isZip = false;
         private bool isCrouch = false;
         [field: SerializeField] Vector3 crouchOffset;
+        #endregion
 
         private float targetRotation = 0f;
         public Vector3 aiSpawnPosition;
+        IngamePlayerDataDTO ingamePlayerData;
 
+        #region Ammo
+        [Title("Ammo", titleAlignment: TitleAlignments.Centered)]
         public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
         public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
-
-        // 이쪽 부분은 추후 인벤 개념 들어가면 구도를 좀 바꿔야함
-        public AmmoBase SetRifleAmmo()
+        
+        public AmmoBase SetRifleAmmo() // 이쪽 부분은 추후 인벤 개념 들어가면 구도를 좀 바꿔야함
         {
             for (int i = 0; i < rifleAmmos.Count; i++)
             {
@@ -237,6 +256,7 @@ namespace TST
                 pistolAmmos[i].Initialize();
             }
         }
+        #endregion
 
         private void Awake()
         {
@@ -252,6 +272,8 @@ namespace TST
             unityCharacterController = GetComponent<UnityEngine.CharacterController>();
             characterController = GetComponent<CharacterController>();
             ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
+            eventHandler = GetComponent<EventHandler>();
+
             SetRagdollActive(false);
 
             hitVolume = hitVolumeObject.GetComponent<Volume>();
@@ -260,6 +282,7 @@ namespace TST
             aiSpawnPosition = gameObject.transform.position;
         }
 
+        #region Ragdoll & IK
         public void SetRagdollActive(bool isActive)
         {
             foreach (var rb in ragdollRigidbodies)
@@ -271,7 +294,6 @@ namespace TST
             unityCharacterController.enabled = !isActive;
         }
 
-
         public void SetIKActive(bool isActive)
         {
             float value = isActive ? 1f : 0f;
@@ -279,7 +301,7 @@ namespace TST
             lefthandRigWeightBlend = value;
             //throwRig.weight = value;
         }
-
+        #endregion
 
         private void Start()
         {
@@ -287,17 +309,14 @@ namespace TST
             lefthandRig.weight = 0f;
             //throwRig.weight = 0f;
             rigBuilder.Build();
-
+            SubscribeEventActions();
             // 데이터 관련
             //Initialize();
         }
 
-        IngamePlayerDataDTO ingamePlayerData;
+        
         public void Initialize()
         {
-            SubscribeEventActions();
-           
-
             // TODO : 데이터 관련
             // 일단 데이터 받기부터
             var ingameData = UserDataModel.Singleton.IngamePlayerData;
@@ -317,7 +336,6 @@ namespace TST
             //// 플레이어 번호 ID
             //UserDataModel.Singleton.ChangeData<IngamePlayerDataDTO>(1001, ingamePlayerData);
         }
-
 
         private void Update()
         {
@@ -367,8 +385,6 @@ namespace TST
         {
             SetHandsIK();
 
-         
-
             // 문 여닫이 IK 관련
             if (isDoorOpening || isReloading)
                 SetIKActive(IKWeightValue);
@@ -393,7 +409,6 @@ namespace TST
             return true;
         }
 
-        // 이것도 virtual 키워드로 바꿔야할듯
         public void AIMove(bool isMove)
         {
             float result = isMove ? 1.0f : 0.0f;
@@ -466,7 +481,6 @@ namespace TST
             else
                 animator.SetFloat("Magnitude", 1.0f);
         }
-
 
         private void StartRoll()
         {
@@ -687,7 +701,6 @@ namespace TST
             multiParent.SetActive(false);
         }
 
-        // 이쪽 관련 부분 scriptableObject로 빼던 해야할듯
         private void SetEquipmentIKPosAndRotation(WeaponType weaponType)
         {
             Vector3 rotation = Vector3.zero;
@@ -890,6 +903,7 @@ namespace TST
         }
 
         #region IKWeight
+        [Title("IKWeight", titleAlignment: TitleAlignments.Centered)]
         private bool IKWeightValue = false;
         private bool isDoorOpening = false;
         public void SetIKWeight(int flag)
@@ -903,6 +917,7 @@ namespace TST
         #endregion
 
         #region Jump
+        [Title("JumpStatus", titleAlignment: TitleAlignments.Centered)]
         public float jumpHeight = 1.2f;          // JumpHeight : 점프력 최대 올라갈 수 있는 높이.
         public float gravity = -15.0f;           // Gravity : Rigidbody를 사용하지 않기 때문에, 별도 중력 값
         public float jumpTimeout = 0.3f;         // JumpTimeout : 점프 후 - 다시 점프 입력을 받을 수 있는 텀[:시간]
@@ -1004,26 +1019,30 @@ namespace TST
 
         #endregion
 
-        // 맞으면 hit 판정
-        // 3초 지나면 복구되는 시간
-        public float restorationTime = 3.0f;
+        [Title("EventHandler", titleAlignment: TitleAlignments.Centered)]
+        public EventHandler eventHandler;
+
+        public void ApplyDamage(float damage, GameObject attacker) // Interface
+        {
+            CheckIsHit(true);
+
+            eventHandler.OnDamaged(damage, attacker);
+        }
+
+        // 히트 이벤트
+        #region Hit Event 
+        [Title("HitEvent", titleAlignment: TitleAlignments.Centered)]
+        public float restorationTime = 3.0f;    // 3초 지나면 복구되는 시간
         private float hitTime = 0.0f;
         private bool isHit = false;
         public float effectVolumeBlend;
-
-        public EventHandler eventHandler;
 
         private void CaculateDamage()
         {
             
         }
 
-        public void ApplyDamage(float damage, GameObject attacker)
-        {
-            CheckIsHit(true);
-
-            eventHandler.OnDamaged(damage, attacker);
-        }
+   
 
         private void SubscribeEventActions()
         {
@@ -1080,6 +1099,7 @@ namespace TST
 
             isHit = isHitted;
         }
-
+        #endregion
+      
     }
 }
