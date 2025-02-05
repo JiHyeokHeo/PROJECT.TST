@@ -6,7 +6,7 @@ namespace TST
 {
     public class GameDataModel : SingletonBase<GameDataModel>
     {
-        [field: SerializeField] public List<ItemData> ItemDatas { get; private set; }
+        [field: SerializeField] public List<ItemData> ItemDatas { get; private set; } = new List<ItemData>();
 
         public void Initialize()
         {

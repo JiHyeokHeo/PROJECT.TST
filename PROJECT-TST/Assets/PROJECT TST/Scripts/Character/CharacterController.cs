@@ -99,6 +99,11 @@ namespace TST
             CameraSystem.Instance.IsCameraZoom = false;
         }
 
+        void OnExecuteInventoryUI()
+        {
+            UIManager.Show<InventoryUI>(UIList.InventoryUI);
+        }
+
         private void ReturnToTPSModeCheck()
         {
             if (CameraSystem.Instance.IsFpsMode == true)
@@ -139,6 +144,15 @@ namespace TST
 
             float inputX = Input.GetAxis("Horizontal");
             float inputY = Input.GetAxis("Vertical");
+
+            if (currentInteractables.Count > 0)
+            {
+                InteractionUI.Instance.ShowInteractionItem();
+            }
+            else
+            {
+                InteractionUI.Instance.HideInteractionItem();
+            }
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {

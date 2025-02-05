@@ -347,7 +347,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 65079
+    m_Bits: 1079
 --- !u!114 &1266697119442734024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,7 +357,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3748725683637700037}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 709250e0865ca7948b853b8545e5a233, type: 3}
+  m_Script: {fileID: 11500000, guid: 62b42b87c94b96f45adc3a0480562076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemSlotRoot: {fileID: 7670132243481450183}
@@ -504,8 +504,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC778\uBCA4\uD1A0\uB9AC"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 969106e74c1396946912579910e05624, type: 2}
-  m_sharedMaterial: {fileID: -2641063058467779429, guid: 969106e74c1396946912579910e05624, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1555,7 +1555,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8316833804893093612}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5fc370e55794544fbc5a8824ec107e9, type: 3}
+  m_Script: {fileID: 11500000, guid: c217fa56202faf0499bdc79425a0942e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 8542760335449684797}
