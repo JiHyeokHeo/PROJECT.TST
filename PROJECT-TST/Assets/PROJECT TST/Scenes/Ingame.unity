@@ -209,6 +209,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1833736673}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &67214815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4816914391718722367, guid: 2f8674ce0d499554597ce3125fd4a663,
+    type: 3}
+  m_PrefabInstance: {fileID: 526939873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &83178468
 GameObject:
   m_ObjectHideFlags: 0
@@ -3145,9 +3151,19 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
+      propertyPath: fpsModeVisualObjects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
       propertyPath: rollSpeedCurve.m_Curve.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
+        type: 3}
+      propertyPath: fpsModeVisualObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 67214815}
     - target: {fileID: 4837167033705645959, guid: 2f8674ce0d499554597ce3125fd4a663,
         type: 3}
       propertyPath: <CharacterStatConfig>k__BackingField

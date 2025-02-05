@@ -59,6 +59,7 @@ namespace TST
         public WeaponBase currentWeapon;  // 코드상에서 자동으로 통제하는 변수
         public WeaponBase weaponToEquip;  // 코드상에서 자동으로 통제하는 변수
 
+        public List<GameObject> fpsModeVisualObjects = new List<GameObject>();
         public Transform weaponSocket;
         public Transform subWeaponSocket;
         public Transform weaponHolder;

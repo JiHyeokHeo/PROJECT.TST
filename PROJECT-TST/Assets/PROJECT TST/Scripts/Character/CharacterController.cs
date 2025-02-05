@@ -53,6 +53,8 @@ namespace TST
             // 1번 키를 눌럿을 때, 들어오는 이벤트
             // 1번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipPrimaryWeapon();
+
+            ReturnToTPSModeCheck();
         }
 
         void OnExecuteSubWeaponSwap()
@@ -60,11 +62,31 @@ namespace TST
             // 2번 키를 눌럿을 때, 들어오는 이벤트
             // 2번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipSecondaryWeapon();
+
+            ReturnToTPSModeCheck();
         }
 
         void OnExcuteFpsZoomTransition()
         {
-            CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
+            if (linkedCharacter != null && linkedCharacter.currentWeapon == linkedCharacter.primaryWeapon)
+            {
+                CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
+            }
+
+            if (CameraSystem.Instance.IsFpsMode)
+            {
+                foreach (var obj in linkedCharacter.fpsModeVisualObjects)
+                {
+                    obj.SetActive(false);
+                }
+            }
+            else
+            {
+                foreach (var obj in linkedCharacter.fpsModeVisualObjects)
+                {
+                    obj.SetActive(true);
+                }
+            }
         }
 
         void OnExecuteMaintainZoom()
@@ -75,6 +97,12 @@ namespace TST
         void OnExecuteReturnToTps()
         {
             CameraSystem.Instance.IsCameraZoom = false;
+        }
+
+        private void ReturnToTPSModeCheck()
+        {
+            if (CameraSystem.Instance.IsFpsMode == true)
+                CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
         }
 
         private void OnDestroy()

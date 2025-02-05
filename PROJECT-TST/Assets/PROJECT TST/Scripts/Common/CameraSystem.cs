@@ -66,10 +66,10 @@ namespace TST
         public void TransitionToFpsCamera(bool isChange)
         {
             if (isChange)
-                fpsCamera.Priority = 9;
+                fpsCamera.Priority = 11;
 
             if (isChange == false)
-                fpsCamera.Priority = 11;
+                fpsCamera.Priority = 9;
         }
        
     }
