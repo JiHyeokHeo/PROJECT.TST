@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace TST
@@ -43,5 +44,42 @@ namespace TST
         [field: SerializeField] public ItemCategory ItemCategory { get; private set; }
         [field: SerializeField] public int ItemSubCategory { get; private set; }
         [field: SerializeField] public int ItemMaxStack { get; private set; } = 1;
+        [SerializeReference]
+        public ItemStatBase ItemStat;
     }
+
+    #region ItemDataEditor
+    // 에디터 관련
+    [CustomEditor(typeof(ItemData))]
+    public class ItemDataEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            ItemData itemData = (ItemData)target;
+
+            // 기본 Inspector UI
+            DrawDefaultInspector();
+
+            // 카테고리에 따라 ItemStat을 변경
+            if (GUILayout.Button("Apply Category"))
+            {
+                switch (itemData.ItemCategory)
+                {
+                    case ItemCategory.Consumable:
+                        itemData.ItemStat = new ConsumableStat();
+                        break;
+                    case ItemCategory.Equipment:
+                        itemData.ItemStat = new EquipmentStat();
+                        break;
+                    case ItemCategory.Material:
+                        itemData.ItemStat = new MaterialStat();
+                        break;
+                }
+            }
+
+            // 변경 사항 저장
+            EditorUtility.SetDirty(itemData);
+        }
+    }
+    #endregion
 }

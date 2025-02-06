@@ -114,6 +114,21 @@ namespace TST
 
         private float currentHp;
 
+        public float MaxHp { get => maxStat.hp;
+            set
+            {
+                if (maxHp <= maxStat.hp)
+                {
+                    maxHp = maxStat.hp;
+                    return;
+                }
+
+                maxHp = value;
+            }
+        }
+
+        private float maxHp;
+
         public float rollSpeed = 4.0f;
         private float rollTime;
         public AnimationCurve rollSpeedCurve;
@@ -278,6 +293,9 @@ namespace TST
             SetRagdollActive(false);
 
             hitVolume = hitVolumeObject.GetComponent<Volume>();
+
+            // GAME DATA MODEL 에 연동
+            GameDataModel.Singleton.Character = this;
 
             // AI 관련코드 이거 추후에 클래스 나누는 리팩토링 작업이 필요할듯함
             aiSpawnPosition = gameObject.transform.position;

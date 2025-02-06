@@ -15,20 +15,32 @@ namespace TST
         // Start is called before the first frame update
         void Start()
         {
-        
+            linkedCharacter = GameDataModel.Singleton.Character;
         }
 
         // Update is called once per frame
         void Update()
         {
-            //hpText.text = $"{characterStat.currentHp} / {characterStat.maxHp}";
+            if (linkedCharacter == null)
+                return;
 
-            //if (characterStat.currentWeapon != null)
-            //    weaponText.text = $"{characterStat.currentWeapon.name}";
-            //else
-            //    weaponText.text = $"Idle";
+            hpText.text = $"{linkedCharacter.CurrentHp} / {linkedCharacter.MaxHp}";
 
-            //bulletText.text = $"{characterStat.currentBullet} / {characterStat.maxBullet}";
+            if (linkedCharacter.currentWeapon != null)
+                weaponText.text = $"{linkedCharacter.currentWeapon.name}";
+            else
+                weaponText.text = $"Idle";
+
+            if (linkedCharacter.currentWeapon != null)
+                bulletText.text = $"{linkedCharacter.currentWeapon.ammo.CurrentAmmo} / {linkedCharacter.currentWeapon.clipSize}";
+            else
+                bulletText.text = $"None";
+        }
+
+        // 추후 뭐 캐릭터가 늘어난다면 이런식으로 동적 연동을 해야할듯?
+        public void SetLinkedCharacter(CharacterBase character)
+        {
+            linkedCharacter = character;
         }
     }
 }

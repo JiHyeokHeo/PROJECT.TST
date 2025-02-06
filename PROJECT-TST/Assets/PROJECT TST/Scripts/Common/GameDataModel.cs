@@ -8,6 +8,9 @@ namespace TST
     {
         [field: SerializeField] public List<ItemData> ItemDatas { get; private set; } = new List<ItemData>();
 
+        public CharacterBase Character { get => mainController; set => mainController = value; }
+
+        private CharacterBase mainController;
         public void Initialize()
         {
 
