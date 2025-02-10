@@ -5,12 +5,10 @@ using UnityEngine;
 
 namespace TST
 {
-    public class HealingKit : ItemBase
+    public class HealingKitEvent : ItemEventHandler
     {
         public override void UseItem()
         {
-            base.UseItem();
-
             
         }
     }

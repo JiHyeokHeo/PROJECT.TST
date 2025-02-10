@@ -145,7 +145,14 @@ namespace TST
             if (itemDataTemp == null)
                 return false;
 
-            int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemDataTemp.itemID));
+            DFSSearch(slotId, useCount, itemData);
+            
+            return true;
+        }
+
+        public void DFSSearch(int slotId, int useCount, ItemData itemData)
+        {
+            int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
 
             UserItemDTO.UserItemData changedData = null;
             if (existedItemDataIndex >= 0)
@@ -156,25 +163,46 @@ namespace TST
                 Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
 
                 int minimumZone = 0;
-                if (UserItemData.Items[existedItemDataIndex].itemCount - useCount > minimumZone)
+                if (UserItemData.Items[existedItemDataIndex].itemCount - useCount >= minimumZone)
                 {
                     UserItemData.Items[existedItemDataIndex].itemCount -= useCount;
+
+                    for (int i = 0; i < useCount; i++)
+                    {
+                        itemGameData.ItemEventHandler?.UseItem();
+                    }
+
                     changedData = UserItemData.Items[existedItemDataIndex];
                 }
                 else
                 {
+                    // 일단 아이템을 가지고 있는 인덱스 만큼 사용
+                    for (int i = 0; i < UserItemData.Items[existedItemDataIndex].itemCount; i++)
+                    {
+                        itemGameData.ItemEventHandler?.UseItem();
+                    }
+
+                    // 음수로 나올 것 
+                    int remainCount = UserItemData.Items[existedItemDataIndex].itemCount - useCount;
+                    // 일단 사용한 인덱스 만큼은 뺀다.
                     UserItemData.Items[existedItemDataIndex].itemCount = 0;
                     changedData = UserItemData.Items[existedItemDataIndex];
                     UserItemData.Items.RemoveAt(existedItemDataIndex);
+
+                    // 다시 아이템 서칭
+                    existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
+                    if (existedItemDataIndex < 0)
+                        return;
+
+                    DFSSearch(slotId, -remainCount, itemData);
                 }
             }
             else
             {
-                return false;
+                
             }
 
             OnUserItemChangedEvent?.Invoke(changedData);
-            return true;
         }
 
         #region SAVE / LOAD Core Method

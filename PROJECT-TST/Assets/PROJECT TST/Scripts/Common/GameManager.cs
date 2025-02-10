@@ -41,8 +41,8 @@ namespace TST
                 if (targetItemData == null)
                     return;
 
-                GameDataModel.Singleton.GetItemData(targetItemData.itemID, out var itemData);
-                UserDataModel.Singleton.UseInventoryItem(slotId, useCount, itemData);
+                if (GameDataModel.Singleton.GetItemData(targetItemData.itemID, out var itemData))
+                    UserDataModel.Singleton.UseInventoryItem(slotId, useCount, itemData);
             }
         }
 
@@ -51,9 +51,8 @@ namespace TST
         // 유저데이터와 별개로 테스트 하기 위해
         public void AddItem(string itemId, int useCount, bool forceUse = false)
         {
-            GameDataModel.Singleton.GetItemData(itemId, out var itemData);
-
-            UserDataModel.Singleton.AddItemToInventory(itemData);
+            if (GameDataModel.Singleton.GetItemData(itemId, out var itemData))
+                UserDataModel.Singleton.AddItemToInventory(itemData);
         }
 
         public void OnPlayerDead()
