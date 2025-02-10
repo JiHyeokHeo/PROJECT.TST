@@ -19,7 +19,6 @@ namespace TST
         public Dictionary<Key,Value> MakeDict();
     }
 
-    // 만약 string으로 해야한다면 다시 하나 더 팝시다.. 슈ㅜ...뷰ㅠㅠㅠㅠ 힘드렁뉴ㅜ로ㅓ뮤 ㅇ러ㅗㅁㄴㅇㄹ
     [System.Serializable]
     public class SaveLoadDataWrapper<T> : ILoader<int, T> where T : RootDataDTO
     {
@@ -140,13 +139,36 @@ namespace TST
         }
 
         // 여기서 Get을 하면 되려나
-        public void UseInventoryItem()
+        public void UseInventoryItem(string itemId)
         {
+            int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemId));
 
+            UserItemDTO.UserItemData changedData = null;
+            if (existedItemDataIndex >= 0)
+            {
+                bool isExistGameData = GameDataModel.Singleton.GetItemData(itemId, out var itemGameData);
+
+                changedData = UserItemData.Items[existedItemDataIndex];
+                Assert.IsTrue(isExistGameData, $"ItemData {itemId} is not exist in GameDataModel");
+
+                int minimumZone = 0;
+                if (UserItemData.Items[existedItemDataIndex].itemCount - 1 > minimumZone)
+                {
+                    UserItemData.Items[existedItemDataIndex].itemCount -= 1;
+                    changedData = UserItemData.Items[existedItemDataIndex];
+                }
+                else
+                {
+                    UserItemData.Items[existedItemDataIndex].itemCount = 0;
+                    changedData = UserItemData.Items[existedItemDataIndex];
+                    UserItemData.Items.RemoveAt(existedItemDataIndex);
+                }
+            }
+
+            OnUserItemChangedEvent?.Invoke(changedData);
         }
 
         #region SAVE / LOAD Core Method
-
         private SaveLoadDataWrapper<T> LoadData<T>() where T : RootDataDTO
         {
 #if UNITY_EDITOR
