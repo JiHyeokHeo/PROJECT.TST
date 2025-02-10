@@ -37,15 +37,23 @@ namespace TST
             }
             else
             {
-                //var targetItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotId);
-                //if (targetItemData != null && targetItemData.itemCount >= useCount) 
-                //{
-                //    targetItemData.itemCount -= useCount;
-                //}
+                var targetItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotId);
+                if (targetItemData == null)
+                    return;
+
+                GameDataModel.Singleton.GetItemData(targetItemData.itemID, out var itemData);
+                UserDataModel.Singleton.UseInventoryItem(slotId, useCount, itemData);
             }
+        }
 
 
-            // UserDataModel.Singleton.RemoveItemFromInventory(slotId, useCount);
+        [Button()]
+        // 유저데이터와 별개로 테스트 하기 위해
+        public void AddItem(string itemId, int useCount, bool forceUse = false)
+        {
+            GameDataModel.Singleton.GetItemData(itemId, out var itemData);
+
+            UserDataModel.Singleton.AddItemToInventory(itemData);
         }
 
         public void OnPlayerDead()

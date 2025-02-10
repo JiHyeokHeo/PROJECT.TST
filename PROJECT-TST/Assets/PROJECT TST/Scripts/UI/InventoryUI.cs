@@ -83,7 +83,11 @@ namespace TST
             int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
             string itemID = createdItemSlots[index].ItemID;
 
-            UserDataModel.Singleton.UseInventoryItem(itemID);
+            GameDataModel.Singleton.GetItemData(itemID, out var resultData);
+            if (UserDataModel.Singleton.UseInventoryItem(index, 1, resultData))
+            {
+                
+            }
         }
     }
 }

@@ -139,22 +139,26 @@ namespace TST
         }
 
         // 여기서 Get을 하면 되려나
-        public void UseInventoryItem(string itemId)
+        public bool UseInventoryItem(int slotId, int useCount, ItemData itemData)
         {
-            int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemId));
+            var itemDataTemp = UserItemData.Items.Find(x => x.slotID.Equals(slotId));
+            if (itemDataTemp == null)
+                return false;
+
+            int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemDataTemp.itemID));
 
             UserItemDTO.UserItemData changedData = null;
             if (existedItemDataIndex >= 0)
             {
-                bool isExistGameData = GameDataModel.Singleton.GetItemData(itemId, out var itemGameData);
+                bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
 
                 changedData = UserItemData.Items[existedItemDataIndex];
-                Assert.IsTrue(isExistGameData, $"ItemData {itemId} is not exist in GameDataModel");
+                Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
 
                 int minimumZone = 0;
-                if (UserItemData.Items[existedItemDataIndex].itemCount - 1 > minimumZone)
+                if (UserItemData.Items[existedItemDataIndex].itemCount - useCount > minimumZone)
                 {
-                    UserItemData.Items[existedItemDataIndex].itemCount -= 1;
+                    UserItemData.Items[existedItemDataIndex].itemCount -= useCount;
                     changedData = UserItemData.Items[existedItemDataIndex];
                 }
                 else
@@ -164,8 +168,13 @@ namespace TST
                     UserItemData.Items.RemoveAt(existedItemDataIndex);
                 }
             }
+            else
+            {
+                return false;
+            }
 
             OnUserItemChangedEvent?.Invoke(changedData);
+            return true;
         }
 
         #region SAVE / LOAD Core Method
