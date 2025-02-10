@@ -13,6 +13,7 @@ namespace TST
         public System.Action OnInput_ToggleFpsRightButtonTransition;
         public System.Action OnInput_MaintainZoom;
         public System.Action OnInput_ReturnToTps;
+        public System.Action OnInput_InventoryToggle;
 
         private float aimStartTime = 0f;
         private float threshold = 0.25f;
@@ -61,6 +62,11 @@ namespace TST
                 }
             }
             
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                OnInput_InventoryToggle?.Invoke();
+            }
+
             if (Input.GetMouseButtonUp(1))
             {
                 // 만약 견착 모드라면 해제

@@ -27,6 +27,7 @@ namespace TST
         private float currentRecoil = 0.0f;
 
         private float recoilMaxThreshold = 20.0f;
+
         private void Awake()
         {
             linkedCharacter = GetComponent<CharacterBase>();
@@ -52,11 +53,11 @@ namespace TST
             InputSystem.Singleton.OnInput_ToggleFpsRightButtonTransition += OnExcuteFpsZoomTransition;
             InputSystem.Singleton.OnInput_MaintainZoom += OnExecuteMaintainZoom;
             InputSystem.Singleton.OnInput_ReturnToTps += OnExecuteReturnToTps;
+            InputSystem.Singleton.OnInput_InventoryToggle += OnExecuteInventoryUI;
             // += CommandExecuteSkill // input ¿¬µ¿
 
             MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
             mainHud.SetLinkedCharacter(linkedCharacter);
-
             // 
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
             //linkedCharacter.RegisterSkill(0, new CharacterSkill_SlingShot(slingShotData));
@@ -120,7 +121,18 @@ namespace TST
 
         void OnExecuteInventoryUI()
         {
-            UIManager.Show<InventoryUI>(UIList.InventoryUI);
+            var inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
+            if (inventoryUI == null)
+                return;
+
+            if (true == inventoryUI.gameObject.activeSelf)
+            {
+                UIManager.Hide<InventoryUI>(UIList.InventoryUI);
+            }
+            else 
+            {
+                UIManager.Show<InventoryUI>(UIList.InventoryUI);
+            }
         }
 
         private void ReturnToTPSModeCheck()
