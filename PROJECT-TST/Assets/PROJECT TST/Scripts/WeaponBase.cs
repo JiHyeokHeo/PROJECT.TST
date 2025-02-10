@@ -19,8 +19,18 @@ namespace TST
 
         [SerializeField] private WeaponType weaponType;
 
+        public AmmoBase Ammo
+        {
+            get { 
+                if (ammo == null)
+                    return SetPlayerAmmo_Event?.Invoke();
+
+                return ammo;
+            }
+            private set { }
+        }
         public int clipSize = 30;
-        public AmmoBase ammo;
+        private AmmoBase ammo;
         public Transform firePoint;
         public float fireRate = 0.1f; // 연사 속도
         private float lastFireTime; // 마지막 발사 시간
@@ -72,7 +82,7 @@ namespace TST
             if (ammo == null)
                 ammo = SetPlayerAmmo_Event?.Invoke();
 
-            if (ammo.CurrentAmmo <= 0)
+            if (ammo.CurrentAmmo <= clipSize)
             {
                 // 노말만 충전
                 if (ammo.data.name.Contains("Normal"))

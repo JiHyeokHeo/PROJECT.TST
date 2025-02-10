@@ -388,7 +388,7 @@ namespace TST
                 return;
 
             //characterStat.currentWeapon = currentWeapon;
-            currentStat.currentBullet = currentWeapon.ammo.CurrentAmmo;
+            currentStat.currentBullet = currentWeapon.Ammo.CurrentAmmo;
             currentStat.maxBullet = currentWeapon.clipSize;
         }
 
@@ -592,7 +592,7 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
-                    if (!isFireSuccess && currentWeapon.ammo.CurrentAmmo <= 0)
+                    if (!isFireSuccess && currentWeapon.Ammo.CurrentAmmo <= 0)
                     {
                         Reload();
                         return;
@@ -618,7 +618,7 @@ namespace TST
                 {
                     bool isFireSuccess = currentWeapon.Fire();
                     
-                    if (!isFireSuccess && currentWeapon.ammo.CurrentAmmo <= 0)
+                    if (!isFireSuccess && currentWeapon.Ammo.CurrentAmmo <= 0)
                     {
                         Reload();
                         characterController.PauseRecoil();
@@ -697,7 +697,7 @@ namespace TST
             if (isLoot)
                 return;
 
-            if (!isReloading && currentWeapon.ammo.CurrentAmmo != currentWeapon.clipSize)
+            if (!isReloading && currentWeapon.Ammo.CurrentAmmo != currentWeapon.clipSize)
             {
                 isReloading = true;
                 multiParent.SetActive(true);

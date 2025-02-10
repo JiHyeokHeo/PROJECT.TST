@@ -32,7 +32,7 @@ namespace TST
                 weaponText.text = $"Idle";
 
             if (linkedCharacter.currentWeapon != null)
-                bulletText.text = $"{linkedCharacter.currentWeapon.ammo.CurrentAmmo} / {linkedCharacter.currentWeapon.clipSize}";
+                bulletText.text = $"{linkedCharacter.currentWeapon.Ammo.CurrentAmmo} / {linkedCharacter.currentWeapon.clipSize}";
             else
                 bulletText.text = $"None";
         }
