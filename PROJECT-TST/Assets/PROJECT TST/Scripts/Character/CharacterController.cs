@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,16 @@ namespace TST
         private void Awake()
         {
             linkedCharacter = GetComponent<CharacterBase>();
+
+            linkedCharacter.eventHandler.OnDamagedAction += OnLinkedCharacterDamaged;
+        }
+
+        private void OnLinkedCharacterDamaged()
+        {
+            if (linkedCharacter.CurrentHp <= 0)
+            {
+                GameManager.Instance.OnPlayerDead();
+            }
         }
 
         private void Start()
@@ -41,6 +52,14 @@ namespace TST
             InputSystem.Singleton.OnInput_ToggleFpsRightButtonTransition += OnExcuteFpsZoomTransition;
             InputSystem.Singleton.OnInput_MaintainZoom += OnExecuteMaintainZoom;
             InputSystem.Singleton.OnInput_ReturnToTps += OnExecuteReturnToTps;
+            // += CommandExecuteSkill // input ¿¬µ¿
+
+            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
+            mainHud.SetLinkedCharacter(linkedCharacter);
+
+            // 
+            //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
+            //linkedCharacter.RegisterSkill(0, new CharacterSkill_SlingShot(slingShotData));
         }
 
         void OnExecuteJump()
@@ -277,6 +296,11 @@ namespace TST
             linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
             bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
             linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                CommandExecuteSkill(0);
+            }
         }
 
 
@@ -371,6 +395,11 @@ namespace TST
             }
 
             return Mathf.Clamp(angle, min, max);
+        }
+
+        public void CommandExecuteSkill(int index)
+        {
+            linkedCharacter.ExecuteSkill(index);
         }
     }
 }

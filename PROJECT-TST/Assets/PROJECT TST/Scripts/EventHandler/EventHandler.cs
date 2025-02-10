@@ -11,12 +11,17 @@ namespace TST
         public event Action OnDamagedAction;
         public event Action OnDeadAction;
 
-        public CharacterBase LinkCharaceter(CharacterBase linkedCharacter)
+        private void Start()
         {
-            this.linkedCharacter = linkedCharacter;
-
-            return linkedCharacter;
+            linkedCharacter = GetComponent<CharacterBase>();
         }
+
+        //public CharacterBase LinkCharaceter(CharacterBase linkedCharacter)
+        //{
+        //    this.linkedCharacter = linkedCharacter;
+
+        //    return linkedCharacter;
+        //}
 
         public void OnDamaged(float damage, GameObject attacker)
         {

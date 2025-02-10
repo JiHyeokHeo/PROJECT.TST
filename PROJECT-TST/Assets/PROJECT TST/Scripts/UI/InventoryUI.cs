@@ -11,7 +11,7 @@ namespace TST
         [SerializeField] private Transform itemSlotRoot;
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;
 
-        private Dictionary<int, InventoryUI_ItemSlot> createdItemSlots = new Dictionary<int, InventoryUI_ItemSlot>();
+        private List<InventoryUI_ItemSlot> createdItemSlots = new List<InventoryUI_ItemSlot>();
 
         private void Awake()
         {
@@ -34,9 +34,13 @@ namespace TST
             // TODO : 인벤토리에 표기하는 아이템들은 Dictionary<int, InventoryUI_ItemSlot> createdItemSlots 에 저장하고 관리한다.
             // TODO : Dictionary<int, InventoryUI_ItemSlot> 의 int Key 값은 SlotID 와 동일하다.
 
-            if (createdItemSlots.ContainsKey(data.slotID))
+            if (createdItemSlots.Exists(x=>x.ItemSlotID == data.slotID))
             {
-                createdItemSlots[data.slotID].SetItem(data.itemCount);
+                int index = createdItemSlots.FindIndex(x=>x.ItemSlotID == data.slotID);
+                if (index>=0)
+                {
+                    createdItemSlots[data.slotID].SetItem(data.slotID, data.itemCount);
+                }
             }
             else
             {
@@ -50,14 +54,20 @@ namespace TST
                     itemIcon = itemGameData.ItemSprite;
                 }
 
-                newItemSlot.SetItem(itemIcon, data.itemCount);
-                createdItemSlots.Add(data.slotID, newItemSlot);
+                newItemSlot.SetItem(data.slotID, itemIcon, data.itemCount);
+                createdItemSlots.Add(newItemSlot);
             }
         }
 
         public void OnClickCloseButton()
         {
             UIManager.Hide<InventoryUI>(UIList.InventoryUI);
+        }
+
+        public void OnNotifyOnClickItemSlot(InventoryUI_ItemSlot inventoryUI_ItemSlot)
+        {
+            // inventoryUI_ItemSlot.ItemSlotID
+            int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
         }
     }
 }

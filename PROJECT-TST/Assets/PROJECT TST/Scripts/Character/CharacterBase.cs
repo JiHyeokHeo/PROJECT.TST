@@ -99,32 +99,21 @@ namespace TST
         [SerializeField] private CharacterStat maxStat;
         [field: SerializeField] private CharacterStatSetting CharacterStatConfig { get; set; }
 
-        public float CurrentHp { get => currentHp; 
+        public float CurrentHp { get => currentStat.hp; 
             set
             {
-                if (currentHp <= 0f)
+                if (currentStat.hp <= 0f)
                 {
-                    currentHp = 0f;
+                    currentStat.hp = 0f;
                     return;
                 }
 
-                currentHp = value;
+                currentStat.hp = value;
             }
         }
 
-        private float currentHp;
-
         public float MaxHp { get => maxStat.hp;
-            set
-            {
-                if (maxHp <= maxStat.hp)
-                {
-                    maxHp = maxStat.hp;
-                    return;
-                }
-
-                maxHp = value;
-            }
+            private set { }
         }
 
         private float maxHp;
@@ -274,6 +263,8 @@ namespace TST
         }
         #endregion
 
+        List<CharacterSkillBase> characterSkills = new List<CharacterSkillBase>();
+
         private void Awake()
         {
             InitAmmos();
@@ -293,9 +284,6 @@ namespace TST
             SetRagdollActive(false);
 
             hitVolume = hitVolumeObject.GetComponent<Volume>();
-
-            // GAME DATA MODEL 에 연동
-            GameDataModel.Singleton.Character = this;
 
             // AI 관련코드 이거 추후에 클래스 나누는 리팩토링 작업이 필요할듯함
             aiSpawnPosition = gameObject.transform.position;
@@ -358,6 +346,11 @@ namespace TST
 
         private void Update()
         {
+            for (int i =0; i < characterSkills.Count; i++)
+            {
+                
+            }
+
             JumpAndGravity();
             FreeFall();
             CheckGround();
@@ -389,7 +382,7 @@ namespace TST
 
         private void CheckPlayerStatus()
         {
-            currentStat.hp = currentHp;
+            //currentStat.hp = currentHp;
 
             if (currentWeapon == null)
                 return;
@@ -1046,6 +1039,8 @@ namespace TST
             CheckIsHit(true);
 
             eventHandler.OnDamaged(damage, attacker);
+
+          
         }
 
         // 히트 이벤트
@@ -1119,6 +1114,25 @@ namespace TST
             isHit = isHitted;
         }
         #endregion
-      
+
+        public void ExecuteSkill(int index)
+        {
+            // 주의사항. 쿨타임 여부 확인.. 상태 라던가.. 체크 
+
+
+            characterSkills[index].OnExecute(this);
+        }
+
+        public void RegisterSkill(int index, CharacterSkill_SlingShot characterSkill_SlingShot)
+        {
+            if (characterSkills.Count <=0 )
+            {
+                characterSkills.Add(characterSkill_SlingShot);
+            }
+            else
+            {
+                characterSkills[index] = characterSkill_SlingShot;
+            }
+        }
     }
 }

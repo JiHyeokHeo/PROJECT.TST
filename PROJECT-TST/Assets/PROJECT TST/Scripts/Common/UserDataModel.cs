@@ -139,6 +139,11 @@ namespace TST
             OnUserItemChangedEvent?.Invoke(changedData);
         }
 
+        // 여기서 Get을 하면 되려나
+        public void UseInventoryItem()
+        {
+
+        }
 
         #region SAVE / LOAD Core Method
 
@@ -283,6 +288,7 @@ namespace TST
 
             return properties;
         }
+ 
         #endregion
 
         #region Serialize & Deserialize & FindParentProperty

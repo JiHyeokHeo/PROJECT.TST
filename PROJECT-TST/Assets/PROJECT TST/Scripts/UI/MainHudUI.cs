@@ -15,7 +15,7 @@ namespace TST
         // Start is called before the first frame update
         void Start()
         {
-            linkedCharacter = GameDataModel.Singleton.Character;
+            
         }
 
         // Update is called once per frame

@@ -34,8 +34,8 @@ namespace TST
                     break;
                 }
 
+                await UniTask.Delay(3000, true, cancellationToken: cancellationToken);
                 Debug.Log("TestUni");
-                await UniTask.Delay(100, true, cancellationToken: cancellationToken);
             }
         }
     }

@@ -7,10 +7,8 @@ namespace TST
     public class GameDataModel : SingletonBase<GameDataModel>
     {
         [field: SerializeField] public List<ItemData> ItemDatas { get; private set; } = new List<ItemData>();
+        [field: SerializeField] public List<SkillDataSO> SkillDatas { get; private set; } = new List<SkillDataSO>();
 
-        public CharacterBase Character { get => mainController; set => mainController = value; }
-
-        private CharacterBase mainController;
         public void Initialize()
         {
 
@@ -19,6 +17,12 @@ namespace TST
         public bool GetItemData(string itemId, out ItemData resultData)
         {
             resultData = ItemDatas.Find(x => x.ItemID == itemId);
+            return resultData != null;
+        }
+
+        public bool GetSkillData(string skill_id, out SkillData resultData)
+        {
+            resultData = SkillDatas.Find(x => x.SkillData.skillID.Equals(skill_id))?.SkillData;
             return resultData != null;
         }
     }
