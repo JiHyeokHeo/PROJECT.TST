@@ -30,4 +30,11 @@ namespace TST
         public float buffValue;
         public float debuffValue;
     }
+
+    [Serializable]
+    public class AmmoStat : ItemStatBase
+    {
+        public float bulletAmount;
+    }
+
 }

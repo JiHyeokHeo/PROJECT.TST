@@ -30,6 +30,7 @@ namespace TST
         None = 0,
 
         HealingKit,
+        Ammo,
     }
 
     [CreateAssetMenu(fileName = "New Item Data", menuName = "PROJECT TST/Item/Item Data")]
@@ -44,8 +45,11 @@ namespace TST
         [field: SerializeField] public ItemCategory ItemCategory { get; private set; }
         [field: SerializeField] public int ItemSubCategory { get; private set; }
         [field: SerializeField] public int ItemMaxStack { get; private set; } = 1;
+
         [SerializeReference]
         public ItemStatBase ItemStat;
+        [SerializeReference]
+        public ItemStatBase ItemStatSubAdded;
     }
 
     #region ItemDataEditor
@@ -60,25 +64,65 @@ namespace TST
             // 기본 Inspector UI
             DrawDefaultInspector();
 
-            // 카테고리에 따라 ItemStat을 변경
             if (GUILayout.Button("Apply Category"))
             {
+                ApplyCategory(itemData);
+            }
+
+            // 변경 사항 저장
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(itemData);
+                serializedObject.ApplyModifiedProperties();
+            };
+        }
+
+        private void ApplyCategory(ItemData itemData)
+        {
+            bool dataConformed = true;
+
+            if (itemData.ItemStat != null && itemData.ItemStatSubAdded != null)
+            {
+                dataConformed = EditorUtility.DisplayDialog(
+                    "DataChange 확인",
+                    "정말로 바꾸시겠습니까?",
+                    "OK",
+                    "Cancel"
+                );
+            }
+
+            if (dataConformed)
+            {
+                Undo.RecordObject(itemData, "Apply Category Change"); // Undo 지원
                 switch (itemData.ItemCategory)
                 {
                     case ItemCategory.Consumable:
                         itemData.ItemStat = new ConsumableStat();
+                        CheckSubCategory(itemData, itemData.ItemCategory);
                         break;
                     case ItemCategory.Equipment:
                         itemData.ItemStat = new EquipmentStat();
+                        CheckSubCategory(itemData, itemData.ItemCategory);
                         break;
                     case ItemCategory.Material:
                         itemData.ItemStat = new MaterialStat();
+                        CheckSubCategory(itemData, itemData.ItemCategory);
                         break;
                 }
             }
+        }
 
-            // 변경 사항 저장
-            EditorUtility.SetDirty(itemData);
+        private void CheckSubCategory(ItemData itemData, ItemCategory type)
+        {
+            switch (itemData.ItemSubCategory)
+            {
+                case (int)ItemConsumableCategory.Ammo:
+                    itemData.ItemStatSubAdded = new AmmoStat();
+                    break;
+                case (int)ItemConsumableCategory.None:
+                    itemData.ItemStatSubAdded = null;
+                    break;
+            }
         }
     }
     #endregion
