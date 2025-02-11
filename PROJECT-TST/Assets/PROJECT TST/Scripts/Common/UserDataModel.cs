@@ -11,6 +11,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
+using UnityEngine.TextCore.Text;
 
 namespace TST
 {
@@ -139,18 +140,19 @@ namespace TST
         }
 
         // 여기서 Get을 하면 되려나
-        public bool UseInventoryItem(int slotId, int useCount, ItemData itemData)
+        public bool UseInventoryItem(int slotId, int useCount, ItemData itemData, CharacterBase user)
         {
             var itemDataTemp = UserItemData.Items.Find(x => x.slotID.Equals(slotId));
             if (itemDataTemp == null)
                 return false;
 
-            DFSSearch(slotId, useCount, itemData);
+            RecursiveSearch(slotId, useCount, itemData, user);
             
             return true;
         }
 
-        public void DFSSearch(int slotId, int useCount, ItemData itemData)
+        // 이건 추후에 약간 수정 합시다. 예외처리를 조금 더 일찍 해서 재귀 탈출을 빠르게 하는게 좋을듯?
+        public void RecursiveSearch(int slotId, int useCount, ItemData itemData, CharacterBase user)
         {
             int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
 
@@ -169,7 +171,7 @@ namespace TST
 
                     for (int i = 0; i < useCount; i++)
                     {
-                        itemGameData.ItemEventHandler?.UseItem();
+                        itemGameData.OnUseItem?.Invoke(user);
                     }
 
                     changedData = UserItemData.Items[existedItemDataIndex];
@@ -179,7 +181,7 @@ namespace TST
                     // 일단 아이템을 가지고 있는 인덱스 만큼 사용
                     for (int i = 0; i < UserItemData.Items[existedItemDataIndex].itemCount; i++)
                     {
-                        itemGameData.ItemEventHandler?.UseItem();
+                        itemGameData.OnUseItem?.Invoke(user);
                     }
 
                     // 음수로 나올 것 
@@ -194,7 +196,7 @@ namespace TST
                     if (existedItemDataIndex < 0)
                         return;
 
-                    DFSSearch(slotId, -remainCount, itemData);
+                    RecursiveSearch(slotId, -remainCount, itemData,user);
                 }
             }
             else

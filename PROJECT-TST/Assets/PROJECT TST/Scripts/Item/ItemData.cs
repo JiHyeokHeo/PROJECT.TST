@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,9 +38,9 @@ namespace TST
         [field: SerializeField] public string ItemID { get; private set; }
         [field: SerializeField] public string ItemName { get; private set; }
         [field: SerializeField] public GameObject ItemVisualPrefab { get; private set; }
-        [field: SerializeField] public ItemEventHandler ItemEventHandler { get; private set; }
         [field: SerializeField] public Sprite ItemSprite { get; private set; }
 
+        public Action<CharacterBase> OnUseItem;
 
         [field: SerializeField] public ItemCategory ItemCategory { get; private set; }
         [field: SerializeField] public int ItemSubCategory { get; private set; }

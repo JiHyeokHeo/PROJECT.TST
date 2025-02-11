@@ -7,16 +7,28 @@ namespace TST
 {
     public class InventoryUI : UIBase
     {
-
+        public CharacterBase character;
         [SerializeField] private Transform itemSlotRoot;
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;
 
         private List<InventoryUI_ItemSlot> createdItemSlots = new List<InventoryUI_ItemSlot>();
+        private List<InventoryUI_ItemSlot> discardItemSlots = new List<InventoryUI_ItemSlot>();
 
         private void Awake()
         {
             UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
             itemSlotPrefab.gameObject.SetActive(false);
+        }
+
+        public void FixedUpdate()
+        {
+            if (discardItemSlots.Count > 0) 
+            {
+                for(int i = 0; i < discardItemSlots.Count; i++) 
+                    Destroy(discardItemSlots[i], 3.0f);
+
+                discardItemSlots.Clear();
+            }
         }
 
         private void OnEnable()
@@ -48,7 +60,8 @@ namespace TST
                     else
                     {
                         var destroyItemSlot = createdItemSlots[data.slotID].gameObject;
-                        Destroy(destroyItemSlot);
+                        destroyItemSlot.SetActive(false);
+                        discardItemSlots.Add(createdItemSlots[data.slotID]);
                     }
                 }
             }
@@ -85,8 +98,13 @@ namespace TST
 
             if (GameDataModel.Singleton.GetItemData(itemID, out var resultData))
             {
-                UserDataModel.Singleton.UseInventoryItem(index, 1, resultData);
+                UserDataModel.Singleton.UseInventoryItem(index, 1, resultData, character);
             }
+        }
+
+        public void SetLinkedCharacter(CharacterBase character)
+        {
+            this.character = character;
         }
     }
 }

@@ -16,12 +16,14 @@ namespace TST
 
             Debug.Log("<color=#FFFFFF>Item Interacted !!</color>");
 
+            this.ItemData.OnUseItem += UseItem;
+
             UserDataModel.Singleton.AddItemToInventory(ItemData);
         }
 
-        public virtual void UseItem()
+        public virtual void UseItem(CharacterBase user)
         {
-
+            
         }
     }
 }

@@ -58,6 +58,9 @@ namespace TST
 
             MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
             mainHud.SetLinkedCharacter(linkedCharacter);
+
+            InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
+            inventoryUI.SetLinkedCharacter(linkedCharacter);
             // 
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
             //linkedCharacter.RegisterSkill(0, new CharacterSkill_SlingShot(slingShotData));

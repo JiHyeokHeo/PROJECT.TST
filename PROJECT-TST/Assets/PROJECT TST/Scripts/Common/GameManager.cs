@@ -19,6 +19,7 @@ namespace TST
     public partial class GameManager : MonoBehaviour // 중계기 역할
     {
         public static GameManager Instance { get; private set; }
+        [field : SerializeField]public CharacterBase Character { get; private set; }
 
         private void Awake()
         {
@@ -42,7 +43,7 @@ namespace TST
                     return;
 
                 if (GameDataModel.Singleton.GetItemData(targetItemData.itemID, out var itemData))
-                    UserDataModel.Singleton.UseInventoryItem(slotId, useCount, itemData);
+                    UserDataModel.Singleton.UseInventoryItem(slotId, useCount, itemData, Character);
             }
         }
 

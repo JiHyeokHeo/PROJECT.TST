@@ -5,11 +5,11 @@ using UnityEngine;
 
 namespace TST
 {
-    public class HealingKitEvent : ItemEventHandler
+    public class HealingKit : ItemBase
     {
-        public override void UseItem()
+        public override void UseItem(CharacterBase user)
         {
-            
+            Debug.Log("HealingKit Used");
         }
     }
 }
