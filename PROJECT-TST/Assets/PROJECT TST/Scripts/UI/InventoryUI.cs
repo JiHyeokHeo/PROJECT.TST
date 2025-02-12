@@ -18,6 +18,7 @@ namespace TST
         private void Awake()
         {
             UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
+            UserDataModel.Singleton.OnCreatedItemIndexMoveEvent += OnIndexMoveEvent;
             itemSlotPrefab.gameObject.SetActive(false);
 
         }
@@ -43,6 +44,14 @@ namespace TST
             
         }
 
+        private void OnIndexMoveEvent(UserItemDTO.UserItemData data)
+        {
+            if (data == null)
+                return;
+
+            createdItemSlots[data.slotID].SetItem(data.itemID, data.slotID, data.itemCount);
+        }
+
         private void OnChangedUserItemData(UserItemDTO.UserItemData data)
         {
             // TODO : 인벤토리에 표기하는 아이템들은 Dictionary<int, InventoryUI_ItemSlot> createdItemSlots 에 저장하고 관리한다.
@@ -61,9 +70,10 @@ namespace TST
                     }
                     else
                     {
-                        var destroyItemSlot = createdItemSlots[data.slotID].gameObject;
-                        destroyItemSlot.SetActive(false);
-                        discardItemSlots.Add(createdItemSlots[data.slotID]);
+                        var destroyItemSlot = createdItemSlots[data.slotID];
+                        destroyItemSlot.gameObject.SetActive(false);
+                        createdItemSlots.RemoveAt(data.slotID);
+                        discardItemSlots.Add(destroyItemSlot);
                     }
                 }
             }
@@ -106,13 +116,12 @@ namespace TST
             }
         }
 
-        public void OnNotifyOnClickItemSlot(InventoryUI_ItemSlot inventoryUI_ItemSlot, int useCount)
+        public void OnNotifyOnClickItemSlot(string itemId, int useCount)
         {
             // inventoryUI_ItemSlot.ItemSlotID
-            int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
-            string itemID = createdItemSlots[index].ItemID;
+            int index = createdItemSlots.FindLastIndex(x => x.ItemID.Equals(itemId));
 
-            if (GameDataModel.Singleton.GetItemData(itemID, out var resultData))
+            if (GameDataModel.Singleton.GetItemData(itemId, out var resultData))
             {
                 UserDataModel.Singleton.UseInventoryItem(index, useCount, resultData, character);
             }

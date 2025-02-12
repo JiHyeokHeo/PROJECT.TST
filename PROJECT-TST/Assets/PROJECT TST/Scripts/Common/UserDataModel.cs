@@ -6,12 +6,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.TextCore.Text;
+using static TST.UserItemDTO;
 
 namespace TST
 {
@@ -42,6 +44,7 @@ namespace TST
         [field: SerializeField] public UserItemDTO UserItemData { get; private set; } = new UserItemDTO();
 
         public event System.Action<UserItemDTO.UserItemData> OnUserItemChangedEvent;
+        public event System.Action<UserItemDTO.UserItemData> OnCreatedItemIndexMoveEvent;
 
         public void Initialize()
         {
@@ -165,7 +168,7 @@ namespace TST
                 Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
 
                 int minimumZone = 0;
-                if (UserItemData.Items[existedItemDataIndex].itemCount - useCount >= minimumZone)
+                if (UserItemData.Items[existedItemDataIndex].itemCount - useCount > minimumZone)
                 {
                     UserItemData.Items[existedItemDataIndex].itemCount -= useCount;
 
@@ -189,22 +192,33 @@ namespace TST
                     // 일단 사용한 인덱스 만큼은 뺀다.
                     UserItemData.Items[existedItemDataIndex].itemCount = 0;
                     changedData = UserItemData.Items[existedItemDataIndex];
+
+                    // 일단 기존의 뺀 데이터에 대한 정보 보내기
+                    OnUserItemChangedEvent?.Invoke(changedData);
+
+                    // 다른 데이터들도 싹다 정보를 보내서 슬롯 이동을 알려줘야함
+                    if (existedItemDataIndex < UserItemData.Items.Count - 1)
+                    {
+                        for (int i = existedItemDataIndex + 1; i < UserItemData.Items.Count; i++)
+                        {
+                            UserItemData.Items[i].slotID -= 1;
+                            changedData = UserItemData.Items[i];
+                            OnCreatedItemIndexMoveEvent?.Invoke(changedData);
+                            OnUserItemChangedEvent?.Invoke(changedData);
+                        }
+                    }
+
+                    // 슬롯이동 다 시킨 후 특정 인덱스 삭제
                     UserItemData.Items.RemoveAt(existedItemDataIndex);
 
-                    // 다시 아이템 서칭
-                    existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
-                    if (existedItemDataIndex < 0)
-                        return;
-
                     RecursiveSearch(slotId, -remainCount, itemData,user);
-                }
-            }
-            else
-            {
-                
-            }
 
-            OnUserItemChangedEvent?.Invoke(changedData);
+                    return;
+                }
+            } 
+
+            if (existedItemDataIndex >= 0)
+                OnUserItemChangedEvent?.Invoke(changedData);
         }
 
         #region SAVE / LOAD Core Method

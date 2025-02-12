@@ -45,7 +45,7 @@ namespace TST
 
         public void OnClickUseButton()
         {
-            inventoryUI.OnNotifyOnClickItemSlot(itemSlot, int.Parse(InputField.text));
+            inventoryUI.OnNotifyOnClickItemSlot(selectedItemId, int.Parse(InputField.text));
         }
 
         public void OnClickCancelButton()
