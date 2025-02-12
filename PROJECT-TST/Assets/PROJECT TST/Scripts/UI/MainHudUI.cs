@@ -10,6 +10,7 @@ namespace TST
         public TextMeshProUGUI hpText;
         public TextMeshProUGUI weaponText;
         public TextMeshProUGUI bulletText;
+        public TextMeshProUGUI bulletTypeText;
         public CharacterBase linkedCharacter;
 
         // Start is called before the first frame update
@@ -27,14 +28,17 @@ namespace TST
             hpText.text = $"{linkedCharacter.CurrentHp} / {linkedCharacter.MaxHp}";
 
             if (linkedCharacter.currentWeapon != null)
+            {
                 weaponText.text = $"{linkedCharacter.currentWeapon.name}";
+                bulletText.text = $"{linkedCharacter.currentWeapon.CurrentBulletAmount} / {linkedCharacter.currentWeapon.MaxBulletAmount}";
+                bulletTypeText.text = $"{linkedCharacter.currentWeapon.GetFirstLoadedBulletName()}";
+            }
             else
+            {
                 weaponText.text = $"Idle";
-
-            if (linkedCharacter.currentWeapon != null)
-                bulletText.text = $"{linkedCharacter.currentWeapon.Ammo.CurrentAmmo} / {linkedCharacter.currentWeapon.clipSize}";
-            else
                 bulletText.text = $"None";
+                bulletTypeText.text = $"None";
+            }
         }
 
         // 추후 뭐 캐릭터가 늘어난다면 이런식으로 동적 연동을 해야할듯?

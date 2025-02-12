@@ -13,8 +13,8 @@ namespace TST
         public float runSpeed;
         public float sprintSpeed;
         public float rotateSpeed;
-        public float currentBullet;
-        public float maxBullet;
+        public int currentBullet;
+        public int maxBullet;
         public float hp;
     }
 }

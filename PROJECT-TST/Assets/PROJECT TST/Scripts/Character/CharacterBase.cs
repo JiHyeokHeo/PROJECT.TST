@@ -275,7 +275,9 @@ namespace TST
         {
             InitAmmos();
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
+            primaryWeapon.InitializeWeapon(rifleAmmos);
             subWeapon.SetPlayerAmmo_Event += SetPistolAmmo;
+            subWeapon.InitializeWeapon(pistolAmmos);
 
             // 추후에 이걸 클래스화로 나누자
             maxStat = CharacterStatConfig.CharacterStatData.Max;
@@ -388,14 +390,11 @@ namespace TST
 
         private void CheckPlayerStatus()
         {
-            //currentStat.hp = currentHp;
-
             if (currentWeapon == null)
                 return;
-
-            //characterStat.currentWeapon = currentWeapon;
-            currentStat.currentBullet = currentWeapon.Ammo.CurrentAmmo;
-            currentStat.maxBullet = currentWeapon.clipSize;
+            
+            currentStat.currentBullet = currentWeapon.CurrentBulletAmount;
+            currentStat.maxBullet = currentWeapon.MaxBulletAmount;
         }
 
         // ArmedComplete대신 함수로 하나 빼서 작업하자 // IsAimingRigFunctable 같은 거로 생성하자
@@ -598,11 +597,11 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
-                    if (!isFireSuccess && currentWeapon.Ammo.CurrentAmmo <= 0)
-                    {
-                        Reload();
-                        return;
-                    }
+                    //if (!isFireSuccess && currentWeapon.Ammo.CurrentAmmo <= 0)
+                    //{
+                    //    Reload();
+                    //    return;
+                    //}
                 }
             }
         }
@@ -624,7 +623,7 @@ namespace TST
                 {
                     bool isFireSuccess = currentWeapon.Fire();
                     
-                    if (!isFireSuccess && currentWeapon.Ammo.CurrentAmmo <= 0)
+                    if (!isFireSuccess && currentWeapon.CurrentBulletAmount <= 0)
                     {
                         Reload();
                         characterController.PauseRecoil();
@@ -703,7 +702,10 @@ namespace TST
             if (isLoot)
                 return;
 
-            if (!isReloading && currentWeapon.Ammo.CurrentAmmo != currentWeapon.clipSize)
+            if (currentWeapon.CurrentBulletAmount == currentWeapon.MaxBulletAmount)
+                return;
+
+            if (!isReloading && currentWeapon.CurrentBulletAmount != currentWeapon.clipSize)
             {
                 isReloading = true;
                 multiParent.SetActive(true);

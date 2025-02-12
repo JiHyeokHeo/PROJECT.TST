@@ -9,17 +9,35 @@ namespace TST
         public AmmoData data;
 
         #region Bullet
-        public int CurrentAmmo { get => currentAmmo; set => currentAmmo = value; }
-        public int MaxAmmo { get => maxAmmo; private set { } }
+        public int LoadedBulletAmount
+        {
+            get => loadedBulletAmount;
+            set => loadedBulletAmount = value;
+        }
 
+        public int CurrentAmmo { get => currentAmmo;
+            set
+            {
+                currentAmmo = value;
+                //if (currentAmmo >= maxAmmo)
+                //{
+                //    currentAmmo = maxAmmo;
+                //    return;
+                //}
+            }
+        }
+        //public int MaxAmmo { get => maxAmmo; set => maxAmmo = value; }
+
+        private int loadedBulletAmount;
         private int currentAmmo; // ÇöÀç ÅºÃ¢¿¡ ³²Àº ÃÑ¾Ë ¼ö
-        private int maxAmmo;
+        //private int maxAmmo;
         #endregion
 
         public void Initialize()
         {
-            currentAmmo = data.initAmmoCount;
-            maxAmmo = data.maxAmmoCount;
+            currentAmmo = 0;
+            loadedBulletAmount = 0;
+            //maxAmmo = 0;
         }
     }
 }

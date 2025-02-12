@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8523720464465870509}
   - component: {fileID: 5025531926107024108}
   m_Layer: 0
-  m_Name: Drop Item [Bullet]
+  m_Name: Drop Item [APC Bullet AR]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb0abc132ea99b49baad3290ecf7e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemData>k__BackingField: {fileID: 11400000, guid: fa6e328becfa1b243a0562e548761d51,
+  <ItemData>k__BackingField: {fileID: 11400000, guid: 0d355c0f011200644be5007e8cec674d,
     type: 2}

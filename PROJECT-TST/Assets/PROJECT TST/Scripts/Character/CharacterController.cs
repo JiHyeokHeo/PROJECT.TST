@@ -357,7 +357,7 @@ namespace TST
      
         public void AddRecoil()
         {
-            if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.Ammo.CurrentAmmo > 0)
+            if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.CurrentBulletAmount > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
                 //OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = true;

@@ -21,12 +21,12 @@ namespace TST
     [CreateAssetMenu(fileName = "New Ammo Data", menuName = "PROJECT TST/Ammo/Ammo Data")]
     public class AmmoData : ScriptableObject
     {
-        [field: SerializeField] public int DataID { get; private set; } 
+        [field: SerializeField] public string DataID { get; private set; } 
+        [field: SerializeField] public string DataName { get; private set; } 
         [field: SerializeField] public GameObject AmmoVisualPrefab { get; private set; } 
         [field: SerializeField] public GameObject AmmoEffectPrefab { get; private set; } 
         [field: SerializeField] public AmmoType AmmoType { get; private set; }
         [field: SerializeField] public AmmoEquipMentType AmmoEquipmentType { get; private set; }
         [field: SerializeField] public int initAmmoCount { get; private set; }
-        [field: SerializeField] public int maxAmmoCount { get; private set; }
     }
 }

@@ -34,7 +34,9 @@ namespace TST
     [Serializable]
     public class AmmoStat : ItemStatBase
     {
-        public float bulletAmount;
+        public int bulletAmount;
+        [field: SerializeField] public AmmoType AmmoType { get; private set; }
+        [field: SerializeField] public AmmoEquipMentType AmmoEquipmentType { get; private set; }
     }
 
 }
