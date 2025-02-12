@@ -181,8 +181,9 @@ namespace TST
                 }
                 else
                 {
+                    int maxcnt = UserItemData.Items[existedItemDataIndex].itemCount;
                     // 일단 아이템을 가지고 있는 인덱스 만큼 사용
-                    for (int i = 0; i < UserItemData.Items[existedItemDataIndex].itemCount; i++)
+                    for (int i = 0; i < maxcnt; i++)
                     {
                         itemGameData.OnUseItem?.Invoke(user);
                     }

@@ -612,6 +612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Bullet] (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1254,6 +1259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drop Item [Bullet] (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4824,6 +4834,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Bullet]
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5659,6 +5674,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Bullet] (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5727,6 +5747,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Bullet] (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5794,6 +5819,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drop Item [Bullet] (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6517,74 +6547,6 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
---- !u!1001 &1777643280
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.38
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1545457695485625592, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
-        type: 3}
-      propertyPath: m_Name
-      value: Drop Item [Bullet] (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0b6e64d0fa338144b81e77a7579a0524, type: 3}
 --- !u!1001 &1783708714
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6922,6 +6884,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drop Item [Bullet] (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 0b6e64d0fa338144b81e77a7579a0524,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7464,7 +7431,6 @@ SceneRoots:
   - {fileID: 1203225877}
   - {fileID: 848166927}
   - {fileID: 206998916}
-  - {fileID: 1777643280}
   - {fileID: 296131132}
   - {fileID: 1857433471}
   - {fileID: 1317365842}

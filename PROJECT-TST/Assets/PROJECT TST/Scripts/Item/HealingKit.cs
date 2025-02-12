@@ -8,6 +8,12 @@ namespace TST
 {
     public class HealingKit : ItemBase
     {
+        protected override void RegisterItemUseAction()
+        {
+            if (ItemData.OnUseItem == null)
+                ItemData.OnUseItem += UseItem;
+        }
+
         public override void UseItem(CharacterBase user)
         {
             ItemStatBase stat = ItemData.ItemStat;

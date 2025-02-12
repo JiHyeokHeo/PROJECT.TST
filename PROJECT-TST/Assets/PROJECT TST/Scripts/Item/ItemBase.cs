@@ -5,18 +5,21 @@ using UnityEngine;
 
 namespace TST
 {
-    public class ItemBase : MonoBehaviour, IInteractable
+    public abstract class ItemBase : MonoBehaviour, IInteractable
     {
         [field: SerializeField] public ItemData ItemData { get; private set; }
         public string Message => ItemData.ItemName;
+
+        public void Awake()
+        {
+            RegisterItemUseAction();
+        }
 
         public void Interact(GameObject go)
         {
             Destroy(gameObject);
 
             Debug.Log("<color=#FFFFFF>Item Interacted !!</color>");
-
-            this.ItemData.OnUseItem += UseItem;
 
             UserDataModel.Singleton.AddItemToInventory(ItemData);
         }
@@ -25,5 +28,7 @@ namespace TST
         {
             
         }
+
+        protected abstract void RegisterItemUseAction();
     }
 }

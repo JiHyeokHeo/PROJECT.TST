@@ -4,18 +4,12 @@ using UnityEngine;
 
 namespace TST
 {
-    public class BulletItem : MonoBehaviour
+    public class BulletItem : ItemBase
     {
-        // Start is called before the first frame update
-        void Start()
+        protected override void RegisterItemUseAction()
         {
-        
+            
         }
-
-        // Update is called once per frame
-        void Update()
-        {
         
-        }
     }
 }

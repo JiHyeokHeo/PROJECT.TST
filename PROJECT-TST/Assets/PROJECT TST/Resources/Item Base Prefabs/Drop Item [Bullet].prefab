@@ -40,10 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1545457695485625592}
-  - component: {fileID: 404558536086381152}
   - component: {fileID: 4144545839606644234}
   - component: {fileID: 8523720464465870509}
-  - component: {fileID: 1162077117379427463}
+  - component: {fileID: 5025531926107024108}
   m_Layer: 0
   m_Name: Drop Item [Bullet]
   m_TagString: Untagged
@@ -67,20 +66,6 @@ Transform:
   - {fileID: 7144208829267110860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &404558536086381152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523369397229085836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91685d275b89a540929f300b07ec088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ItemData>k__BackingField: {fileID: 11400000, guid: 0b0beef7247c5fc499e9e0113830da29,
-    type: 2}
 --- !u!114 &4144545839606644234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +99,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1162077117379427463
+--- !u!114 &5025531926107024108
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,6 +108,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6523369397229085836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeebcb282bb10ea439e4d1e410aab9b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bb0abc132ea99b49baad3290ecf7e8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ItemData>k__BackingField: {fileID: 11400000, guid: fa6e328becfa1b243a0562e548761d51,
+    type: 2}

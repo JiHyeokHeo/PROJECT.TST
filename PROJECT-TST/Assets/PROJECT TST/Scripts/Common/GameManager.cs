@@ -56,6 +56,13 @@ namespace TST
                 UserDataModel.Singleton.AddItemToInventory(itemData);
         }
 
+        [Button()]
+        // 유저데이터와 별개로 테스트 하기 위해
+        public void SetPlayerHp(float hp)
+        {
+            Character.CurrentHp = hp;
+        }
+
         public void OnPlayerDead()
         {
             // # Game Over UI를 띄운다 등등..

@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1545457695485625592}
-  - component: {fileID: 404558536086381152}
   - component: {fileID: 4144545839606644234}
   - component: {fileID: -4643501121056526286}
+  - component: {fileID: 4664097684993693540}
   m_Layer: 0
   m_Name: Drop Item [Healing Kit]
   m_TagString: Untagged
@@ -66,20 +66,6 @@ Transform:
   - {fileID: 7144208829267110860}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &404558536086381152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6523369397229085836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b91685d275b89a540929f300b07ec088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <ItemData>k__BackingField: {fileID: 11400000, guid: 1b7a92d921063234aa52b0bdc073b9e9,
-    type: 2}
 --- !u!114 &4144545839606644234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,3 +99,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4664097684993693540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6523369397229085836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad67a901357c97d4fab3b8631faadba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ItemData>k__BackingField: {fileID: 11400000, guid: 1b7a92d921063234aa52b0bdc073b9e9,
+    type: 2}
