@@ -14,10 +14,12 @@ namespace TST
         private List<InventoryUI_ItemSlot> createdItemSlots = new List<InventoryUI_ItemSlot>();
         private List<InventoryUI_ItemSlot> discardItemSlots = new List<InventoryUI_ItemSlot>();
 
+
         private void Awake()
         {
             UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
             itemSlotPrefab.gameObject.SetActive(false);
+
         }
 
         public void FixedUpdate()
@@ -102,9 +104,35 @@ namespace TST
             }
         }
 
+        public void OnNotifyOnClickItemSlot(InventoryUI_ItemSlot inventoryUI_ItemSlot, int useCount)
+        {
+            // inventoryUI_ItemSlot.ItemSlotID
+            int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
+            string itemID = createdItemSlots[index].ItemID;
+
+            if (GameDataModel.Singleton.GetItemData(itemID, out var resultData))
+            {
+                UserDataModel.Singleton.UseInventoryItem(index, useCount, resultData, character);
+            }
+        }
+
         public void SetLinkedCharacter(CharacterBase character)
         {
             this.character = character;
+        }
+
+        public int GetItemIndex(InventoryUI_ItemSlot inventoryUI_ItemSlot)
+        {
+            int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
+            
+            return index;
+        }
+
+        public string GetItemID(InventoryUI_ItemSlot inventoryUI_ItemSlot)
+        {
+            string itemID = createdItemSlots[GetItemIndex(inventoryUI_ItemSlot)].ItemID;
+
+            return itemID;
         }
     }
 }

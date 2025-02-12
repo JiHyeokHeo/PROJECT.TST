@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TST
@@ -33,12 +34,26 @@ namespace TST
         [SerializeField] private Image itemIcon;
         [SerializeField] private TextMeshProUGUI itemCountText;
 
+        public void Update()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+
+            }
+
+        }
+
         public void OnClickItemSlot()
         {
             // Inventory UI - ItemSlot Button Click Event
 
             parentUI.OnNotifyOnClickItemSlot(this);
+        }
 
+        public void OnClickRightButton()
+        {
+            InventoryMenuUI inventoryMenuUI = UIManager.Show<InventoryMenuUI>(UIList.InventoryMenuUI);
+            inventoryMenuUI.OnNotifyOnRightButtonClick(this); // 아이템 정보 전달
         }
     }
 }
