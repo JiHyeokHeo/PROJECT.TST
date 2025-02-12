@@ -37,6 +37,7 @@ namespace TST
         private static void InternalBoot()
         {
             Main.Singleton.Initialize();
+            OptionManager.Singleton.Initialize();
             // TODO : Custom BootStrapper Logic
             SceneManager.LoadScene(SceneType.Ingame.ToString(), LoadSceneMode.Single);
             UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);

@@ -13,7 +13,7 @@ namespace TST
         public System.Action OnInput_ToggleFpsRightButtonTransition;
         public System.Action OnInput_MaintainZoom;
         public System.Action OnInput_ReturnToTps;
-        public System.Action OnInput_InventoryToggle;
+        public System.Func<bool> OnInput_InventoryToggle;
 
         private float aimStartTime = 0f;
         private float threshold = 0.25f;
@@ -64,7 +64,9 @@ namespace TST
             
             if (Input.GetKeyDown(KeyCode.I))
             {
-                OnInput_InventoryToggle?.Invoke();
+                bool? isCursorOn = OnInput_InventoryToggle?.Invoke();
+                if (isCursorOn != null)
+                    SetCursorVisible((bool)isCursorOn);
             }
 
             if (Input.GetMouseButtonUp(1))
@@ -115,10 +117,11 @@ namespace TST
             {
                 SetCursorVisible(true);
             }
-            else
-            {
-                SetCursorVisible(false);
-            }
+        }
+
+        public void ChangeCursorVisibility(bool isVisible)
+        {
+            SetCursorVisible(isVisible);
         }
     }
 }

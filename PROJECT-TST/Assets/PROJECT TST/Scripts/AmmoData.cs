@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace TST
 {
+    public enum AmmoEquipMentType
+    {
+        AR,
+        Pistol,
+        Sniper,
+    }
+
     public enum AmmoType
     {
         Normal, // ¿œπ›≈∫
@@ -18,6 +25,7 @@ namespace TST
         [field: SerializeField] public GameObject AmmoVisualPrefab { get; private set; } 
         [field: SerializeField] public GameObject AmmoEffectPrefab { get; private set; } 
         [field: SerializeField] public AmmoType AmmoType { get; private set; }
+        [field: SerializeField] public AmmoEquipMentType AmmoEquipmentType { get; private set; }
         [field: SerializeField] public int initAmmoCount { get; private set; }
         [field: SerializeField] public int maxAmmoCount { get; private set; }
     }

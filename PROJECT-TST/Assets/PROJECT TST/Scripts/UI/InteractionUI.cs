@@ -9,12 +9,16 @@ namespace TST
     {
         public static InteractionUI Instance => UIManager.Singleton.GetUI<InteractionUI>(UIList.InteractionUI);
 
-        public void ShowInteractionItem()
+        public void ShowInteractionItem(IInteractable interactable)
         {
             // TODO : itemRoot를 활성화한다.
             // TODO : itemNameText를 설정한다.
             itemRoot.gameObject.SetActive(true);
 
+            if (interactable is ItemBase itemBase)
+            {
+                nameText.text = itemBase.ItemData.ItemName;
+            }
         }
 
         public void HideInteractionItem()

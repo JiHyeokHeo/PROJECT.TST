@@ -63,6 +63,11 @@ namespace TST
             return (T)Enum.Parse(typeof(T), e);
         }
 
+        public void Initialize()
+        {
+            
+        }
+
         private void Start()
         {
             // 초기값 크로스헤어 A 

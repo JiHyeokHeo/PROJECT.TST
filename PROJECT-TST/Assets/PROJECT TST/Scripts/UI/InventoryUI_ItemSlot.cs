@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -34,21 +35,47 @@ namespace TST
         [SerializeField] private Image itemIcon;
         [SerializeField] private TextMeshProUGUI itemCountText;
 
+
+        public void Awake()
+        {
+        }
+        private StandaloneInputModule inputModule;
         public void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject()
-                && Input.GetMouseButtonDown(1))
-
+            if (Input.GetMouseButtonDown(1))
             {
-                OnClickRightButton();
+                if (IsPointerOverMostTopGameObject())
+                {
+                    OnClickRightButton();
+                }
+            }
+        }
+
+        private bool IsPointerOverMostTopGameObject()
+        {
+            PointerEventData eventData = new PointerEventData(EventSystem.current)
+            {
+                position = Input.mousePosition
+            };
+
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, results);
+
+            if (results.Count > 0)
+            {
+                // 가장 위의 UI 요소만 사용
+                GameObject topUIElement = results[0].gameObject;
+
+                // 현재 객체가 가장 위에 있는 UI 요소인지 확인
+                return topUIElement == gameObject;
             }
 
+            return false;
         }
 
         public void OnClickItemSlot()
         {
             // Inventory UI - ItemSlot Button Click Event
-
             parentUI.OnNotifyOnClickItemSlot(this);
         }
 
@@ -56,6 +83,8 @@ namespace TST
         {
             InventoryMenuUI inventoryMenuUI = UIManager.Show<InventoryMenuUI>(UIList.InventoryMenuUI);
             inventoryMenuUI.OnNotifyOnRightButtonClick(this); // 아이템 정보 전달
+
+            InputSystem.Singleton.ChangeCursorVisibility(true);
         }
     }
 }

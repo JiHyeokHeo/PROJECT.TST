@@ -122,19 +122,21 @@ namespace TST
             CameraSystem.Instance.IsCameraZoom = false;
         }
 
-        void OnExecuteInventoryUI()
+        bool OnExecuteInventoryUI()
         {
             var inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
             if (inventoryUI == null)
-                return;
+                return false;
 
             if (true == inventoryUI.gameObject.activeSelf)
             {
                 UIManager.Hide<InventoryUI>(UIList.InventoryUI);
+                return false;
             }
             else 
             {
                 UIManager.Show<InventoryUI>(UIList.InventoryUI);
+                return true;
             }
         }
 
@@ -181,7 +183,7 @@ namespace TST
 
             if (currentInteractables.Count > 0)
             {
-                InteractionUI.Instance.ShowInteractionItem();
+                InteractionUI.Instance.ShowInteractionItem(currentInteractables[0]);
             }
             else
             {
@@ -265,9 +267,9 @@ namespace TST
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                for (int i = 0; i < currentInteractables.Count; i++)
+                if (currentInteractables.Count > 0) 
                 {
-                    currentInteractables[i].Interact(linkedCharacter.gameObject);
+                    currentInteractables[0].Interact(linkedCharacter.gameObject);
                 }
             }
 

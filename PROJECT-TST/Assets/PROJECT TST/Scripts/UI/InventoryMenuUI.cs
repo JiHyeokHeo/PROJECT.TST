@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace TST
 {
-    public class InventoryMenuUI : UIBase
+    public class InventoryMenuUI : UIBase, IPointerDownHandler, IDragHandler
     {
         [field : SerializeField] public Transform MenuRoot { get; private set; }
         [field : SerializeField] public TMP_InputField InputField { get; private set; }
@@ -21,6 +22,8 @@ namespace TST
         private string selectedItemId;
         private void Awake()
         {
+            if (targetTransform == null)
+                targetTransform = transform.Find("PopUp");
             inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
         }
 
@@ -48,6 +51,26 @@ namespace TST
         public void OnClickCancelButton()
         {
             MenuRoot.gameObject.SetActive(false);
+        }
+
+        private Transform targetTransform; // 이동될 UI
+
+        private Vector2 startingPoint;
+        private Vector2 moveBegin;
+        private Vector2 moveOffset;
+
+        // 드래그 시작 위치 지정
+        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+        {
+            startingPoint = targetTransform.position;
+            moveBegin = eventData.position;
+        }
+
+        // 드래그 : 마우스 커서 위치로 이동
+        void IDragHandler.OnDrag(PointerEventData eventData)
+        {
+            moveOffset = eventData.position - moveBegin;
+            targetTransform.position = startingPoint + moveOffset;
         }
     }
 }

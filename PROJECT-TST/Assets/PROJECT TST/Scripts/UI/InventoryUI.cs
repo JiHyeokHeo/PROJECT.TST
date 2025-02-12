@@ -89,6 +89,8 @@ namespace TST
 
         public void OnClickCloseButton()
         {
+            InputSystem.Singleton.ChangeCursorVisibility(false);
+            UIManager.Hide<InventoryMenuUI>(UIList.InventoryMenuUI);
             UIManager.Hide<InventoryUI>(UIList.InventoryUI);
         }
 
