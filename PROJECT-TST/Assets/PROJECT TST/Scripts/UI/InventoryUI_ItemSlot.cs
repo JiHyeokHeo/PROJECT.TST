@@ -36,9 +36,11 @@ namespace TST
 
         public void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
+            if (EventSystem.current.IsPointerOverGameObject()
+                && Input.GetMouseButtonDown(1))
 
+            {
+                OnClickRightButton();
             }
 
         }

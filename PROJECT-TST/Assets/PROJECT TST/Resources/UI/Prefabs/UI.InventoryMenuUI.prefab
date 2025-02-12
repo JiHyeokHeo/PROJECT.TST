@@ -302,9 +302,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MenuRoot>k__BackingField: {fileID: 590283616380947903}
   <InputField>k__BackingField: {fileID: 1605733057140549996}
-  useButton: {fileID: 0}
-  cancelButton: {fileID: 0}
-  itemNameText: {fileID: 0}
+  useButton: {fileID: 1271102689608168754}
+  cancelButton: {fileID: 4271678921678551966}
+  itemNameText: {fileID: 4467770170063730608}
 --- !u!1 &4750990630544536291
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &590283616380947903
 RectTransform:
   m_ObjectHideFlags: 0
