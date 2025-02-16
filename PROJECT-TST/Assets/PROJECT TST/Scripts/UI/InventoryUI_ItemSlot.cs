@@ -1,3 +1,4 @@
+using Gpm.Ui;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,10 +9,33 @@ using UnityEngine.UI;
 
 namespace TST
 {
-    public class InventoryUI_ItemSlot : MonoBehaviour
+    public class InventoryUI_ItemData : InfiniteScrollData
+    {
+        public int itemSlotId;
+        public int itemCount;
+        public ItemData itemData;
+    }
+
+    public class InventoryUI_ItemSlot : InfiniteScrollItem
     {
         public int ItemSlotID => itemSlotID;
         public string ItemID => itemID;
+
+        private InventoryUI_ItemData inventoryItemData;
+
+        public override void UpdateData(InfiniteScrollData scrollData)
+        {
+            base.UpdateData(scrollData);
+
+            gameObject.SetActive(true);
+            inventoryItemData = (InventoryUI_ItemData)scrollData;
+
+            SetItem(
+                inventoryItemData.itemData.ItemID,
+                inventoryItemData.itemSlotId,
+                inventoryItemData.itemData.ItemSprite,
+                inventoryItemData.itemCount);
+        }
 
         public void SetItem(string itemId, int itemSlotId, int count)
         {
@@ -76,13 +100,13 @@ namespace TST
         public void OnClickItemSlot()
         {
             // Inventory UI - ItemSlot Button Click Event
-            parentUI.OnNotifyOnClickItemSlot(this);
+            parentUI.OnNotifyOnClickItemSlot(inventoryItemData);
         }
 
         public void OnClickRightButton()
         {
             InventoryMenuUI inventoryMenuUI = UIManager.Show<InventoryMenuUI>(UIList.InventoryMenuUI);
-            inventoryMenuUI.OnNotifyOnRightButtonClick(this); // 아이템 정보 전달
+            inventoryMenuUI.OnNotifyOnRightButtonClick(inventoryItemData); // 아이템 정보 전달
 
             InputSystem.Singleton.ChangeCursorVisibility(true);
         }

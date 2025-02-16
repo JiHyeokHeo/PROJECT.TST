@@ -23,8 +23,14 @@ namespace TST
 
         private void Awake()
         {
+            Instance = this;
             AwakeVariable(); // Awake 동시 사용을 못하기에 해결하는 방식
             //AwakeEvent();
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
         }
 
         [Button()]
@@ -43,7 +49,7 @@ namespace TST
                     return;
 
                 if (GameDataModel.Singleton.GetItemData(targetItemData.itemID, out var itemData))
-                    UserDataModel.Singleton.UseInventoryItem(slotId, useCount, itemData, Character);
+                    UserDataModel.Singleton.UseInventoryItem(itemData, useCount);
             }
         }
 

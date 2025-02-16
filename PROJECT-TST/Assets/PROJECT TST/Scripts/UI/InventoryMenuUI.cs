@@ -19,7 +19,8 @@ namespace TST
         private InventoryUI inventoryUI;
 
         private InventoryUI_ItemSlot itemSlot;
-        private string selectedItemId;
+        private InventoryUI_ItemData selectedItemData;
+
         private void Awake()
         {
             if (targetTransform == null)
@@ -27,25 +28,18 @@ namespace TST
             inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
         }
 
-        public void Update()
-        {
-
-
-        }
-
-        public void OnNotifyOnRightButtonClick(InventoryUI_ItemSlot itemSlot)
+        public void OnNotifyOnRightButtonClick(InventoryUI_ItemData inventoryItemData)
         {
             MenuRoot.gameObject.SetActive(true);
+            selectedItemData = inventoryItemData;
 
             // 슬롯에서부터 아이템 정보 받은 것으로 Text 및 데이터 받아오기
-            this.itemSlot = itemSlot;
-            selectedItemId = inventoryUI.GetItemID(itemSlot);
-            itemNameText.text = selectedItemId;
+            itemNameText.text = selectedItemData.itemData.ItemID; 
         }
 
         public void OnClickUseButton()
         {
-            inventoryUI.OnNotifyOnClickItemSlot(selectedItemId, int.Parse(InputField.text));
+            inventoryUI.OnNotifyOnClickItemSlot(selectedItemData.itemData.ItemID, int.Parse(InputField.text));
         }
 
         public void OnClickCancelButton()

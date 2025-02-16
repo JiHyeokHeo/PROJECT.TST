@@ -40,11 +40,21 @@ namespace TST
             OptionManager.Singleton.Initialize();
             // TODO : Custom BootStrapper Logic
             SceneManager.LoadScene(SceneType.Ingame.ToString(), LoadSceneMode.Single);
-            UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
-            UIManager.Show<MainHudUI>(UIList.MainUI);
-            UIManager.Show<InteractionUI>(UIList.InteractionUI);
-            UIManager.Show<InventoryUI>(UIList.InventoryUI);
+
+            Main.Singleton.StartCoroutine(DelayBoot());
+
+            IEnumerator DelayBoot()
+            {
+                yield return new WaitForEndOfFrame();
+                yield return new WaitForEndOfFrame();
+
+                UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
+                UIManager.Show<MainHudUI>(UIList.MainUI);
+                UIManager.Show<InteractionUI>(UIList.InteractionUI);
+                UIManager.Show<InventoryUI>(UIList.InventoryUI);
+            }
         }
+
     }
 }
 #endif

@@ -6,13 +6,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.InputSystem;
-using UnityEngine.TextCore.Text;
 using static TST.UserItemDTO;
 
 namespace TST
@@ -48,7 +45,7 @@ namespace TST
 
         public void Initialize()
         {
-            //IngamePlayerData = LoadData<IngamePlayerDataDTO>().MakeDict();
+            IngamePlayerData = LoadData<IngamePlayerDataDTO>().MakeDict();
             //ingameMonsterData = LoadData<IngameMonsterDataDTO>().MakeDict();
         }
 
@@ -143,19 +140,19 @@ namespace TST
         }
 
         // 여기서 Get을 하면 되려나
-        public bool UseInventoryItem(int slotId, int useCount, ItemData itemData, CharacterBase user)
+        public bool UseInventoryItem(ItemData itemData, int useCount)
         {
-            var itemDataTemp = UserItemData.Items.Find(x => x.slotID.Equals(slotId));
+            var itemDataTemp = UserItemData.Items.Find(x => x.itemID.Equals(itemData.ItemID));
             if (itemDataTemp == null)
                 return false;
 
-            RecursiveSearch(slotId, useCount, itemData, user);
+            RecursiveSearch(itemData, useCount);
             
             return true;
         }
 
         // 이건 추후에 약간 수정 합시다. 예외처리를 조금 더 일찍 해서 재귀 탈출을 빠르게 하는게 좋을듯?
-        public void RecursiveSearch(int slotId, int useCount, ItemData itemData, CharacterBase user)
+        public void RecursiveSearch(ItemData itemData, int useCount)
         {
             int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
 
@@ -172,21 +169,11 @@ namespace TST
                 {
                     UserItemData.Items[existedItemDataIndex].itemCount -= useCount;
 
-                    for (int i = 0; i < useCount; i++)
-                    {
-                        itemGameData.OnUseItem?.Invoke(user);
-                    }
-
                     changedData = UserItemData.Items[existedItemDataIndex];
                 }
                 else
                 {
                     int maxcnt = UserItemData.Items[existedItemDataIndex].itemCount;
-                    // 일단 아이템을 가지고 있는 인덱스 만큼 사용
-                    for (int i = 0; i < maxcnt; i++)
-                    {
-                        itemGameData.OnUseItem?.Invoke(user);
-                    }
 
                     // 음수로 나올 것 
                     int remainCount = UserItemData.Items[existedItemDataIndex].itemCount - useCount;
@@ -204,16 +191,13 @@ namespace TST
                         {
                             UserItemData.Items[i].slotID -= 1;
                             changedData = UserItemData.Items[i];
-                            OnCreatedItemIndexMoveEvent?.Invoke(changedData);
                             OnUserItemChangedEvent?.Invoke(changedData);
                         }
                     }
 
                     // 슬롯이동 다 시킨 후 특정 인덱스 삭제
                     UserItemData.Items.RemoveAt(existedItemDataIndex);
-
-                    RecursiveSearch(slotId, -remainCount, itemData,user);
-
+                    RecursiveSearch(itemData, -remainCount); 
                     return;
                 }
             } 

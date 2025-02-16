@@ -7,6 +7,8 @@ namespace TST
 {
     public class CharacterController : MonoBehaviour
     {
+        public static CharacterController Instance { get; private set;}
+
         public CharacterBase linkedCharacter;
         public Transform cameraPivot;
         public Transform fpsCameraPivot;
@@ -30,9 +32,14 @@ namespace TST
 
         private void Awake()
         {
+            Instance = this;
             linkedCharacter = GetComponent<CharacterBase>();
-
             linkedCharacter.eventHandler.OnDamagedAction += OnLinkedCharacterDamaged;
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
         }
 
         private void OnLinkedCharacterDamaged()
@@ -146,10 +153,7 @@ namespace TST
                 CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
         }
 
-        private void OnDestroy()
-        {
-            //InputSystem.Singleton.OnInput_HelpPopupToggle -= OnExecuteHelpPopup;
-        }
+     
 
         //void OnExecuteHelpPopup()
         //{

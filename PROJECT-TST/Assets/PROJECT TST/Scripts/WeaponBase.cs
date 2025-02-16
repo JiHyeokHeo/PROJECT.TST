@@ -114,11 +114,12 @@ namespace TST
             if (ammo == null)
                 ammo = SetPlayerAmmo_Event?.Invoke();
 
+            // 무한 while
             while (CurrentBulletAmount < clipSize)
             {
                 if (SetPlayerAmmo_Event == null)
                         break;
-
+                
                 // 일단 내가 가지고 있는 특수탄 부터 장착
                 ammo = SetPlayerAmmo_Event?.Invoke();
 

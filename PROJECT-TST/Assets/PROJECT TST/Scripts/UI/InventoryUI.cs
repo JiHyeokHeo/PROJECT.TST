@@ -1,3 +1,4 @@
+using Gpm.Ui;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,48 +11,50 @@ namespace TST
         public CharacterBase character;
         [SerializeField] private Transform itemSlotRoot;
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;
-
-        private List<InventoryUI_ItemSlot> createdItemSlots = new List<InventoryUI_ItemSlot>();
-        private List<InventoryUI_ItemSlot> discardItemSlots = new List<InventoryUI_ItemSlot>();
-
+        [SerializeField] private InfiniteScroll infiniteScroll;
 
         private void Awake()
         {
             UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
-            UserDataModel.Singleton.OnCreatedItemIndexMoveEvent += OnIndexMoveEvent;
             itemSlotPrefab.gameObject.SetActive(false);
-
         }
 
         public void FixedUpdate()
         {
-            if (discardItemSlots.Count > 0) 
-            {
-                for(int i = 0; i < discardItemSlots.Count; i++) 
-                    Destroy(discardItemSlots[i], 3.0f);
 
-                discardItemSlots.Clear();
-            }
         }
 
         private void OnEnable()
         {
             // TODO : UserDataModel의 UserItemData에 있는 아이템 데이터를 읽고, 인벤토리에 표기해준다.
+            GameManager.Instance.OnUsedItem += RefreshInventory;
+
+            RefreshInventory(null, 0);
         }
 
         private void OnDisable()
         {
-            
+            GameManager.Instance.OnUsedItem -= RefreshInventory;
         }
 
-        private void OnIndexMoveEvent(UserItemDTO.UserItemData data)
+        private void RefreshInventory(ItemData itemData, int count)
         {
-            if (data == null)
-                return;
+            infiniteScroll.ClearData();
 
-            createdItemSlots[data.slotID].SetItem(data.itemID, data.slotID, data.itemCount);
+            for (int i = 0; i < UserDataModel.Singleton.UserItemData.Items.Count; i++)
+            {
+                InventoryUI_ItemData inventoryItemData = new InventoryUI_ItemData();
+                if (GameDataModel.Singleton.GetItemData(UserDataModel.Singleton.UserItemData.Items[i].itemID, out var itemGameData))
+                {
+                    inventoryItemData.itemSlotId = UserDataModel.Singleton.UserItemData.Items[i].slotID;
+                    inventoryItemData.itemData = itemGameData;
+                    inventoryItemData.itemCount = UserDataModel.Singleton.UserItemData.Items[i].itemCount;
+                }
+
+                infiniteScroll.InsertData(inventoryItemData);
+            }
         }
-
+  
         private void OnChangedUserItemData(UserItemDTO.UserItemData data)
         {
             // TODO : 인벤토리에 표기하는 아이템들은 Dictionary<int, InventoryUI_ItemSlot> createdItemSlots 에 저장하고 관리한다.
@@ -59,42 +62,15 @@ namespace TST
             if (data == null)
                 return;
 
-            if (createdItemSlots.Exists(x=>x.ItemSlotID == data.slotID))
+            InventoryUI_ItemData itemData = new InventoryUI_ItemData();
+            if (GameDataModel.Singleton.GetItemData(data.itemID, out var itemGameData))
             {
-                int index = createdItemSlots.FindIndex(x=>x.ItemSlotID == data.slotID);
-                if (index>=0)
-                {
-                    if (data.itemCount > 0)
-                    {
-                        createdItemSlots[data.slotID].SetItem(data.itemID, data.slotID, data.itemCount);
-                    }
-                    else
-                    {
-                        var destroyItemSlot = createdItemSlots[data.slotID];
-                        destroyItemSlot.gameObject.SetActive(false);
-                        createdItemSlots.RemoveAt(data.slotID);
-                        discardItemSlots.Add(destroyItemSlot);
-                    }
-                }
+                itemData.itemSlotId = data.slotID;
+                itemData.itemData = itemGameData;
+                itemData.itemCount = data.itemCount;
             }
-            else
-            {
-                if (data.itemCount > 0)
-                {
-                    // TODO : 새로운 인벤토리의 Visual 아이템 슬롯을 만들어준다.
-                    var newItemSlot = Instantiate(itemSlotPrefab, itemSlotRoot);
-                    newItemSlot.gameObject.SetActive(true);
 
-                    Sprite itemIcon = null;
-                    if (GameDataModel.Singleton.GetItemData(data.itemID, out var itemGameData))
-                    {
-                        itemIcon = itemGameData.ItemSprite;
-                    }
-
-                    newItemSlot.SetItem(data.itemID, data.slotID, itemIcon, data.itemCount);
-                    createdItemSlots.Add(newItemSlot);
-                }
-            }
+            infiniteScroll.InsertData(itemData);
         }
 
         public void OnClickCloseButton()
@@ -104,46 +80,22 @@ namespace TST
             UIManager.Hide<InventoryUI>(UIList.InventoryUI);
         }
 
-        public void OnNotifyOnClickItemSlot(InventoryUI_ItemSlot inventoryUI_ItemSlot)
+        public void OnNotifyOnClickItemSlot(InventoryUI_ItemData inventoryItemData)
         {
-            // inventoryUI_ItemSlot.ItemSlotID
-            int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
-            string itemID = createdItemSlots[index].ItemID;
-
-            if (GameDataModel.Singleton.GetItemData(itemID, out var resultData))
-            {
-                UserDataModel.Singleton.UseInventoryItem(index, 1, resultData, character);
-            }
+            GameManager.Instance.UseItem(inventoryItemData.itemData);
         }
 
         public void OnNotifyOnClickItemSlot(string itemId, int useCount)
         {
-            // inventoryUI_ItemSlot.ItemSlotID
-            int index = createdItemSlots.FindLastIndex(x => x.ItemID.Equals(itemId));
-
-            if (GameDataModel.Singleton.GetItemData(itemId, out var resultData))
+            if (GameDataModel.Singleton.GetItemData(itemId, out ItemData resultData))
             {
-                UserDataModel.Singleton.UseInventoryItem(index, useCount, resultData, character);
+                GameManager.Instance.UseItem(resultData, useCount);
             }
         }
 
         public void SetLinkedCharacter(CharacterBase character)
         {
             this.character = character;
-        }
-
-        public int GetItemIndex(InventoryUI_ItemSlot inventoryUI_ItemSlot)
-        {
-            int index = createdItemSlots.IndexOf(inventoryUI_ItemSlot);
-            
-            return index;
-        }
-
-        public string GetItemID(InventoryUI_ItemSlot inventoryUI_ItemSlot)
-        {
-            string itemID = createdItemSlots[GetItemIndex(inventoryUI_ItemSlot)].ItemID;
-
-            return itemID;
         }
     }
 }
