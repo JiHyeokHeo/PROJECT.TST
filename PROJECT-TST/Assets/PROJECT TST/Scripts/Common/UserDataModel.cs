@@ -45,7 +45,7 @@ namespace TST
 
         public void Initialize()
         {
-            IngamePlayerData = LoadData<IngamePlayerDataDTO>().MakeDict();
+            //IngamePlayerData = LoadData<IngamePlayerDataDTO>().MakeDict();
             //ingameMonsterData = LoadData<IngameMonsterDataDTO>().MakeDict();
         }
 

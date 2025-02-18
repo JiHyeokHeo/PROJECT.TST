@@ -108,13 +108,14 @@ namespace TST
                     return;
                 }
 
+                currentStat.hp = value;
+
                 if (CurrentHp >= maxStat.hp)
                 {
                     currentStat.hp = maxStat.hp;
                     return;
                 }
 
-                currentStat.hp = value;
             }
         }
 
