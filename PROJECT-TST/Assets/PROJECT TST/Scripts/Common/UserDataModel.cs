@@ -184,16 +184,16 @@ namespace TST
                     // 일단 기존의 뺀 데이터에 대한 정보 보내기
                     OnUserItemChangedEvent?.Invoke(changedData);
 
-                    // 다른 데이터들도 싹다 정보를 보내서 슬롯 이동을 알려줘야함
-                    if (existedItemDataIndex < UserItemData.Items.Count - 1)
-                    {
-                        for (int i = existedItemDataIndex + 1; i < UserItemData.Items.Count; i++)
-                        {
-                            UserItemData.Items[i].slotID -= 1;
-                            changedData = UserItemData.Items[i];
-                            OnUserItemChangedEvent?.Invoke(changedData);
-                        }
-                    }
+                    //// 다른 데이터들도 싹다 정보를 보내서 슬롯 이동을 알려줘야함
+                    //if (existedItemDataIndex < UserItemData.Items.Count - 1)
+                    //{
+                    //    for (int i = existedItemDataIndex + 1; i < UserItemData.Items.Count; i++)
+                    //    {
+                    //        UserItemData.Items[i].slotID -= 1;
+                    //        changedData = UserItemData.Items[i];
+                    //        OnUserItemChangedEvent?.Invoke(changedData);
+                    //    }
+                    //}
 
                     // 슬롯이동 다 시킨 후 특정 인덱스 삭제
                     UserItemData.Items.RemoveAt(existedItemDataIndex);

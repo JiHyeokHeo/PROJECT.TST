@@ -11,12 +11,15 @@ namespace TST
     public partial class GameManager : MonoBehaviour
     {
         public event System.Action<ItemData, int> OnUsedItem;
+        public event System.Action<ItemData> OnEquipItem;
 
         public void UseItem(ItemData itemData, int count = 1)
         {
             switch (itemData.ItemCategory)
             {
                 case ItemCategory.Equipment:
+                    EquipmentItem(itemData, count);
+                    OnEquipItem?.Invoke(itemData);
                     break;
                 case ItemCategory.Material:
                     break;
@@ -32,7 +35,30 @@ namespace TST
             OnUsedItem?.Invoke(itemData, count);
         }
 
-        private void UseConsumable(ItemData itemData, int category, int count = 1)
+        private void EquipmentItem(ItemData itemData, int count = 1)
+        {
+            switch (itemData.ItemSubCategory) 
+            {
+                case (int)ItemEquipmentCategory.Helmet:
+                    Debug.Log("Equip Helmet");
+                    break;
+                case (int)ItemEquipmentCategory.Weapon:
+                    Debug.Log("Equip Weapon");
+                    break;
+                case (int)ItemEquipmentCategory.Gloves:
+                    Debug.Log("Equip Gloves");
+                    break;
+                case (int)ItemEquipmentCategory.Armor:
+                    Debug.Log("Equip Armor");
+                    break;
+                case (int)ItemEquipmentCategory.Shoes:
+                    Debug.Log("Equip Shoes");
+                    break;
+
+            }
+        }
+
+        private void UseConsumable(ItemData itemData, int count = 1)
         {
             switch (itemData.ItemSubCategory)
             {

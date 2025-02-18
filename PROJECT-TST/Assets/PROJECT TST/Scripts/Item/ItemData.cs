@@ -16,12 +16,11 @@ namespace TST
     public enum ItemEquipmentCategory
     {
         None = 0,
-
+        Helmet,
+        Gloves,
         Weapon,
-
-        //Armor,
-        //Shoes,
-        //Shield,
+        Armor,
+        Shoes,
     }
 
     public enum ItemConsumableCategory

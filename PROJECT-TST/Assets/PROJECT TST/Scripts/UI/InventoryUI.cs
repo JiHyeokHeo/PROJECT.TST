@@ -13,6 +13,8 @@ namespace TST
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;
         [SerializeField] private InfiniteScroll infiniteScroll;
 
+        private List<InventoryUI_ItemData> inventoryDatas = new List<InventoryUI_ItemData>();
+
         private void Awake()
         {
             UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
@@ -62,15 +64,32 @@ namespace TST
             if (data == null)
                 return;
 
-            InventoryUI_ItemData itemData = new InventoryUI_ItemData();
-            if (GameDataModel.Singleton.GetItemData(data.itemID, out var itemGameData))
+            // 만약에 데이터를 가지고 있다면 데이터 정보 변경후 인피니티 스크롤 업데이트 후 리턴
+            int existIndex = inventoryDatas.FindLastIndex(x => x.itemSlotId.Equals(data.slotID));
+            if (existIndex >= 0)
             {
-                itemData.itemSlotId = data.slotID;
-                itemData.itemData = itemGameData;
-                itemData.itemCount = data.itemCount;
+                var exisitedInventoryData = inventoryDatas[existIndex];
+                ChangeItemData(exisitedInventoryData, data);
+                infiniteScroll.UpdateData(exisitedInventoryData);
+                return;
             }
 
+            // 데이터를 가지고 있지 않다면 데이터 Add
+            InventoryUI_ItemData itemData = new InventoryUI_ItemData();
+            ChangeItemData(itemData, data);
+
+            inventoryDatas.Add(itemData);
             infiniteScroll.InsertData(itemData);
+        }
+
+        private void ChangeItemData(InventoryUI_ItemData itemData, UserItemDTO.UserItemData receiveData)
+        {
+            if (GameDataModel.Singleton.GetItemData(receiveData.itemID, out ItemData itemGameData))
+            {
+                itemData.itemSlotId = receiveData.slotID;
+                itemData.itemData = itemGameData;
+                itemData.itemCount = receiveData.itemCount;
+            }
         }
 
         public void OnClickCloseButton()
