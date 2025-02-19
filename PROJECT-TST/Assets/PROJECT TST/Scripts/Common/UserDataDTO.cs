@@ -60,5 +60,18 @@ namespace TST
 
         public List<UserItemData> Items = new List<UserItemData>();
     }
+
+    [System.Serializable]
+    public class PlayerEquipmentDTO : UserDataDTO
+    {
+        [System.Serializable]
+        public class UserItemData
+        {
+            public int equipUIslotID; // 0 1 2 3 4 ∏”∏Æ ¿Â∞© √— æ∆∏” Ω≈πﬂ
+            public string itemID;
+        }
+
+        public List<UserItemData> equipItems = new List<UserItemData>();
+    }
 }
     

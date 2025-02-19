@@ -75,7 +75,7 @@ namespace TST
         public void Update()
         {
             if (ammo != null)
-                Debug.Log($"{ammo.data.name}");
+                //Debug.Log($"{ammo.data.name}");
 
             if (ammo == null)
                 ammo = SetPlayerAmmo_Event?.Invoke();

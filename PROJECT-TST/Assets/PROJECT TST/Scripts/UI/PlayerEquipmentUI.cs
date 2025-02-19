@@ -8,12 +8,13 @@ namespace TST
     {
         public CharacterBase character;
 
+        public List<PlayerEquipmentUI_Slot> playerEquipmentUI_Slots = new List<PlayerEquipmentUI_Slot>();
         public void Awake()
         {
-            
+            UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += OnChangedUserEquipmentItemData;
         }
 
-        private void OnEnable()
+        public void OnChangedUserEquipmentItemData(PlayerEquipmentDTO.UserItemData playerEquipData)
         {
 
         }
@@ -23,11 +24,10 @@ namespace TST
             GameManager.Instance.UseItem(inventoryItemData.itemData);
         }
 
-        public void LinkCharacter(CharacterBase character)
+        public void SetLinkedCharacter(CharacterBase character)
         {
             this.character = character;
         }
 
-        
     }
 }

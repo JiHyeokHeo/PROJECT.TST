@@ -23,7 +23,9 @@ namespace TST
         Indicator_UI,
         InventoryUI,
         InventoryMenuUI,
+        InventoryEquipMenuUI,
         InteractionUI,
+        PlayerEquipmentUI,
         DamageNumberUI,
 
         UI_POPUP_END,

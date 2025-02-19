@@ -14,8 +14,9 @@ namespace TST
     [Serializable]
     public class EquipmentStat : ItemStatBase
     {
-        public int attackPower;
-        public int defensePower;
+        public float attackPower;
+        public float defensePower;
+        public float shield;
     }
 
     [Serializable]

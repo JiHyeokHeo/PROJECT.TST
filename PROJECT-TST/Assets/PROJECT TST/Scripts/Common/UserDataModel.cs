@@ -39,9 +39,11 @@ namespace TST
         [field: SerializeField] public Dictionary<int, IngameMonsterDataDTO> ingameMonsterData { get; private set; } = new Dictionary<int, IngameMonsterDataDTO> ();
 
         [field: SerializeField] public UserItemDTO UserItemData { get; private set; } = new UserItemDTO();
+        [field: SerializeField] public PlayerEquipmentDTO PlayerEquipmentData { get; private set; } = new PlayerEquipmentDTO();
 
         public event System.Action<UserItemDTO.UserItemData> OnUserItemChangedEvent;
-        public event System.Action<UserItemDTO.UserItemData> OnCreatedItemIndexMoveEvent;
+
+        public event System.Action<PlayerEquipmentDTO.UserItemData> OnPlayerEquipmentChanagedEvent;
 
         public void Initialize()
         {
@@ -146,13 +148,68 @@ namespace TST
             if (itemDataTemp == null)
                 return false;
 
-            RecursiveSearch(itemData, useCount);
+            /*bool isSucceed =*/ RecursiveSearch(itemData, useCount);
             
+            //if (isSucceed && itemData.ItemCategory == ItemCategory.Equipment)
+            //{
+            //    EquipItem(itemData, useCount);
+            //}
+
             return true;
         }
 
+        private bool isEquipListInitialized = false;
+        private void InitializeEquipmentList(ItemData itemData)
+        {
+            isEquipListInitialized = true;
+            PlayerEquipmentData.equipItems.Clear();
+
+            // 빈깡통 equipment 슬롯만치 미리 채워두고
+            for (int i = 0; i < (int)ItemEquipmentCategory.End - 1; i ++ )
+            {
+                PlayerEquipmentDTO.UserItemData data = new PlayerEquipmentDTO.UserItemData();
+                PlayerEquipmentData.equipItems.Add(data);
+            }
+        }
+
+        private bool EquipItem(ItemData itemData, int useCount = 1)
+        {
+            if (!isEquipListInitialized)
+                InitializeEquipmentList(itemData);
+
+            int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x=>x.itemID.Equals(itemData.ItemID));  
+
+            if (existedEquipItemDataIndex >= 0)
+            {
+                PlayerEquipmentDTO.UserItemData changedData = null;
+
+                bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
+
+                Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
+
+                int slotIndex = itemData.ItemSubCategory;
+
+                // 5 4
+                bool isRanageOverIndex = PlayerEquipmentData.equipItems.Count > slotIndex;
+                if (isRanageOverIndex)
+                {
+                    Assert.IsTrue(isRanageOverIndex, $"PlayerEquipmentData 의 인덱스 범위가 초과하였습니다");
+                    return false;
+                }
+
+                changedData = PlayerEquipmentData.equipItems[slotIndex];
+                changedData.itemID = itemData.ItemID;
+                changedData.equipUIslotID = itemData.ItemSubCategory - 1;
+
+                OnPlayerEquipmentChanagedEvent?.Invoke(changedData);
+                return true;
+            }
+
+            return false;
+        }
+
         // 이건 추후에 약간 수정 합시다. 예외처리를 조금 더 일찍 해서 재귀 탈출을 빠르게 하는게 좋을듯?
-        public void RecursiveSearch(ItemData itemData, int useCount)
+        private void RecursiveSearch(ItemData itemData, int useCount)
         {
             int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
 
@@ -184,18 +241,6 @@ namespace TST
                     // 일단 기존의 뺀 데이터에 대한 정보 보내기
                     OnUserItemChangedEvent?.Invoke(changedData);
 
-                    //// 다른 데이터들도 싹다 정보를 보내서 슬롯 이동을 알려줘야함
-                    //if (existedItemDataIndex < UserItemData.Items.Count - 1)
-                    //{
-                    //    for (int i = existedItemDataIndex + 1; i < UserItemData.Items.Count; i++)
-                    //    {
-                    //        UserItemData.Items[i].slotID -= 1;
-                    //        changedData = UserItemData.Items[i];
-                    //        OnUserItemChangedEvent?.Invoke(changedData);
-                    //    }
-                    //}
-
-                    // 슬롯이동 다 시킨 후 특정 인덱스 삭제
                     UserItemData.Items.RemoveAt(existedItemDataIndex);
                     RecursiveSearch(itemData, -remainCount); 
                     return;
@@ -203,7 +248,12 @@ namespace TST
             } 
 
             if (existedItemDataIndex >= 0)
+            { 
                 OnUserItemChangedEvent?.Invoke(changedData);
+                //return true;
+            }
+
+            //return false;
         }
 
         #region SAVE / LOAD Core Method

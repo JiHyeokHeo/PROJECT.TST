@@ -61,37 +61,22 @@ namespace TST
         {
             // TODO : 인벤토리에 표기하는 아이템들은 Dictionary<int, InventoryUI_ItemSlot> createdItemSlots 에 저장하고 관리한다.
             // TODO : Dictionary<int, InventoryUI_ItemSlot> 의 int Key 값은 SlotID 와 동일하다.
+
             if (data == null)
                 return;
 
-            // 만약에 데이터를 가지고 있다면 데이터 정보 변경후 인피니티 스크롤 업데이트 후 리턴
-            int existIndex = inventoryDatas.FindLastIndex(x => x.itemSlotId.Equals(data.slotID));
-            if (existIndex >= 0)
-            {
-                var exisitedInventoryData = inventoryDatas[existIndex];
-                ChangeItemData(exisitedInventoryData, data);
-                infiniteScroll.UpdateData(exisitedInventoryData);
-                return;
-            }
-
-            // 데이터를 가지고 있지 않다면 데이터 Add
             InventoryUI_ItemData itemData = new InventoryUI_ItemData();
-            ChangeItemData(itemData, data);
-
-            inventoryDatas.Add(itemData);
-            infiniteScroll.InsertData(itemData);
-        }
-
-        private void ChangeItemData(InventoryUI_ItemData itemData, UserItemDTO.UserItemData receiveData)
-        {
-            if (GameDataModel.Singleton.GetItemData(receiveData.itemID, out ItemData itemGameData))
+            if (GameDataModel.Singleton.GetItemData(data.itemID, out var itemGameData))
             {
-                itemData.itemSlotId = receiveData.slotID;
+                itemData.itemSlotId = data.slotID;
                 itemData.itemData = itemGameData;
-                itemData.itemCount = receiveData.itemCount;
+                itemData.itemCount = data.itemCount;
             }
-        }
+            infiniteScroll.InsertData(itemData);
 
+            RefreshInventory(null, 0);
+        }
+ 
         public void OnClickCloseButton()
         {
             InputSystem.Singleton.ChangeCursorVisibility(false);
@@ -103,6 +88,13 @@ namespace TST
         {
             GameManager.Instance.UseItem(inventoryItemData.itemData);
         }
+
+        public void OnNotifyOnClickEquipItemSlot(InventoryUI_ItemData inventoryItemData)
+        {
+            
+            OnNotifyOnClickItemSlot(inventoryItemData);
+        }
+
 
         public void OnNotifyOnClickItemSlot(string itemId, int useCount)
         {

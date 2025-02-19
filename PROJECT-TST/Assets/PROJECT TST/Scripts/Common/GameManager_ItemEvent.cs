@@ -11,7 +11,7 @@ namespace TST
     public partial class GameManager : MonoBehaviour
     {
         public event System.Action<ItemData, int> OnUsedItem;
-        public event System.Action<ItemData> OnEquipItem;
+        public event System.Action<ItemData> OnChangedEquipment;
 
         public void UseItem(ItemData itemData, int count = 1)
         {
@@ -19,7 +19,7 @@ namespace TST
             {
                 case ItemCategory.Equipment:
                     EquipmentItem(itemData, count);
-                    OnEquipItem?.Invoke(itemData);
+                    OnChangedEquipment?.Invoke(itemData);
                     break;
                 case ItemCategory.Material:
                     break;
@@ -54,7 +54,6 @@ namespace TST
                 case (int)ItemEquipmentCategory.Shoes:
                     Debug.Log("Equip Shoes");
                     break;
-
             }
         }
 

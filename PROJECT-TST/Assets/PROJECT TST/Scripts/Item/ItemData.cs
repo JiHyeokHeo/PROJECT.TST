@@ -21,6 +21,7 @@ namespace TST
         Weapon,
         Armor,
         Shoes,
+        End,
     }
 
     public enum ItemConsumableCategory

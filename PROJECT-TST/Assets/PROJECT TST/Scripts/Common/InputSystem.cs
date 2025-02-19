@@ -14,6 +14,7 @@ namespace TST
         public System.Action OnInput_MaintainZoom;
         public System.Action OnInput_ReturnToTps;
         public System.Func<bool> OnInput_InventoryToggle;
+        public System.Func<bool> OnInput_EquipmentToggle;
 
         private float aimStartTime = 0f;
         private float threshold = 0.25f;
@@ -65,6 +66,13 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.I))
             {
                 bool? isCursorOn = OnInput_InventoryToggle?.Invoke();
+                if (isCursorOn != null)
+                    SetCursorVisible((bool)isCursorOn);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                bool? isCursorOn = OnInput_EquipmentToggle?.Invoke();   
                 if (isCursorOn != null)
                     SetCursorVisible((bool)isCursorOn);
             }

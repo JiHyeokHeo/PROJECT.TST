@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 1545457695485625592}
   - component: {fileID: 4144545839606644234}
   - component: {fileID: -4643501121056526286}
-  - component: {fileID: 4664097684993693540}
+  - component: {fileID: 7261402424221442664}
   m_Layer: 0
   m_Name: Drop Item [Healing Kit]
   m_TagString: Untagged
@@ -99,7 +99,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4664097684993693540
+--- !u!114 &7261402424221442664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6523369397229085836}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad67a901357c97d4fab3b8631faadba9, type: 3}
+  m_Script: {fileID: 11500000, guid: b91685d275b89a540929f300b07ec088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <ItemData>k__BackingField: {fileID: 11400000, guid: 1b7a92d921063234aa52b0bdc073b9e9,

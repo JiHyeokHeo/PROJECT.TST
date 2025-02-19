@@ -16,12 +16,22 @@ namespace TST
             linkedCharacter = GetComponent<CharacterBase>();
         }
 
-        //public CharacterBase LinkCharaceter(CharacterBase linkedCharacter)
-        //{
-        //    this.linkedCharacter = linkedCharacter;
+        public void OnEnable()
+        {
+            GameManager.Instance.OnChangedEquipment += RefreshEquipment;
+        }
 
-        //    return linkedCharacter;
-        //}
+        public void OnDisable()
+        {
+            GameManager.Instance.OnChangedEquipment -= RefreshEquipment;
+        }
+
+        // 스탯 전환 ㄱㄱ
+        public void RefreshEquipment(ItemData itemdata)
+        {
+            //
+            Debug.Log("장비 전환 시작");
+        }
 
         public void OnDamaged(float damage, GameObject attacker)
         {

@@ -63,7 +63,7 @@ namespace TST
         public void Awake()
         {
         }
-        private StandaloneInputModule inputModule;
+        
         public void Update()
         {
             if (Input.GetMouseButtonDown(1))
@@ -100,13 +100,25 @@ namespace TST
         public void OnClickItemSlot()
         {
             // Inventory UI - ItemSlot Button Click Event
-            parentUI.OnNotifyOnClickItemSlot(inventoryItemData);
+            if (inventoryItemData.itemData.ItemCategory == ItemCategory.Consumable)
+                parentUI.OnNotifyOnClickItemSlot(inventoryItemData);
+
+            if (inventoryItemData.itemData.ItemCategory == ItemCategory.Equipment)
+                parentUI.OnNotifyOnClickItemSlot(inventoryItemData);
         }
 
         public void OnClickRightButton()
         {
-            InventoryMenuUI inventoryMenuUI = UIManager.Show<InventoryMenuUI>(UIList.InventoryMenuUI);
-            inventoryMenuUI.OnNotifyOnRightButtonClick(inventoryItemData); // 아이템 정보 전달
+            if (inventoryItemData.itemData.ItemCategory == ItemCategory.Equipment)
+            {
+                InventoryEquipMenuUI invenEquipmentUI = UIManager.Show<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
+                invenEquipmentUI.OnNotifyOnRightButtonClick(inventoryItemData);
+            }
+            else
+            {
+                InventoryMenuUI inventoryMenuUI = UIManager.Show<InventoryMenuUI>(UIList.InventoryMenuUI);
+                inventoryMenuUI.OnNotifyOnRightButtonClick(inventoryItemData); // 아이템 정보 전달
+            }
 
             InputSystem.Singleton.ChangeCursorVisibility(true);
         }

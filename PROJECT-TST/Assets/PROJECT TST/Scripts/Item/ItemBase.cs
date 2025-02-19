@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace TST
 {
-    public abstract class ItemBase : MonoBehaviour, IInteractable
+    public class ItemBase : MonoBehaviour, IInteractable
     {
         [field: SerializeField] public ItemData ItemData { get; private set; }
         public string Message => ItemData.ItemName;
 
         public void Awake()
         {
-            RegisterItemUseAction();
+            
         }
 
         public void Interact(GameObject go)
@@ -28,7 +28,5 @@ namespace TST
         {
             
         }
-
-        protected abstract void RegisterItemUseAction();
     }
 }

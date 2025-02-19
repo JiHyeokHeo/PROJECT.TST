@@ -61,6 +61,7 @@ namespace TST
             InputSystem.Singleton.OnInput_MaintainZoom += OnExecuteMaintainZoom;
             InputSystem.Singleton.OnInput_ReturnToTps += OnExecuteReturnToTps;
             InputSystem.Singleton.OnInput_InventoryToggle += OnExecuteInventoryUI;
+            InputSystem.Singleton.OnInput_EquipmentToggle += OnExecutePlayerEquipmentUI;
             // += CommandExecuteSkill // input ¿¬µ¿
 
             MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
@@ -69,6 +70,9 @@ namespace TST
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
             inventoryUI.SetLinkedCharacter(linkedCharacter);
             // 
+            PlayerEquipmentUI equipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
+            equipmentUI.SetLinkedCharacter(linkedCharacter);
+
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
             //linkedCharacter.RegisterSkill(0, new CharacterSkill_SlingShot(slingShotData));
         }
@@ -143,6 +147,24 @@ namespace TST
             else 
             {
                 UIManager.Show<InventoryUI>(UIList.InventoryUI);
+                return true;
+            }
+        }
+
+        bool OnExecutePlayerEquipmentUI()
+        {
+            var playerEquipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
+            if (playerEquipmentUI == null)
+                return false;
+
+            if (true == playerEquipmentUI.gameObject.activeSelf)
+            {
+                UIManager.Hide<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
+                return false;
+            }
+            else
+            {
+                UIManager.Show<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
                 return true;
             }
         }
