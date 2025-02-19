@@ -35,7 +35,7 @@ namespace TST
             }
         }
 
-        private void SetItem(string itemId, int slotId, Sprite itemicon, int count = 1)
+        public void SetItem(string itemId, int slotId, Sprite itemicon, int count = 1)
         {
             slotid = slotId;
             equipmentIcon.sprite = itemicon;

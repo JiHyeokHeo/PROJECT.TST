@@ -43,7 +43,7 @@ namespace TST
 
         public event System.Action<UserItemDTO.UserItemData> OnUserItemChangedEvent;
 
-        public event System.Action<PlayerEquipmentDTO.UserItemData> OnPlayerEquipmentChanagedEvent;
+        public event System.Action<PlayerEquipmentDTO.UserItemData, ItemData> OnPlayerEquipmentChanagedEvent;
 
         public void Initialize()
         {
@@ -148,12 +148,12 @@ namespace TST
             if (itemDataTemp == null)
                 return false;
 
-            /*bool isSucceed =*/ RecursiveSearch(itemData, useCount);
+            bool isSucceed = RecursiveSearch(itemData, useCount);
             
-            //if (isSucceed && itemData.ItemCategory == ItemCategory.Equipment)
-            //{
-            //    EquipItem(itemData, useCount);
-            //}
+            if (isSucceed && itemData.ItemCategory == ItemCategory.Equipment)
+            {
+                EquipItem(itemData, useCount);
+            }
 
             return true;
         }
@@ -169,51 +169,60 @@ namespace TST
             {
                 PlayerEquipmentDTO.UserItemData data = new PlayerEquipmentDTO.UserItemData();
                 PlayerEquipmentData.equipItems.Add(data);
-            }
+            }   
         }
 
-        private bool EquipItem(ItemData itemData, int useCount = 1)
+        private void EquipItem(ItemData itemData, int useCount = 1)
         {
-            if (!isEquipListInitialized)
-                InitializeEquipmentList(itemData);
-
+            //if (!isEquipListInitialized)
+            //    InitializeEquipmentList(itemData);
             int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x=>x.itemID.Equals(itemData.ItemID));  
 
+            PlayerEquipmentDTO.UserItemData changedData = null;
             if (existedEquipItemDataIndex >= 0)
             {
-                PlayerEquipmentDTO.UserItemData changedData = null;
-
                 bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
 
                 Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
 
-                int slotIndex = itemData.ItemSubCategory;
+                int slotIndex = itemData.ItemSubCategory - 1;
 
                 // 5 4
-                bool isRanageOverIndex = PlayerEquipmentData.equipItems.Count > slotIndex;
+                bool isRanageOverIndex = PlayerEquipmentData.equipItems.Count - 1 > slotIndex;
                 if (isRanageOverIndex)
                 {
                     Assert.IsTrue(isRanageOverIndex, $"PlayerEquipmentData 의 인덱스 범위가 초과하였습니다");
-                    return false;
+                    return;
                 }
 
                 changedData = PlayerEquipmentData.equipItems[slotIndex];
                 changedData.itemID = itemData.ItemID;
                 changedData.equipUIslotID = itemData.ItemSubCategory - 1;
 
-                OnPlayerEquipmentChanagedEvent?.Invoke(changedData);
-                return true;
+            }
+            else // 만약 장착한 아이템이 없다면 여기에 추가
+            {
+                changedData = new PlayerEquipmentDTO.UserItemData
+                {
+                    itemID = itemData.ItemID,
+                    equipUIslotID = itemData.ItemSubCategory - 1,
+                };
+                PlayerEquipmentData.equipItems.Add(changedData);
             }
 
-            return false;
+            OnPlayerEquipmentChanagedEvent?.Invoke(changedData, itemData);
         }
 
         // 이건 추후에 약간 수정 합시다. 예외처리를 조금 더 일찍 해서 재귀 탈출을 빠르게 하는게 좋을듯?
-        private void RecursiveSearch(ItemData itemData, int useCount)
+        private bool RecursiveSearch(ItemData itemData, int useCount)
         {
             int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
 
             UserItemDTO.UserItemData changedData = null;
+
+            if (existedItemDataIndex < 0)
+                return false;
+
             if (existedItemDataIndex >= 0)
             {
                 bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
@@ -243,17 +252,16 @@ namespace TST
 
                     UserItemData.Items.RemoveAt(existedItemDataIndex);
                     RecursiveSearch(itemData, -remainCount); 
-                    return;
                 }
             } 
 
             if (existedItemDataIndex >= 0)
             { 
                 OnUserItemChangedEvent?.Invoke(changedData);
-                //return true;
+                return true;
             }
 
-            //return false;
+            return false;
         }
 
         #region SAVE / LOAD Core Method

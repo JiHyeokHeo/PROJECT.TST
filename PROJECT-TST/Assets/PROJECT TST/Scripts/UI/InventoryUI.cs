@@ -12,8 +12,7 @@ namespace TST
         [SerializeField] private Transform itemSlotRoot;
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;
         [SerializeField] private InfiniteScroll infiniteScroll;
-
-        private List<InventoryUI_ItemData> inventoryDatas = new List<InventoryUI_ItemData>();
+        
 
         private void Awake()
         {
@@ -88,13 +87,6 @@ namespace TST
         {
             GameManager.Instance.UseItem(inventoryItemData.itemData);
         }
-
-        public void OnNotifyOnClickEquipItemSlot(InventoryUI_ItemData inventoryItemData)
-        {
-            
-            OnNotifyOnClickItemSlot(inventoryItemData);
-        }
-
 
         public void OnNotifyOnClickItemSlot(string itemId, int useCount)
         {

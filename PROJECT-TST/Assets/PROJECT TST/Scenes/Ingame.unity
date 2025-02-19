@@ -4475,6 +4475,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fa6e328becfa1b243a0562e548761d51, type: 2}
   - {fileID: 11400000, guid: de0fed9b9b37f6c4fb87771b6f02babb, type: 2}
   - {fileID: 11400000, guid: 109f2823463065a42a5c19d4deece698, type: 2}
+  - {fileID: 11400000, guid: 0fde91e6a2e57eb4fb9dba6efa90bfcf, type: 2}
   <SkillDatas>k__BackingField: []
 --- !u!4 &705941414
 Transform:
@@ -6081,6 +6082,79 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1404764261}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1452076515
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.188
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.00000023841858
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.227
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545457695485625592, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_Name
+      value: Drop Item [Helmet]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34ea3a96bc5a70d488e149ef1fd3343d, type: 3}
 --- !u!114 &1464073435 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -8557898480496131422, guid: 2f8674ce0d499554597ce3125fd4a663,
@@ -7944,7 +8018,7 @@ PrefabInstance:
     - target: {fileID: 8993013104119575081, guid: 2e42f037a08292447b01498352092ca7,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7971,3 +8045,4 @@ SceneRoots:
   - {fileID: 1994936614}
   - {fileID: 1710559349735644181}
   - {fileID: 1619153538}
+  - {fileID: 1452076515}

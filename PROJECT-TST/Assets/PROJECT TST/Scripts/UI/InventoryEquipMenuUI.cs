@@ -9,8 +9,6 @@ namespace TST
 {
     public class InventoryEquipMenuUI : UIBase, IPointerDownHandler, IDragHandler
     {
-        [field : SerializeField] public Transform MenuRoot { get; private set; }
-
         [SerializeField] private Button useButton;
         [SerializeField] private Button cancelButton;
         [SerializeField] private TextMeshProUGUI itemNameText;
@@ -22,12 +20,11 @@ namespace TST
         {
             if (targetTransform == null)
                 targetTransform = transform.Find("PopUp");
-            inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
+            inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);   
         }
 
         public void OnNotifyOnRightButtonClick(InventoryUI_ItemData inventoryItemData)
         {
-            MenuRoot.gameObject.SetActive(true);
             selectedItemData = inventoryItemData;
 
             // 슬롯에서부터 아이템 정보 받은 것으로 Text 및 데이터 받아오기
@@ -41,7 +38,7 @@ namespace TST
 
         public void OnClickCancelButton()
         {
-            MenuRoot.gameObject.SetActive(false);
+            UIManager.Hide<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
         }
 
         private Transform targetTransform; // 이동될 UI
