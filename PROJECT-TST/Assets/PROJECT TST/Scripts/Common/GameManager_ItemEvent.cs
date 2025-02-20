@@ -11,7 +11,7 @@ namespace TST
     public partial class GameManager : MonoBehaviour
     {
         public event System.Action<ItemData, int> OnUsedItem;
-        public event System.Action<ItemData> OnChangedEquipment;
+        public event System.Action<ItemData, bool> OnChangedEquipment;
 
         public void UseItem(ItemData itemData, int count = 1)
         {
@@ -19,14 +19,11 @@ namespace TST
             {
                 case ItemCategory.Equipment:
                     EquipmentItem(itemData, count);
-                    OnChangedEquipment?.Invoke(itemData);
                     break;
                 case ItemCategory.Material:
                     break;
                 case ItemCategory.Consumable:
-                    {
-                        UseConsumable(itemData, count);
-                    }
+                     UseConsumable(itemData, count);
                     break;
             }
 
@@ -35,8 +32,17 @@ namespace TST
             OnUsedItem?.Invoke(itemData, count);
         }
 
+        public void UnEquipmentItem(ItemData itemData, int count = 1)
+        {
+            // 인벤에 옮기기
+            UnEquipItem(itemData, count);
+            UserDataModel.Singleton.AddItemToInventory(itemData);
+            OnUsedItem?.Invoke(itemData, count);
+        }
+
         private void EquipmentItem(ItemData itemData, int count = 1)
         {
+            // 이쪽에서 사운드나 이펙트 or 다른 무언가를 추가 시켜주면 좋을듯?
             switch (itemData.ItemSubCategory) 
             {
                 case (int)ItemEquipmentCategory.Helmet:
@@ -55,6 +61,35 @@ namespace TST
                     Debug.Log("Equip Shoes");
                     break;
             }
+
+            // 실제 데이터 변경은 이쪽에서
+            OnChangedEquipment?.Invoke(itemData, true);
+        }
+
+        private void UnEquipItem(ItemData itemData, int count = 1)
+        {
+            // 이쪽에서 사운드나 이펙트 or 다른 무언가를 추가 시켜주면 좋을듯?
+            switch (itemData.ItemSubCategory)
+            {
+                case (int)ItemEquipmentCategory.Helmet:
+                    Debug.Log("Equip Helmet");
+                    break;
+                case (int)ItemEquipmentCategory.Weapon:
+                    Debug.Log("Equip Weapon");
+                    break;
+                case (int)ItemEquipmentCategory.Gloves:
+                    Debug.Log("Equip Gloves");
+                    break;
+                case (int)ItemEquipmentCategory.Armor:
+                    Debug.Log("Equip Armor");
+                    break;
+                case (int)ItemEquipmentCategory.Shoes:
+                    Debug.Log("Equip Shoes");
+                    break;
+            }
+
+            // 실제 데이터 변경은 이쪽에서
+            OnChangedEquipment?.Invoke(itemData, false);
         }
 
         private void UseConsumable(ItemData itemData, int count = 1)

@@ -12,7 +12,7 @@ namespace TST
     {
         public int SlotID => slotid;
 
-        [SerializeField] private InventoryUI_ItemData inventoryItemData;
+        [SerializeField] private ItemData itemData;
 
         [SerializeField] private int slotid;
         [SerializeField] private Image equipmentIcon;
@@ -35,11 +35,13 @@ namespace TST
             }
         }
 
-        public void SetItem(string itemId, int slotId, Sprite itemicon, int count = 1)
+        public void SetItem(string itemId, int slotId, Sprite itemicon, ItemData data, int count = 1)
         {
+            gameObject.SetActive(true);
             slotid = slotId;
             equipmentIcon.sprite = itemicon;
             equipmentNameText.text = itemId;
+            itemData = data;
         }
 
         private bool IsPointerOverMostTopGameObject()
@@ -66,10 +68,10 @@ namespace TST
 
         public void OnClickRightButton()
         {
-            if (inventoryItemData.itemData.ItemCategory == ItemCategory.Equipment)
+            if (itemData.ItemCategory == ItemCategory.Equipment)
             {
                 InventoryEquipMenuUI invenEquipmentUI = UIManager.Show<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
-                invenEquipmentUI.OnNotifyOnRightButtonClick(inventoryItemData);
+                invenEquipmentUI.OnNotifyOnRightButtonClick(itemData);
             }
            
             InputSystem.Singleton.ChangeCursorVisibility(true);

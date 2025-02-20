@@ -26,11 +26,19 @@ namespace TST
             GameManager.Instance.OnChangedEquipment -= RefreshEquipment;
         }
 
-        // 스탯 전환 ㄱㄱ
-        public void RefreshEquipment(ItemData itemdata)
+        public void RefreshEquipment(ItemData itemdata, bool isEquip)
         {
-            //
+            // 여기서 장비 관련 스탯 전환 // 기존에 끼던 스탯을 내리고 
             Debug.Log("장비 전환 시작");
+
+            if (isEquip)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
         public void OnDamaged(float damage, GameObject attacker)

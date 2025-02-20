@@ -14,30 +14,35 @@ namespace TST
         [SerializeField] private TextMeshProUGUI itemNameText;
 
         private InventoryUI inventoryUI;
-        private InventoryUI_ItemData selectedItemData;
+        private PlayerEquipmentUI playerEquipmentUI;
+        private ItemData selectedItemData;
 
         private void Awake()
         {
             if (targetTransform == null)
                 targetTransform = transform.Find("PopUp");
-            inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);   
+            inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
+            playerEquipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
         }
 
-        public void OnNotifyOnRightButtonClick(InventoryUI_ItemData inventoryItemData)
+        public void OnNotifyOnRightButtonClick(ItemData itemData)
         {
-            selectedItemData = inventoryItemData;
+            selectedItemData = itemData;
 
             // 슬롯에서부터 아이템 정보 받은 것으로 Text 및 데이터 받아오기
-            itemNameText.text = selectedItemData.itemData.ItemID; 
+            itemNameText.text = itemData.ItemID; 
         }
 
         public void OnClickUseButton()
         {
-            inventoryUI.OnNotifyOnClickItemSlot(selectedItemData.itemData.ItemID, 1);
+            inventoryUI.OnNotifyOnClickItemSlot(selectedItemData.ItemID, 1);
+            playerEquipmentUI.OnNotifyItemOnEquipment(selectedItemData);
+            UIManager.Hide<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
         }
 
         public void OnClickCancelButton()
         {
+            playerEquipmentUI.OnNotifyItemUnEquipment(selectedItemData);
             UIManager.Hide<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
         }
 

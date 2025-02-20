@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace TST
 {
@@ -13,10 +15,10 @@ namespace TST
         {
             UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += OnChangedUserEquipmentItemData;
 
-            PlayerEquipmentUI_Slot[] components =  GetComponentsInChildren<PlayerEquipmentUI_Slot>();
+            //PlayerEquipmentUI_Slot[] components =  GetComponentsInChildren<PlayerEquipmentUI_Slot>();
 
-            for (int i = 0; i < components.Length; i++)
-                playerEquipmentUI_Slots.Add(components[i]);
+            //for (int i = 0; i < components.Length; i++)
+            //    playerEquipmentUI_Slots.Add(components[i]);
         }
 
         public void OnChangedUserEquipmentItemData(PlayerEquipmentDTO.UserItemData playerEquipData, ItemData itemData)
@@ -24,12 +26,17 @@ namespace TST
             Debug.Log("playerEquipmentUI Event ¹ß»ý");
             int index = playerEquipData.equipUIslotID;
 
-            playerEquipmentUI_Slots[index].SetItem(itemData.ItemID, index, itemData.ItemSprite);
+            playerEquipmentUI_Slots[index].SetItem(itemData.ItemID, index, itemData.ItemSprite, itemData);
         }
 
-        public void OnNotifyItemOnEquipment(InventoryUI_ItemData inventoryItemData)
+        public void OnNotifyItemOnEquipment(ItemData itemdata)
         {
-            GameManager.Instance.UseItem(inventoryItemData.itemData);
+            GameManager.Instance.UseItem(itemdata);
+        }
+
+        public void OnNotifyItemUnEquipment(ItemData itemdata)
+        {
+            GameManager.Instance.UnEquipmentItem(itemdata);
         }
 
         public void SetLinkedCharacter(CharacterBase character)

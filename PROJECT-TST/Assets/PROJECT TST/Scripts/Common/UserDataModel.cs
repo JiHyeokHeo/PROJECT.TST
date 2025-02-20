@@ -172,6 +172,7 @@ namespace TST
             }   
         }
 
+        // 동일한 파츠의 장비를 갈아낄수도 있다.!
         private void EquipItem(ItemData itemData, int useCount = 1)
         {
             //if (!isEquipListInitialized)

@@ -112,7 +112,7 @@ namespace TST
             if (inventoryItemData.itemData.ItemCategory == ItemCategory.Equipment)
             {
                 InventoryEquipMenuUI invenEquipmentUI = UIManager.Show<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
-                invenEquipmentUI.OnNotifyOnRightButtonClick(inventoryItemData);
+                invenEquipmentUI.OnNotifyOnRightButtonClick(inventoryItemData.itemData);
             }
             else
             {
