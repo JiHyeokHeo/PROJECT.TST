@@ -119,11 +119,39 @@ namespace TST
             }
         }
 
+        public float CurrentSpeed 
+        {
+            get
+            {
+                if (isWalk)
+                    return currentStat.walkSpeed;
+                else
+                    return currentStat.runSpeed;
+                
+            }
+            set
+            {
+                if (isWalk && currentStat.walkSpeed != value)
+                {
+                    if (value >= 0 && value <= maxStat.walkSpeed)
+                    {
+                        currentStat.walkSpeed = value;
+                    }
+                }
+                else if (isWalk == false && currentStat.runSpeed != value)
+                {
+                    if (value >= 0 && value <= maxStat.runSpeed)
+                    {
+                        currentStat.runSpeed = value;
+                    }
+                }
+            }
+        }
+
+
         public float MaxHp { get => maxStat.hp;
             private set { }
         }
-
-        private float maxHp;
 
         public float rollSpeed = 4.0f;
         private float rollTime;
@@ -282,7 +310,7 @@ namespace TST
 
             // 추후에 이걸 클래스화로 나누자
             maxStat = CharacterStatConfig.CharacterStatData.Max;
-            currentStat = maxStat;
+            currentStat = CharacterStatConfig.CharacterStatData.Base;
 
             animator = GetComponent<Animator>();
             unityCharacterController = GetComponent<UnityEngine.CharacterController>();
@@ -456,12 +484,12 @@ namespace TST
                 {
                     targetHorizontal = input.x;
                     targetVertical = input.y;
-                    movement = (transform.forward * input.y + transform.right * input.x) * currentStat.moveSpeed * Time.deltaTime;
+                    movement = (transform.forward * input.y + transform.right * input.x) * CurrentSpeed * Time.deltaTime;
                 }
                 else
                 {
                     targetVertical = 1f;
-                    movement = transform.forward * currentStat.moveSpeed * Time.deltaTime;
+                    movement = transform.forward * CurrentSpeed * Time.deltaTime;
                 }
 
                 targetSpeed = isWalk ? 0.0f : 2.1f;

@@ -23,9 +23,17 @@ namespace TST
 
         public void OnChangedUserEquipmentItemData(PlayerEquipmentDTO.UserItemData playerEquipData, ItemData itemData)
         {
+            // 만약 널을 보낸다면 장비를 해제해달라는 요청
+            if (playerEquipData == null)
+            {
+                Debug.Log("playerEquipmentUI Event 발생");
+                int slotIndex = itemData.ItemSubCategory - 1;
+                playerEquipmentUI_Slots[slotIndex].SetItem("null", slotIndex, null, itemData);
+                return;
+            }
+
             Debug.Log("playerEquipmentUI Event 발생");
             int index = playerEquipData.equipUIslotID;
-
             playerEquipmentUI_Slots[index].SetItem(itemData.ItemID, index, itemData.ItemSprite, itemData);
         }
 

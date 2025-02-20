@@ -149,35 +149,29 @@ namespace TST
                 return false;
 
             bool isSucceed = RecursiveSearch(itemData, useCount);
-            
-            if (isSucceed && itemData.ItemCategory == ItemCategory.Equipment)
-            {
-                EquipItem(itemData, useCount);
-            }
 
             return true;
         }
 
-        private bool isEquipListInitialized = false;
-        private void InitializeEquipmentList(ItemData itemData)
+        public bool UnEquipmentCheck(ItemData data, int count = 1)
         {
-            isEquipListInitialized = true;
-            PlayerEquipmentData.equipItems.Clear();
+            int slotID = data.ItemSubCategory - 1;
+            int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x => x.equipUIslotID.Equals(slotID));
 
-            // 빈깡통 equipment 슬롯만치 미리 채워두고
-            for (int i = 0; i < (int)ItemEquipmentCategory.End - 1; i ++ )
-            {
-                PlayerEquipmentDTO.UserItemData data = new PlayerEquipmentDTO.UserItemData();
-                PlayerEquipmentData.equipItems.Add(data);
-            }   
+            if (existedEquipItemDataIndex < 0)
+                return false;
+
+            PlayerEquipmentData.equipItems.RemoveAt(existedEquipItemDataIndex);
+
+            OnPlayerEquipmentChanagedEvent?.Invoke(null, data);
+            return true;
         }
-
+   
         // 동일한 파츠의 장비를 갈아낄수도 있다.!
-        private void EquipItem(ItemData itemData, int useCount = 1)
+        public void EquipItem(ItemData itemData, int useCount = 1)
         {
-            //if (!isEquipListInitialized)
-            //    InitializeEquipmentList(itemData);
-            int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x=>x.itemID.Equals(itemData.ItemID));  
+            int slotID = itemData.ItemSubCategory - 1;
+            int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x=>x.equipUIslotID.Equals(slotID));  
 
             PlayerEquipmentDTO.UserItemData changedData = null;
             if (existedEquipItemDataIndex >= 0)
@@ -186,17 +180,8 @@ namespace TST
 
                 Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
 
-                int slotIndex = itemData.ItemSubCategory - 1;
 
-                // 5 4
-                bool isRanageOverIndex = PlayerEquipmentData.equipItems.Count - 1 > slotIndex;
-                if (isRanageOverIndex)
-                {
-                    Assert.IsTrue(isRanageOverIndex, $"PlayerEquipmentData 의 인덱스 범위가 초과하였습니다");
-                    return;
-                }
-
-                changedData = PlayerEquipmentData.equipItems[slotIndex];
+                changedData = PlayerEquipmentData.equipItems[existedEquipItemDataIndex];
                 changedData.itemID = itemData.ItemID;
                 changedData.equipUIslotID = itemData.ItemSubCategory - 1;
 

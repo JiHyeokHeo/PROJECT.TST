@@ -9,7 +9,6 @@ namespace TST
     public struct CharacterStat
     {
         public float walkSpeed;
-        public float moveSpeed;
         public float runSpeed;
         public float sprintSpeed;
         public float rotateSpeed;

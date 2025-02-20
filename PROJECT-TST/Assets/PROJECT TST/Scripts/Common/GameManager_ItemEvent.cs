@@ -35,8 +35,11 @@ namespace TST
         public void UnEquipmentItem(ItemData itemData, int count = 1)
         {
             // 인벤에 옮기기
+            if (UserDataModel.Singleton.UnEquipmentCheck(itemData, count) == false)
+                return;
+
             UnEquipItem(itemData, count);
-            UserDataModel.Singleton.AddItemToInventory(itemData);
+            UserDataModel.Singleton.AddItemToInventory(itemData); // 인벤에 넣고
             OnUsedItem?.Invoke(itemData, count);
         }
 
@@ -63,6 +66,14 @@ namespace TST
             }
 
             // 실제 데이터 변경은 이쪽에서
+            if (UserDataModel.Singleton.UnEquipmentCheck(itemData, count))
+            {
+                UnEquipItem(itemData, count);
+                UserDataModel.Singleton.AddItemToInventory(itemData); 
+                OnUsedItem?.Invoke(itemData, count);
+            }
+                
+            UserDataModel.Singleton.EquipItem(itemData);
             OnChangedEquipment?.Invoke(itemData, true);
         }
 
@@ -72,19 +83,19 @@ namespace TST
             switch (itemData.ItemSubCategory)
             {
                 case (int)ItemEquipmentCategory.Helmet:
-                    Debug.Log("Equip Helmet");
+                    Debug.Log("UnEquip Helmet");
                     break;
                 case (int)ItemEquipmentCategory.Weapon:
-                    Debug.Log("Equip Weapon");
+                    Debug.Log("UnEquip  Weapon");
                     break;
                 case (int)ItemEquipmentCategory.Gloves:
-                    Debug.Log("Equip Gloves");
+                    Debug.Log("UnEquip  Gloves");
                     break;
                 case (int)ItemEquipmentCategory.Armor:
-                    Debug.Log("Equip Armor");
+                    Debug.Log("UnEquip  Armor");
                     break;
                 case (int)ItemEquipmentCategory.Shoes:
-                    Debug.Log("Equip Shoes");
+                    Debug.Log("UnEquip  Shoes");
                     break;
             }
 

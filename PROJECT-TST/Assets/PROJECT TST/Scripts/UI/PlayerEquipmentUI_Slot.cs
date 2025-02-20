@@ -37,11 +37,16 @@ namespace TST
 
         public void SetItem(string itemId, int slotId, Sprite itemicon, ItemData data, int count = 1)
         {
-            gameObject.SetActive(true);
+            if (itemicon == null)
+                gameObject.SetActive(false);
+            else
+                gameObject.SetActive(true);
+
             slotid = slotId;
             equipmentIcon.sprite = itemicon;
             equipmentNameText.text = itemId;
             itemData = data;
+
         }
 
         private bool IsPointerOverMostTopGameObject()
