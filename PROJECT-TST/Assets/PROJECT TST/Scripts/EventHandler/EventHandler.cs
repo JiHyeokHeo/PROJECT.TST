@@ -32,6 +32,7 @@ namespace TST
         // 1. 그냥 해제 할때
         // 2. 장착 할때
         // 3. 장착 중인 장비 위에 장착을 할 때 <- 귀찮은 케이스
+
         public void RefreshEquipment(ItemData itemdata, bool isTryToEquip)
         {
             // 여기서 장비 관련 스탯 전환 // 기존에 끼던 스탯을 내리고 

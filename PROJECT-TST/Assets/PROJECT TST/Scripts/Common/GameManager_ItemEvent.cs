@@ -65,7 +65,7 @@ namespace TST
                     break;
             }
 
-            // 실제 데이터 변경은 이쪽에서
+            // 실제 데이터 변경은 이쪽에서 
             if (UserDataModel.Singleton.UnEquipmentCheck(itemData, count))
             {
                 UnEquipItem(itemData, count);
