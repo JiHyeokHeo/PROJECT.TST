@@ -291,11 +291,24 @@ namespace TST
             //}
 
 
+            // 고민 캐릭터 컨트롤러에서 애니메이터를 건드는게 맞는거 같은데..
             if (Input.GetKeyDown(KeyCode.F))
             {
                 if (currentInteractables.Count > 0) 
                 {
                     currentInteractables[0].Interact(linkedCharacter.gameObject);
+
+                    InteractType interactType = currentInteractables[0].InteractType;
+                    
+                    switch (interactType)
+                    {
+                        case InteractType.Item:
+                            PlayLootAnimation();
+                            break;
+                        case InteractType.NPC:
+
+                            break;
+                    }
                 }
             }
 
@@ -380,6 +393,10 @@ namespace TST
             CameraRotation();
         }
 
+        public void PlayLootAnimation()
+        {
+            linkedCharacter.animator.SetTrigger("Loot Trigger");
+        }
      
         public void AddRecoil()
         {

@@ -9,6 +9,7 @@ namespace TST
     {
         [field: SerializeField] public ItemData ItemData { get; private set; }
         public string Message => ItemData.ItemName;
+        public InteractType InteractType => InteractType.Item;
 
         public void Awake()
         {

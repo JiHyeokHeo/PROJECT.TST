@@ -105,6 +105,7 @@ namespace TST
                 if (currentStat.hp <= 0f)
                 {
                     currentStat.hp = 0f;
+                    SetRagdollActive(true);
                     return;
                 }
 
@@ -113,6 +114,7 @@ namespace TST
                 if (CurrentHp >= maxStat.hp)
                 {
                     currentStat.hp = maxStat.hp;
+                    SetRagdollActive(false);
                     return;
                 }
 
@@ -470,6 +472,9 @@ namespace TST
                 return;
             }
 
+            if (CurrentHp <= 0)
+                return;
+
             Vector3 movement = Vector3.zero;
             if (input.magnitude > 0f)
             {
@@ -582,6 +587,10 @@ namespace TST
         {
             // 타겟은 일단 에이밍 걸린 포인트이다
             if (isRolling)
+                return false;
+
+
+            if (CurrentHp <= 0)
                 return false;
 
             // 내적 = 각 벡터의 길이 * cos세타
