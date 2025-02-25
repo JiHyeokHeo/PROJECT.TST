@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace TST
 {
@@ -13,7 +14,6 @@ namespace TST
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;
         [SerializeField] private InfiniteScroll infiniteScroll;
         
-
         private void Awake()
         {
             UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
@@ -28,29 +28,43 @@ namespace TST
         private void OnEnable()
         {
             // TODO : UserDataModel의 UserItemData에 있는 아이템 데이터를 읽고, 인벤토리에 표기해준다.
-            GameManager.Instance.OnUsedItem += RefreshInventory;
+            GameManager.Instance.OnUsedItem += (_ , _) => RefreshInventory();
+            UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += (_, _, _) => RefreshInventory();
 
-            RefreshInventory(null, 0);
+            RefreshInventory();
         }
 
         private void OnDisable()
         {
-            GameManager.Instance.OnUsedItem -= RefreshInventory;
+            GameManager.Instance.OnUsedItem -= (_, _) => RefreshInventory();
+            UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent -= (_, _, _) => RefreshInventory();
         }
 
-        private void RefreshInventory(ItemData itemData, int count)
+        private void RefreshInventory()
         {
             infiniteScroll.ClearData();
 
             for (int i = 0; i < UserDataModel.Singleton.UserItemData.Items.Count; i++)
             {
-                InventoryUI_ItemData inventoryItemData = new InventoryUI_ItemData();
-                if (GameDataModel.Singleton.GetItemData(UserDataModel.Singleton.UserItemData.Items[i].itemID, out var itemGameData))
+                // 데이터 가져오는거 1차 체크
+                if (GameDataModel.Singleton.GetItemData(UserDataModel.Singleton.UserItemData.Items[i].itemID , out ItemData itemGameData))
                 {
-                    inventoryItemData.itemSlotId = UserDataModel.Singleton.UserItemData.Items[i].slotID;
-                    inventoryItemData.itemData = itemGameData;
-                    inventoryItemData.itemCount = UserDataModel.Singleton.UserItemData.Items[i].itemCount;
+                    // 장비 아이템인 경우
+                    if (itemGameData.ItemCategory == ItemCategory.Equipment)
+                    {
+                        // 장비 아이템이 혹시나 장착 중인 녀석이라면?
+                        if (UserDataModel.Singleton.PlayerEquipmentData.equipmentItems.ContainsValue(UserDataModel.Singleton.UserItemData.Items[i].slotID))
+                        {
+                            continue;
+                        }
+                    }
                 }
+
+                InventoryUI_ItemData inventoryItemData = new InventoryUI_ItemData();
+                inventoryItemData.itemSlotId = UserDataModel.Singleton.UserItemData.Items[i].slotID;
+                inventoryItemData.itemData = itemGameData;
+                inventoryItemData.itemCount = UserDataModel.Singleton.UserItemData.Items[i].itemCount;
+
 
                 infiniteScroll.InsertData(inventoryItemData);
             }
@@ -73,7 +87,7 @@ namespace TST
             }
             infiniteScroll.InsertData(itemData);
 
-            RefreshInventory(null, 0);
+            RefreshInventory();
         }
  
         public void OnClickCloseButton()
@@ -83,16 +97,23 @@ namespace TST
             UIManager.Hide<InventoryUI>(UIList.InventoryUI);
         }
 
-        public void OnNotifyOnClickItemSlot(InventoryUI_ItemData inventoryItemData)
+        public void OnNotifyOnClickItemSlot(int slotId, int useCount = 1)
         {
-            GameManager.Instance.UseItem(inventoryItemData.itemData);
-        }
-
-        public void OnNotifyOnClickItemSlot(string itemId, int useCount)
-        {
-            if (GameDataModel.Singleton.GetItemData(itemId, out ItemData resultData))
+            InventoryUI_ItemData targetInventoryItemData = null;
+            var inventoryDataList = infiniteScroll.GetDataList();
+            for (int i =0; i < inventoryDataList.Count; i++)
             {
-                GameManager.Instance.UseItem(resultData, useCount);
+                var castingData = inventoryDataList[i] as InventoryUI_ItemData;
+                if (castingData.itemSlotId == slotId)
+                {
+                    targetInventoryItemData = castingData;
+                    break;
+                }
+            }
+
+            if (targetInventoryItemData != null)
+            {
+                GameManager.Instance.UseItem(targetInventoryItemData.itemSlotId, targetInventoryItemData.itemData, useCount);
             }
         }
 

@@ -42,8 +42,7 @@ namespace TST
         [field: SerializeField] public PlayerEquipmentDTO PlayerEquipmentData { get; private set; } = new PlayerEquipmentDTO();
 
         public event System.Action<UserItemDTO.UserItemData> OnUserItemChangedEvent;
-
-        public event System.Action<PlayerEquipmentDTO.UserItemData, ItemData> OnPlayerEquipmentChanagedEvent;
+        public event System.Action<ItemEquipmentCategory, int, int> OnPlayerEquipmentChanagedEvent; // BeforeSlotId, AfterSlotId
 
         public void Initialize()
         {
@@ -92,7 +91,7 @@ namespace TST
             // 데이터 저장 용도
             SaveAllInGameData();
         }
-
+        
         public void AddItemToInventory(ItemData itemData)
         {
             // TODO : UserItemData에 먹은 아이템 추가
@@ -153,50 +152,37 @@ namespace TST
             return true;
         }
 
-        public bool UnEquipmentCheck(ItemData data, int count = 1)
+        public void UnEquipItem(ItemEquipmentCategory category, int slotId)
         {
-            int slotID = data.ItemSubCategory - 1;
-            int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x => x.equipUIslotID.Equals(slotID));
+            if (PlayerEquipmentData.equipmentItems[category] != slotId)
+                return;
 
-            if (existedEquipItemDataIndex < 0)
-                return false;
+            int beforeSlotID = slotId;
+            int afterSlotID = -1;
+            PlayerEquipmentData.equipmentItems[category] = -1;
 
-            PlayerEquipmentData.equipItems.RemoveAt(existedEquipItemDataIndex);
-
-            OnPlayerEquipmentChanagedEvent?.Invoke(null, data);
-            return true;
+            // 플레이어 장비 변경 이벤트 발생
+            OnPlayerEquipmentChanagedEvent.Invoke(category, beforeSlotID, afterSlotID);
         }
-   
+
         // 동일한 파츠의 장비를 갈아낄수도 있다.!
-        public void EquipItem(ItemData itemData, int useCount = 1)
+        public void EquipItem(ItemEquipmentCategory category, int slotId)
         {
-            int slotID = itemData.ItemSubCategory - 1;
-            int existedEquipItemDataIndex = PlayerEquipmentData.equipItems.FindLastIndex(x=>x.equipUIslotID.Equals(slotID));  
+            int beforeSlotID = -1;
+            int afterSlotID = slotId;
 
-            PlayerEquipmentDTO.UserItemData changedData = null;
-            if (existedEquipItemDataIndex >= 0)
+            if (PlayerEquipmentData.equipmentItems[category] >= 0) // 기존에 장착된 아이템이 있는 경우
             {
-                bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
-
-                Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
-
-
-                changedData = PlayerEquipmentData.equipItems[existedEquipItemDataIndex];
-                changedData.itemID = itemData.ItemID;
-                changedData.equipUIslotID = itemData.ItemSubCategory - 1;
-
-            }
-            else // 만약 장착한 아이템이 없다면 여기에 추가
-            {
-                changedData = new PlayerEquipmentDTO.UserItemData
-                {
-                    itemID = itemData.ItemID,
-                    equipUIslotID = itemData.ItemSubCategory - 1,
-                };
-                PlayerEquipmentData.equipItems.Add(changedData);
+                // UnEquip Item
+                beforeSlotID = PlayerEquipmentData.equipmentItems[category];
+                PlayerEquipmentData.equipmentItems[category] = -1;
             }
 
-            OnPlayerEquipmentChanagedEvent?.Invoke(changedData, itemData);
+            // 새로 전달받은 인벤토리 SlotId 값을 EquipData에 덮어 씌운다
+            PlayerEquipmentData.equipmentItems[category] = slotId;
+
+            // 플레이어 장비 변경 이벤트 발생
+            OnPlayerEquipmentChanagedEvent?.Invoke(category, beforeSlotID, afterSlotID);
         }
 
         // 이건 추후에 약간 수정 합시다. 예외처리를 조금 더 일찍 해서 재귀 탈출을 빠르게 하는게 좋을듯?

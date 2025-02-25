@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 5689096178778842388}
   - component: {fileID: 1756121460966812217}
   m_Layer: 5
-  m_Name: EquipmentSlot
+  m_Name: EquipmentSlot [Gloves]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c977a3b09cd5c43972bcddebb11730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
   slotid: 0
   equipmentIcon: {fileID: 1756121460966812217}
   equipmentNameText: {fileID: 4987957221951730944}
@@ -676,7 +677,7 @@ GameObject:
   - component: {fileID: 6327996581940096313}
   - component: {fileID: 6023162637197635944}
   m_Layer: 5
-  m_Name: EquipmentSlot
+  m_Name: EquipmentSlot [Weapon]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,6 +715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c977a3b09cd5c43972bcddebb11730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
   slotid: 0
   equipmentIcon: {fileID: 6023162637197635944}
   equipmentNameText: {fileID: 975676957937250711}
@@ -1396,7 +1398,7 @@ GameObject:
   - component: {fileID: 2680481470389035029}
   - component: {fileID: 2098228078014443687}
   m_Layer: 5
-  m_Name: EquipmentSlot
+  m_Name: EquipmentSlot [Shoes]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1434,6 +1436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c977a3b09cd5c43972bcddebb11730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
   slotid: 0
   equipmentIcon: {fileID: 2098228078014443687}
   equipmentNameText: {fileID: 3788978436055607280}
@@ -1488,7 +1491,7 @@ GameObject:
   - component: {fileID: 4276746286345100073}
   - component: {fileID: 5737388528146989861}
   m_Layer: 5
-  m_Name: EquipmentSlot
+  m_Name: EquipmentSlot [Helmet]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1526,6 +1529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c977a3b09cd5c43972bcddebb11730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
   slotid: 0
   equipmentIcon: {fileID: 5737388528146989861}
   equipmentNameText: {fileID: 151767647168177969}
@@ -1935,12 +1939,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  playerEquipmentUI_Slots:
-  - {fileID: 1248549742838560734}
-  - {fileID: 1070327928209580674}
-  - {fileID: 4322453801358929745}
-  - {fileID: 8586292114125211432}
-  - {fileID: 6223098927930606718}
+  equipmentSlotUIs:
+    keys: 0100000002000000030000000400000005000000
+    values:
+    - Value: {fileID: 1248549742838560734}
+    - Value: {fileID: 1070327928209580674}
+    - Value: {fileID: 4322453801358929745}
+    - Value: {fileID: 8586292114125211432}
+    - Value: {fileID: 6223098927930606718}
 --- !u!1 &9215341505215669988
 GameObject:
   m_ObjectHideFlags: 0
@@ -1954,7 +1960,7 @@ GameObject:
   - component: {fileID: 882813810687682236}
   - component: {fileID: 1140824952793305655}
   m_Layer: 5
-  m_Name: EquipmentSlot
+  m_Name: EquipmentSlot [Armor]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1992,6 +1998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c977a3b09cd5c43972bcddebb11730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
   slotid: 0
   equipmentIcon: {fileID: 1140824952793305655}
   equipmentNameText: {fileID: 2765719255297079404}

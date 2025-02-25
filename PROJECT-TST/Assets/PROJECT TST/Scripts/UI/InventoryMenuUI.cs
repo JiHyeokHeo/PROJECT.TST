@@ -34,12 +34,12 @@ namespace TST
             selectedItemData = inventoryItemData;
 
             // 슬롯에서부터 아이템 정보 받은 것으로 Text 및 데이터 받아오기
-            itemNameText.text = selectedItemData.itemData.ItemID; 
+            itemNameText.text = selectedItemData.itemData.ItemID;
         }
 
         public void OnClickUseButton()
         {
-            inventoryUI.OnNotifyOnClickItemSlot(selectedItemData.itemData.ItemID, int.Parse(InputField.text));
+            inventoryUI.OnNotifyOnClickItemSlot(selectedItemData.itemSlotId, int.Parse(InputField.text));
         }
 
         public void OnClickCancelButton()

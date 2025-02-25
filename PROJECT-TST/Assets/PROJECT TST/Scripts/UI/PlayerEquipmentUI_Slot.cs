@@ -35,18 +35,26 @@ namespace TST
             }
         }
 
-        public void SetItem(string itemId, int slotId, Sprite itemicon, ItemData data, int count = 1)
+        public void SetItem(int slotId)
         {
-            if (itemicon == null)
-                gameObject.SetActive(false);
+            this.slotid = slotId;   
+            gameObject.SetActive(slotId >= 0);
+            if (slotid >= 0)
+            {
+                var targetUserItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotId);
+                GameDataModel.Singleton.GetItemData(targetUserItemData.itemID, out this.itemData);
+                if (AssetManager.Singleton.GetItemIcon(itemData.ItemID, out Sprite iconImage))
+                {
+                    equipmentIcon.sprite = iconImage;
+
+                }
+                equipmentNameText.text = itemData.ItemID;
+            }
             else
-                gameObject.SetActive(true);
-
-            slotid = slotId;
-            equipmentIcon.sprite = itemicon;
-            equipmentNameText.text = itemId;
-            itemData = data;
-
+            {
+                equipmentIcon.sprite = null;
+                equipmentNameText.text = string.Empty;
+            }
         }
 
         private bool IsPointerOverMostTopGameObject()
@@ -76,7 +84,7 @@ namespace TST
             if (itemData.ItemCategory == ItemCategory.Equipment)
             {
                 InventoryEquipMenuUI invenEquipmentUI = UIManager.Show<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
-                invenEquipmentUI.OnNotifyOnRightButtonClick(itemData);
+                invenEquipmentUI.OnNotifyOnRightButtonClick(SlotID);
             }
            
             InputSystem.Singleton.ChangeCursorVisibility(true);

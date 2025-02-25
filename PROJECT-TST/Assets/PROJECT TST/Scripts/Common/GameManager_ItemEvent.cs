@@ -11,99 +11,39 @@ namespace TST
     public partial class GameManager : MonoBehaviour
     {
         public event System.Action<ItemData, int> OnUsedItem;
-        public event System.Action<ItemData, bool> OnChangedEquipment;
 
-        public void UseItem(ItemData itemData, int count = 1)
+        public void UseItem(int slotId, ItemData itemData, int count = 1)
         {
             switch (itemData.ItemCategory)
             {
                 case ItemCategory.Equipment:
-                    EquipmentItem(itemData, count);
+                    EquipmentItem(slotId, itemData);
                     break;
                 case ItemCategory.Material:
                     break;
                 case ItemCategory.Consumable:
-                     UseConsumable(itemData, count);
+                     UseConsumable(slotId, itemData, count);
+                    UserDataModel.Singleton.UseInventoryItem(itemData, count);
                     break;
             }
 
             // 마지막에 사용한 아이템을 UserDataModel에서 삭제하도록 처리를 불러주자
-            UserDataModel.Singleton.UseInventoryItem(itemData, count);
             OnUsedItem?.Invoke(itemData, count);
         }
 
-        public void UnEquipmentItem(ItemData itemData, int count = 1)
+        public void UnEquipmentItem(ItemEquipmentCategory category, int slotId)
         {
-            // 인벤에 옮기기
-            if (UserDataModel.Singleton.UnEquipmentCheck(itemData, count) == false)
-                return;
-
-            UnEquipItem(itemData, count);
-            UserDataModel.Singleton.AddItemToInventory(itemData); // 인벤에 넣고
-            OnUsedItem?.Invoke(itemData, count);
+            UserDataModel.Singleton.UnEquipItem(category, slotId);
         }
 
-        private void EquipmentItem(ItemData itemData, int count = 1)
+        private void EquipmentItem(int slotId, ItemData itemData)
         {
-            // 이쪽에서 사운드나 이펙트 or 다른 무언가를 추가 시켜주면 좋을듯?
-            switch (itemData.ItemSubCategory) 
-            {
-                case (int)ItemEquipmentCategory.Helmet:
-                    Debug.Log("Equip Helmet");
-                    break;
-                case (int)ItemEquipmentCategory.Weapon:
-                    Debug.Log("Equip Weapon");
-                    break;
-                case (int)ItemEquipmentCategory.Gloves:
-                    Debug.Log("Equip Gloves");
-                    break;
-                case (int)ItemEquipmentCategory.Armor:
-                    Debug.Log("Equip Armor");
-                    break;
-                case (int)ItemEquipmentCategory.Shoes:
-                    Debug.Log("Equip Shoes");
-                    break;
-            }
-
-            // 실제 데이터 변경은 이쪽에서 
-            if (UserDataModel.Singleton.UnEquipmentCheck(itemData, count))
-            {
-                UnEquipItem(itemData, count);
-                UserDataModel.Singleton.AddItemToInventory(itemData); 
-                OnUsedItem?.Invoke(itemData, count);
-            }
-                
-            UserDataModel.Singleton.EquipItem(itemData);
-            OnChangedEquipment?.Invoke(itemData, true);
-        }
-
-        private void UnEquipItem(ItemData itemData, int count = 1)
-        {
-            // 이쪽에서 사운드나 이펙트 or 다른 무언가를 추가 시켜주면 좋을듯?
-            switch (itemData.ItemSubCategory)
-            {
-                case (int)ItemEquipmentCategory.Helmet:
-                    Debug.Log("UnEquip Helmet");
-                    break;
-                case (int)ItemEquipmentCategory.Weapon:
-                    Debug.Log("UnEquip  Weapon");
-                    break;
-                case (int)ItemEquipmentCategory.Gloves:
-                    Debug.Log("UnEquip  Gloves");
-                    break;
-                case (int)ItemEquipmentCategory.Armor:
-                    Debug.Log("UnEquip  Armor");
-                    break;
-                case (int)ItemEquipmentCategory.Shoes:
-                    Debug.Log("UnEquip  Shoes");
-                    break;
-            }
-
             // 실제 데이터 변경은 이쪽에서
-            OnChangedEquipment?.Invoke(itemData, false);
+            var category = (ItemEquipmentCategory)itemData.ItemSubCategory;
+            UserDataModel.Singleton.EquipItem(category, slotId);
         }
 
-        private void UseConsumable(ItemData itemData, int count = 1)
+        private void UseConsumable(int slotId, ItemData itemData, int count = 1)
         {
             switch (itemData.ItemSubCategory)
             {

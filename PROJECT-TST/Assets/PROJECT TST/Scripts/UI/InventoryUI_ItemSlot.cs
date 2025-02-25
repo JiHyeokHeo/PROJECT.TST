@@ -33,7 +33,6 @@ namespace TST
             SetItem(
                 inventoryItemData.itemData.ItemID,
                 inventoryItemData.itemSlotId,
-                inventoryItemData.itemData.ItemSprite,
                 inventoryItemData.itemCount);
         }
 
@@ -41,14 +40,10 @@ namespace TST
         {
             itemID = itemId;
             itemSlotID = itemSlotId;
-            itemCountText.text = count.ToString();
-        }
-
-        public void SetItem(string itemId, int itemSlotId, Sprite icon, int count)
-        {
-            itemID = itemId;
-            itemSlotID = itemSlotId;
-            itemIcon.sprite = icon;
+            if (AssetManager.Singleton.GetItemIcon(ItemID, out Sprite itemImage))
+            {
+                itemIcon.sprite = itemImage;
+            }
             itemCountText.text = count.ToString();
         }
 
@@ -101,10 +96,10 @@ namespace TST
         {
             // Inventory UI - ItemSlot Button Click Event
             if (inventoryItemData.itemData.ItemCategory == ItemCategory.Consumable)
-                parentUI.OnNotifyOnClickItemSlot(inventoryItemData);
+                parentUI.OnNotifyOnClickItemSlot(inventoryItemData.itemSlotId);
 
             if (inventoryItemData.itemData.ItemCategory == ItemCategory.Equipment)
-                parentUI.OnNotifyOnClickItemSlot(inventoryItemData);
+                parentUI.OnNotifyOnClickItemSlot(inventoryItemData.itemSlotId);
         }
 
         public void OnClickRightButton()
@@ -112,7 +107,7 @@ namespace TST
             if (inventoryItemData.itemData.ItemCategory == ItemCategory.Equipment)
             {
                 InventoryEquipMenuUI invenEquipmentUI = UIManager.Show<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
-                invenEquipmentUI.OnNotifyOnRightButtonClick(inventoryItemData.itemData);
+                invenEquipmentUI.OnNotifyOnRightButtonClick(inventoryItemData.itemSlotId);
             }
             else
             {

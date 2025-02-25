@@ -38,7 +38,6 @@ namespace TST
         [field: SerializeField] public string ItemID { get; private set; }
         [field: SerializeField] public string ItemName { get; private set; }
         [field: SerializeField] public GameObject ItemVisualPrefab { get; private set; }
-        [field: SerializeField] public Sprite ItemSprite { get; private set; }
 
         public Action<CharacterBase> OnUseItem;
 

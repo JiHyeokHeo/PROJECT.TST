@@ -9,8 +9,14 @@ namespace TST
     public class PlayerEquipmentUI : UIBase
     {
         public CharacterBase character;
+        public SerializableWrapDictionary<ItemEquipmentCategory, PlayerEquipmentUI_Slot> equipmentSlotUIs 
+            = new SerializableWrapDictionary<ItemEquipmentCategory, PlayerEquipmentUI_Slot>();
 
-        public List<PlayerEquipmentUI_Slot> playerEquipmentUI_Slots = new List<PlayerEquipmentUI_Slot>();
+        public void SetLinkedCharacter(CharacterBase character)
+        {
+            this.character = character;
+        }
+
         public void Awake()
         {
             UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += OnChangedUserEquipmentItemData;
@@ -21,36 +27,46 @@ namespace TST
             //    playerEquipmentUI_Slots.Add(components[i]);
         }
 
-        public void OnChangedUserEquipmentItemData(PlayerEquipmentDTO.UserItemData playerEquipData, ItemData itemData)
+        private void OnEnable()
         {
-            // 만약 널을 보낸다면 장비를 해제해달라는 요청
-            if (playerEquipData == null)
+            if (UserDataModel.Singleton)
             {
-                Debug.Log("playerEquipmentUI Event 발생");
-                int slotIndex = itemData.ItemSubCategory - 1;
-                playerEquipmentUI_Slots[slotIndex].SetItem("null", slotIndex, null, itemData);
-                return;
+                UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += OnChangedUserEquipmentItemData;
             }
-
-            Debug.Log("playerEquipmentUI Event 발생");
-            int index = playerEquipData.equipUIslotID;
-            playerEquipmentUI_Slots[index].SetItem(itemData.ItemID, index, itemData.ItemSprite, itemData);
         }
 
-        public void OnNotifyItemOnEquipment(ItemData itemdata)
+        private void OnDisable()
         {
-            GameManager.Instance.UseItem(itemdata);
+            if (UserDataModel.Singleton)
+            {
+                UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent -= OnChangedUserEquipmentItemData;
+            }
         }
 
-        public void OnNotifyItemUnEquipment(ItemData itemdata)
+        public void OnChangedUserEquipmentItemData(ItemEquipmentCategory category, int beforeSlotID, int afterSlotID)
         {
-            GameManager.Instance.UnEquipmentItem(itemdata);
+            if (!equipmentSlotUIs.ContainsKey(category))
+                return;
+
+            equipmentSlotUIs[category].SetItem(afterSlotID);
         }
 
-        public void SetLinkedCharacter(CharacterBase character)
+        public void OnNotifyItemOnEquipment(int slotId)
         {
-            this.character = character;
+            var targetUserItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotId);
+            GameDataModel.Singleton.GetItemData(targetUserItemData.itemID, out ItemData itemData);
+
+            GameManager.Instance.UseItem(slotId, itemData);
         }
 
+        public void OnNotifyItemUnEquipment(int slotId)
+        {
+            var targetUserItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotId);
+            GameDataModel.Singleton.GetItemData(targetUserItemData.itemID, out ItemData itemData);
+
+            GameManager.Instance.UnEquipmentItem((ItemEquipmentCategory)itemData.ItemSubCategory, slotId);
+        }
+
+      
     }
 }

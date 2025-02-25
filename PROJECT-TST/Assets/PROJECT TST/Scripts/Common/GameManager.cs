@@ -35,7 +35,7 @@ namespace TST
 
         [Button()]
         // 유저데이터와 별개로 테스트 하기 위해
-        public void UseItem(int slotId, int useCount, bool forceUse = false)
+        public void UseStaticItem(int slotId, int useCount, bool forceUse = false)
         {
             // 강제처리
             if (forceUse)

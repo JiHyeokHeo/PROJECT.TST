@@ -15,7 +15,8 @@ namespace TST
 
         private InventoryUI inventoryUI;
         private PlayerEquipmentUI playerEquipmentUI;
-        private ItemData selectedItemData;
+
+        private int targetSlotID;
 
         private void Awake()
         {
@@ -25,9 +26,12 @@ namespace TST
             playerEquipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
         }
 
-        public void OnNotifyOnRightButtonClick(ItemData itemData)
+        public void OnNotifyOnRightButtonClick(int slotID)
         {
-            selectedItemData = itemData;
+            var targetUserItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotID);
+            GameDataModel.Singleton.GetItemData(targetUserItemData.itemID, out ItemData itemData);
+
+            targetSlotID = slotID;
 
             // 슬롯에서부터 아이템 정보 받은 것으로 Text 및 데이터 받아오기
             itemNameText.text = itemData.ItemID; 
@@ -35,14 +39,14 @@ namespace TST
 
         public void OnClickUseButton()
         {
-            inventoryUI.OnNotifyOnClickItemSlot(selectedItemData.ItemID, 1);
-            playerEquipmentUI.OnNotifyItemOnEquipment(selectedItemData);
+            inventoryUI.OnNotifyOnClickItemSlot(targetSlotID);
+            playerEquipmentUI.OnNotifyItemOnEquipment(targetSlotID);
             UIManager.Hide<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
         }
 
         public void OnClickCancelButton()
         {
-            playerEquipmentUI.OnNotifyItemUnEquipment(selectedItemData);
+            playerEquipmentUI.OnNotifyItemUnEquipment(targetSlotID);
             UIManager.Hide<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);
         }
 

@@ -59,19 +59,24 @@ namespace TST
         }
 
         public List<UserItemData> Items = new List<UserItemData>();
+
+        public UserItemData GetUserItemData(int slotId)
+        {
+            return Items.Find(x=>x.slotID==slotId);
+        }
     }
 
     [System.Serializable]
     public class PlayerEquipmentDTO : UserDataDTO
     {
-        [System.Serializable]
-        public class UserItemData
+        public Dictionary<ItemEquipmentCategory, int> equipmentItems = new Dictionary<ItemEquipmentCategory, int>()
         {
-            public int equipUIslotID; // 0 1 2 3 4 ∏”∏Æ ¿Â∞© √— æ∆∏” Ω≈πﬂ
-            public string itemID;
-        }
-
-        public List<UserItemData> equipItems = new List<UserItemData>();
+            { ItemEquipmentCategory.Helmet, -1 },
+            { ItemEquipmentCategory.Gloves, -1 },
+            { ItemEquipmentCategory.Weapon, -1 },
+            { ItemEquipmentCategory.Armor, -1 },
+            { ItemEquipmentCategory.Shoes, -1 },
+        };
     }
 }
     
