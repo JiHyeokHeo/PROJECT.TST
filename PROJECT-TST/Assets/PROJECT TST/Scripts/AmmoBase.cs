@@ -35,8 +35,8 @@ namespace TST
 
         public void Initialize()
         {
-            currentAmmo = 0;
-            loadedBulletAmount = 0;
+            currentAmmo = data.initAmmoCount;
+            loadedBulletAmount = data.initAmmoCount;
             //maxAmmo = 0;
         }
     }

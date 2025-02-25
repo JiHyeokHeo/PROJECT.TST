@@ -737,8 +737,8 @@ namespace TST
             if (!isReloading && currentWeapon.CurrentBulletAmount != currentWeapon.clipSize)
             {
                 isReloading = true;
-                multiParent.SetActive(true);
-                rigBuilder.Build();
+                //multiParent.SetActive(true);
+                //rigBuilder.Build();
                 animator.SetTrigger("Reload Trigger");
             }
         }
@@ -747,7 +747,7 @@ namespace TST
         {
             currentWeapon.Reload();
             isReloading = false;
-            multiParent.SetActive(false);
+            //multiParent.SetActive(false);
         }
 
         private void SetEquipmentIKPosAndRotation(WeaponType weaponType)
@@ -785,7 +785,7 @@ namespace TST
 
         public void SetWeaponAttachToHand(WeaponBase weapon)
         {
-            weapon.transform.SetParent(weaponHolder);
+            weapon.transform.SetParent(weaponHolder, false);
             weapon.transform.localPosition = offsetPosition;
             weapon.transform.localRotation = Quaternion.Euler(offsetRotation);
         }
@@ -795,10 +795,10 @@ namespace TST
             switch (weapon.WeaponType)
             {
                 case WeaponType.Rifle:
-                    weapon.transform.SetParent(weaponSocket);
+                    weapon.transform.SetParent(weaponSocket, false);
                     break;
                 case WeaponType.Pistol:
-                    weapon.transform.SetParent(subWeaponSocket);
+                    weapon.transform.SetParent(subWeaponSocket, false);
                     break;
             }
             weapon.transform.localPosition = Vector3.zero;
