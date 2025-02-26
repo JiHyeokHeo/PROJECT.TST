@@ -73,8 +73,10 @@ namespace TST
             PlayerEquipmentUI equipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
             equipmentUI.SetLinkedCharacter(linkedCharacter);
 
+            #region Skill 
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
             //linkedCharacter.RegisterSkill(0, new CharacterSkill_SlingShot(slingShotData));
+            #endregion
         }
 
         void OnExecuteJump()
@@ -142,11 +144,15 @@ namespace TST
             if (true == inventoryUI.gameObject.activeSelf)
             {
                 UIManager.Hide<InventoryUI>(UIList.InventoryUI);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 return false;
             }
             else 
             {
                 UIManager.Show<InventoryUI>(UIList.InventoryUI);
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
                 return true;
             }
         }
@@ -198,12 +204,6 @@ namespace TST
 
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.F1))
-            //{
-            //    UIManager.Show<PopupA_UI>(UIList.PopupA_UI);
-            //}
-
-
             float inputX = Input.GetAxis("Horizontal");
             float inputY = Input.GetAxis("Vertical");
 
@@ -220,30 +220,6 @@ namespace TST
             {
                 CameraSystem.Instance.IsCameraSideOnRight = !CameraSystem.Instance.IsCameraSideOnRight;
             }
-
-            //if (Input.GetKeyDown(KeyCode.Alpha2))
-            //{
-            //    linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.Alpha3))
-            //{
-            //    linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
-            //}
-
-            //if (Input.GetKeyDown(KeyCode.Alpha4))
-            //{
-            //    linkedCharacter.IsArmed = !linkedCharacter.IsArmed;
-            //}
-
-            //if (currentInteractables.Count > 0)
-            //{
-            //    InteractionUI.Instance.ShowInteractionItem();
-            //}
-            //else
-            //{
-            //    InteractionUI.Instance.HideInteractionItem();
-            //}
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
@@ -350,15 +326,18 @@ namespace TST
             }
             
             linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
+
             bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
+            
             linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
 
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                CommandExecuteSkill(0);
-            }
+            #region Skill Active
+            //if (Input.GetKeyDown(KeyCode.T))
+            //{
+            //    CommandExecuteSkill(0);
+            //}
+            #endregion
         }
-
 
         public float interactionRange = 2f;
         [field : SerializeField]public List<IInteractable> currentInteractables = new List<IInteractable>();
@@ -390,7 +369,8 @@ namespace TST
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if (Cursor.visible == false)
+                CameraRotation();
         }
 
         public void PlayLootAnimation()
@@ -403,7 +383,6 @@ namespace TST
             if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.CurrentBulletAmount > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
-                //OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = true;
             }
 
             currentRecoil = Mathf.Clamp(currentRecoil, 0.0f, recoilMaxThreshold);
@@ -411,7 +390,6 @@ namespace TST
 
         public void PauseRecoil()
         {
-            //OptionManager.Singleton.usingCrossHairComponent.IsRecoilChange = false;
             currentRecoil = 0.0f;
         }
 

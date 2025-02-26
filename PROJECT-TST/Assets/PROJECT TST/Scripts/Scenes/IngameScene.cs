@@ -13,6 +13,10 @@ namespace TST
             AsyncOperation asyncToTitle = SceneManager.LoadSceneAsync(SceneType.Ingame.ToString(), LoadSceneMode.Single);
             yield return new WaitUntil(() => asyncToTitle.isDone);
 
+            UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
+            UIManager.Show<MainHudUI>(UIList.MainUI);
+            UIManager.Show<InteractionUI>(UIList.InteractionUI);
+            UIManager.Show<InventoryUI>(UIList.InventoryUI);
             //UIManager.Show<IngameUI>(UIList.IngameUI);
             //UIManager.Show<MinimapUI>(UIList.MinimapUI);
             //UIManager.Show<IndicatorUI>(UIList.IndicatorUI);

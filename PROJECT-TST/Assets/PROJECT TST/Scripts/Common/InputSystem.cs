@@ -66,15 +66,15 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.I))
             {
                 bool? isCursorOn = OnInput_InventoryToggle?.Invoke();
-                if (isCursorOn != null)
-                    SetCursorVisible((bool)isCursorOn);
+                //if (isCursorOn != null)
+                //    SetCursorVisible((bool)isCursorOn);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
                 bool? isCursorOn = OnInput_EquipmentToggle?.Invoke();   
-                if (isCursorOn != null)
-                    SetCursorVisible((bool)isCursorOn);
+                //if (isCursorOn != null)
+                //    SetCursorVisible((bool)isCursorOn);
             }
 
             if (Input.GetMouseButtonUp(1))
@@ -124,6 +124,12 @@ namespace TST
             if (Input.GetKey(KeyCode.LeftAlt))
             {
                 SetCursorVisible(true);
+            }
+
+
+            if (Input.GetKeyUp(KeyCode.LeftAlt))
+            {
+                SetCursorVisible(false);
             }
         }
 
