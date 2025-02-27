@@ -92739,10 +92739,11 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 1.3333334
+  - time: 1.6666666
     functionName: RollingFinished
     data: 
-    objectReferenceParameter: {fileID: 11500000, guid: 1e33667fdcc392743b617e5a4a18f519, type: 3}
+    objectReferenceParameter: {fileID: 11500000, guid: 1e33667fdcc392743b617e5a4a18f519,
+      type: 3}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0

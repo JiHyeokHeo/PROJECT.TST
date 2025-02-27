@@ -13,8 +13,16 @@ namespace TST
         public System.Action OnInput_ToggleFpsRightButtonTransition;
         public System.Action OnInput_MaintainZoom;
         public System.Action OnInput_ReturnToTps;
+        public System.Action OnInput_Roll;
+        public System.Action OnInput_Interact;
+        public System.Action OnInput_PlayerThirdViewRightLeftChange;
+        public System.Action OnInput_Shoot;
+        public System.Action OnInput_ShootFinish;
+        public System.Action OnInput_Reload;
+        public System.Action OnInput_Crouch;
         public System.Func<bool> OnInput_InventoryToggle;
         public System.Func<bool> OnInput_EquipmentToggle;
+
 
         private float aimStartTime = 0f;
         private float threshold = 0.25f;
@@ -47,6 +55,26 @@ namespace TST
                 OnInput_HelpPopupToggle?.Invoke();
             }
 
+            if (Input.GetMouseButton(0))
+            {
+                OnInput_Shoot?.Invoke();
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                OnInput_ShootFinish?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                OnInput_Reload?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                OnInput_Crouch?.Invoke();
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 aimStartTime = Time.time;
@@ -75,6 +103,16 @@ namespace TST
                 bool? isCursorOn = OnInput_EquipmentToggle?.Invoke();   
                 //if (isCursorOn != null)
                 //    SetCursorVisible((bool)isCursorOn);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                OnInput_Interact?.Invoke();
+            }
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                OnInput_Roll?.Invoke();
             }
 
             if (Input.GetMouseButtonUp(1))
@@ -130,7 +168,11 @@ namespace TST
             {
                 SetCursorVisible(false);
             }
-        }
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+
+            }
 
         public void ChangeCursorVisibility(bool isVisible)
         {

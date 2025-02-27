@@ -62,9 +62,16 @@ namespace TST
             InputSystem.Singleton.OnInput_ReturnToTps += OnExecuteReturnToTps;
             InputSystem.Singleton.OnInput_InventoryToggle += OnExecuteInventoryUI;
             InputSystem.Singleton.OnInput_EquipmentToggle += OnExecutePlayerEquipmentUI;
-            // += CommandExecuteSkill // input 연동
+            InputSystem.Singleton.OnInput_Roll += OnExecutePlayerRoll;
+            InputSystem.Singleton.OnInput_Interact += OnExectuePlayerInteract;
+            InputSystem.Singleton.OnInput_PlayerThirdViewRightLeftChange += OnExecuteThirdRightLeftViewChange;
+            InputSystem.Singleton.OnInput_Shoot += OnExecuteShoot;
+            InputSystem.Singleton.OnInput_ShootFinish += FinishShoot;
+            InputSystem.Singleton.OnInput_Reload += OnExecuteReload;
+            InputSystem.Singleton.OnInput_Crouch += OnExecuteCrouch;
+           // += CommandExecuteSkill // input 연동
 
-            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
+           MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
             mainHud.SetLinkedCharacter(linkedCharacter);
 
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
@@ -82,6 +89,52 @@ namespace TST
         void OnExecuteJump()
         {
             linkedCharacter.Jump();
+        }
+
+        void OnExecutePlayerRoll()
+        {
+            linkedCharacter.Roll();
+        }
+
+        void OnExecuteShoot()
+        {
+            linkedCharacter.Shoot();
+        }
+
+        void OnExecuteReload()
+        {
+            linkedCharacter.Reload();
+        }
+
+        void OnExecuteCrouch()
+        {
+            linkedCharacter.Crouch();
+        }
+
+        void FinishShoot()
+        {
+            linkedCharacter.ShootFinished();
+        }
+
+
+        void OnExectuePlayerInteract()
+        {
+            if (currentInteractables.Count > 0)
+            {
+                currentInteractables[0].Interact(linkedCharacter.gameObject);
+
+                InteractType interactType = currentInteractables[0].InteractType;
+
+                switch (interactType)
+                {
+                    case InteractType.Item:
+                        PlayLootAnimation();
+                        break;
+                    case InteractType.NPC:
+
+                        break;
+                }
+            }
         }
 
         void OnExecuteMainWeaponSwap()
@@ -123,6 +176,11 @@ namespace TST
                     obj.SetActive(true);
                 }
             }
+        }
+
+        void OnExecuteThirdRightLeftViewChange()
+        {
+            CameraSystem.Instance.IsCameraSideOnRight = !CameraSystem.Instance.IsCameraSideOnRight;
         }
 
         void OnExecuteMaintainZoom()
@@ -181,8 +239,6 @@ namespace TST
                 CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
         }
 
-     
-
         //void OnExecuteHelpPopup()
         //{
         //    var helpPopup = UIManager.Singleton.GetUI<PopupA_UI>(UIList.PopupA_UI);
@@ -201,7 +257,6 @@ namespace TST
         //    }
         //}
 
-
         private void Update()
         {
             float inputX = Input.GetAxis("Horizontal");
@@ -214,11 +269,6 @@ namespace TST
             else
             {
                 InteractionUI.Instance.HideInteractionItem();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                CameraSystem.Instance.IsCameraSideOnRight = !CameraSystem.Instance.IsCameraSideOnRight;
             }
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -234,78 +284,6 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.CapsLock))
             {
                 linkedCharacter.IsWalk = !linkedCharacter.IsWalk;
-            }
-
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                linkedCharacter.Reload();
-            }
-
-            if (Input.GetMouseButton(0))
-            {
-                linkedCharacter.Shoot();
-            }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                linkedCharacter.ShootFinished();
-            }
-
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                linkedCharacter.Roll();
-            }
-
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                linkedCharacter.Crouch();
-            }
-
-            //if (Input.GetKeyDown(KeyCode.H))
-            //{
-            //    linkedCharacter.DroneSetting();
-            //}
-
-
-            // 고민 캐릭터 컨트롤러에서 애니메이터를 건드는게 맞는거 같은데..
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (currentInteractables.Count > 0) 
-                {
-                    currentInteractables[0].Interact(linkedCharacter.gameObject);
-
-                    InteractType interactType = currentInteractables[0].InteractType;
-                    
-                    switch (interactType)
-                    {
-                        case InteractType.Item:
-                            PlayLootAnimation();
-                            break;
-                        case InteractType.NPC:
-
-                            break;
-                    }
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                linkedCharacter.IsThrowMode = !linkedCharacter.IsThrowMode;
-            }
-
-            if (linkedCharacter.IsThrowMode)
-            {
-                List<Vector3> simulationResult = SimulationSystem.Instance.Simulate(
-                    linkedCharacter.CurrentThrowObject,
-                    linkedCharacter.throwStartPoint.position,
-                    linkedCharacter.transform.forward * 50,
-                    ForceMode.Impulse);
-
-                trajectoryRenderer.positionCount = simulationResult.Count;
-                for (int i = 0; i < simulationResult.Count; i++)
-                {
-                    trajectoryRenderer.SetPosition(i, simulationResult[i]);
-                }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -332,11 +310,38 @@ namespace TST
                 linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
             }
 
+            #region Test
+            //if (Input.GetKeyDown(KeyCode.H))
+            //{
+            //    linkedCharacter.DroneSetting();
+            //}
+
+            //if (Input.GetKeyDown(KeyCode.G))
+            //{
+            //    linkedCharacter.IsThrowMode = !linkedCharacter.IsThrowMode;
+            //}
+            #region Physic Scene 시뮬레이션 씬
+            //if (linkedCharacter.IsThrowMode)
+            //{
+            //    List<Vector3> simulationResult = SimulationSystem.Instance.Simulate(
+            //        linkedCharacter.CurrentThrowObject,
+            //        linkedCharacter.throwStartPoint.position,
+            //        linkedCharacter.transform.forward * 50,
+            //        ForceMode.Impulse);
+
+            //    trajectoryRenderer.positionCount = simulationResult.Count;
+            //    for (int i = 0; i < simulationResult.Count; i++)
+            //    {
+            //        trajectoryRenderer.SetPosition(i, simulationResult[i]);
+            //    }
+            //}
+            #endregion
             #region Skill Active
             //if (Input.GetKeyDown(KeyCode.T))
             //{
             //    CommandExecuteSkill(0);
             //}
+            #endregion
             #endregion
         }
 
