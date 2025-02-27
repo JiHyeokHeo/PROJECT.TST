@@ -954,6 +954,16 @@ namespace TST
             isSwitchingWeapon = false;
         }
 
+        public void JumpStart()
+        {
+            SetIKActive(false);
+        }
+
+        public void JumpFinished()
+        {
+            SetIKActive(true);
+        }
+
         public void RollingFinished(int flag)
         {
             isRolling = false;
