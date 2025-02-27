@@ -465,6 +465,9 @@ namespace TST
 
         public void Move(Vector2 input, float yAxisAngle)
         {
+            if (isRolling)
+                return;
+
             if (isZip)
             {
                 targetSpeed = isWalk ? 0.0f : 2.1f;
@@ -548,6 +551,7 @@ namespace TST
 
             if (!isRolling)
             {
+                SetIKActive(false);
                 animator.SetTrigger("Roll Trigger");
                 isRolling = true;
             }
@@ -588,7 +592,6 @@ namespace TST
             // 타겟은 일단 에이밍 걸린 포인트이다
             if (isRolling)
                 return false;
-
 
             if (CurrentHp <= 0)
                 return false;
@@ -966,6 +969,7 @@ namespace TST
 
         public void RollingFinished(int flag)
         {
+            SetIKActive(true);
             isRolling = false;
             rollTime = 0.0f;
         }

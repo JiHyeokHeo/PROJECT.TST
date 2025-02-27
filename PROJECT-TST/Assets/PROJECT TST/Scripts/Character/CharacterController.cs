@@ -325,11 +325,12 @@ namespace TST
                 aimingPoint = screenCenterRay.GetPoint(1000f);
             }
             
-            linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
-
-            bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
-            
-            linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
+            if (Cursor.visible == false)
+            {
+                linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
+                bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
+                linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
+            }
 
             #region Skill Active
             //if (Input.GetKeyDown(KeyCode.T))

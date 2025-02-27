@@ -126,7 +126,6 @@ namespace TST
                 SetCursorVisible(true);
             }
 
-
             if (Input.GetKeyUp(KeyCode.LeftAlt))
             {
                 SetCursorVisible(false);
