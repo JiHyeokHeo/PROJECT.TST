@@ -83,14 +83,14 @@ namespace TST
 
             if (Input.GetMouseButton(1))
             {
-                if (shoulderZoom == false && Time.time - aimStartTime >= threshold) 
+                if (shoulderZoom == false && Time.time - aimStartTime >= threshold)
                 {
                     shoulderZoom = true;
                     // °ßÂø
                     OnInput_MaintainZoom?.Invoke();
                 }
             }
-            
+
             if (Input.GetKeyDown(KeyCode.I))
             {
                 bool? isCursorOn = OnInput_InventoryToggle?.Invoke();
@@ -100,7 +100,7 @@ namespace TST
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                bool? isCursorOn = OnInput_EquipmentToggle?.Invoke();   
+                bool? isCursorOn = OnInput_EquipmentToggle?.Invoke();
                 //if (isCursorOn != null)
                 //    SetCursorVisible((bool)isCursorOn);
             }
@@ -173,6 +173,7 @@ namespace TST
             {
 
             }
+        }
 
         public void ChangeCursorVisibility(bool isVisible)
         {
