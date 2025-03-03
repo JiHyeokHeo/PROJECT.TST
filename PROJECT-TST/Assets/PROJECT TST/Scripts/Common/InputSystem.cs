@@ -6,6 +6,8 @@ namespace TST
 {
     public class InputSystem : SingletonBase<InputSystem>
     {
+        public bool IsActiveCursorVisible => Cursor.visible;
+
         public System.Action OnInput_Jump;
         public System.Action OnInput_HelpPopupToggle;
         public System.Action OnInput_MainWeapon;
@@ -22,6 +24,8 @@ namespace TST
         public System.Action OnInput_Crouch;
         public System.Func<bool> OnInput_InventoryToggle;
         public System.Func<bool> OnInput_EquipmentToggle;
+
+        public System.Action OnInput_WorldMap;
 
 
         private float aimStartTime = 0f;
@@ -93,16 +97,12 @@ namespace TST
 
             if (Input.GetKeyDown(KeyCode.I))
             {
-                bool? isCursorOn = OnInput_InventoryToggle?.Invoke();
-                //if (isCursorOn != null)
-                //    SetCursorVisible((bool)isCursorOn);
+                OnInput_InventoryToggle?.Invoke();
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                bool? isCursorOn = OnInput_EquipmentToggle?.Invoke();
-                //if (isCursorOn != null)
-                //    SetCursorVisible((bool)isCursorOn);
+                OnInput_EquipmentToggle?.Invoke();
             }
 
             if (Input.GetKeyDown(KeyCode.F))
@@ -161,23 +161,39 @@ namespace TST
 
             if (Input.GetKey(KeyCode.LeftAlt))
             {
-                SetCursorVisible(true);
+                ChangeCursorVisibility(true);
             }
 
             if (Input.GetKeyUp(KeyCode.LeftAlt))
             {
-                SetCursorVisible(false);
+                ChangeCursorVisibility(false);
             }
 
             if (Input.GetKeyDown(KeyCode.Tab))
             {
 
             }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                OnInput_WorldMap?.Invoke();
+            }
         }
 
         public void ChangeCursorVisibility(bool isVisible)
         {
-            SetCursorVisible(isVisible);
+            if (isVisible == false)
+            {
+                if (UIManager.Singleton.ActiveCursorVisibleUIsCount <= 0)
+                {
+                    SetCursorVisible(false);
+                }
+            }
+            else
+            {
+                SetCursorVisible(true);
+            }
+
         }
     }
 }

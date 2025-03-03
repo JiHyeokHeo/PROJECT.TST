@@ -9,6 +9,8 @@ namespace TST
 {
     public class InventoryUI : UIBase
     {
+        public override bool IsVisibleCursor => true;
+
         public CharacterBase character;
         [SerializeField] private Transform itemSlotRoot;
         [SerializeField] private InventoryUI_ItemSlot itemSlotPrefab;

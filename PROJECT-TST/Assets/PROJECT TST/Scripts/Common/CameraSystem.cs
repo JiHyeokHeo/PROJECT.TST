@@ -9,6 +9,17 @@ namespace TST
     {
         public static CameraSystem Instance { get; private set; }
 
+        public bool IsActiveWorldCamera
+        {
+            get => isActiveWorldCamera;
+            set
+            {
+                isActiveWorldCamera = value;
+                worldCamera.gameObject.SetActive(isActiveWorldCamera);
+            }
+        }
+
+        public bool isActiveWorldCamera = false;
 
         [field: SerializeField] public bool IsCameraZoom { get; set; } = false;
         [field: SerializeField] public bool IsCameraSideOnRight { get; set; } = true;
@@ -29,6 +40,7 @@ namespace TST
         private bool isFpsMode;
         public Cinemachine.CinemachineVirtualCamera tpsCamera;
         public Cinemachine.CinemachineVirtualCamera fpsCamera;
+        public Cinemachine.CinemachineVirtualCamera worldCamera;
         public Vector2 cameraDistance = new Vector2(2f, 1.0f);
 
         private Cinemachine3rdPersonFollow tpsCameraFollow;

@@ -9,6 +9,10 @@ namespace TST
     {
         public static CharacterController Instance { get; private set;}
 
+        public bool IsActiveControl_Movement { get; set; } = true;
+        public bool IsActiveControl_Camera { get; set; } = true;
+        public bool IsControlLocked { get; set; } = false;
+
         public CharacterBase linkedCharacter;
         public Transform cameraPivot;
         public Transform fpsCameraPivot;
@@ -69,6 +73,7 @@ namespace TST
             InputSystem.Singleton.OnInput_ShootFinish += FinishShoot;
             InputSystem.Singleton.OnInput_Reload += OnExecuteReload;
             InputSystem.Singleton.OnInput_Crouch += OnExecuteCrouch;
+            InputSystem.Singleton.OnInput_WorldMap += OnExecuteWorldMap;
            // += CommandExecuteSkill // input 연동
 
            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
@@ -84,6 +89,12 @@ namespace TST
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
             //linkedCharacter.RegisterSkill(0, new CharacterSkill_SlingShot(slingShotData));
             #endregion
+        }
+
+        void OnExecuteWorldMap()
+        {
+            CameraSystem.Instance.IsActiveWorldCamera = !CameraSystem.Instance.IsActiveWorldCamera;
+            // World Map 화면과 관련된 UI를 Show / Hide 하기.
         }
 
         void OnExecuteJump()
@@ -115,7 +126,6 @@ namespace TST
         {
             linkedCharacter.ShootFinished();
         }
-
 
         void OnExectuePlayerInteract()
         {
@@ -259,6 +269,20 @@ namespace TST
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.J)) 
+            {
+                IngameStartCinematic.Instance.StartCinematic();
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                IngameStartCinematic.Instance.SkipCinematic();
+            }
+
+            IsControlLocked = UIManager.Singleton.ActiveCursorVisibleUIsCount > 0 
+                || InputSystem.Singleton.IsActiveCursorVisible 
+                || CameraSystem.Instance.IsActiveWorldCamera;
+
             float inputX = Input.GetAxis("Horizontal");
             float inputY = Input.GetAxis("Vertical");
 
@@ -303,7 +327,7 @@ namespace TST
                 aimingPoint = screenCenterRay.GetPoint(1000f);
             }
             
-            if (Cursor.visible == false)
+            if (IsActiveControl_Movement && !IsControlLocked)
             {
                 linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
                 bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
@@ -375,8 +399,10 @@ namespace TST
 
         private void LateUpdate()
         {
-            if (Cursor.visible == false)
+            if (IsActiveControl_Camera && !IsControlLocked )
+            {
                 CameraRotation();
+            }
         }
 
         public void PlayLootAnimation()

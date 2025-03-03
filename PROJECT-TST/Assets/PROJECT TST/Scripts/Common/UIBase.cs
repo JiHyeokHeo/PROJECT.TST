@@ -6,6 +6,8 @@ namespace TST
 {
     public class UIBase : MonoBehaviour
     {
+        public virtual bool IsVisibleCursor { get; set; } = false;
+
         public virtual void Show()
         {
             gameObject.SetActive(true);

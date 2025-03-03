@@ -1,3 +1,4 @@
+using Gpm.Common.ThirdParty.MessagePack.Resolvers;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,20 @@ namespace TST
                 new Vector3(transform.position.x, transform.position.y - groundedOffset, transform.position.z),
                 groundedRadius);
         }
+
+        public bool IsActiveLeftHandIK { get => isActiveLeftHandIK; set => isActiveLeftHandIK = value; }
+        private bool isActiveLeftHandIK;
+
+        public bool IsActiveRightHandIK { get => isActiveRightHandIK; set => isActiveRightHandIK = value; }
+        private bool isActiveRightHandIK;
+
+        public bool IsActiveBodyIK { get => isActiveBodyIK; set => isActiveBodyIK = value; }
+        private bool isActiveBodyIK;
+
+        [SerializeField] private MultiAimConstraint multiAimConstraint_RightHand;
+        [SerializeField] private MultiAimConstraint multiAimConstraint_Body;
+        [SerializeField] private TwoBoneIKConstraint multiAimConstraint_LeftHand;
+
         #region Armed Status
         [Title("Armed Status", titleAlignment: TitleAlignments.Centered)]
         public bool IsArmed => currentWeapon != null;
@@ -385,10 +400,9 @@ namespace TST
 
         private void Update()
         {
-            for (int i =0; i < characterSkills.Count; i++)
-            {
-                
-            }
+            multiAimConstraint_Body.weight = isActiveBodyIK ? 1f : 0f;
+            multiAimConstraint_RightHand.weight = isActiveRightHandIK ? 1f : 0f;
+            multiAimConstraint_LeftHand.weight = isActiveLeftHandIK ? 1f : 0f;
 
             JumpAndGravity();
             FreeFall();
@@ -417,6 +431,13 @@ namespace TST
 
             if (isRolling)
                 StartRoll();
+
+            #region Legacy
+            for (int i = 0; i < characterSkills.Count; i++)
+            {
+
+            }
+            #endregion
         }
 
         private void CheckPlayerStatus()

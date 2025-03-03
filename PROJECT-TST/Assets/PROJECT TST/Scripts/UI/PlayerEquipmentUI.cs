@@ -8,6 +8,8 @@ namespace TST
 {
     public class PlayerEquipmentUI : UIBase
     {
+        public override bool IsVisibleCursor => true;
+
         public CharacterBase character;
         public SerializableWrapDictionary<ItemEquipmentCategory, PlayerEquipmentUI_Slot> equipmentSlotUIs 
             = new SerializableWrapDictionary<ItemEquipmentCategory, PlayerEquipmentUI_Slot>();

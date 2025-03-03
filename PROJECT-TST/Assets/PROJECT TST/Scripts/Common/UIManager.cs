@@ -12,6 +12,13 @@ namespace TST
             if (Singleton.GetUI<T>(uiPrefabName, out T result))
             {
                 result.Show();
+
+                if (result.IsVisibleCursor)
+                {
+                    InputSystem.Singleton.ChangeCursorVisibility(true);
+                    Singleton.cursorVisibleUIs.Add(result);
+                }
+
                 return result;
             }
 
@@ -23,6 +30,16 @@ namespace TST
             if (Singleton.GetUI<T>(uiPrefabName, out T result))
             {
                 result.Hide();
+
+                if (result.IsVisibleCursor)
+                {
+                    Singleton.cursorVisibleUIs.Remove(result);
+                    if (Singleton.cursorVisibleUIs.Count <= 0)
+                    {
+                        InputSystem.Singleton.ChangeCursorVisibility(false);
+                    }
+                }
+
                 return result;
             }
 
@@ -30,12 +47,15 @@ namespace TST
         }
 
         [field: SerializeField] public Camera UICamera { get; private set; } = null;
+        public int ActiveCursorVisibleUIsCount => cursorVisibleUIs.Count;
 
         private Dictionary<UIList, UIBase> panels = new Dictionary<UIList, UIBase>();
         private Dictionary<UIList, UIBase> popups = new Dictionary<UIList, UIBase>();
 
         private Transform panelRoot;
         private Transform popupRoot;
+
+        private List<UIBase> cursorVisibleUIs = new List<UIBase>();
 
         private const string UI_PREFAB_PATH = "UI/Prefabs/";
 
