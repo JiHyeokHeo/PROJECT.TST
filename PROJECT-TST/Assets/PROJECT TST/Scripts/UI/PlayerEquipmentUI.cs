@@ -22,11 +22,6 @@ namespace TST
         public void Awake()
         {
             UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += OnChangedUserEquipmentItemData;
-
-            //PlayerEquipmentUI_Slot[] components =  GetComponentsInChildren<PlayerEquipmentUI_Slot>();
-
-            //for (int i = 0; i < components.Length; i++)
-            //    playerEquipmentUI_Slots.Add(components[i]);
         }
 
         private void OnEnable()

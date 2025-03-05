@@ -13,6 +13,17 @@ namespace TST
         Consumable, // ¼Ò¸ðÇ°
     }
 
+    public enum ItemMaterialCategory
+    {
+        None = 0,
+        Silver,
+        Gold,
+        Metal,
+        Dust,
+        Fluid,
+        Alchemical,
+    }
+
     public enum ItemEquipmentCategory
     {
         None = 0,
