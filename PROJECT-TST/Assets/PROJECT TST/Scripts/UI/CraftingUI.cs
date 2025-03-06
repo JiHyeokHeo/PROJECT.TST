@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,9 +10,7 @@ namespace TST
         // 너가 조합식을 다 가지고 있자..
         public override bool IsVisibleCursor => true;
 
-        public SerializableWrapDictionary<ItemMaterialCategory, CraftingUI_Slot> materialRequirements
-             = new SerializableWrapDictionary<ItemMaterialCategory, CraftingUI_Slot>();
+        //public Action OnCrafting
 
-        // 
     }
 }

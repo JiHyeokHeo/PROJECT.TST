@@ -9,7 +9,7 @@ namespace TST
         None,
         Item,
         NPC,
-
+        Door,
     }
 
     public interface IInteractable 
