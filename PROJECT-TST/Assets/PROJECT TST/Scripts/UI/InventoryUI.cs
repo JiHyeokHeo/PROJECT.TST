@@ -29,18 +29,28 @@ namespace TST
         private void OnEnable()
         {
             // TODO : UserDataModel의 UserItemData에 있는 아이템 데이터를 읽고, 인벤토리에 표기해준다.
-            GameManager.Instance.OnUsedItem += (_ , _) => RefreshInventory();
-            UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
-            UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += (_, _, _) => RefreshInventory();
+            if (GameManager.Instance)
+                GameManager.Instance.OnUsedItem += (_ , _) => RefreshInventory();
+
+            if (UserDataModel.Singleton)
+            {
+                UserDataModel.Singleton.OnUserItemChangedEvent += OnChangedUserItemData;
+                UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += (_, _, _) => RefreshInventory();
+            }
 
             RefreshInventory();
         }
 
         private void OnDisable()
         {
-            GameManager.Instance.OnUsedItem -= (_, _) => RefreshInventory();
-            UserDataModel.Singleton.OnUserItemChangedEvent -= OnChangedUserItemData;
-            UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent -= (_, _, _) => RefreshInventory();
+            if (GameManager.Instance)
+                GameManager.Instance.OnUsedItem -= (_, _) => RefreshInventory();
+
+            if (UserDataModel.Singleton)
+            {
+                UserDataModel.Singleton.OnUserItemChangedEvent -= OnChangedUserItemData;
+                UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent -= (_, _, _) => RefreshInventory();
+            }
         }
 
         private void RefreshInventory()

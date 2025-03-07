@@ -279,9 +279,14 @@ namespace TST
                 IngameStartCinematic.Instance.SkipCinematic();
             }
 
-            if (Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 UIManager.Show<CraftingUI>(UIList.CraftingUI);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                UIManager.Hide<CraftingUI>(UIList.CraftingUI);
             }
 
             IsControlLocked = UIManager.Singleton.ActiveCursorVisibleUIsCount > 0 

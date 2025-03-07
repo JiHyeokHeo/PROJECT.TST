@@ -1934,6 +1934,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftingId: craft_01
+  materialAIcon: {fileID: 5696734966951609099}
+  materialAGreenBackGroundIcon: {fileID: 6170445156853348323}
+  materialARedBackGroundIcon: {fileID: 2139834184511221200}
+  materialANameText: {fileID: 506467358008945640}
+  requireACountText: {fileID: 8471493516648294447}
+  materialBIcon: {fileID: 8603838814409910113}
+  materialBGreenBackGroundIcon: {fileID: 5357540394702391922}
+  materialBRedBackGroundIcon: {fileID: 122857558853401031}
+  materialBNameText: {fileID: 2858279770011827260}
+  requireBCountText: {fileID: 7937621805373869359}
+  resultItem: {fileID: 0}
+  resultItemGreenBackGround: {fileID: 0}
+  resultItemBRedBackGround: {fileID: 0}
+  resultItemNameText: {fileID: 0}
+  resultItemCountText: {fileID: 0}
 --- !u!1 &1273009030956997860
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,6 +3091,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftingId: 
+  materialAIcon: {fileID: 0}
+  materialAGreenBackGroundIcon: {fileID: 0}
+  materialARedBackGroundIcon: {fileID: 0}
+  materialANameText: {fileID: 0}
+  requireACountText: {fileID: 0}
+  materialBIcon: {fileID: 0}
+  materialBGreenBackGroundIcon: {fileID: 0}
+  materialBRedBackGroundIcon: {fileID: 0}
+  materialBNameText: {fileID: 0}
+  requireBCountText: {fileID: 0}
+  resultItem: {fileID: 0}
+  resultItemGreenBackGround: {fileID: 0}
+  resultItemBRedBackGround: {fileID: 0}
+  resultItemNameText: {fileID: 0}
+  resultItemCountText: {fileID: 0}
 --- !u!1 &1957096528832221022
 GameObject:
   m_ObjectHideFlags: 0
@@ -5959,6 +5991,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftingId: 
+  materialAIcon: {fileID: 0}
+  materialAGreenBackGroundIcon: {fileID: 0}
+  materialARedBackGroundIcon: {fileID: 0}
+  materialANameText: {fileID: 0}
+  requireACountText: {fileID: 0}
+  materialBIcon: {fileID: 0}
+  materialBGreenBackGroundIcon: {fileID: 0}
+  materialBRedBackGroundIcon: {fileID: 0}
+  materialBNameText: {fileID: 0}
+  requireBCountText: {fileID: 0}
+  resultItem: {fileID: 0}
+  resultItemGreenBackGround: {fileID: 0}
+  resultItemBRedBackGround: {fileID: 0}
+  resultItemNameText: {fileID: 0}
+  resultItemCountText: {fileID: 0}
 --- !u!1 &5368280152370301752
 GameObject:
   m_ObjectHideFlags: 0
@@ -7219,6 +7267,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  craftingId: 
+  materialAIcon: {fileID: 0}
+  materialAGreenBackGroundIcon: {fileID: 0}
+  materialARedBackGroundIcon: {fileID: 0}
+  materialANameText: {fileID: 0}
+  requireACountText: {fileID: 0}
+  materialBIcon: {fileID: 0}
+  materialBGreenBackGroundIcon: {fileID: 0}
+  materialBRedBackGroundIcon: {fileID: 0}
+  materialBNameText: {fileID: 0}
+  requireBCountText: {fileID: 0}
+  resultItem: {fileID: 0}
+  resultItemGreenBackGround: {fileID: 0}
+  resultItemBRedBackGround: {fileID: 0}
+  resultItemNameText: {fileID: 0}
+  resultItemCountText: {fileID: 0}
 --- !u!1 &6337407718487711882
 GameObject:
   m_ObjectHideFlags: 0

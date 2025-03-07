@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 namespace TST
@@ -14,28 +16,40 @@ namespace TST
 
         #region MaterialA
         [Title("Material A", titleAlignment: TitleAlignments.Centered)]
-        public Image materialA; // 하위 하이러키에 BackGround 관리 + 이름 + Count를 보유하고 있음
-        public Image materialAGreenBackGround;
-        public Image materialARedBackGround; 
+        [SerializeField] public Image materialAIcon; // 하위 하이러키에 BackGround 관리 + 이름 + Count를 보유하고 있음
+        [SerializeField] public Image materialAGreenBackGroundIcon;
+        [SerializeField] public Image materialARedBackGroundIcon; 
         [SerializeField] private TextMeshProUGUI materialANameText;
         [SerializeField] private TextMeshProUGUI requireACountText;
         #endregion
 
         #region MaterialB
         [Title("Material B", titleAlignment: TitleAlignments.Centered)]
-        public Image materialB;
-        public Image materialBGreenBackGround;
-        public Image materialBRedBackGround;
+        [SerializeField] public Image materialBIcon;
+        [SerializeField] public Image materialBGreenBackGroundIcon;
+        [SerializeField] public Image materialBRedBackGroundIcon;
         [SerializeField] private TextMeshProUGUI materialBNameText;
         [SerializeField] private TextMeshProUGUI requireBCountText;
         #endregion
 
+        [Title("Result", titleAlignment: TitleAlignments.Centered)]
+        public Image resultItem;
+        public Image resultItemGreenBackGround;
+        public Image resultItemBRedBackGround;
+        [SerializeField] private TextMeshProUGUI resultItemNameText;
+        [SerializeField] private TextMeshProUGUI resultItemCountText;
+
         private CraftingUI craftingUI;
         public void Awake()
         {
-            craftingUI = UIManager.Singleton.GetUI<CraftingUI>(UIList.CraftingUI);
-
+            craftingUI = GetComponent<CraftingUI>();
             // 이미지 설정
+
+            bool isEmpty = craftingId.Equals("");
+            Assert.IsFalse(isEmpty, "crafting id is Empty");
+            if (isEmpty)
+                return;
+
             if (GameDataModel.Singleton)
             {
                 GameDataModel.Singleton.GetCraftingData(craftingId, out CraftingDataSO resultData);
@@ -47,18 +61,20 @@ namespace TST
                 string itemBId = resultData.RequireItems[1].ItemID;
                 if (AssetManager.Singleton.GetItemIcon(itemAId, out Sprite itemAImage))
                 {
-                    var dataA = UserDataModel.Singleton.UserItemData.GetUserItemData(itemAId);
-                    materialA.sprite = itemAImage;
-                    materialANameText.text = dataA.itemID;
+                    GameDataModel.Singleton.GetItemData(itemAId, out ItemData dataA);
+                    materialAIcon.sprite = itemAImage;
+                    materialANameText.text = dataA.ItemName;
                 }
 
                 if (AssetManager.Singleton.GetItemIcon(itemBId, out Sprite itemBImage))
                 {
-                    var dataB = UserDataModel.Singleton.UserItemData.GetUserItemData(itemBId);
-                    materialB.sprite = itemBImage;
-                    materialBNameText.text = dataB.itemID;
+                    GameDataModel.Singleton.GetItemData(itemBId, out ItemData dataB);
+                    materialBIcon.sprite = itemBImage;
+                    materialBNameText.text = dataB.ItemName;
                 }
             }
+
+            UpdateMaterialDatas();
         }
 
         public void OnEnable()
@@ -84,28 +100,46 @@ namespace TST
             string itemAId = resultData.RequireItems[0].ItemID;
             string itemBId = resultData.RequireItems[1].ItemID;
 
+            int possesItemCount;
             int requireItemCount;
-
             #region Data A
             // 데이터 A
             var dataA = UserDataModel.Singleton.UserItemData.GetUserItemData(itemAId);
             requireItemCount = resultData.RequireItems[0].RequireAmount;
-            requireACountText.text = $"{dataA.itemCount} / {requireItemCount}";
+            if (dataA == null)
+            {
+                possesItemCount = 0;
+                requireACountText.text = $"0 / {requireItemCount}";
+            }
+            else
+            {
+                possesItemCount = dataA.itemCount;
+                requireACountText.text = $"{dataA.itemCount} / {requireItemCount}";
+            }
 
             // 백그라운드 레드 그린
-            materialAGreenBackGround.gameObject.SetActive(dataA.itemCount >= requireItemCount);
-            materialARedBackGround.gameObject.SetActive(dataA.itemCount < requireItemCount);
+            materialAGreenBackGroundIcon.gameObject.SetActive(possesItemCount >= requireItemCount);
+            materialARedBackGroundIcon.gameObject.SetActive(possesItemCount < requireItemCount);
             #endregion
 
             #region Data B
             // 데이터 B
             var dataB = UserDataModel.Singleton.UserItemData.GetUserItemData(itemBId);
             requireItemCount = resultData.RequireItems[1].RequireAmount;
-            requireBCountText.text = $"{dataB.itemCount} / {requireItemCount}";
+            if (dataB == null)
+            {
+                possesItemCount = 0;
+                requireBCountText.text = $"0 / {requireItemCount}";
+            }
+            else
+            {
+                possesItemCount = dataB.itemCount;
+                requireBCountText.text = $"{dataB.itemCount} / {requireItemCount}";
+            }
 
             // 백그라운드 레드 그린
-            materialBGreenBackGround.gameObject.SetActive(dataA.itemCount >= requireItemCount);
-            materialBRedBackGround.gameObject.SetActive(dataA.itemCount < requireItemCount);
+            materialBGreenBackGroundIcon.gameObject.SetActive(possesItemCount >= requireItemCount);
+            materialBRedBackGroundIcon.gameObject.SetActive(possesItemCount < requireItemCount);
             #endregion
         }
 

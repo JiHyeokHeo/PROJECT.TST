@@ -13,15 +13,16 @@ namespace TST
         Consumable, // 소모품
     }
 
+    // 이건 추후에 좀 더 생각
     public enum ItemMaterialCategory
     {
         None = 0,
-        Silver,
-        Gold,
-        Metal,
-        Dust,
-        Fluid,
-        Alchemical,
+        //Silver,
+        //Gold,
+        //Metal,
+        //Dust,
+        //Fluid,
+        //Alchemical,
     }
 
     public enum ItemEquipmentCategory
