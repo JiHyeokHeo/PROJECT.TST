@@ -26,6 +26,7 @@ namespace TST
         InventoryEquipMenuUI,
         InteractionUI,
         PlayerEquipmentUI,
+        CraftingUI,
         DamageNumberUI,
 
         UI_POPUP_END,

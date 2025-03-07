@@ -64,6 +64,11 @@ namespace TST
         {
             return Items.Find(x=>x.slotID==slotId);
         }
+
+        public UserItemData GetUserItemData(string itemID) 
+        {
+            return Items.Find(x=>x.itemID.Equals(itemID));
+        }
     }
 
     [System.Serializable]

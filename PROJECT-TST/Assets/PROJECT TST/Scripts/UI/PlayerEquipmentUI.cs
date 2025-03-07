@@ -10,14 +10,8 @@ namespace TST
     {
         public override bool IsVisibleCursor => true;
 
-        public CharacterBase character;
         public SerializableWrapDictionary<ItemEquipmentCategory, PlayerEquipmentUI_Slot> equipmentSlotUIs 
             = new SerializableWrapDictionary<ItemEquipmentCategory, PlayerEquipmentUI_Slot>();
-
-        public void SetLinkedCharacter(CharacterBase character)
-        {
-            this.character = character;
-        }
 
         public void Awake()
         {
@@ -63,7 +57,5 @@ namespace TST
 
             GameManager.Instance.UnEquipmentItem((ItemEquipmentCategory)itemData.ItemSubCategory, slotId);
         }
-
-      
     }
 }

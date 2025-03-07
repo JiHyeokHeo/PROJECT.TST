@@ -12,9 +12,9 @@ namespace TST
     {
         public event System.Action<ItemData, int> OnUsedItem;
 
-        public void CraftItem(string craft_id)
+        public bool CraftItem(string craft_id)
         {
-            CraftingItems(craft_id);
+            return CraftingItems(craft_id);
         }
 
         public void UseItem(int slotId, ItemData itemData, int count = 1)
@@ -25,6 +25,7 @@ namespace TST
                     EquipmentItem(slotId, itemData);
                     break;
                 case ItemCategory.Material:
+                    UserDataModel.Singleton.UseInventoryItem(itemData, count);
                     break;
                 case ItemCategory.Consumable:
                      UseConsumable(slotId, itemData, count);
@@ -100,10 +101,27 @@ namespace TST
             }
         }
         
-        private void CraftingItems(string crafting_Id)
+        private bool CraftingItems(string crafting_Id)
         {
             if (!GameDataModel.Singleton.GetCraftingData(crafting_Id, out CraftingDataSO craftingData))
-                return;
+                return false;
+
+            // 먼저 내가 소유하고 있는 아이템의 갯수가 충분 한지 확인
+            if (craftingData.RequireItems.Count > 0)
+            {
+                for (int i = 0; i < craftingData.RequireItems.Count; i++)
+                {
+                    CraftingDataBase requireItemData = craftingData.RequireItems[i];
+
+                    GameDataModel.Singleton.GetItemData(requireItemData.ItemID, out ItemData usingItemData);
+                    var data = UserDataModel.Singleton.UserItemData.GetUserItemData(requireItemData.ItemID);
+
+                    if (data.itemCount < requireItemData.RequireAmount)
+                        return false;
+
+                    UseItem(-1, usingItemData, requireItemData.RequireAmount);
+                }
+            }
 
             if (GameDataModel.Singleton.GetItemData(craftingData.ResultItemID, out ItemData createdItemData))
             {
@@ -118,18 +136,7 @@ namespace TST
                 }
             }
 
-            if (craftingData.RequireItems.Count > 0)
-            {
-                for (int i = 0; i < craftingData.RequireItems.Count; i++)
-                {
-                    CraftingDataBase requireItemData = craftingData.RequireItems[i];
-
-                    GameDataModel.Singleton.GetItemData(requireItemData.ItemID, out ItemData usingItemData);
-
-                    OnUsedItem?.Invoke(usingItemData, requireItemData.RequireAmount);
-                }
-            }
+            return true;
         }
-     
     }
 }

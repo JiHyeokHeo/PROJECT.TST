@@ -82,8 +82,8 @@ namespace TST
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
             inventoryUI.SetLinkedCharacter(linkedCharacter);
             // 
-            PlayerEquipmentUI equipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
-            equipmentUI.SetLinkedCharacter(linkedCharacter);
+            //PlayerEquipmentUI equipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
+        
 
             #region Skill 
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
@@ -277,6 +277,11 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.K))
             {
                 IngameStartCinematic.Instance.SkipCinematic();
+            }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                UIManager.Show<CraftingUI>(UIList.CraftingUI);
             }
 
             IsControlLocked = UIManager.Singleton.ActiveCursorVisibleUIsCount > 0 
