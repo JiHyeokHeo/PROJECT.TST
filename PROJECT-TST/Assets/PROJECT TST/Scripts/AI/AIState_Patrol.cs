@@ -60,7 +60,7 @@ namespace TST
 
             if (UpdateFindTarget())
             {
-                linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
+                //linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
             }
         }
 

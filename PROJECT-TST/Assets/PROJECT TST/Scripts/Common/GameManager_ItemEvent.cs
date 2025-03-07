@@ -12,6 +12,11 @@ namespace TST
     {
         public event System.Action<ItemData, int> OnUsedItem;
 
+        public void CraftItem(string craft_id)
+        {
+            CraftingItems(craft_id);
+        }
+
         public void UseItem(int slotId, ItemData itemData, int count = 1)
         {
             switch (itemData.ItemCategory)
@@ -94,7 +99,37 @@ namespace TST
                     }
             }
         }
+        
+        private void CraftingItems(string crafting_Id)
+        {
+            if (!GameDataModel.Singleton.GetCraftingData(crafting_Id, out CraftingDataSO craftingData))
+                return;
 
+            if (GameDataModel.Singleton.GetItemData(craftingData.ResultItemID, out ItemData createdItemData))
+            {
+                bool isCraftingSuccess = false;
+
+                float rand = UnityEngine.Random.Range(0.001f, 1f);
+                //float successRate = createdItemData.
+
+                for (int i = 0; i < craftingData.ResultAmount; i++)
+                {
+                    UserDataModel.Singleton.AddItemToInventory(createdItemData);
+                }
+            }
+
+            if (craftingData.RequireItems.Count > 0)
+            {
+                for (int i = 0; i < craftingData.RequireItems.Count; i++)
+                {
+                    CraftingDataBase requireItemData = craftingData.RequireItems[i];
+
+                    GameDataModel.Singleton.GetItemData(requireItemData.ItemID, out ItemData usingItemData);
+
+                    OnUsedItem?.Invoke(usingItemData, requireItemData.RequireAmount);
+                }
+            }
+        }
      
     }
 }
