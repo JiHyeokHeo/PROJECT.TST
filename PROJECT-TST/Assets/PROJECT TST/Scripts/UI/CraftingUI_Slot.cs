@@ -39,7 +39,7 @@ namespace TST
         [SerializeField] private TextMeshProUGUI resultItemNameText;
         [SerializeField] private TextMeshProUGUI resultItemCountText;
 
-        private CraftingUI craftingUI;
+        [SerializeField] private CraftingUI craftingUI;
         public void Awake()
         {
             craftingUI = GetComponent<CraftingUI>();

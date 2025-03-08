@@ -1745,7 +1745,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2243477833886288510}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4095534992664006873}
+        m_TargetAssemblyTypeName: TST.CraftingUI_Slot, Assembly-CSharp
+        m_MethodName: OnClickCraftButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1210991663792792745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +1962,7 @@ MonoBehaviour:
   resultItemBRedBackGround: {fileID: 0}
   resultItemNameText: {fileID: 0}
   resultItemCountText: {fileID: 0}
+  craftingUI: {fileID: 5230694629431003057}
 --- !u!1 &1273009030956997860
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3120,7 @@ MonoBehaviour:
   resultItemBRedBackGround: {fileID: 0}
   resultItemNameText: {fileID: 0}
   resultItemCountText: {fileID: 0}
+  craftingUI: {fileID: 0}
 --- !u!1 &1957096528832221022
 GameObject:
   m_ObjectHideFlags: 0
@@ -6007,6 +6021,7 @@ MonoBehaviour:
   resultItemBRedBackGround: {fileID: 0}
   resultItemNameText: {fileID: 0}
   resultItemCountText: {fileID: 0}
+  craftingUI: {fileID: 0}
 --- !u!1 &5368280152370301752
 GameObject:
   m_ObjectHideFlags: 0
@@ -7283,6 +7298,7 @@ MonoBehaviour:
   resultItemBRedBackGround: {fileID: 0}
   resultItemNameText: {fileID: 0}
   resultItemCountText: {fileID: 0}
+  craftingUI: {fileID: 0}
 --- !u!1 &6337407718487711882
 GameObject:
   m_ObjectHideFlags: 0
