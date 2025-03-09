@@ -116,6 +116,9 @@ namespace TST
                     GameDataModel.Singleton.GetItemData(requireItemData.ItemID, out ItemData usingItemData);
                     var data = UserDataModel.Singleton.UserItemData.GetUserItemData(requireItemData.ItemID);
 
+                    if (data == null)
+                        return false;
+
                     if (data.itemCount < requireItemData.RequireAmount)
                         return false;
 

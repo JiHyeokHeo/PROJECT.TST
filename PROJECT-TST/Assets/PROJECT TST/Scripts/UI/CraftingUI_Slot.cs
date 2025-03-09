@@ -13,6 +13,7 @@ namespace TST
     public class CraftingUI_Slot : UIBase
     {
         public string craftingId;
+        [SerializeField] private CraftingUI craftingUI;
 
         #region MaterialA
         [Title("Material A", titleAlignment: TitleAlignments.Centered)]
@@ -39,14 +40,12 @@ namespace TST
         [SerializeField] private TextMeshProUGUI resultItemNameText;
         [SerializeField] private TextMeshProUGUI resultItemCountText;
 
-        [SerializeField] private CraftingUI craftingUI;
         public void Awake()
         {
-            craftingUI = GetComponent<CraftingUI>();
             // 이미지 설정
 
             bool isEmpty = craftingId.Equals("");
-            Assert.IsFalse(isEmpty, "crafting id is Empty");
+            //Assert.IsFalse(isEmpty, "crafting id is Empty");
             if (isEmpty)
                 return;
 
@@ -92,6 +91,9 @@ namespace TST
         // 메테리얼 데이터 업데이트 // 이걸 추가시켜야할듯 GameManager에다가
         public void UpdateMaterialDatas()
         {
+            if (craftingId == "")
+                return;
+
             GameDataModel.Singleton.GetCraftingData(craftingId, out CraftingDataSO resultData);
             if (resultData.RequireItems.Count == 0)
                 return;
