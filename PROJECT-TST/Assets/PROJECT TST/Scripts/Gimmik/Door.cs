@@ -1,65 +1,58 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
+using TST;
 using UnityEngine;
 
-namespace TST
+ namespace TST
 {
     public class Door : MonoBehaviour, IInteractable
     {
-        public string Message => "문 상호작용";
+        [SerializeField] public Transform doorHandlerTransform;
 
+        public string Message => "문 상호작용";
         public InteractType InteractType => InteractType.Door;
 
-        public float openRotationMax = 60.0f;
-        public float closeRotation = 0.0f;
-
+        public float openRotationMax = 150.0f;
+        private float closeRotation;
         private bool isOpen = false;
 
-        public float sqrInteractRange = 5f;
-        private Transform doorTransform;
-        private Vector3 targetRotation;
+        public float sqrInteractRange = 10f;
+        private Quaternion targetRotation;
 
         void Awake()
         {
-            doorTransform = GetComponent<Transform>();
-            targetRotation = doorTransform.rotation.eulerAngles;
+            closeRotation = doorHandlerTransform.eulerAngles.y; // 올바른 y 회전값 설정
+            targetRotation = doorHandlerTransform.rotation;
         }
 
         public void Interact(GameObject go)
         {
-            if (go.TryGetComponent(out CharacterBase playerComponent) == false)
+            if (!go.TryGetComponent(out CharacterBase playerComponent))
                 return;
 
-            Vector3 doorPos = this.gameObject.transform.position;
+            Vector3 doorPos = doorHandlerTransform.position;
             Vector3 playerPos = playerComponent.transform.position;
 
             float sqrDistMagnitude = Vector3.SqrMagnitude(doorPos - playerPos);
             if (sqrDistMagnitude > sqrInteractRange)
                 return;
 
-            // 열렸으면 닫혀야하고 닫혔으면 열려야한다 // 방향에 따라 달라야함 
-            targetRotation = doorTransform.transform.rotation.eulerAngles;
-            targetRotation.y = isOpen ? closeRotation : openRotationMax;
-
-            Vector3 dir = playerComponent.transform.position - doorTransform.position; 
-            Vector3 doorForward = doorTransform.forward;
+            // 플레이어의 위치에 따라 문이 열리는 방향 결정
+            Vector3 dir = (playerPos - doorHandlerTransform.position).normalized;
+            Vector3 doorForward = doorHandlerTransform.forward;
             float dotResult = Vector3.Dot(doorForward, dir);
 
-            // 후면에 있으면 y값만 변경
-            if (dotResult < 0)
-                targetRotation.y *= -1;
+            float openAngle = isOpen ? closeRotation : closeRotation + openRotationMax;
 
+            // 문 반대쪽에서 상호작용하면 반대 방향으로 열림
+            if (dotResult < 0 && !isOpen)
+                openAngle = closeRotation - openRotationMax;
+
+            targetRotation = Quaternion.Euler(0, openAngle, 0);
             isOpen = !isOpen;
-            //playerComponent.SetInteractAnimation(EInteractionType.OpenDoor);
         }
 
         private void Update()
         {
-            doorTransform.transform.rotation = Quaternion.Lerp(doorTransform.transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * 10.0f);
+            doorHandlerTransform.rotation = Quaternion.Lerp(doorHandlerTransform.rotation, targetRotation, Time.deltaTime * 5.0f);
         }
-
     }
 }
