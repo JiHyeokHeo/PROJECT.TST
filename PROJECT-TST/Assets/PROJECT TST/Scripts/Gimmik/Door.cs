@@ -25,6 +25,7 @@ namespace TST
         void Awake()
         {
             doorTransform = GetComponent<Transform>();
+            targetRotation = doorTransform.rotation.eulerAngles;
         }
 
         public void Interact(GameObject go)
