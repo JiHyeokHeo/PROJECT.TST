@@ -660,11 +660,11 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
-                    //if (!isFireSuccess && currentWeapon.Ammo.CurrentAmmo <= 0)
-                    //{
-                    //    Reload();
-                    //    return;
-                    //}
+                    if (!isFireSuccess && currentWeapon.CurrentBulletAmount <= 0)
+                    {
+                        Reload();
+                        return;
+                    }
                 }
             }
         }
