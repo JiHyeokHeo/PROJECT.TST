@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TST;
 using UnityEngine;
-
+ 
 namespace TST
 {
+    [RequireComponent(typeof(CharacterBase))]
     public class EventHandler : MonoBehaviour
     {
         private CharacterBase linkedCharacter;

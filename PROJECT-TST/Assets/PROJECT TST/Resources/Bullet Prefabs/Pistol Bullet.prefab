@@ -186,7 +186,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   rigid: {fileID: 0}
   startPosition: {fileID: 0}
-  moveForce: 20
+  moveForce: 1
   lifeTime: 3
   isPlayerBullet: 1
 --- !u!114 &8462256899862794492
@@ -202,7 +202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 68c6372ac7b602740ad039ba1e15bd5a, type: 2}
-  clipSize: 10
 --- !u!54 &5872518126445277131
 Rigidbody:
   m_ObjectHideFlags: 0

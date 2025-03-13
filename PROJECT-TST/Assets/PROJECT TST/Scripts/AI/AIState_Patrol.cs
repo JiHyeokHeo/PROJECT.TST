@@ -46,7 +46,7 @@ namespace TST
             }
 
             // 하지만 너무 멀리 떨어져있으면 그냥 다시 제자리로 돌아가도록 명령
-            float dist = Vector3.SqrMagnitude(linkedCharacter.transform.position - linkedCharacter.aiSpawnPosition);
+            float dist = Vector3.SqrMagnitude(linkedCharacter.transform.position - linkedCharacterController.AISpawnPosition);
             if (dist >= patrolMaxRange * patrolMaxRange)
             {
                 returnToInitPos = true;
@@ -60,7 +60,7 @@ namespace TST
 
             if (UpdateFindTarget())
             {
-                //linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
+                linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
             }
         }
 
@@ -82,7 +82,7 @@ namespace TST
 
             if (returnToInitPos)
             {
-                targetPosition = linkedCharacter.aiSpawnPosition;
+                targetPosition = linkedCharacterController.AISpawnPosition;
             }
             else
             {

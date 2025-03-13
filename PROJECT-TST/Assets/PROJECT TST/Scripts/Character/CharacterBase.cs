@@ -1,13 +1,8 @@
-using Gpm.Common.ThirdParty.MessagePack.Resolvers;
 using Sirenix.OdinInspector;
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.Rendering;
-using static UnityEngine.Video.VideoPlayer;
 
 namespace TST
 {
@@ -19,6 +14,7 @@ namespace TST
         None,
     }
 
+    [RequireComponent(typeof(EventHandler))]
     public class CharacterBase : MonoBehaviour, IDamage /*IDetect*/
     {
         void OnDrawGizmos()
@@ -31,13 +27,13 @@ namespace TST
         }
 
         public bool IsActiveLeftHandIK { get => isActiveLeftHandIK; set => isActiveLeftHandIK = value; }
-        private bool isActiveLeftHandIK;
+        private bool isActiveLeftHandIK = true;
 
         public bool IsActiveRightHandIK { get => isActiveRightHandIK; set => isActiveRightHandIK = value; }
-        private bool isActiveRightHandIK;
+        private bool isActiveRightHandIK = true;
 
         public bool IsActiveBodyIK { get => isActiveBodyIK; set => isActiveBodyIK = value; }
-        private bool isActiveBodyIK;
+        private bool isActiveBodyIK = true;
 
         [SerializeField] private MultiAimConstraint multiAimConstraint_RightHand;
         [SerializeField] private MultiAimConstraint multiAimConstraint_Body;
@@ -272,7 +268,6 @@ namespace TST
         #endregion
 
         private float targetRotation = 0f;
-        public Vector3 aiSpawnPosition;
         IngamePlayerDataDTO ingamePlayerData;
 
         #region Ammo
@@ -337,10 +332,10 @@ namespace TST
 
             SetRagdollActive(false);
 
-            hitVolume = hitVolumeObject.GetComponent<Volume>();
+            //hitVolume = hitVolumeObject.GetComponent<Volume>();
 
             // AI 관련코드 이거 추후에 클래스 나누는 리팩토링 작업이 필요할듯함
-            aiSpawnPosition = gameObject.transform.position;
+            //aiSpawnPosition = gameObject.transform.position;
         }
 
         #region Ragdoll & IK
@@ -352,7 +347,8 @@ namespace TST
             }
 
             animator.enabled = !isActive;
-            unityCharacterController.enabled = !isActive;
+            if (unityCharacterController)
+                unityCharacterController.enabled = !isActive;
         }
 
         public void SetIKActive(bool isActive)
@@ -400,9 +396,13 @@ namespace TST
 
         private void Update()
         {
-            multiAimConstraint_Body.weight = isActiveBodyIK ? 1f : 0f;
-            multiAimConstraint_RightHand.weight = isActiveRightHandIK ? 1f : 0f;
-            multiAimConstraint_LeftHand.weight = isActiveLeftHandIK ? 1f : 0f;
+            if (hitVolume != null)
+            {
+                //multiAimConstraint_Body.weight = isActiveBodyIK ? 1f : 0f;
+                //multiAimConstraint_RightHand.weight = isActiveRightHandIK ? 1f : 0f;
+                //multiAimConstraint_LeftHand.weight = isActiveLeftHandIK ? 1f : 0f;
+                hitVolume.weight = effectVolumeBlend;
+            }
 
             JumpAndGravity();
             FreeFall();
@@ -427,7 +427,8 @@ namespace TST
             animator.SetFloat("Vertical", vertical);
             animator.SetFloat("Crouch", crouchBlend);
 
-            hitVolume.weight = effectVolumeBlend;
+            
+         
 
             if (isRolling)
                 StartRoll();

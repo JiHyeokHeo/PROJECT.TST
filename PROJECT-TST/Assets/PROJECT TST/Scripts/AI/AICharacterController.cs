@@ -48,10 +48,13 @@ namespace TST
         private CharacterBase characterBase;
         private NavMeshAgent navAgent;
 
+        public Vector3 AISpawnPosition;
+
         private void Awake()
         {
             characterBase = GetComponent<CharacterBase>();
             navAgent = GetComponent<NavMeshAgent>();
+            AISpawnPosition = characterBase.transform.position;
 
             navAgent.updatePosition = false;
             navAgent.updateRotation = false;
@@ -61,6 +64,7 @@ namespace TST
         {
             // 상태 객체를 미리 생성해 둠
             currentState = new AIState_Patrol(this);
+            characterBase.ToggleEquipPrimaryWeapon();
             //characterBase.OnDamaged += (target) => SetState(new AIState_Combat(this));
             //characterBase.OnDamaged += (target) => SetTarget(target);
 
@@ -71,7 +75,7 @@ namespace TST
 
             //characterBase.OnDetect += (target) => SetState(new AIState_Move(this));
             //characterBase.OnDetect += (target) => SetTarget(target);
-                
+
 
             //characterBase.OnCombatDetect += (target) => SetState(new AIState_Combat(this));
             //characterBase.OnCombatDetect += (target) => SetTarget(target); 
