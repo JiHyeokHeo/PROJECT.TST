@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TST
@@ -68,6 +69,11 @@ namespace TST
         public UserItemData GetUserItemData(string itemID) 
         {
             return Items.Find(x=>x.itemID.Equals(itemID));
+        }
+
+        public int GetUserItemDataCount(string itemID)
+        {
+            return Items.Where(x => x.itemID.Equals(itemID)).Sum(x => x.itemCount);
         }
     }
 

@@ -10,10 +10,9 @@ namespace TST
         public string ItemID;
         public int RequireAmount;
     }
-    
 
     [CreateAssetMenu(fileName = "CraftingData", menuName = "PROJECT TST/CraftingData")]
-    public class CraftingDataSO : ScriptableObject
+    public class CraftDataSO : ScriptableObject
     {
         [field: SerializeField] public string CraftingID { get; private set; }
         [field: SerializeField] public string CraftingName { get; private set; }

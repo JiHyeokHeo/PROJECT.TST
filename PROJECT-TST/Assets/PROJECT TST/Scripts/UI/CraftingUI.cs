@@ -15,5 +15,10 @@ namespace TST
         {
             GameManager.Instance.CraftItem(crafting_id);
         }
+
+        public void OnCloseButton()
+        {
+            UIManager.Hide<CraftingUI>(UIList.CraftingUI);
+        }
     }
 }

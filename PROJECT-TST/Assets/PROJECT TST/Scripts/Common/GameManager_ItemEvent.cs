@@ -103,7 +103,7 @@ namespace TST
         
         private bool CraftingItems(string crafting_Id)
         {
-            if (!GameDataModel.Singleton.GetCraftingData(crafting_Id, out CraftingDataSO craftingData))
+            if (!GameDataModel.Singleton.GetCraftingData(crafting_Id, out CraftDataSO craftingData))
                 return false;
 
             // 먼저 내가 소유하고 있는 아이템의 갯수가 충분 한지 확인

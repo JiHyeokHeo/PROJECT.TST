@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5689647167019815159
@@ -67,8 +67,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -203,7 +204,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f3130bcdf7e6ba45ae6166bc1a21e26, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -467,7 +468,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7397327713052868381}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1666123686297317159}
+        m_TargetAssemblyTypeName: TST.CraftingUI_Slot, Assembly-CSharp
+        m_MethodName: OnClickCraftButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &553690317393510686
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,7 +515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5621760384183955751
@@ -535,8 +548,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -560,8 +574,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1525,7 +1539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &584797375746839202
@@ -1558,8 +1572,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1583,8 +1598,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1958,11 +1973,11 @@ MonoBehaviour:
   materialBRedBackGroundIcon: {fileID: 122857558853401031}
   materialBNameText: {fileID: 2858279770011827260}
   requireBCountText: {fileID: 7937621805373869359}
-  resultItem: {fileID: 0}
-  resultItemGreenBackGround: {fileID: 0}
-  resultItemBRedBackGround: {fileID: 0}
-  resultItemNameText: {fileID: 0}
-  resultItemCountText: {fileID: 0}
+  resultItem: {fileID: 1532009031803471135}
+  resultItemGreenBackGround: {fileID: 8893330237746715240}
+  resultItemRedBackGround: {fileID: 7116443555538156625}
+  resultItemNameText: {fileID: 3869680965444936752}
+  resultItemCountText: {fileID: 8913617181241700524}
 --- !u!1 &1273009030956997860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,7 +2521,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16360759e2578420b825206ef0938f92, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2550,7 +2565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5178438725543131025
@@ -2583,8 +2598,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2608,8 +2624,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2794,7 +2810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16360759e2578420b825206ef0938f92, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3104,23 +3120,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftingId: 
-  craftingUI: {fileID: 0}
-  materialAIcon: {fileID: 0}
-  materialAGreenBackGroundIcon: {fileID: 0}
-  materialARedBackGroundIcon: {fileID: 0}
-  materialANameText: {fileID: 0}
-  requireACountText: {fileID: 0}
-  materialBIcon: {fileID: 0}
-  materialBGreenBackGroundIcon: {fileID: 0}
-  materialBRedBackGroundIcon: {fileID: 0}
-  materialBNameText: {fileID: 0}
-  requireBCountText: {fileID: 0}
-  resultItem: {fileID: 0}
-  resultItemGreenBackGround: {fileID: 0}
-  resultItemBRedBackGround: {fileID: 0}
-  resultItemNameText: {fileID: 0}
-  resultItemCountText: {fileID: 0}
+  craftingId: craft_02
+  craftingUI: {fileID: 5230694629431003057}
+  materialAIcon: {fileID: 6870339117417962922}
+  materialAGreenBackGroundIcon: {fileID: 3166574846694444025}
+  materialARedBackGroundIcon: {fileID: 2485525491128385473}
+  materialANameText: {fileID: 2481233741835358541}
+  requireACountText: {fileID: 7676715249166085479}
+  materialBIcon: {fileID: 1930550455369797665}
+  materialBGreenBackGroundIcon: {fileID: 2433389214050702208}
+  materialBRedBackGroundIcon: {fileID: 8501499024005607861}
+  materialBNameText: {fileID: 7931188653021100032}
+  requireBCountText: {fileID: 5751493606941478462}
+  resultItem: {fileID: 5433601503095699476}
+  resultItemGreenBackGround: {fileID: 145988281462547557}
+  resultItemRedBackGround: {fileID: 8673499673831845158}
+  resultItemNameText: {fileID: 5246970850805103148}
+  resultItemCountText: {fileID: 5288952732153014653}
 --- !u!1 &1957096528832221022
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,7 +3245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3712462911428369763
@@ -3262,8 +3278,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3287,8 +3304,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3781,7 +3798,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8365732283195427773
@@ -3814,8 +3831,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3839,8 +3857,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3915,7 +3933,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2098250913783518643
@@ -3948,8 +3966,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3973,8 +3992,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4239,7 +4258,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2307248796704149400
@@ -4272,8 +4291,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4297,8 +4317,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4946,7 +4966,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2831479240417086035}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6997718236839447406}
+        m_TargetAssemblyTypeName: TST.CraftingUI_Slot, Assembly-CSharp
+        m_MethodName: OnClickCraftButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4373771230380860756
 GameObject:
   m_ObjectHideFlags: 0
@@ -5941,7 +5973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16360759e2578420b825206ef0938f92, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6005,23 +6037,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftingId: 
-  craftingUI: {fileID: 0}
-  materialAIcon: {fileID: 0}
-  materialAGreenBackGroundIcon: {fileID: 0}
-  materialARedBackGroundIcon: {fileID: 0}
-  materialANameText: {fileID: 0}
-  requireACountText: {fileID: 0}
-  materialBIcon: {fileID: 0}
-  materialBGreenBackGroundIcon: {fileID: 0}
-  materialBRedBackGroundIcon: {fileID: 0}
-  materialBNameText: {fileID: 0}
-  requireBCountText: {fileID: 0}
-  resultItem: {fileID: 0}
-  resultItemGreenBackGround: {fileID: 0}
-  resultItemBRedBackGround: {fileID: 0}
-  resultItemNameText: {fileID: 0}
-  resultItemCountText: {fileID: 0}
+  craftingId: craft_04
+  craftingUI: {fileID: 5230694629431003057}
+  materialAIcon: {fileID: 7461501760741846638}
+  materialAGreenBackGroundIcon: {fileID: 3547241556382936313}
+  materialARedBackGroundIcon: {fileID: 6486470063045072425}
+  materialANameText: {fileID: 8653744600948368521}
+  requireACountText: {fileID: 3278510338477749297}
+  materialBIcon: {fileID: 3835899010660719495}
+  materialBGreenBackGroundIcon: {fileID: 6801672877900292008}
+  materialBRedBackGroundIcon: {fileID: 2750171591402917105}
+  materialBNameText: {fileID: 4794880059888471281}
+  requireBCountText: {fileID: 7237387099775828384}
+  resultItem: {fileID: 6773340875262029918}
+  resultItemGreenBackGround: {fileID: 5465049846364148845}
+  resultItemRedBackGround: {fileID: 7777588791239539203}
+  resultItemNameText: {fileID: 958313779778618707}
+  resultItemCountText: {fileID: 6736957580859350061}
 --- !u!1 &5368280152370301752
 GameObject:
   m_ObjectHideFlags: 0
@@ -6056,7 +6088,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6155249734818943131
@@ -6089,8 +6121,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6114,8 +6147,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6489,7 +6522,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1437150146721073975}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5230694629431003057}
+        m_TargetAssemblyTypeName: TST.CraftingUI, Assembly-CSharp
+        m_MethodName: OnCloseButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5941113275992722180
 GameObject:
   m_ObjectHideFlags: 0
@@ -6634,7 +6679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f3130bcdf7e6ba45ae6166bc1a21e26, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7282,23 +7327,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ae81597174a3e4f8493aaf25de03d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftingId: 
-  craftingUI: {fileID: 0}
-  materialAIcon: {fileID: 0}
-  materialAGreenBackGroundIcon: {fileID: 0}
-  materialARedBackGroundIcon: {fileID: 0}
-  materialANameText: {fileID: 0}
-  requireACountText: {fileID: 0}
-  materialBIcon: {fileID: 0}
-  materialBGreenBackGroundIcon: {fileID: 0}
-  materialBRedBackGroundIcon: {fileID: 0}
-  materialBNameText: {fileID: 0}
-  requireBCountText: {fileID: 0}
-  resultItem: {fileID: 0}
-  resultItemGreenBackGround: {fileID: 0}
-  resultItemBRedBackGround: {fileID: 0}
-  resultItemNameText: {fileID: 0}
-  resultItemCountText: {fileID: 0}
+  craftingId: craft_03
+  craftingUI: {fileID: 5230694629431003057}
+  materialAIcon: {fileID: 6302714067579607843}
+  materialAGreenBackGroundIcon: {fileID: 8150421189284148973}
+  materialARedBackGroundIcon: {fileID: 4583457245019735135}
+  materialANameText: {fileID: 3961033735907096491}
+  requireACountText: {fileID: 7254237166049479430}
+  materialBIcon: {fileID: 2732376794364730560}
+  materialBGreenBackGroundIcon: {fileID: 1370477457664815741}
+  materialBRedBackGroundIcon: {fileID: 8318771829430664056}
+  materialBNameText: {fileID: 2494503791395282140}
+  requireBCountText: {fileID: 973264001669022617}
+  resultItem: {fileID: 5818547979388524791}
+  resultItemGreenBackGround: {fileID: 2604405276637286726}
+  resultItemRedBackGround: {fileID: 5161756842726636323}
+  resultItemNameText: {fileID: 8083950806251187653}
+  resultItemCountText: {fileID: 2283920950184847038}
 --- !u!1 &6337407718487711882
 GameObject:
   m_ObjectHideFlags: 0
@@ -7841,7 +7886,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5102985860683867333}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1681762940794222306}
+        m_TargetAssemblyTypeName: TST.CraftingUI_Slot, Assembly-CSharp
+        m_MethodName: OnClickCraftButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6828714267998485631
 GameObject:
   m_ObjectHideFlags: 0
@@ -8290,7 +8347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16360759e2578420b825206ef0938f92, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8369,7 +8426,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f3130bcdf7e6ba45ae6166bc1a21e26, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8413,7 +8470,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3700583849076454810
@@ -8446,8 +8503,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8471,8 +8529,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8793,7 +8851,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &530311018058993850
@@ -8826,8 +8884,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8851,8 +8910,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9330,7 +9389,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -40}
+  m_AnchoredPosition: {x: 0, y: -55}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &112818765376704562
@@ -9363,8 +9422,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: ' {poss.Cnt}/{require.Cnt}'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4778e1f8d5e004ad79db81f688da7d68, type: 2}
+  m_sharedMaterial: {fileID: -6588280525361536061, guid: 4778e1f8d5e004ad79db81f688da7d68,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9388,8 +9448,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9499,7 +9559,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2f3130bcdf7e6ba45ae6166bc1a21e26, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

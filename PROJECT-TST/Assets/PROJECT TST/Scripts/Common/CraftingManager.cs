@@ -11,7 +11,7 @@ namespace TST
         [Sirenix.OdinInspector.Button]
         public void Crafting(string crafting_id)
         {
-            if (!GameDataModel.Singleton.GetCraftingData(crafting_id, out CraftingDataSO craftingData))
+            if (!GameDataModel.Singleton.GetCraftingData(crafting_id, out CraftDataSO craftingData))
                 return;
 
             if (GameDataModel.Singleton.GetItemData(craftingData.ResultItemID, out ItemData createdItemData))

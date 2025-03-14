@@ -10379,6 +10379,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bad325ee33e6bbf438db96239f69b3db, type: 2}
   - {fileID: 11400000, guid: 19a2aa9d090c0f649af1a041ecd4da92, type: 2}
   - {fileID: 11400000, guid: eb24e749b2f25554c9ad1538920e794d, type: 2}
+  - {fileID: 11400000, guid: 8feebf5f60134bb43a11e80e1c38c905, type: 2}
   <SkillDatas>k__BackingField: []
   <CraftingDatas>k__BackingField:
   - {fileID: 11400000, guid: 0dca5d60c75a1fc4baba93edbdc5d833, type: 2}
@@ -35293,6 +35294,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6137602471381224200, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6202920967677070111, guid: 0b3690c495cd4694f936638cf5829ca9,
         type: 3}
       propertyPath: m_Layer
@@ -40633,12 +40639,17 @@ PrefabInstance:
     - target: {fileID: 2556837609376899499, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: height
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2556837609376899499, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: distance
-      value: 100
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556837609376899499, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: meshColor.a
+      value: 0.36862746
       objectReference: {fileID: 0}
     - target: {fileID: 2558653266389369685, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
@@ -40724,6 +40735,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397560495111444369, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3411263272056349122, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
@@ -40825,6 +40841,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4558908518612692171, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.422
+      objectReference: {fileID: 0}
     - target: {fileID: 4586503925371961095, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: m_Layer
@@ -40890,6 +40911,29 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5281660117938459928, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: rifleAmmos.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5281660117938459928, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: rifleAmmos.Array.data[0]
+      value: 
+      objectReference: {fileID: 2963226679122206849, guid: 6f2dd4dce15bbd44d9394577c9c559d6,
+        type: 3}
+    - target: {fileID: 5281660117938459928, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: rifleAmmos.Array.data[1]
+      value: 
+      objectReference: {fileID: 2963226679122206849, guid: 6f2dd4dce15bbd44d9394577c9c559d6,
+        type: 3}
+    - target: {fileID: 5281660117938459928, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: rifleAmmos.Array.data[2]
+      value: 
+      objectReference: {fileID: 2963226679122206849, guid: 6f2dd4dce15bbd44d9394577c9c559d6,
+        type: 3}
     - target: {fileID: 5307011323238629306, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: m_Layer
@@ -41144,6 +41188,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7919400134000772653, guid: 34222b08e3fd6454588493c58f98b981,
+        type: 3}
+      propertyPath: m_RigLayers.Array.data[0].m_Active
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970169241056476152, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}

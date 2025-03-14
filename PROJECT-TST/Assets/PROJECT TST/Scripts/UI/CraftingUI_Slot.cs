@@ -34,9 +34,9 @@ namespace TST
         #endregion
 
         [Title("Result", titleAlignment: TitleAlignments.Centered)]
-        public Image resultItem;
-        public Image resultItemGreenBackGround;
-        public Image resultItemBRedBackGround;
+        [SerializeField] public Image resultItem;
+        [SerializeField] public Image resultItemGreenBackGround;
+        [SerializeField] public Image resultItemRedBackGround;
         [SerializeField] private TextMeshProUGUI resultItemNameText;
         [SerializeField] private TextMeshProUGUI resultItemCountText;
 
@@ -51,7 +51,7 @@ namespace TST
 
             if (GameDataModel.Singleton)
             {
-                GameDataModel.Singleton.GetCraftingData(craftingId, out CraftingDataSO resultData);
+                GameDataModel.Singleton.GetCraftingData(craftingId, out CraftDataSO resultData);
                 if (resultData.RequireItems.Count == 0)
                     return;
 
@@ -70,6 +70,13 @@ namespace TST
                     GameDataModel.Singleton.GetItemData(itemBId, out ItemData dataB);
                     materialBIcon.sprite = itemBImage;
                     materialBNameText.text = dataB.ItemName;
+                }
+
+                if (AssetManager.Singleton.GetItemIcon(resultData.ResultItemID, out Sprite itemResultImage))
+                {
+                    GameDataModel.Singleton.GetItemData(resultData.ResultItemID, out ItemData result);
+                    resultItem.sprite = itemResultImage;
+                    resultItemNameText.text = result.ItemName;
                 }
             }
 
@@ -94,7 +101,7 @@ namespace TST
             if (craftingId == "")
                 return;
 
-            GameDataModel.Singleton.GetCraftingData(craftingId, out CraftingDataSO resultData);
+            GameDataModel.Singleton.GetCraftingData(craftingId, out CraftDataSO resultData);
             if (resultData.RequireItems.Count == 0)
                 return;
 
@@ -106,17 +113,17 @@ namespace TST
             int requireItemCount;
             #region Data A
             // 데이터 A
-            var dataA = UserDataModel.Singleton.UserItemData.GetUserItemData(itemAId);
+            int count = UserDataModel.Singleton.UserItemData.GetUserItemDataCount(itemAId);
             requireItemCount = resultData.RequireItems[0].RequireAmount;
-            if (dataA == null)
+            if (count == 0)
             {
                 possesItemCount = 0;
                 requireACountText.text = $"0 / {requireItemCount}";
             }
             else
             {
-                possesItemCount = dataA.itemCount;
-                requireACountText.text = $"{dataA.itemCount} / {requireItemCount}";
+                possesItemCount = count;
+                requireACountText.text = $"{possesItemCount} / {requireItemCount}";
             }
 
             // 백그라운드 레드 그린
@@ -126,23 +133,35 @@ namespace TST
 
             #region Data B
             // 데이터 B
-            var dataB = UserDataModel.Singleton.UserItemData.GetUserItemData(itemBId);
+            count = UserDataModel.Singleton.UserItemData.GetUserItemDataCount(itemBId);
             requireItemCount = resultData.RequireItems[1].RequireAmount;
-            if (dataB == null)
+            if (count == 0)
             {
                 possesItemCount = 0;
                 requireBCountText.text = $"0 / {requireItemCount}";
             }
             else
             {
-                possesItemCount = dataB.itemCount;
-                requireBCountText.text = $"{dataB.itemCount} / {requireItemCount}";
+                possesItemCount = count;
+                requireBCountText.text = $"{possesItemCount} / {requireItemCount}";
             }
 
             // 백그라운드 레드 그린
             materialBGreenBackGroundIcon.gameObject.SetActive(possesItemCount >= requireItemCount);
             materialBRedBackGroundIcon.gameObject.SetActive(possesItemCount < requireItemCount);
             #endregion
+
+            if (GameDataModel.Singleton.GetItemData(resultData.ResultItemID, out ItemData resultItemData))
+            {
+                resultItemCountText.text = $"{resultData.ResultAmount}" ;
+            }
+
+
+            resultItemGreenBackGround.gameObject.SetActive (
+                materialAGreenBackGroundIcon.IsActive() && materialBGreenBackGroundIcon.IsActive()
+                );
+
+            resultItemRedBackGround.gameObject.SetActive(!resultItemGreenBackGround.IsActive());
         }
 
         public void OnClickCraftButton()

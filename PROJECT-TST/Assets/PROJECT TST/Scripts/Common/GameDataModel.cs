@@ -8,7 +8,7 @@ namespace TST
     {
         [field: SerializeField] public List<ItemData> ItemDatas { get; private set; } = new List<ItemData>();
         [field: SerializeField] public List<SkillDataSO> SkillDatas { get; private set; } = new List<SkillDataSO>();
-        [field: SerializeField] public List<CraftingDataSO> CraftingDatas { get; private set; } = new List<CraftingDataSO>();
+        [field: SerializeField] public List<CraftDataSO> CraftingDatas { get; private set; } = new List<CraftDataSO>();
 
         public void Initialize()
         {
@@ -27,7 +27,7 @@ namespace TST
             return resultData != null;
         }
 
-        public bool GetCraftingData(string crafting_id, out CraftingDataSO resultData)
+        public bool GetCraftingData(string crafting_id, out CraftDataSO resultData)
         {
             resultData = CraftingDatas.Find(x => x.CraftingID.Equals(crafting_id));
             return resultData != null;
