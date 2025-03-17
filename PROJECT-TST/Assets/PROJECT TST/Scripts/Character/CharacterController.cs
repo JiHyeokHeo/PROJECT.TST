@@ -343,6 +343,10 @@ namespace TST
                 bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
                 linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
             }
+            else
+            {
+                linkedCharacter.Move(Vector2.zero, Camera.main.transform.eulerAngles.y);
+            }
 
             #region Test
             //if (Input.GetKeyDown(KeyCode.H))

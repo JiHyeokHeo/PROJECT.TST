@@ -1,11 +1,6 @@
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 namespace TST
@@ -98,11 +93,11 @@ namespace TST
         // 메테리얼 데이터 업데이트 // 이걸 추가시켜야할듯 GameManager에다가
         public void UpdateMaterialDatas()
         {
-            if (craftingId == "")
+            if (string.IsNullOrEmpty(craftingId))
                 return;
 
             GameDataModel.Singleton.GetCraftingData(craftingId, out CraftDataSO resultData);
-            if (resultData.RequireItems.Count == 0)
+            if (resultData.RequireItems.Count <= 0)
                 return;
 
             // 추후 조금 수정이 있어야 하지 않을까..? 직접 접근이 뭔가 쪼매 그렇다

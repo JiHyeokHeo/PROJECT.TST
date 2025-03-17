@@ -71,6 +71,7 @@ namespace TST
             return Items.Find(x=>x.itemID.Equals(itemID));
         }
 
+        // 데이터 베이스의 쿼리의 느낌이다.
         public int GetUserItemDataCount(string itemID)
         {
             return Items.Where(x => x.itemID.Equals(itemID)).Sum(x => x.itemCount);
