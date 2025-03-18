@@ -6,7 +6,6 @@ using UnityEngine;
  
 namespace TST
 {
-    [RequireComponent(typeof(CharacterBase))]
     public class EventHandler : MonoBehaviour
     {
         private CharacterBase linkedCharacter;

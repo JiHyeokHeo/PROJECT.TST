@@ -15,13 +15,13 @@ namespace TST
             //QualitySettings.SetQualityLevel(2);
             //Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
 
-            Resolution[] resolution = Screen.resolutions;  
+            //Resolution[] resolution = Screen.resolutions;  
 
-            for (int i = 0; i < resolution.Length; i++)
-            {
-                Debug.Log(resolution[i].width + "x" + Screen.resolutions[i].height);
-                Debug.Log(resolution[i].refreshRateRatio.value);
-            }
+            //for (int i = 0; i < resolution.Length; i++)
+            //{
+            //    Debug.Log(resolution[i].width + "x" + Screen.resolutions[i].height);
+            //    Debug.Log(resolution[i].refreshRateRatio.value);
+            //}
         }
     }
 }
