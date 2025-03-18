@@ -8,17 +8,17 @@ namespace TST
     {
         private Animator animator;
 
-        private int lookCount;
+        private bool isAnimatorReverseStart = false;
         void Start()
         {
              animator = GetComponent<Animator>();
-            lookCount = 0;
+            
             //Animator speed
         }
 
         public void Ani_Reverse()
         {
-            lookCount++;
+            isAnimatorReverseStart = true;
             animator.SetFloat("Animator speed", -1f);
         }
 
@@ -26,10 +26,11 @@ namespace TST
         // 전환 트리거를 발생시키자.
         public void Ani_LookTransitionCheck()
         {
-            if (lookCount >= 1)
+            if (isAnimatorReverseStart)
             {
                 animator.SetFloat("Animator speed", 1f);
-                lookCount = 0;
+                animator.SetTrigger("Animation Transition Trigger");
+                isAnimatorReverseStart = false;
             }
         }
     }
