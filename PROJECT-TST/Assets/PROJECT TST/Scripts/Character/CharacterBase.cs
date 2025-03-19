@@ -113,22 +113,22 @@ namespace TST
         public float CurrentHp { get => currentStat.hp; 
             set
             {
+                currentStat.hp = value;
+
                 if (currentStat.hp <= 0f)
                 {
                     currentStat.hp = 0f;
                     SetRagdollActive(true);
-                    return;
                 }
-
-                currentStat.hp = value;
-
-                if (CurrentHp >= maxStat.hp)
+                else if (currentStat.hp >= maxStat.hp)
                 {
                     currentStat.hp = maxStat.hp;
                     SetRagdollActive(false);
-                    return;
                 }
-
+                else if (currentStat.hp > 0f)
+                {
+                    SetRagdollActive(false);
+                }
             }
         }
 

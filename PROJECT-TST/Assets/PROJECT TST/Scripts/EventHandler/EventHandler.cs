@@ -10,24 +10,30 @@ namespace TST
     {
         private CharacterBase linkedCharacter;
         public event Action OnDamagedAction;
-        public event Action OnDeadAction;
+        public event Action OnDeadEvent;
 
         private List<ItemData> equipItemDatas = new List<ItemData>();
         private void Start()
         {
             linkedCharacter = GetComponent<CharacterBase>();
-
         }
 
         public void OnEnable()
         {
             UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += RefreshEquipment;
+            OnDeadEvent += ShowGameOverUI;
         }
 
         public void OnDisable()
         {
             if (UserDataModel.Singleton)
                 UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent -= RefreshEquipment;
+            OnDeadEvent -= ShowGameOverUI;
+        }
+
+        private void ShowGameOverUI()
+        {
+            UIManager.Show<GameOverUI>(UIList.GameOverUI);
         }
 
         // 조건이 세가지 존재함
@@ -112,7 +118,6 @@ namespace TST
 
         public void OnDamaged(float damage, GameObject attacker)
         {
-            Debug.Log($"{attacker.name}로부터 {damage}데미지 를 받는 중 ");
             linkedCharacter.CurrentHp -= damage;
 
             OnDamagedAction?.Invoke();
@@ -121,8 +126,14 @@ namespace TST
             {
                 linkedCharacter.CurrentHp = 0;
                 Debug.Log($" {linkedCharacter.name} Died.");
-                OnDeadAction?.Invoke();
+                OnDeadEvent?.Invoke();
             }
+        }
+
+        // 추후에 더 추가 해야할듯
+        public void ResetCharacter()
+        {
+            linkedCharacter.CurrentHp = 100;
         }
     }
 }

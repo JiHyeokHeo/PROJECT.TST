@@ -19,7 +19,6 @@ namespace TST
     public partial class GameManager : MonoBehaviour // 중계기 역할
     {
         public static GameManager Instance { get; private set; }
-        [field : SerializeField]public CharacterBase Character { get; private set; }
 
         private void Awake()
         {
@@ -64,9 +63,9 @@ namespace TST
 
         [Button()]
         // 유저데이터와 별개로 테스트 하기 위해
-        public void SetPlayerHp(float hp)
+        public void MakePlayerDamaged(float damage)
         {
-            Character.CurrentHp = hp;
+            CharacterController.Instance.linkedCharacter.eventHandler.OnDamaged(damage, null);
         }
 
         public void OnPlayerDead()

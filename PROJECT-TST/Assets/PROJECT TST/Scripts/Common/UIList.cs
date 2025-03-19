@@ -20,6 +20,7 @@ namespace TST
 
         PopupA_UI,
         PopupB_UI,
+        GameOverUI,
         Indicator_UI,
         InventoryUI,
         InventoryMenuUI,
