@@ -74,6 +74,7 @@ namespace TST
             InputSystem.Singleton.OnInput_Reload += OnExecuteReload;
             InputSystem.Singleton.OnInput_Crouch += OnExecuteCrouch;
             InputSystem.Singleton.OnInput_WorldMap += OnExecuteWorldMap;
+            InputSystem.Singleton.OnInput_ShortCutItemUse += OnExecutePlayerShortCutItem;
            // += CommandExecuteSkill // input ¿¬µ¿
 
            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
@@ -240,6 +241,14 @@ namespace TST
             {
                 UIManager.Show<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
                 return true;
+            }
+        }
+
+        void OnExecutePlayerShortCutItem()
+        {
+            if (UIManager.Singleton.GetUI(UIList.ShortCutUI, out ShortCutUI shortCutUI))
+            {
+                shortCutUI.UseShortCutItem();
             }
         }
 

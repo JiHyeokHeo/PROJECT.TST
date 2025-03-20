@@ -22,6 +22,7 @@ namespace TST
         public System.Action OnInput_ShootFinish;
         public System.Action OnInput_Reload;
         public System.Action OnInput_Crouch;
+        public System.Action OnInput_ShortCutItemUse;
         public System.Func<bool> OnInput_InventoryToggle;
         public System.Func<bool> OnInput_EquipmentToggle;
 
@@ -172,6 +173,11 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.Tab))
             {
 
+            }
+
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                OnInput_ShortCutItemUse?.Invoke();
             }
 
             if (Input.GetKeyDown(KeyCode.M))

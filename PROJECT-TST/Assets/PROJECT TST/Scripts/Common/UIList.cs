@@ -14,7 +14,7 @@ namespace TST
         TitleUI,
         IngameUI,
         MainUI,
-
+        ShortCutUI,
         UI_PANEL_END,
         UI_POPUP_START,
 

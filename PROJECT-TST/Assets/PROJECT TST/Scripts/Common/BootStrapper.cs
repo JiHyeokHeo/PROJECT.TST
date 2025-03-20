@@ -51,6 +51,7 @@ namespace TST
                 UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
                 UIManager.Show<MainHudUI>(UIList.MainUI);
                 UIManager.Show<InteractionUI>(UIList.InteractionUI);
+                UIManager.Show<ShortCutUI>(UIList.ShortCutUI);
             }
         }
 

@@ -16,7 +16,8 @@ namespace TST
             UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
             UIManager.Show<MainHudUI>(UIList.MainUI);
             UIManager.Show<InteractionUI>(UIList.InteractionUI);
-            UIManager.Show<InventoryUI>(UIList.InventoryUI);
+            UIManager.Show<ShortCutUI>(UIList.ShortCutUI);
+            //UIManager.Show<InventoryUI>(UIList.InventoryUI);
             //UIManager.Show<IngameUI>(UIList.IngameUI);
             //UIManager.Show<MinimapUI>(UIList.MinimapUI);
             //UIManager.Show<IndicatorUI>(UIList.IndicatorUI);
