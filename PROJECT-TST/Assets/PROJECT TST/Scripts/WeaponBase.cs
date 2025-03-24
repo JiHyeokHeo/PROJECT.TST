@@ -34,6 +34,8 @@ namespace TST
             }
         }
 
+        public List<AmmoBase> LoadedAmmo { get { return loadedAmmo; } private set { } }
+
         public int MaxBulletAmount
         {
             get => maxBulletAmount;

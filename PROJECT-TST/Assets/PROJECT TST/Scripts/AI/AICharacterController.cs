@@ -5,12 +5,15 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
 namespace TST
 {
     public class AICharacterController : MonoBehaviour
     {
+        public bool isItemGenerated = false;
+        public Transform dropItemPositon;
         public CharacterBase LinkedCharacter => characterBase;
         public NavMeshAgent NavAgent
         {
@@ -86,8 +89,23 @@ namespace TST
             // 결론 처음엔 Patrol 진입 하지만 센서로 인해 Combat or Idle 상태로 진입 // Idle 상태에서 특정 시간이 되면 다시 Patrol 진입
         }
 
+        // 스크립트를 끄고 키는 것으로 조절을 해볼까?..
+        private void OnEnable()
+        {
+            isItemGenerated = false;
+        }
+
         private void Update()
         {
+            Assert.IsFalse(isItemGenerated, "This AI is Already Generate Item ! Need to Reset");
+
+            if (LinkedCharacter.CurrentHp <= 0)
+            {
+                isItemGenerated = true;
+                GameManager.Instance.GenerateItem(dropItemPositon.position);
+                GetComponent<AICharacterController>().enabled = false;
+            }
+            
             currentState.Update();
 
             // NavAgent의 다음 위치 값을, 현재 위치로 설정

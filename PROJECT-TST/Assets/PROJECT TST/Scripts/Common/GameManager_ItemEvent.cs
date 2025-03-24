@@ -17,6 +17,21 @@ namespace TST
             return CraftingItems(craft_id);
         }
 
+        public void GenerateItem(Vector3 position)
+        {
+            // 미만         이하
+            // int 파라미터 float 파라미터 Range Inclusive Exclusive 
+            int randItemID = UnityEngine.Random.Range((int)ItemList.ITEMLIST_START + 1, (int)ItemList.ITEMLIST_END);
+
+            var itemEnum = (ItemList)randItemID;
+            string itemName = itemEnum.ToString();
+
+            if (AssetManager.Singleton.GetItemVisualPrefab(itemName, out GameObject result))
+            {
+                Instantiate(result, position, Quaternion.identity);
+            }
+        }
+
         public void UseItem(int slotId, ItemData itemData, int count = 1)
         {
             switch (itemData.ItemCategory)

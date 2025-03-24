@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7975776786001176632}
   - component: {fileID: 3228122988690955885}
   m_Layer: 0
-  m_Name: Incendiary Bullet
+  m_Name: Normal_AR_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 050bd5890bca2004b966e6a449b6dac3, type: 2}
+  - {fileID: 2100000, guid: 97e883c82be015c4394338406273922a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

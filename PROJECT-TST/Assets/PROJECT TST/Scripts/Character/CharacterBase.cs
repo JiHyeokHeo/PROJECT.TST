@@ -765,7 +765,14 @@ namespace TST
             if (isLoot)
                 return;
 
+            if (currentWeapon == null)
+                return;
+
             if (currentWeapon.CurrentBulletAmount == currentWeapon.MaxBulletAmount)
+                return;
+
+            // 틱틱 거리는 사운드를 추가할지 말지 고민
+            if (currentWeapon.LoadedAmmo.Count <= 0)
                 return;
 
             if (!isReloading && currentWeapon.CurrentBulletAmount != currentWeapon.clipSize)
@@ -1121,8 +1128,6 @@ namespace TST
             CheckIsHit(true);
 
             eventHandler.OnDamaged(damage, attacker);
-
-          
         }
 
         // 히트 이벤트

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TST;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
  
 namespace TST
@@ -21,14 +22,18 @@ namespace TST
         public void OnEnable()
         {
             UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent += RefreshEquipment;
-            OnDeadEvent += ShowGameOverUI;
+
+            if (TryGetComponent(out AICharacterController component) == false)
+                OnDeadEvent += ShowGameOverUI;
         }
 
         public void OnDisable()
         {
             if (UserDataModel.Singleton)
                 UserDataModel.Singleton.OnPlayerEquipmentChanagedEvent -= RefreshEquipment;
-            OnDeadEvent -= ShowGameOverUI;
+
+            if (TryGetComponent(out AICharacterController component) == false)
+                OnDeadEvent += ShowGameOverUI;
         }
 
         private void ShowGameOverUI()
@@ -126,7 +131,8 @@ namespace TST
             {
                 linkedCharacter.CurrentHp = 0;
                 Debug.Log($" {linkedCharacter.name} Died.");
-                OnDeadEvent?.Invoke();
+
+                    OnDeadEvent?.Invoke();
             }
         }
 
