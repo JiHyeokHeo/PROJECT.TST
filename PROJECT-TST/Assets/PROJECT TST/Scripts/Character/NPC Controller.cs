@@ -4,11 +4,16 @@ using UnityEngine;
 
 namespace TST
 {
-    public class NPCController : MonoBehaviour
+    public class NPCController : MonoBehaviour, IInteractable
     {
         private Animator animator;
 
         private bool isAnimatorReverseStart = false;
+
+        [field: SerializeField] public string NpcName { get; set; }
+        public string Message => "NPC Interact";
+        public InteractType InteractType => InteractType.NPC;
+
         void Start()
         {
              animator = GetComponent<Animator>();
@@ -32,6 +37,11 @@ namespace TST
                 animator.SetTrigger("Animation Transition Trigger");
                 isAnimatorReverseStart = false;
             }
+        }
+
+        public void Interact(GameObject go)
+        {
+            // 관련된 상점 UI 팝업
         }
     }
 }

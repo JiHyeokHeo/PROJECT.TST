@@ -307,7 +307,7 @@ namespace TST
 
             if (currentInteractables.Count > 0)
             {
-                InteractionUI.Instance.ShowInteractionItem(currentInteractables[0]);
+                InteractionUI.Instance.ShowInteraction(currentInteractables[0]);
             }
             else
             {
