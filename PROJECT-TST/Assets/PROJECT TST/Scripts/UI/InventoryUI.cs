@@ -82,12 +82,12 @@ namespace TST
                 infiniteScroll.InsertData(inventoryItemData);
             }
         }
-  
+        
+        // 돈이라는 아이템을 먹은 것만 예외처리로 Inventory Gold Hud에 영향을 미치도록 변경? // 아니면 UserDataModel에 따로 함수를 파고 ItemBase에서 Interact 를 if문으로 미리 필터링?
         private void OnChangedUserItemData(UserItemDTO.UserItemData data)
         {
             // TODO : 인벤토리에 표기하는 아이템들은 Dictionary<int, InventoryUI_ItemSlot> createdItemSlots 에 저장하고 관리한다.
             // TODO : Dictionary<int, InventoryUI_ItemSlot> 의 int Key 값은 SlotID 와 동일하다.
-
             if (data == null)
                 return;
 

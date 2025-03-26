@@ -25,6 +25,7 @@ namespace TST
         InventoryUI,
         InventoryMenuUI,
         InventoryEquipMenuUI,
+        NpcShopUI,
         InteractionUI,
         PlayerEquipmentUI,
         CraftingUI,

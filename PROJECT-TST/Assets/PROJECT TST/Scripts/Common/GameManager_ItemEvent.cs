@@ -12,6 +12,15 @@ namespace TST
     {
         public event System.Action<ItemData, int> OnUsedItem;
 
+        // 아이템 번호로 하면 좋더 좋았을듯
+        public void BuyItem(ItemData itemData)
+        {
+            // 골드 유무를 확인해야함 
+            
+
+            UserDataModel.Singleton.AddItemToInventory(itemData);
+        }
+
         public bool CraftItem(string craft_id)
         {
             return CraftingItems(craft_id);

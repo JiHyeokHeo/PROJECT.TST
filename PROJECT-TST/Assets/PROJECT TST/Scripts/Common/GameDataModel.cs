@@ -7,6 +7,7 @@ namespace TST
     public class GameDataModel : SingletonBase<GameDataModel>
     {
         [field: SerializeField] public List<ItemData> ItemDatas { get; private set; } = new List<ItemData>();
+        [field: SerializeField] public List<NPCShopDataSO> NpcShopDatas { get; private set; } = new List<NPCShopDataSO>();
         [field: SerializeField] public List<SkillDataSO> SkillDatas { get; private set; } = new List<SkillDataSO>();
         [field: SerializeField] public List<CraftDataSO> CraftingDatas { get; private set; } = new List<CraftDataSO>();
 
@@ -30,6 +31,12 @@ namespace TST
         public bool GetCraftingData(string crafting_id, out CraftDataSO resultData)
         {
             resultData = CraftingDatas.Find(x => x.CraftingID.Equals(crafting_id));
+            return resultData != null;
+        }
+
+        public bool GetNpcShopData(string shopping_id, out NPCShopDataSO resultData)
+        {
+            resultData = NpcShopDatas.Find(x => x.NpcShopID.Equals(shopping_id));
             return resultData != null;
         }
     }

@@ -39,9 +39,9 @@ namespace TST
     public enum ItemConsumableCategory
     {
         None = 0,
-
         HealingKit,
         Ammo,
+        Money,
     }
 
     [CreateAssetMenu(fileName = "New Item Data", menuName = "PROJECT TST/Item/Item Data")]
@@ -50,8 +50,6 @@ namespace TST
         [field: SerializeField] public string ItemID { get; private set; }
         [field: SerializeField] public string ItemName { get; private set; }
         [field: SerializeField] public GameObject ItemVisualPrefab { get; private set; }
-
-        public Action<CharacterBase> OnUseItem;
 
         [field: SerializeField] public ItemCategory ItemCategory { get; private set; }
         [field: SerializeField] public int ItemSubCategory { get; private set; }
