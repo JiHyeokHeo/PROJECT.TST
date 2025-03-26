@@ -1,6 +1,7 @@
 using Gpm.Ui;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -10,10 +11,13 @@ namespace TST
     {
         public override bool IsVisibleCursor => true;
 
+
         [SerializeField] private Transform itemSlotRoot;
         [SerializeField] private NpcShopUI_ItemSlot itemSlotPrefab;
         [SerializeField] private InfiniteScroll infiniteScroll;
 
+
+        [SerializeField] private TextMeshProUGUI GoldText;
         private void Awake()
         {
             itemSlotPrefab.gameObject.SetActive(false);
@@ -33,6 +37,33 @@ namespace TST
 
                 infiniteScroll.InsertData(shoppingData);
             }
+        }
+
+        public void OnEnable()
+        {
+            if (UserDataModel.Singleton)
+            {
+                UserDataModel.Singleton.OnUserItemChangedEvent += _ => OnMoneyDataChanged();
+                OnMoneyDataChanged();
+            }
+
+        }
+
+        public void OnDisable()
+        {
+            if (UserDataModel.Singleton)
+            {
+                UserDataModel.Singleton.OnUserItemChangedEvent -= _ => OnMoneyDataChanged();
+            }
+        }
+
+        public void OnMoneyDataChanged()
+        {
+            int moneyAmount = UserDataModel.Singleton.UserItemData.GetUserItemDataCount("Money");
+            if (moneyAmount <= 0) 
+                moneyAmount = 0;
+
+            GoldText.text = $"{moneyAmount.ToString()} / 2147483647";
         }
 
         public void OnClickCloseButton()

@@ -92,26 +92,39 @@ namespace TST
             SaveAllInGameData();
         }
         
-        public void AddItemToInventory(ItemData itemData)
+        public void AddItemToInventory(ItemData itemData, int count = 1)
         {
             // TODO : UserItemData에 먹은 아이템 추가
             // TODO : 기존에 먹은 아이템이 있는가? 있으면 카운트만 증가, 없으면 새로 추가
             // TODO : 기존에 먹은 아이템이 있지만, 해당 슬롯의 Count가 MaxCount 까지 넘어갔는가? 넘어갔으면 새로운 슬롯에 추가
-
-            UserItemDTO.UserItemData changedData = null;
-            int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
-            if (existedItemDataIndex >= 0)
+            for (int i = 0; i < count; i++) 
             {
-                bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
-
-                // TODO : 아이템 게임 데이터가 없는것에 대한 예외처리
-                Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
-
-                int limitStack = itemGameData.ItemMaxStack;
-                if (UserItemData.Items[existedItemDataIndex].itemCount + 1 <= limitStack)
+                UserItemDTO.UserItemData changedData = null;
+                int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));
+                if (existedItemDataIndex >= 0)
                 {
-                    UserItemData.Items[existedItemDataIndex].itemCount += 1;
-                    changedData = UserItemData.Items[existedItemDataIndex];
+                    bool isExistGameData = GameDataModel.Singleton.GetItemData(itemData.ItemID, out var itemGameData);
+
+                    // TODO : 아이템 게임 데이터가 없는것에 대한 예외처리
+                    Assert.IsTrue(isExistGameData, $"ItemData {itemData.ItemID} is not exist in GameDataModel");
+
+                    int limitStack = itemGameData.ItemMaxStack;
+                    // 5개 있고 7개 추가 = 최대 10개
+                    if (UserItemData.Items[existedItemDataIndex].itemCount + 1 <= limitStack)
+                    {
+                        UserItemData.Items[existedItemDataIndex].itemCount += 1;
+                        changedData = UserItemData.Items[existedItemDataIndex];
+                    }
+                    else
+                    {
+                        changedData = new UserItemDTO.UserItemData()
+                        {
+                            slotID = UserItemData.Items.Count,
+                            itemID = itemData.ItemID,
+                            itemCount = 1
+                        };
+                        UserItemData.Items.Add(changedData);
+                    }
                 }
                 else
                 {
@@ -123,21 +136,11 @@ namespace TST
                     };
                     UserItemData.Items.Add(changedData);
                 }
-            }
-            else
-            {
-                changedData = new UserItemDTO.UserItemData()
-                {
-                    slotID = UserItemData.Items.Count,
-                    itemID = itemData.ItemID,
-                    itemCount = 1
-                };
-                UserItemData.Items.Add(changedData);
-            }
 
-            // TODO : 데이터 저장
-            // TODO : UserDataModel 의 OnUserItemChangedEvent 를 호출해주자.
-            OnUserItemChangedEvent?.Invoke(changedData);
+                // TODO : 데이터 저장
+                // TODO : UserDataModel 의 OnUserItemChangedEvent 를 호출해주자.
+                OnUserItemChangedEvent?.Invoke(changedData);
+            }
         }
 
         // 여기서 Get을 하면 되려나

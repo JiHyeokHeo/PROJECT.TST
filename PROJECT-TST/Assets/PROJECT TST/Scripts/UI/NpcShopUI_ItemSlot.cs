@@ -49,5 +49,10 @@ namespace TST
         {
         
         }
+
+        public void OnClickBuyButton()
+        {
+            parentUI.OnNotifyOnClickBuy(npcShopItemData.itemData);
+        }
     }
 }

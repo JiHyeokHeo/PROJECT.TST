@@ -157,10 +157,10 @@ namespace TST
                 float rand = UnityEngine.Random.Range(0.001f, 1f);
                 //float successRate = createdItemData.
 
-                for (int i = 0; i < craftingData.ResultAmount; i++)
-                {
-                    UserDataModel.Singleton.AddItemToInventory(createdItemData);
-                }
+                //for (int i = 0; i < craftingData.ResultAmount; i++)
+                //{
+                    UserDataModel.Singleton.AddItemToInventory(createdItemData, craftingData.ResultAmount);
+                //}
             }
 
             return true;

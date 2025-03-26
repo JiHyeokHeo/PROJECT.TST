@@ -42,6 +42,12 @@ namespace TST
         public void Interact(GameObject go)
         {
             // 관련된 상점 UI 팝업
+            UIManager.Show<NpcShopUI>(UIList.NpcShopUI);
+        }
+
+        public void OnCollisionExit(Collision collision)
+        {
+            UIManager.Hide<NpcShopUI>(UIList.NpcShopUI);
         }
     }
 }

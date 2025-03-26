@@ -62,6 +62,9 @@ namespace TST
                 // 데이터 가져오는거 1차 체크
                 if (GameDataModel.Singleton.GetItemData(UserDataModel.Singleton.UserItemData.Items[i].itemID , out ItemData itemGameData))
                 {
+                    if (itemGameData.ItemID.Equals("Money"))
+                        continue;
+
                     // 장비 아이템인 경우
                     if (itemGameData.ItemCategory == ItemCategory.Equipment)
                     {
@@ -70,6 +73,7 @@ namespace TST
                         {
                             continue;
                         }
+
                     }
                 }
 
@@ -77,7 +81,6 @@ namespace TST
                 inventoryItemData.itemSlotId = UserDataModel.Singleton.UserItemData.Items[i].slotID;
                 inventoryItemData.itemData = itemGameData;
                 inventoryItemData.itemCount = UserDataModel.Singleton.UserItemData.Items[i].itemCount;
-
 
                 infiniteScroll.InsertData(inventoryItemData);
             }
@@ -90,6 +93,13 @@ namespace TST
             // TODO : Dictionary<int, InventoryUI_ItemSlot> 의 int Key 값은 SlotID 와 동일하다.
             if (data == null)
                 return;
+
+            // UIHud에 돈 관련 Text Image 추가
+            if (data.itemID.Equals("Money"))
+            {
+
+                return;
+            }
 
             InventoryUI_ItemData itemData = new InventoryUI_ItemData();
             if (GameDataModel.Singleton.GetItemData(data.itemID, out var itemGameData))

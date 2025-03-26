@@ -58,7 +58,7 @@ namespace TST
         public void AddItem(string itemId, int useCount, bool forceUse = false)
         {
             if (GameDataModel.Singleton.GetItemData(itemId, out var itemData))
-                UserDataModel.Singleton.AddItemToInventory(itemData);
+                UserDataModel.Singleton.AddItemToInventory(itemData, useCount);
         }
 
         [Button()]
