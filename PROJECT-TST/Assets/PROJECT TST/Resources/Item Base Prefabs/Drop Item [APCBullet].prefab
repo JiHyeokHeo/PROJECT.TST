@@ -41,10 +41,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1545457695485625592}
   - component: {fileID: 4144545839606644234}
-  - component: {fileID: -4643501121056526286}
+  - component: {fileID: 8523720464465870509}
   - component: {fileID: 7261402424221442664}
   m_Layer: 0
-  m_Name: Drop Item [Healing Kit]
+  m_Name: Drop Item [APCBullet]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dadb8f2d8a60ecd45aa47c339de5e430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &-4643501121056526286
+--- !u!135 &8523720464465870509
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91685d275b89a540929f300b07ec088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemData>k__BackingField: {fileID: 11400000, guid: 1b7a92d921063234aa52b0bdc073b9e9,
+  <ItemData>k__BackingField: {fileID: 11400000, guid: 0d355c0f011200644be5007e8cec674d,
     type: 2}

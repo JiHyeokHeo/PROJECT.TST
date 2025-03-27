@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -97,15 +98,8 @@ namespace TST
 
         private void Update()
         {
-            Assert.IsFalse(isItemGenerated, "This AI is Already Generate Item ! Need to Reset");
+            AIDropCheck();
 
-            if (LinkedCharacter.CurrentHp <= 0)
-            {
-                isItemGenerated = true;
-                GameManager.Instance.GenerateItem(dropItemPositon.position);
-                GetComponent<AICharacterController>().enabled = false;
-            }
-            
             currentState.Update();
 
             // NavAgent의 다음 위치 값을, 현재 위치로 설정
@@ -162,6 +156,21 @@ namespace TST
         public void SetDestination(Vector3 destination)
         {
             navAgent.SetDestination(destination);
+        }
+
+        private void AIDropCheck()
+        {
+            Assert.IsFalse(isItemGenerated, "This AI is Already Generate Item ! Need to Reset");
+
+            if (LinkedCharacter.CurrentHp <= 0)
+            {
+                isItemGenerated = true;
+
+                // 아이템 움직임 이펙트
+                GameManager.Instance.GenerateItem(transform.position);
+
+                GetComponent<AICharacterController>().enabled = false;
+            }
         }
     }
 }

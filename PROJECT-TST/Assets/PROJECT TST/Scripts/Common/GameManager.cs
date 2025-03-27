@@ -52,6 +52,12 @@ namespace TST
             }
         }
 
+        [Button()]
+        public void UseGenerateItem(Vector3 position)
+        {
+            GenerateItem(position);
+        }
+
 
         [Button()]
         // 유저데이터와 별개로 테스트 하기 위해

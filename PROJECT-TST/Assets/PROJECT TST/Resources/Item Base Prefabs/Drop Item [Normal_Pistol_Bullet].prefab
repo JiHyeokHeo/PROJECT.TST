@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 8523720464465870509}
   - component: {fileID: 7261402424221442664}
   m_Layer: 0
-  m_Name: Drop Item [Incendiary Bullet AR]
+  m_Name: Drop Item [Normal_Pistol_Bullet]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,5 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91685d275b89a540929f300b07ec088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ItemData>k__BackingField: {fileID: 11400000, guid: de0fed9b9b37f6c4fb87771b6f02babb,
+  <ItemData>k__BackingField: {fileID: 11400000, guid: 109f2823463065a42a5c19d4deece698,
     type: 2}

@@ -22,9 +22,11 @@ namespace TST
             return LoadAsset($"UI/ItemIcon/itemicon_{item_id}", out result);
         }
 
-        public bool GetItemVisualPrefab(string item_id, out GameObject result)
+        public bool GetItemPrefab(string item_id, out GameObject result)
         {
-            return LoadAsset($"Item Visual Prefabs/{item_id}", out result);
+            return LoadAsset($"Item Base Prefabs/Drop Item [{item_id}]", out result);
         }
+
+
     }
 }

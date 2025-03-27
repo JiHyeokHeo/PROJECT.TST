@@ -11,6 +11,7 @@ namespace TST
     public partial class GameManager : MonoBehaviour
     {
         public event System.Action<ItemData, int> OnUsedItem;
+        public event System.Action <GameObject, Vector3>OnItemGenerateEvent;
 
         // 아이템 번호로 하면 좋더 좋았을듯
         public void BuyItem(ItemData itemData)
@@ -35,9 +36,12 @@ namespace TST
             var itemEnum = (ItemList)randItemID;
             string itemName = itemEnum.ToString();
 
-            if (AssetManager.Singleton.GetItemVisualPrefab(itemName, out GameObject result))
+            AssetManager.Singleton.GetItemPrefab(itemName, out GameObject result);
+
+            if (result)
             {
-                Instantiate(result, position, Quaternion.identity);
+                GameObject gameObject = Instantiate(result, position, Quaternion.identity);
+                OnItemGenerateEvent?.Invoke(gameObject, position);
             }
         }
 
