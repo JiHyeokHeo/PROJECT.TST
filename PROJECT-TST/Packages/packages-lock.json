@@ -223,6 +223,14 @@
       },
       "url": "https://packages.unity.com"
     },
+    "net.peeweek.game-options": {
+      "version": "file:C:/Users/HEOJIHYEOK/Downloads/net.peeweek.game-options-1.2.0-preview/net.peeweek.game-options-1.2.0-preview",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0"
+      }
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
