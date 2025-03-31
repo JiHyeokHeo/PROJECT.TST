@@ -48,6 +48,7 @@ namespace TST
             UIManager.Singleton.Initialize();
             UserDataModel.Singleton.Initialize();
             EffectManager.Singleton.Initialize();
+            SoundManager.Singleton.Initialize();
         }
 
         public void SystemQuit()

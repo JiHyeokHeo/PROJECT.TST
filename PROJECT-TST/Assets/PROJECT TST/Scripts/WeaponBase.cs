@@ -105,6 +105,9 @@ namespace TST
                 var effect = EffectManager.Singleton.SpawnEffect(loadedAmmo[0].data.AmmoEffectPrefab);
                 effect.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 
+                // 사운드 추가              
+                SoundManager.Singleton.PlaySFX("Weapon Shot", firePoint.position);
+
                 return true;
             }
            
@@ -140,6 +143,8 @@ namespace TST
                 ammo.CurrentAmmo += tempAmount;
                 ammo.LoadedBulletAmount -= tempAmount;
                 maxBulletAmount += tempAmount;
+
+                SoundManager.Singleton.PlaySFX("Weapon Load", firePoint.position);
             }
         }
 
