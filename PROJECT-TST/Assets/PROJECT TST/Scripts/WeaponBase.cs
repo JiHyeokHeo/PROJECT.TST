@@ -57,9 +57,15 @@ namespace TST
         private void Awake()
         {
             if (weaponType == WeaponType.Rifle)
+            {
+                fireRate = 0.1f;
                 clipSize = 30;
+            }
             if (weaponType == WeaponType.Pistol)
+            {
+                fireRate = 0.3f;
                 clipSize = 7;
+            }
         }
 
         public void InitializeWeapon(List<AmmoBase> ammos)
@@ -105,10 +111,21 @@ namespace TST
                 var effect = EffectManager.Singleton.SpawnEffect(loadedAmmo[0].data.AmmoEffectPrefab);
                 effect.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
 
-                // 사운드 추가              
-                SoundManager.Singleton.PlaySFX("Weapon Shot", firePoint.position);
+                // 사운드 추가
+                if (weaponType == WeaponType.Rifle)
+                    SoundManager.Singleton.PlaySFX("Weapon Shot", firePoint.position);
+                else if (weaponType == WeaponType.Pistol)
+                    SoundManager.Singleton.PlaySFX("Weapon Pistol Shot", firePoint.position);
 
                 return true;
+            }
+
+            if (currentBulletAmount <= 0)
+            {
+                if (weaponType == WeaponType.Rifle)
+                    SoundManager.Singleton.PlaySFX("Weapon Empty", firePoint.position);
+                else if (weaponType == WeaponType.Pistol)
+                    SoundManager.Singleton.PlaySFX("Weapon Pistol Empty", firePoint.position);
             }
            
             return false;
@@ -143,9 +160,23 @@ namespace TST
                 ammo.CurrentAmmo += tempAmount;
                 ammo.LoadedBulletAmount -= tempAmount;
                 maxBulletAmount += tempAmount;
-
-                SoundManager.Singleton.PlaySFX("Weapon Load", firePoint.position);
             }
+        }
+
+        public void StartLoadSound()
+        {
+            if (weaponType == WeaponType.Rifle)
+                SoundManager.Singleton.PlaySFX("Weapon Load", firePoint.position);
+            else if (weaponType == WeaponType.Pistol)
+                SoundManager.Singleton.PlaySFX("Weapon Pistol Load", firePoint.position);
+        }
+
+        public void StartUnloadSound()
+        {
+            if (weaponType == WeaponType.Rifle)
+                SoundManager.Singleton.PlaySFX("Weapon Unload", firePoint.position);
+            else if (weaponType == WeaponType.Pistol)
+                SoundManager.Singleton.PlaySFX("Weapon Pistol Unload", firePoint.position);
         }
 
         public void AddMaxAmountBullet(int amount)

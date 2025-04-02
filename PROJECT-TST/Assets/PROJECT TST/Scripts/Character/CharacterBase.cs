@@ -780,6 +780,7 @@ namespace TST
                 isReloading = true;
                 //multiParent.SetActive(true);
                 //rigBuilder.Build();
+                currentWeapon.StartUnloadSound();
                 animator.SetTrigger("Reload Trigger");
             }
         }
@@ -961,6 +962,11 @@ namespace TST
                         break;
                 }
             }
+        }
+
+        public void ReloadStart()
+        {
+            currentWeapon.StartLoadSound();
         }
 
         public void EquipStart()
