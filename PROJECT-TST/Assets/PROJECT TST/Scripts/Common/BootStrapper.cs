@@ -47,6 +47,7 @@ namespace TST
                 yield return new WaitForEndOfFrame();
                 yield return new WaitForEndOfFrame();
 
+                SoundManager.Singleton.PlayBGM("BGM_Ingame");
                 UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
                 UIManager.Show<MainHudUI>(UIList.MainUI);
                 UIManager.Show<InteractionUI>(UIList.InteractionUI);

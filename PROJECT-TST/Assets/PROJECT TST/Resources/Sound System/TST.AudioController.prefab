@@ -1061,8 +1061,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 1
-    currentItemIndex: 7
-    currentSubitemIndex: 6
+    currentCategoryIndex: 0
+    currentItemIndex: 1
+    currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0

@@ -17,13 +17,14 @@ namespace TST
             UIManager.Show<MainHudUI>(UIList.MainUI);
             UIManager.Show<InteractionUI>(UIList.InteractionUI);
             UIManager.Show<ShortCutUI>(UIList.ShortCutUI);
+            SoundManager.Singleton.PlayBGM("BGM_Ingame");
             //UIManager.Show<InventoryUI>(UIList.InventoryUI);
             //UIManager.Show<IngameUI>(UIList.IngameUI);
             //UIManager.Show<MinimapUI>(UIList.MinimapUI);
             //UIManager.Show<IndicatorUI>(UIList.IndicatorUI);
         }
 
-        public override IEnumerator OnEnd()
+        public override IEnumerator OnEnd() 
         {
             //UIManager.Hide<IngameUI>(UIList.IngameUI);
             //UIManager.Hide<MinimapUI>(UIList.MinimapUI);
