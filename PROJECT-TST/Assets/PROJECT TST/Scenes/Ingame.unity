@@ -8591,6 +8591,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 68486977189309461, guid: 152b2516cd2f41b4fb1e77fcdec35938,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 139652021153241349, guid: 152b2516cd2f41b4fb1e77fcdec35938,
         type: 3}
       propertyPath: m_Mesh
@@ -8650,6 +8655,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrayBox Level Design[Temp]
+      objectReference: {fileID: 0}
+    - target: {fileID: 692169990998330764, guid: 152b2516cd2f41b4fb1e77fcdec35938,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 734579855820231208, guid: 152b2516cd2f41b4fb1e77fcdec35938,
         type: 3}
@@ -9036,6 +9046,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2013216245}
+    - target: {fileID: 5788446265627473992, guid: 152b2516cd2f41b4fb1e77fcdec35938,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5892817546858158423, guid: 152b2516cd2f41b4fb1e77fcdec35938,
         type: 3}
       propertyPath: m_Mesh
@@ -59291,6 +59306,11 @@ PrefabInstance:
       propertyPath: m_SharedVertices.Array.data[142].m_Vertices.Array.data[3]
       value: 400
       objectReference: {fileID: 0}
+    - target: {fileID: 8536110237112508076, guid: 152b2516cd2f41b4fb1e77fcdec35938,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8605486184978374809, guid: 152b2516cd2f41b4fb1e77fcdec35938,
         type: 3}
       propertyPath: m_Mesh
@@ -59301,6 +59321,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1177079336}
+    - target: {fileID: 8781437600321039310, guid: 152b2516cd2f41b4fb1e77fcdec35938,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8895021077127062166, guid: 152b2516cd2f41b4fb1e77fcdec35938,
         type: 3}
       propertyPath: m_Mesh
@@ -85497,8 +85522,8 @@ Transform:
   m_GameObject: {fileID: 1504576670}
   serializedVersion: 2
   m_LocalRotation: {x: 1.110223e-17, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.01999998, y: -0.09000003, z: 5.320999}
-  m_LocalScale: {x: 0.1, y: 3, z: 7}
+  m_LocalPosition: {x: -0.01999998, y: -0.09000003, z: 4.91}
+  m_LocalScale: {x: 0.1, y: 3, z: 6.3289566}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1394693738}
@@ -90644,9 +90669,9 @@ MonoBehaviour:
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
   m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.083333336
-  m_MinRegionArea: 2
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.5
+  m_MinRegionArea: 4
   m_NavMeshData: {fileID: 23800000, guid: cc9f6c1505a31294f9c273e54db452b7, type: 2}
   m_BuildHeightMesh: 1
 --- !u!4 &1710383956
@@ -101337,12 +101362,12 @@ PrefabInstance:
     - target: {fileID: 2556837609376899499, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: height
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2556837609376899499, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: distance
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2556837609376899499, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
@@ -101442,7 +101467,7 @@ PrefabInstance:
     - target: {fileID: 3397560495111444369, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3411263272056349122, guid: 34222b08e3fd6454588493c58f98b981,
         type: 3}

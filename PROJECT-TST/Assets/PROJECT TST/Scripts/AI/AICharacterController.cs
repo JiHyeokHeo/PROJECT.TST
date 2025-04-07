@@ -54,6 +54,8 @@ namespace TST
 
         public Vector3 AISpawnPosition;
 
+        private bool isTargetPositionOn = false;
+        private Vector3 targetPosition;
         private void Awake()
         {
             characterBase = GetComponent<CharacterBase>();
@@ -68,7 +70,7 @@ namespace TST
         {
             // 상태 객체를 미리 생성해 둠
             currentState = new AIState_Patrol(this);
-            characterBase.ToggleEquipPrimaryWeapon();
+            //characterBase.ToggleEquipPrimaryWeapon();
             //characterBase.OnDamaged += (target) => SetState(new AIState_Combat(this));
             //characterBase.OnDamaged += (target) => SetTarget(target);
 
@@ -103,12 +105,20 @@ namespace TST
             currentState.Update();
 
             // NavAgent의 다음 위치 값을, 현재 위치로 설정
-            navAgent.nextPosition = transform.position;
+            if (isTargetPositionOn)
+            {
+                navAgent.nextPosition = targetPosition;
+            }
+            else
+            {
+                navAgent.nextPosition = transform.position;
+            }
 
             if (navAgent.pathStatus == NavMeshPathStatus.PathComplete && RemainingDistance() <= navAgent.stoppingDistance)
             {
                 // 도착 했을 때
                 characterBase.Move(Vector2.zero, transform.eulerAngles.y);
+                isTargetPositionOn = false;
             }
             else // 아직 도착 XXX
             {
@@ -117,10 +127,19 @@ namespace TST
                     Vector3 moveDirection = (navAgent.steeringTarget - transform.position).normalized;
                     Vector2 input = new Vector2(moveDirection.x, moveDirection.z);
                     characterBase.Move(input, 0);
+
+                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                    float angleDiff = Quaternion.Angle(transform.rotation, targetRotation);
+                    if (angleDiff > 1.0f)
+                    {
+                        transform.rotation
+                            = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10.0f);
+                    }
                 }
                 else // 경로가 없는 경우 => NavAgent가 목적지로 이동하지 않는 경우엔 스탑
                 {
                     characterBase.Move(Vector2.zero, 0);
+                    isTargetPositionOn = false;
                 }
             }
 
@@ -155,7 +174,14 @@ namespace TST
 
         public void SetDestination(Vector3 destination)
         {
-            navAgent.SetDestination(destination);
+            if (isTargetPositionOn == false)
+            {
+                targetPosition = destination; // 실제 움직임을 위한 변수
+                navAgent.SetDestination(destination);
+            }
+
+            // 중복 설정 방지
+            isTargetPositionOn = true;
         }
 
         private void AIDropCheck()

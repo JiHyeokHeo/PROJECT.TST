@@ -96,7 +96,7 @@ namespace TST
 
             
             // 목표 위치 설정
-            linkedCharacterController.NavAgent.SetDestination(targetPosition);
+            linkedCharacterController.SetDestination(targetPosition);
         }
     }
 }

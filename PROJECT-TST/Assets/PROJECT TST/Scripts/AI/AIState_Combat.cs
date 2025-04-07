@@ -25,7 +25,7 @@ namespace TST
         };
 
         private Transform gunFirePoint;
-        private float attackRange = 100.0f;
+        private float attackRange = 10.0f;
 
         private Transform currentTargetBone;
         private float targetBoneLastSetting = 0f;
@@ -81,6 +81,9 @@ namespace TST
         private void UpdateCheckSensor()
         {
             GameObject aiTarget = linkedCharacterController.Target;
+
+            if (linkedCharacterController.LinkedCharacter.CurrentHp <= 0)
+                linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
 
             if (linkedCharacterController.sensor.IsInSight(aiTarget, attackRange) == false)
                 linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
