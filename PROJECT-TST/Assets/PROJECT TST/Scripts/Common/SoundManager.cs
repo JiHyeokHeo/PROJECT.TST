@@ -67,5 +67,10 @@ namespace TST
         {
             AudioController.Play(sfxName, Camera.main.transform, Volume_UI);
         }
+
+        public bool isPlayingSameSound(string sftName)
+        {
+            return AudioController.IsPlaying(sftName);
+        }
     }
 }
