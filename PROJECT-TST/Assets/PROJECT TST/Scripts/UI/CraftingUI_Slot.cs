@@ -113,12 +113,12 @@ namespace TST
             if (count == 0)
             {
                 possesItemCount = 0;
-                requireACountText.text = $"0 / {requireItemCount}";
+                requireACountText.text = $"필요 수량 : 0 / {requireItemCount}";
             }
             else
             {
                 possesItemCount = count;
-                requireACountText.text = $"{possesItemCount} / {requireItemCount}";
+                requireACountText.text = $"필요 수량 : {possesItemCount} / {requireItemCount}";
             }
 
             // 백그라운드 레드 그린
@@ -133,12 +133,12 @@ namespace TST
             if (count == 0)
             {
                 possesItemCount = 0;
-                requireBCountText.text = $"0 / {requireItemCount}";
+                requireBCountText.text = $"필요 수량 : 0 / {requireItemCount}";
             }
             else
             {
                 possesItemCount = count;
-                requireBCountText.text = $"{possesItemCount} / {requireItemCount}";
+                requireBCountText.text = $"필요 수량 : {possesItemCount} / {requireItemCount}";
             }
 
             // 백그라운드 레드 그린
@@ -148,7 +148,7 @@ namespace TST
 
             if (GameDataModel.Singleton.GetItemData(resultData.ResultItemID, out ItemData resultItemData))
             {
-                resultItemCountText.text = $"{resultData.ResultAmount}" ;
+                resultItemCountText.text = $"제작 갯수 : {resultData.ResultAmount}" ;
             }
 
 
