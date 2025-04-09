@@ -36,7 +36,7 @@ namespace TST
             {
                 itemIcon.sprite = itemImage;
             }
-            goldRequirementText.text = requirementGold.ToString();
+            goldRequirementText.text = $" ÇÊ¿ä °ñµå : { requirementGold.ToString()}";
         }
 
         [SerializeField] private string itemID;

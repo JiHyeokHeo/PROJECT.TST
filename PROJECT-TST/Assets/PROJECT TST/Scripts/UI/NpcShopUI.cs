@@ -88,11 +88,13 @@ namespace TST
 
             if (targetNpcItemData != null)
             {
-                GameManager.Instance.AddItem(targetNpcItemData.itemData.ItemID, useCount);
+                GameDataModel.Singleton.GetItemData("Money", out ItemData resultData);
+                int playerMoneyAmount = UserDataModel.Singleton.UserItemData.GetUserItemDataCount(resultData.ItemID);
 
-                if (GameDataModel.Singleton.GetItemData("Money", out ItemData resultData))
+                if (playerMoneyAmount >= targetNpcItemData.requirementGold)
                 {
                     GameManager.Instance.UseItem(-1, resultData, targetNpcItemData.requirementGold);
+                    GameManager.Instance.AddItem(targetNpcItemData.itemData.ItemID, useCount);
                 }
             }
         }
