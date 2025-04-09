@@ -54,8 +54,11 @@ namespace TST
 
         public Vector3 AISpawnPosition;
 
-        private bool isTargetPositionOn = false;
+        public bool isTargetPositionOn = false;
         private Vector3 targetPosition;
+
+        public float elapsedSearchingFailTime = 0f;
+        public float patrolFailedTime = 3.0f;
         private void Awake()
         {
             characterBase = GetComponent<CharacterBase>();
@@ -135,6 +138,12 @@ namespace TST
                         transform.rotation
                             = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10.0f);
                     }
+
+                    //if (Time.time - elapsedSearchingFailTime >= patrolFailedTime 
+                    //    )
+                    //{
+                    //    navAgent.ResetPath();
+                    //}
                 }
                 else // 경로가 없는 경우 => NavAgent가 목적지로 이동하지 않는 경우엔 스탑
                 {

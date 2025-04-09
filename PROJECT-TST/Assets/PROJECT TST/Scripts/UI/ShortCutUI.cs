@@ -47,7 +47,7 @@ namespace TST
             if (string.IsNullOrEmpty(ItemID) == false)
             {
                 int itemCount = UserDataModel.Singleton.UserItemData.GetUserItemDataCount(ItemID);
-                itemCountText.text = $"Count: {itemCount}";
+                itemCountText.text = $"¼ö·®: {itemCount}";
 
                 greenBackground.gameObject.SetActive(itemCount > 0);
                 redBackground.gameObject.SetActive(itemCount <= 0);

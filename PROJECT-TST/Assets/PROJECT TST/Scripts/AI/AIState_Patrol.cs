@@ -14,8 +14,8 @@ namespace TST
         public float patrolInterval = 4.0f; // 순찰 시간 간격
         private float lastPatrolTime;
 
-        public float patrolRange = 20.0f; // 순찰 범위
-        public float patrolMaxRange = 40.0f; // 순찰 범위
+        public float patrolRange = 5.0f; // 순찰 범위
+        public float patrolMaxRange = 10.0f; // 순찰 범위
         private Vector3 targetPosition;
 
         public bool returnToInitPos = true; // 처음에 자기 자리로 돌아가도록 명령
@@ -40,7 +40,7 @@ namespace TST
 
         public override void Update()
         {
-            if (Time.time - lastPatrolTime > patrolInterval)
+            if (Time.time - lastPatrolTime > patrolInterval && linkedCharacterController.isTargetPositionOn == false)
             {
                 UpdatePatrolDestination();
             }
@@ -52,7 +52,7 @@ namespace TST
                 returnToInitPos = true;
             }
             
-            if (dist < 0.1f)
+            if (dist < 1.0f)
             {
                 returnToInitPos = false;
             }
