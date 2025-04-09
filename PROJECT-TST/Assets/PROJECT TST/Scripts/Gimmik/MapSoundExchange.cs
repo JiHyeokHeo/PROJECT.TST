@@ -11,7 +11,9 @@ namespace TST
         public void OnTriggerEnter(Collider other)
         {
             if (SoundManager.Singleton.isPlayingSameSound(music.name) == false)
-                SoundManager.Singleton.PlayBGM(music.name);
+            {
+                SoundManager.Singleton.PlayBGM(music.name, true);
+            }
         }
     }
 }

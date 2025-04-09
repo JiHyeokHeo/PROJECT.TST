@@ -566,9 +566,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cancel
-
-'
+  m_text: "\uCDE8\uC18C\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a70ebc4fb270c9241be4bbb3e0d5e130, type: 2}
   m_sharedMaterial: {fileID: -8613293459587648709, guid: a70ebc4fb270c9241be4bbb3e0d5e130,
@@ -703,7 +701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Use
+  m_text: "\uC0AC\uC6A9\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a70ebc4fb270c9241be4bbb3e0d5e130, type: 2}
   m_sharedMaterial: {fileID: -8613293459587648709, guid: a70ebc4fb270c9241be4bbb3e0d5e130,
@@ -1283,7 +1281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 701e7ed4dde1bf949b30e33741547ac9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

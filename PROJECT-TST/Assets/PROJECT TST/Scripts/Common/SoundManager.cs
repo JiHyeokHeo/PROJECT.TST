@@ -1,3 +1,4 @@
+using ClockStone;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ namespace TST
 {
     public class SoundManager : SingletonBase<SoundManager>
     {
+        public string IngameStageStandardSoundName { get; set; }
+
         public float Volume_Master
         {
             get => AudioController.GetGlobalVolume();
@@ -36,11 +39,17 @@ namespace TST
             GameObject audioControllerPrefab = Resources.Load<GameObject>("Sound System/TST.AudioController");
             GameObject audioControllerInstance = Instantiate(audioControllerPrefab);
             DontDestroyOnLoad(audioControllerInstance.gameObject);
+
+            // 일단 샘플로 저장..
+            IngameStageStandardSoundName = "BGM_Ingame";
         }
 
-        public void PlayBGM(string bgmName)
+        public void PlayBGM(string bgmName, bool isIngameStandardSound = false)
         {
             AudioController.PlayMusic(bgmName, Volume_Music);
+
+            if (isIngameStandardSound)
+                IngameStageStandardSoundName = bgmName;
         }
 
         public void StopBGM()

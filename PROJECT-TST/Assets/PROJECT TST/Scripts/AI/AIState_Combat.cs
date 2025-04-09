@@ -45,6 +45,9 @@ namespace TST
             int mask = 1 << (int)EAimingLayer.Character;
             aimingLayer = mask;
 
+            // 사운드 실행
+            SoundManager.Singleton.PlayBGM("BGM_Ingame_Battle");
+
 #if UNITY_EDITOR
             float totalChance = 0f;
             foreach (var chance in boneTargetChances.Values)
@@ -57,6 +60,7 @@ namespace TST
 
         public override void Exit()
         {
+            SoundManager.Singleton.PlayBGM(SoundManager.Singleton.IngameStageStandardSoundName);
             currentTargetBone = null;
         }
 

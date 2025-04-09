@@ -17,7 +17,8 @@ namespace TST
             UIManager.Show<MainHudUI>(UIList.MainUI);
             UIManager.Show<InteractionUI>(UIList.InteractionUI);
             UIManager.Show<ShortCutUI>(UIList.ShortCutUI);
-            SoundManager.Singleton.PlayBGM("BGM_Ingame");
+            UIManager.Show<IngameUI>(UIList.IngameUI);
+            SoundManager.Singleton.PlayBGM("BGM_Ingame", true);
             //UIManager.Show<InventoryUI>(UIList.InventoryUI);
             //UIManager.Show<IngameUI>(UIList.IngameUI);
             //UIManager.Show<MinimapUI>(UIList.MinimapUI);
