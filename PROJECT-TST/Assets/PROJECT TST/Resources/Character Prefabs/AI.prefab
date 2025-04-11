@@ -1722,6 +1722,7 @@ GameObject:
   - component: {fileID: 426089732817486465}
   - component: {fileID: 3337662594877080827}
   - component: {fileID: 4443573750750685152}
+  - component: {fileID: 7082961521748630030}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -1806,6 +1807,7 @@ MonoBehaviour:
   aimingPoint: {fileID: 764500004565178670}
   hitVolumeObject: {fileID: 0}
   hitVolume: {fileID: 0}
+  drone: {fileID: 0}
   ragdollRigidbodies: []
   rigBuilder: {fileID: 7919400134000772653}
   aimingRig: {fileID: 6357088739347659092}
@@ -1965,6 +1967,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c647c03bb3f9db1409c791d1c755b487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7082961521748630030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3397560495111444369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 608f5a6bee9fa734c8317ab344ec1bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1 &3411263272056349122
 GameObject:
   m_ObjectHideFlags: 0

@@ -298,6 +298,11 @@ namespace TST
                 UIManager.Hide<CraftingUI>(UIList.CraftingUI);
             }
 
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                linkedCharacter.DroneSetting();
+            }
+
             IsControlLocked = UIManager.Singleton.ActiveCursorVisibleUIsCount > 0 
                 || InputSystem.Singleton.IsActiveCursorVisible 
                 || CameraSystem.Instance.IsActiveWorldCamera;

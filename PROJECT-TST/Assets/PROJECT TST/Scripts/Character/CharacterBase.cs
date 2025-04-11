@@ -84,7 +84,7 @@ namespace TST
         public GameObject hitVolumeObject;
         public UnityEngine.Rendering.Volume hitVolume;
         #endregion
-        //public Drone drone;
+        public Drone drone;
 
         #region Rig & IK
         [Title("Rig & IK", titleAlignment: TitleAlignments.Centered)]
@@ -738,11 +738,11 @@ namespace TST
             animator.SetTrigger("Interaction Trigger");
         }
 
-        //public void DroneSetting()
-        //{
-        //    drone.IsShowing = !drone.IsShowing;
-        //    drone.SetOwner(this.gameObject);
-        //}
+        public void DroneSetting()
+        {
+            drone.IsShowing = !drone.IsShowing;
+            drone.SetOwner(this.gameObject);
+        }
 
         public void MeleeAttack()
         {

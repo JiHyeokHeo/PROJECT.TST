@@ -57,5 +57,10 @@ namespace TST
 
             GameManager.Instance.UnEquipmentItem((ItemEquipmentCategory)itemData.ItemSubCategory, slotId);
         }
+
+        public void OnClickCloseButton()
+        {
+            UIManager.Hide<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
+        }
     }
 }
