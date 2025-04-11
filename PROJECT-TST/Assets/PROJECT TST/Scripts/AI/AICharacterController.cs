@@ -73,7 +73,7 @@ namespace TST
         {
             // »óÅÂ °´Ã¼¸¦ ¹Ì¸® »ı¼ºÇØ µÒ
             currentState = new AIState_Patrol(this);
-            //characterBase.ToggleEquipPrimaryWeapon();
+            characterBase.ToggleEquipPrimaryWeapon();
             //characterBase.OnDamaged += (target) => SetState(new AIState_Combat(this));
             //characterBase.OnDamaged += (target) => SetTarget(target);
 

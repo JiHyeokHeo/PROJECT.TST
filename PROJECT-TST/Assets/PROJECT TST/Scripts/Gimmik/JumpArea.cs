@@ -20,7 +20,10 @@ namespace TST
             if (go.TryGetComponent<NavMeshAgent>(out var agent))
             {
                 if (go.TryGetComponent<UnityEngine.CharacterController>(out var controller))
+                {
+                    agent.enabled = true;
                     controller.enabled = false;
+                }
 
                 go.GetComponent<CharacterBase>().Jump();
                 go.GetComponent<MonoBehaviour>().StartCoroutine(ReactivateController(agent, controller));
@@ -45,6 +48,7 @@ namespace TST
             if (controller != null)
             {
                 controller.enabled = true;
+                agent.enabled = false;
             }
         }
 

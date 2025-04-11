@@ -86,6 +86,7 @@ namespace TST
             }
             else
             {
+                // 캐릭터마다 특정 포인트 A to B 패트롤 
                 // 현재 캐릭터 위치를 기준으로 랜덤한 위치 계산
                 Vector3 aiPosition = linkedCharacter.transform.position;
                 float randX = UnityEngine.Random.Range(-patrolRange, patrolRange);
