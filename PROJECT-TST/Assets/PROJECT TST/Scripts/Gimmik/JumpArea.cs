@@ -48,7 +48,7 @@ namespace TST
             }
         }
 
-        private IEnumerator HandleParabolicJump(NavMeshAgent agent, float duration = 1.6f, float jumpHeight = 1f)
+        private IEnumerator HandleParabolicJump(NavMeshAgent agent, float duration = 1.0f, float jumpHeight = 1.5f)
         {
             Vector3 startPos = agent.transform.position;
             Vector3 endPos = NavMeshLink.endTransform.position+ Vector3.up * 0.1f; // 보정값 살짝 추가
