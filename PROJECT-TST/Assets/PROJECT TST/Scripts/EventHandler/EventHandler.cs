@@ -82,16 +82,16 @@ namespace TST
             switch (itemdata.ItemSubCategory)
             {
                 case (int)ItemEquipmentCategory.Helmet:
-
+                    linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Gloves:
-
+                    linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Weapon:
-
+                    linkedCharacter.CurrentDamage += equipmentStat.attackBuff;
                     break;
                 case (int)ItemEquipmentCategory.Armor:
-
+                    linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Shoes:
                     linkedCharacter.CurrentSpeed += equipmentStat.speedBuff;
@@ -104,16 +104,16 @@ namespace TST
             switch (itemdata.ItemSubCategory)
             {
                 case (int)ItemEquipmentCategory.Helmet:
-
+                    linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Gloves:
-
+                    linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Weapon:
-
+                    linkedCharacter.CurrentDamage -= equipmentStat.attackBuff;
                     break;
                 case (int)ItemEquipmentCategory.Armor:
-
+                    linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Shoes:
                     linkedCharacter.CurrentSpeed -= equipmentStat.speedBuff;

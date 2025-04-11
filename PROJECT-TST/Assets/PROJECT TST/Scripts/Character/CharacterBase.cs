@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -109,6 +110,38 @@ namespace TST
         [SerializeField] private CharacterStat currentStat;
         [SerializeField] private CharacterStat maxStat;
         [field: SerializeField] private CharacterStatSetting CharacterStatConfig { get; set; }
+
+        public float CurrentDamage { get => currentStat.damamge;
+            set
+            {
+                currentStat.damamge = value;
+
+                if (currentStat.damamge <= 0f)
+                {
+                    currentStat.damamge = 0f;
+                }
+                else if (currentStat.damamge >= maxStat.damamge)
+                {
+                    currentStat.damamge = maxStat.damamge;
+                }
+            }
+        }
+
+        public float CurrentDefence { get => currentStat.defense;
+            set
+            {
+                currentStat.defense = value;
+
+                if (currentStat.defense <= 0f)
+                {
+                    currentStat.defense = 0f;
+                }
+                else if (currentStat.defense >= maxStat.defense)
+                {
+                    currentStat.defense = maxStat.defense;
+                }
+            }
+        }
 
         public float CurrentHp { get => currentStat.hp; 
             set
@@ -274,7 +307,12 @@ namespace TST
         [Title("Ammo", titleAlignment: TitleAlignments.Centered)]
         public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
         public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
-        
+
+
+        #region event
+        public event Action onWeaponSwap;
+        #endregion
+
         public AmmoBase SetRifleAmmo() // 이쪽 부분은 추후 인벤 개념 들어가면 구도를 좀 바꿔야함
         {
             for (int i = 0; i < rifleAmmos.Count; i++)
@@ -863,6 +901,7 @@ namespace TST
             else
             {
                 isSwitchingWeapon = true;
+                onWeaponSwap.Invoke();
                 switch (primaryWeapon.WeaponType)
                 {
                     case WeaponType.Rifle:
@@ -893,6 +932,7 @@ namespace TST
             else
             {
                 isSwitchingWeapon = true;
+                onWeaponSwap.Invoke();
                 switch (subWeapon.WeaponType)
                 {
                     case WeaponType.Rifle:

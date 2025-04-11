@@ -1827,6 +1827,8 @@ MonoBehaviour:
     currentBullet: 0
     maxBullet: 0
     hp: 0
+    defense: 0
+    damamge: 0
   maxStat:
     walkSpeed: 0
     runSpeed: 0
@@ -1835,6 +1837,8 @@ MonoBehaviour:
     currentBullet: 0
     maxBullet: 0
     hp: 0
+    defense: 0
+    damamge: 0
   <CharacterStatConfig>k__BackingField: {fileID: 11400000, guid: 52a2762e72774ca419a57d6ad09bfb17,
     type: 2}
   rollSpeed: 4
@@ -1847,7 +1851,7 @@ MonoBehaviour:
   isSprint: 1
   crouchOffset: {x: 0, y: 0, z: 0}
   rifleAmmos:
-  - {fileID: 2963226679122206849, guid: 6f2dd4dce15bbd44d9394577c9c559d6, type: 3}
+  - {fileID: 7300035092616290618, guid: 04ac0b7087cdff047b0104769c29d78a, type: 3}
   pistolAmmos: []
   isLoot: 0
   jumpHeight: 1.2

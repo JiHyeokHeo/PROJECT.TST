@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TST
 {
     public class MainHudUI : UIBase
     {
         public TextMeshProUGUI hpText;
+        public Image weaponImage;
         public TextMeshProUGUI weaponText;
         public TextMeshProUGUI bulletText;
         public TextMeshProUGUI bulletTypeText;
@@ -16,7 +19,17 @@ namespace TST
         // Start is called before the first frame update
         void Start()
         {
-            
+            CharacterController.Instance.linkedCharacter.onWeaponSwap += SetHud;
+        }
+
+        public void SetHud()
+        {
+            WeaponType type = CharacterController.Instance.linkedCharacter.currentWeapon.WeaponType;
+
+            switch (type) 
+            {
+
+            }
         }
 
         // Update is called once per frame

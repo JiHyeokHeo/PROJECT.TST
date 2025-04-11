@@ -15,5 +15,7 @@ namespace TST
         public int currentBullet;
         public int maxBullet;
         public float hp;
+        public float defense;
+        public float damamge;
     }
 }
