@@ -11,7 +11,6 @@ namespace TST
     {
         public TextMeshProUGUI hpText;
         public Image weaponImage;
-        public TextMeshProUGUI weaponText;
         public TextMeshProUGUI bulletText;
         public TextMeshProUGUI bulletTypeText;
         public CharacterBase linkedCharacter;
@@ -20,15 +19,39 @@ namespace TST
         void Start()
         {
             CharacterController.Instance.linkedCharacter.onWeaponSwap += SetHud;
+            SetHud();
         }
 
         public void SetHud()
         {
-            WeaponType type = CharacterController.Instance.linkedCharacter.currentWeapon.WeaponType;
+            WeaponType type = WeaponType.None;
+            if (CharacterController.Instance.linkedCharacter.weaponToEquip != null)
+                type = CharacterController.Instance.linkedCharacter.weaponToEquip.WeaponType;
 
             switch (type) 
             {
+                case WeaponType.Rifle:
+                    if (AssetManager.Singleton.GetItemIcon("AR", out Sprite rifle))
+                    {
+                        weaponImage.sprite = rifle;
+                        weaponImage.rectTransform.sizeDelta = (rifle.textureRect.size) / 2f;
+                    }
 
+                        break;
+                case WeaponType.Pistol:
+                    if (AssetManager.Singleton.GetItemIcon("Pistol", out Sprite pistol))
+                    {
+                        weaponImage.sprite = pistol;
+                        weaponImage.rectTransform.sizeDelta = (pistol.textureRect.size) / 2f;
+                    }
+                        break;
+                case WeaponType.None:
+                    if (AssetManager.Singleton.GetItemIcon("Knife", out Sprite knife))
+                    {
+                        weaponImage.sprite = knife;
+                        weaponImage.rectTransform.sizeDelta = (knife.textureRect.size) / 2f;
+                    }
+                    break;
             }
         }
 
@@ -42,15 +65,13 @@ namespace TST
 
             if (linkedCharacter.currentWeapon != null)
             {
-                weaponText.text = $"{linkedCharacter.currentWeapon.name}";
                 bulletText.text = $"{linkedCharacter.currentWeapon.CurrentBulletAmount} / {linkedCharacter.currentWeapon.MaxBulletAmount}";
                 bulletTypeText.text = $"{linkedCharacter.currentWeapon.GetFirstLoadedBulletName()}";
             }
             else
             {
-                weaponText.text = $"Idle";
-                bulletText.text = $"None";
-                bulletTypeText.text = $"None";
+                bulletText.text = $"1 / 1";
+                bulletTypeText.text = $"Knife";
             }
         }
 

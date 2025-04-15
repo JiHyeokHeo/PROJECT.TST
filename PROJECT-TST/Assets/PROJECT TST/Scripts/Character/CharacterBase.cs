@@ -901,7 +901,7 @@ namespace TST
             else
             {
                 isSwitchingWeapon = true;
-                onWeaponSwap.Invoke();
+                onWeaponSwap?.Invoke();
                 switch (primaryWeapon.WeaponType)
                 {
                     case WeaponType.Rifle:
@@ -932,7 +932,7 @@ namespace TST
             else
             {
                 isSwitchingWeapon = true;
-                onWeaponSwap.Invoke();
+                onWeaponSwap?.Invoke();
                 switch (subWeapon.WeaponType)
                 {
                     case WeaponType.Rifle:
@@ -954,6 +954,7 @@ namespace TST
 
             if (currentWeapon != null)
             {
+                onWeaponSwap?.Invoke();
                 isSwitchingWeapon = true;
                 switch (currentWeapon.WeaponType)
                 {
