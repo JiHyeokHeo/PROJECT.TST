@@ -442,7 +442,7 @@ namespace TST
      
         public void AddRecoil()
         {
-            if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.CurrentBulletAmount > 0)
+            if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.WeaponCurrentBulletAmount > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
             }

@@ -19,16 +19,16 @@ namespace TST
 
         [SerializeField] private WeaponType weaponType;
 
-        public int CurrentBulletAmount
+        public int WeaponCurrentBulletAmount
         {
-            get => currentBulletAmount;
+            get => weaponCurrentBulletAmount;
             set
             {
-                currentBulletAmount = value;
+                weaponCurrentBulletAmount = value;
 
-                if (currentBulletAmount >= clipSize)
+                if (weaponCurrentBulletAmount >= clipSize)
                 {
-                    currentBulletAmount = clipSize;
+                    weaponCurrentBulletAmount = clipSize;
                     return;
                 }
             }
@@ -43,7 +43,7 @@ namespace TST
         }
 
         public int clipSize = 30;
-        private int currentBulletAmount = 0;
+        private int weaponCurrentBulletAmount = 0;
         private int maxBulletAmount = 0;
 
         private AmmoBase ammo;
@@ -51,7 +51,7 @@ namespace TST
         public float fireRate = 0.1f; // 연사 속도
         private float lastFireTime; // 마지막 발사 시간
 
-        public event Func<AmmoBase> SetPlayerAmmo_Event;
+        public event Func<AmmoBase, AmmoBase> SetPlayerAmmo_Event;
         private List<AmmoBase> loadedAmmo = new List<AmmoBase>();
 
         private void Awake()
@@ -74,19 +74,21 @@ namespace TST
             {
                 for (int i = 0; i < ammos.Count; i++)
                 {
-                    loadedAmmo.Add(ammos[i]);
-                    maxBulletAmount += ammos[i].CurrentAmmo;
+                    maxBulletAmount += ammos[i].CurrentBulletAmount;
                 }
             }
         }
 
         public void Update()
         {
-            if (ammo != null)
-                //Debug.Log($"{ammo.data.name}");
+            if (ammo != null && ammo.LoadedBulletAmount <= 0)
+            {
+                ammo = null; 
+            }
+                
 
-            if (ammo == null)
-                ammo = SetPlayerAmmo_Event?.Invoke();
+            if (ammo != null)
+                Debug.Log($"{ammo.data.name}");
 
             if (loadedAmmo.Count > 0)
             {
@@ -99,10 +101,10 @@ namespace TST
 
         public bool Fire()
         {
-            if (Time.time - lastFireTime >= fireRate && currentBulletAmount > 0)
+            if (Time.time - lastFireTime >= fireRate && weaponCurrentBulletAmount > 0)
             {
                 lastFireTime = Time.time;
-                currentBulletAmount--;
+                weaponCurrentBulletAmount--;
                 loadedAmmo[0].LoadedBulletAmount--;
 
                 GameObject newBullet = Instantiate(loadedAmmo[0].data.AmmoVisualPrefab, firePoint.transform.position, firePoint.transform.rotation);
@@ -120,7 +122,7 @@ namespace TST
                 return true;
             }
 
-            if (currentBulletAmount <= 0)
+            if (weaponCurrentBulletAmount <= 0)
             {
                 if (weaponType == WeaponType.Rifle)
                     SoundManager.Singleton.PlaySFX("Weapon Empty", firePoint.position);
@@ -133,33 +135,34 @@ namespace TST
 
         public void Reload()
         {
-            if (ammo == null)
-                ammo = SetPlayerAmmo_Event?.Invoke();
-
-            // 무한 while
-            while (CurrentBulletAmount < clipSize)
+            // 1. 내가 apc 탄을 10발 남긴 상태에서 장전을 한다? -> weapon에서의 탄창은 곧 currentBulletAmount;
+            // 2. apc 탄을 10발 소지한 채로 특수탄을 20발 장전해야한다. -> 그렇다면 특수탄을 일단 장착 한 후
+            while (WeaponCurrentBulletAmount < clipSize)
             {
                 if (SetPlayerAmmo_Event == null)
-                        break;
-                
-                // 일단 내가 가지고 있는 특수탄 부터 장착
-                ammo = SetPlayerAmmo_Event?.Invoke();
+                    break;
+
+                // 1. 일단 내가 가지고 있는 특수탄 부터 장착 // 기존에 끼던 ammo 가 동일 하다면 다음 특수탄을 껴야함
+                ammo = SetPlayerAmmo_Event?.Invoke(ammo);
 
                 if (ammo == null)
                     break;
 
+                // 2. 장전한 곳으로 전달
                 if (loadedAmmo.Exists(x => x.Equals(ammo)) == false)
                     loadedAmmo.Add(ammo);
 
-                // 총알 빼주기
-                int tempAmount = CurrentBulletAmount;
-                CurrentBulletAmount += ammo.CurrentAmmo;
+                // 필요 수량
+                int requireAmount = clipSize - WeaponCurrentBulletAmount;
 
-                // ammo 데이터에 보유중인 Ammo 감소, reload된 bulletAmount 추가
-                tempAmount -= CurrentBulletAmount;
-                ammo.CurrentAmmo += tempAmount;
-                ammo.LoadedBulletAmount -= tempAmount;
-                maxBulletAmount += tempAmount;
+                // 3. 실제로 장전 가능한 양 계산 (필요 수량과 현재 총알 중 더 작은 값)
+                int loadAmount = Mathf.Min(requireAmount, ammo.CurrentBulletAmount);
+
+                // 장전
+                ammo.LoadedBulletAmount += loadAmount;
+                WeaponCurrentBulletAmount += loadAmount;
+                maxBulletAmount -= loadAmount;
+                ammo.CurrentBulletAmount -= loadAmount;
             }
         }
 

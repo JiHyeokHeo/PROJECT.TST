@@ -194,7 +194,6 @@ namespace TST
             }
         }
 
-
         public float MaxHp { get => maxStat.hp;
             private set { }
         }
@@ -308,29 +307,35 @@ namespace TST
         public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
         public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
 
-
         #region event
         public event Action onWeaponSwap;
         #endregion
 
-        public AmmoBase SetRifleAmmo() // 이쪽 부분은 추후 인벤 개념 들어가면 구도를 좀 바꿔야함
+        public AmmoBase SetRifleAmmo(AmmoBase ammo) // 이쪽 부분은 추후 인벤 개념 들어가면 구도를 좀 바꿔야함
         {
             for (int i = 0; i < rifleAmmos.Count; i++)
             {
-                if (rifleAmmos[i].CurrentAmmo > 0)
+                if (rifleAmmos[i] == ammo)
+                    continue;
+
+                if (rifleAmmos[i].CurrentBulletAmount > 0)
                     return rifleAmmos[i];
             }
 
             return null;
         }
 
-        public AmmoBase SetPistolAmmo()
+        public AmmoBase SetPistolAmmo(AmmoBase ammo)
         {
             for (int i = 0; i < pistolAmmos.Count; i++)
             {
-                if (pistolAmmos[i].CurrentAmmo > 0)
+                if (pistolAmmos[i] == ammo)
+                    continue;
+
+                if (pistolAmmos[i].CurrentBulletAmount > 0)
                     return pistolAmmos[i];
             }
+
             return null;
         }
 
@@ -484,7 +489,7 @@ namespace TST
             if (currentWeapon == null)
                 return;
             
-            currentStat.currentBullet = currentWeapon.CurrentBulletAmount;
+            currentStat.currentBullet = currentWeapon.WeaponCurrentBulletAmount;
             currentStat.maxBullet = currentWeapon.MaxBulletAmount;
         }
 
@@ -698,7 +703,7 @@ namespace TST
                 if (IsArmed && isArmedCompleted)
                 {
                     bool isFireSuccess = currentWeapon.Fire();
-                    if (!isFireSuccess && currentWeapon.CurrentBulletAmount <= 0)
+                    if (!isFireSuccess && currentWeapon.WeaponCurrentBulletAmount <= 0)
                     {
                         Reload();
                         return;
@@ -724,7 +729,7 @@ namespace TST
                 {
                     bool isFireSuccess = currentWeapon.Fire();
                     
-                    if (!isFireSuccess && currentWeapon.CurrentBulletAmount <= 0)
+                    if (!isFireSuccess && currentWeapon.WeaponCurrentBulletAmount <= 0)
                     {
                         Reload();
                         characterController.PauseRecoil();
@@ -806,14 +811,14 @@ namespace TST
             if (currentWeapon == null)
                 return;
 
-            if (currentWeapon.CurrentBulletAmount == currentWeapon.MaxBulletAmount)
+            if (currentWeapon.WeaponCurrentBulletAmount == currentWeapon.MaxBulletAmount)
                 return;
 
             // 틱틱 거리는 사운드를 추가할지 말지 고민
-            if (currentWeapon.LoadedAmmo.Count <= 0)
-                return;
+            //if (currentWeapon.LoadedAmmo.Count <= 0)
+            //    return;
 
-            if (!isReloading && currentWeapon.CurrentBulletAmount != currentWeapon.clipSize)
+            if (!isReloading && currentWeapon.WeaponCurrentBulletAmount != currentWeapon.clipSize)
             {
                 isReloading = true;
                 //multiParent.SetActive(true);

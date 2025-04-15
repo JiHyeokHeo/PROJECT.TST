@@ -74,7 +74,7 @@ namespace TST
 
             if (linkedCharacter.currentWeapon != null)
             {
-                bulletText.text = $"{linkedCharacter.currentWeapon.CurrentBulletAmount} / {linkedCharacter.currentWeapon.MaxBulletAmount}";
+                bulletText.text = $"{linkedCharacter.currentWeapon.WeaponCurrentBulletAmount} / {linkedCharacter.currentWeapon.MaxBulletAmount}";
                 bulletTypeText.text = $"{linkedCharacter.currentWeapon.GetFirstLoadedBulletName()}";
             }
             else

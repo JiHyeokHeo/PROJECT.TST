@@ -114,13 +114,13 @@ namespace TST
                             int existPistolIndex = user.pistolAmmos.FindLastIndex(x => x.data.AmmoType.Equals(consumableStat.AmmoType));
                             if (existRifleIndex >= 0)
                             {
-                                user.rifleAmmos[existRifleIndex].CurrentAmmo += consumableStat.bulletAmount;
+                                user.rifleAmmos[existRifleIndex].CurrentBulletAmount += consumableStat.bulletAmount;
                                 user.primaryWeapon.AddMaxAmountBullet(consumableStat.bulletAmount);
                             }
 
                             if (existPistolIndex >= 0)
                             {
-                                user.pistolAmmos[existPistolIndex].CurrentAmmo += consumableStat.bulletAmount;
+                                user.pistolAmmos[existPistolIndex].CurrentBulletAmount += consumableStat.bulletAmount;
                                 user.subWeapon.AddMaxAmountBullet(consumableStat.bulletAmount);
                             }
                         }
