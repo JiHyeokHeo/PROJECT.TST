@@ -1190,8 +1190,6 @@ namespace TST
             
         }
 
-   
-
         private void SubscribeEventActions()
         {
             eventHandler.OnDamagedAction += CaculateDamage;

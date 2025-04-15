@@ -14,7 +14,7 @@ namespace TST
             yield return new WaitUntil(() => asyncToTitle.isDone);
 
             UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
-            UIManager.Show<MainHudUI>(UIList.MainUI);
+            UIManager.Show<MainHudUI>(UIList.MainHudUI);
             UIManager.Show<InteractionUI>(UIList.InteractionUI);
             UIManager.Show<ShortCutUI>(UIList.ShortCutUI);
             UIManager.Show<IngameUI>(UIList.IngameUI);

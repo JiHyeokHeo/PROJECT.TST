@@ -8,6 +8,11 @@ namespace TST
     {
         public static CraftingManager Instance { get; private set; }
 
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         [Sirenix.OdinInspector.Button]
         public void Crafting(string crafting_id)
         {

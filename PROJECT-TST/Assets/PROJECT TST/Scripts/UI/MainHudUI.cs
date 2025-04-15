@@ -11,6 +11,14 @@ namespace TST
     {
         public TextMeshProUGUI hpText;
         public Image weaponImage;
+        public Image heartImage;
+
+        public Color startColor = new Color(1f, 0f, 0f, 0.5f);  // 약간 투명한 빨강
+        public Color endColor = new Color(1f, 0f, 0f, 1f);       // 완전 불투명 빨강
+        public Vector2 startRectSize = new Vector2(60.0f, 60.0f);
+        public Vector2 endRectSize = new Vector2(120.0f, 120.0f);
+        public float pulseSpeed = 2f;
+
         public TextMeshProUGUI bulletText;
         public TextMeshProUGUI bulletTypeText;
         public CharacterBase linkedCharacter;
@@ -19,6 +27,7 @@ namespace TST
         void Start()
         {
             CharacterController.Instance.linkedCharacter.onWeaponSwap += SetHud;
+            CharacterController.Instance.linkedCharacter.eventHandler.OnPulseAction += SetPulse;
             SetHud();
         }
 
@@ -34,7 +43,7 @@ namespace TST
                     if (AssetManager.Singleton.GetItemIcon("AR", out Sprite rifle))
                     {
                         weaponImage.sprite = rifle;
-                        weaponImage.rectTransform.sizeDelta = (rifle.textureRect.size) / 2f;
+                        weaponImage.rectTransform.sizeDelta = (rifle.textureRect.size);
                     }
 
                         break;
@@ -42,14 +51,14 @@ namespace TST
                     if (AssetManager.Singleton.GetItemIcon("Pistol", out Sprite pistol))
                     {
                         weaponImage.sprite = pistol;
-                        weaponImage.rectTransform.sizeDelta = (pistol.textureRect.size) / 2f;
+                        weaponImage.rectTransform.sizeDelta = (pistol.textureRect.size);
                     }
                         break;
                 case WeaponType.None:
                     if (AssetManager.Singleton.GetItemIcon("Knife", out Sprite knife))
                     {
                         weaponImage.sprite = knife;
-                        weaponImage.rectTransform.sizeDelta = (knife.textureRect.size) / 2f;
+                        weaponImage.rectTransform.sizeDelta = (knife.textureRect.size);
                     }
                     break;
             }
@@ -61,7 +70,7 @@ namespace TST
             if (linkedCharacter == null)
                 return;
 
-            hpText.text = $"{linkedCharacter.CurrentHp} / {linkedCharacter.MaxHp}";
+            hpText.text = $" {linkedCharacter.CurrentHp} / {linkedCharacter.MaxHp}";
 
             if (linkedCharacter.currentWeapon != null)
             {
@@ -73,12 +82,23 @@ namespace TST
                 bulletText.text = $"1 / 1";
                 bulletTypeText.text = $"Knife";
             }
+
+            #region Heart Pulse
+            float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; // 0~1
+            heartImage.color = Color.Lerp(startColor, endColor, t);
+            heartImage.rectTransform.sizeDelta = Vector2.Lerp(startRectSize, endRectSize, t);
+            #endregion
         }
 
         // 추후 뭐 캐릭터가 늘어난다면 이런식으로 동적 연동을 해야할듯?
         public void SetLinkedCharacter(CharacterBase character)
         {
             linkedCharacter = character;
+        }
+
+        public void SetPulse(float pulseSpeed)
+        {
+            this.pulseSpeed = pulseSpeed;
         }
     }
 }

@@ -77,7 +77,7 @@ namespace TST
             InputSystem.Singleton.OnInput_ShortCutItemUse += OnExecutePlayerShortCutItem;
            // += CommandExecuteSkill // input ¿¬µ¿
 
-           MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainUI);
+           MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI);
             mainHud.SetLinkedCharacter(linkedCharacter);
 
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
@@ -280,12 +280,14 @@ namespace TST
         {
             if (Input.GetKeyDown(KeyCode.J)) 
             {
-                IngameStartCinematic.Instance.StartCinematic();
+                //IngameStartCinematic.Instance.StartCinematic();
+                CanvasAlhpaManager.Instance.FadeIn();
             }
 
             if (Input.GetKeyDown(KeyCode.K))
             {
-                IngameStartCinematic.Instance.SkipCinematic();
+                //IngameStartCinematic.Instance.SkipCinematic();
+                CanvasAlhpaManager.Instance.FadeOut();
             }
 
             if (Input.GetKeyDown(KeyCode.B))

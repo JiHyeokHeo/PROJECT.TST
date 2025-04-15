@@ -12,6 +12,7 @@ namespace TST
         private CharacterBase linkedCharacter;
         public event Action OnDamagedAction;
         public event Action OnDeadEvent;
+        public event Action<float> OnPulseAction;
 
         private List<ItemData> equipItemDatas = new List<ItemData>();
         private void Start()
@@ -132,8 +133,18 @@ namespace TST
                 linkedCharacter.CurrentHp = 0;
                 Debug.Log($" {linkedCharacter.name} Died.");
 
-                    OnDeadEvent?.Invoke();
+                OnDeadEvent?.Invoke();
             }
+
+            if (linkedCharacter.CurrentHp <= 30)
+            {
+                OnPulseAction?.Invoke(8f);
+            }
+            else
+            {
+                OnPulseAction?.Invoke(2f);
+            }
+
         }
 
         // 추후에 더 추가 해야할듯
