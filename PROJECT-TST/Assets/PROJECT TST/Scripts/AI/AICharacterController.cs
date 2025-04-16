@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Assertions;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace TST
@@ -59,6 +60,8 @@ namespace TST
 
         public float elapsedSearchingFailTime = 0f;
         public float patrolFailedTime = 3.0f;
+        public Transform[] patrolPoints;
+
         private void Awake()
         {
             characterBase = GetComponent<CharacterBase>();
@@ -127,23 +130,24 @@ namespace TST
             {
                 if (navAgent.hasPath) // 경로가 있는 경우 => navAgent가 목적지로 이동 중인 경우
                 {
-                    Vector3 moveDirection = (navAgent.steeringTarget - transform.position).normalized;
-                    Vector2 input = new Vector2(moveDirection.x, moveDirection.z);
-                    characterBase.Move(input, 0);
-
-                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-                    float angleDiff = Quaternion.Angle(transform.rotation, targetRotation);
-                    if (angleDiff > 1.0f)
+                    Vector3 moveDir = navAgent.steeringTarget - transform.position;
+                    if (moveDir.sqrMagnitude > 0.01f)
                     {
-                        transform.rotation
-                            = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10.0f);
-                    }
+                        Vector3 moveDirection = moveDir.normalized;
+                        Vector2 input = new Vector2(moveDirection.x, moveDirection.z);
 
-                    //if (Time.time - elapsedSearchingFailTime >= patrolFailedTime 
-                    //    )
-                    //{
-                    //    navAgent.ResetPath();
-                    //}
+                        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                        float angleDiff = Quaternion.Angle(transform.rotation, targetRotation);
+                        if (angleDiff > 1.0f)
+                        {
+                            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 10.0f);
+                        }
+
+                        if (characterBase.IsArmed)
+                            characterBase.Move(new Vector2(0.0f, 1.0f), 0);
+                        else
+                            characterBase.Move(input, 0);
+                    }
                 }
                 else // 경로가 없는 경우 => NavAgent가 목적지로 이동하지 않는 경우엔 스탑
                 {
@@ -207,5 +211,27 @@ namespace TST
                 GetComponent<AICharacterController>().enabled = false;
             }
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.green;
+            if (patrolPoints != null && patrolPoints.Length > 1)
+            {
+                for (int i = 0; i < patrolPoints.Length; i++)
+                {
+                    if (patrolPoints[i] != null)
+                    {
+                        Gizmos.DrawSphere(patrolPoints[i].position, 0.3f);
+
+                        if (i < patrolPoints.Length - 1 && patrolPoints[i + 1] != null)
+                        {
+                            Gizmos.DrawLine(patrolPoints[i].position, patrolPoints[i + 1].position);
+                        }
+                    }
+                }
+            }
+        }
+#endif
     }
 }

@@ -75,6 +75,7 @@ namespace TST
             return false;
         }
 
+        private int currentIndex = 0;
         // bool 형 returnToInitPos 에 의해 스폰 위치로 갈지 랜덤 위치로 움직일지 결정
         private void UpdatePatrolDestination()
         {
@@ -86,13 +87,12 @@ namespace TST
             }
             else
             {
-                // 캐릭터마다 특정 포인트 A to B 패트롤 
-                // 현재 캐릭터 위치를 기준으로 랜덤한 위치 계산
-                Vector3 aiPosition = linkedCharacter.transform.position;
-                float randX = UnityEngine.Random.Range(-patrolRange, patrolRange);
-                float randZ = UnityEngine.Random.Range(-patrolRange, patrolRange);
-
-                targetPosition = new Vector3(aiPosition.x + randX, aiPosition.y, aiPosition.z + randZ);
+                if (linkedCharacterController.patrolPoints.Length > 0)
+                {
+                    currentIndex = (currentIndex + 1) % linkedCharacterController.patrolPoints.Length;
+                    targetPosition = linkedCharacterController.patrolPoints[currentIndex].position;
+                    targetPosition.y = linkedCharacter.transform.position.y;
+                }
             }
 
             

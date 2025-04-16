@@ -467,7 +467,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponType: 1
   clipSize: 0
-  ammo: {fileID: 0}
   firePoint: {fileID: 1696349519357963401}
   fireRate: 0.1
 --- !u!1 &7163400846660772547
