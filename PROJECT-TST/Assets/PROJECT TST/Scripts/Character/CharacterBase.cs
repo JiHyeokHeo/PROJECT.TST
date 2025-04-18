@@ -51,8 +51,8 @@ namespace TST
         public bool IsSwitchingWeapon => isSwitchingWeapon;
         private bool isSwitchingWeapon = false;
 
-        public Rigidbody CurrentThrowObject { get; private set; }
-        public Rigidbody throwObject;
+        public BombProjectile currentThrowObject; 
+        public BombProjectile throwObject;
         public Transform throwStartPoint;
         #endregion
 
@@ -96,7 +96,7 @@ namespace TST
         public GameObject multiParent;
         public Transform leftHandTarget;
         public Transform leftHandHint;
-        //public Rig throwRig;
+        public Rig throwRig;
 
         public Vector3 offsetPosition;
         public Vector3 offsetRotation;
@@ -239,13 +239,14 @@ namespace TST
                 if (isThrowMode)
                 {
                     Transform handTransform = animator.GetBoneTransform(HumanBodyBones.LeftHand);
-                    CurrentThrowObject = Instantiate(throwObject, handTransform);
-                    CurrentThrowObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-                    CurrentThrowObject.gameObject.SetActive(true);
+                    currentThrowObject = Instantiate(throwObject, handTransform);
+                    currentThrowObject.SetStartTransform(throwStartPoint);
+                    currentThrowObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                    currentThrowObject.gameObject.SetActive(true);
                 }
                 else
                 {
-                    Destroy(CurrentThrowObject);
+                    Destroy(currentThrowObject);
                 }
             }
         }
@@ -399,7 +400,7 @@ namespace TST
             float value = isActive ? 1f : 0f;
             aimingRigWeightBlend = value;
             lefthandRigWeightBlend = value;
-            //throwRig.weight = value;
+            throwRig.weight = value;
         }
         #endregion
 
@@ -407,7 +408,7 @@ namespace TST
         {
             aimingRig.weight = 0f;
             lefthandRig.weight = 0f;
-            //throwRig.weight = 0f;
+            throwRig.weight = 0f;
             rigBuilder.Build();
             SubscribeEventActions();
             // 데이터 관련
@@ -470,9 +471,6 @@ namespace TST
             animator.SetFloat("Vertical", vertical);
             animator.SetFloat("Crouch", crouchBlend);
 
-            
-         
-
             if (isRolling)
                 StartRoll();
 
@@ -508,10 +506,10 @@ namespace TST
             aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, CheckIKSuccess() ? 1f : 0f, Time.deltaTime * 10f);
             aimingRig.weight = aimingRigWeightBlend;
 
-            lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isRolling ? 1f : 0f, Time.deltaTime * 10f);
+            lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isRolling && !isThrowMode ? 1f : 0f, Time.deltaTime * 10f);
             lefthandRig.weight = lefthandRigWeightBlend;
 
-            //throwRig.weight = IsThrowMode ? 1f : 0f;
+            throwRig.weight = isThrowMode ? 1f : 0f;
         }
 
         private bool CheckIKSuccess()
@@ -750,10 +748,11 @@ namespace TST
                 return;
 
             animator.SetTrigger("Throw Trigger");
-            CurrentThrowObject.transform.SetParent(null);
-            CurrentThrowObject.transform.position = throwStartPoint.position;
-            CurrentThrowObject.isKinematic = false;
-            CurrentThrowObject.AddForce(transform.forward * 50, ForceMode.Impulse);
+            animator.SetBool("IsThrown", true);
+            currentThrowObject.transform.SetParent(null);
+            currentThrowObject.transform.position = throwStartPoint.position;
+
+            currentThrowObject.Throw(throwStartPoint.position);
         }
 
         public bool isLoot = false;

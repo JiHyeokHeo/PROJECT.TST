@@ -153,6 +153,7 @@ namespace TST
             // 1번 키를 눌럿을 때, 들어오는 이벤트
             // 1번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipPrimaryWeapon();
+            linkedCharacter.IsThrowMode = false;
 
             ReturnToTPSModeCheck();
         }
@@ -162,6 +163,7 @@ namespace TST
             // 2번 키를 눌럿을 때, 들어오는 이벤트
             // 2번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipSecondaryWeapon();
+            linkedCharacter.IsThrowMode = false;
 
             ReturnToTPSModeCheck();
         }
@@ -303,6 +305,11 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.H))
             {
                 linkedCharacter.DroneSetting();
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                linkedCharacter.IsThrowMode = !linkedCharacter.IsThrowMode;
             }
 
             IsControlLocked = UIManager.Singleton.ActiveCursorVisibleUIsCount > 0 

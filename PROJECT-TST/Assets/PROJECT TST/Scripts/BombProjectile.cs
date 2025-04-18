@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace TST
 {
@@ -18,15 +20,14 @@ namespace TST
 
     public class BombProjectile : ProjectileBase
     {
-        [SerializeField]
-        TrajectoryPredictor trajectoryPredictor;
-
-        [SerializeField]
-        ProjectileProperties projectileProperties;
+        [SerializeField] private LineRenderer lineRenderer;
+        [SerializeField] private int pointCount = 30;
+        [SerializeField] private float timeStep = 0.1f;
 
         public Vector3 offSetDireciton;
 
         private bool isThrown = false;
+        private bool hasLanded = false;
 
         protected override void Init()
         {
@@ -34,41 +35,83 @@ namespace TST
             if (rigid == null )
                 rigid = this.AddComponent<Rigidbody>();
 
-            startPosition = transform;
+            lifeTime = 3.0f;
+        }
 
+        public void SetStartTransform(Transform transform)
+        {
+            startPosition= transform;
         }
 
         void Update()
         {
-            if (trajectoryPredictor != null && !isThrown)
-                trajectoryPredictor.PredictTrajectory(ProjectileData());
+            if (hasLanded && rigid.velocity.magnitude < 0.1f)
+            {
+                rigid.velocity = Vector3.zero;
+                rigid.angularVelocity = Vector3.zero;
+            }
+
+            if (!this.isThrown)
+            {
+                DrawTrajectory();
+            }
         }
 
-        public void Throw()
+        Vector3 CalculateParabolicVelocity(Vector3 startPoint, Vector3 targetPoint, float flightTime)
         {
+            Vector3 toTarget = targetPoint - startPoint;
+            Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
+
+            float y = toTarget.y;
+            float xz = toTargetXZ.magnitude;
+
+            float vxz = xz / flightTime;
+            float vy = y / flightTime + 0.5f * Mathf.Abs(Physics.gravity.y) * flightTime;
+
+            Vector3 result = toTargetXZ.normalized * vxz;
+            result.y = vy;
+
+            return result;
+        }
+
+        public void Throw(Vector3 throwStartPoint)
+        {
+            this.isThrown = true;
             rigid.isKinematic = false;
-            rigid.AddForce(transform.forward * moveForce, ForceMode.Impulse);
-            trajectoryPredictor.SetTrajectoryVisible(false);
-            isThrown = true;
+
+            //Vector3 velocity = CalculateParabolicVelocity(throwStartPoint, targetPosition, 1.0f);
+
+            Vector3 direction = Camera.main.transform.forward;
+            direction.y += 1.0f; // °î¼± ºñÀ² Á¶Á¤
+            direction.Normalize();
+
+            rigid.AddForce(direction * 6.0f, ForceMode.Impulse);
+            Destroy(this, lifeTime);
         }
 
-        public void ThrowReady()
+        void OnCollisionEnter(Collision collision)
         {
-            trajectoryPredictor.SetTrajectoryVisible(true);
+            if (!hasLanded)
+            {
+                hasLanded = true;
+           
+            }
         }
 
-        ProjectileProperties ProjectileData()
+        void DrawTrajectory()
         {
-            ProjectileProperties properties = new ProjectileProperties();
-            properties.direction = startPosition.forward;
-            properties.initialPosition = startPosition.position;
-            properties.initialSpeed = moveForce;
-            properties.mass = rigid.mass;
-            properties.drag = rigid.drag;
+            Vector3 startPos = startPosition.position;
+            Vector3 velocity = Camera.main.transform.forward * 6.0f; // ´øÁö´Â Èû * 6
+            Vector3 gravity = Physics.gravity;
 
-            projectileProperties = properties;
+            lineRenderer.positionCount = pointCount;
 
-            return properties;
+            for (int i = 0; i < pointCount; i++)
+            {
+                float t = i * timeStep;
+                Vector3 point = startPos + velocity * t + 0.5f * gravity * t * t;
+                lineRenderer.SetPosition(i, point);
+            }
         }
     }
 }
