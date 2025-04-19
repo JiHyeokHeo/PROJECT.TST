@@ -70,7 +70,7 @@ namespace TST
             if (linkedCharacter == null)
                 return;
 
-            hpText.text = $" {linkedCharacter.CurrentHp} / {linkedCharacter.MaxHp}";
+            hpText.text = $" {linkedCharacter.CurrentHp}";
 
             if (linkedCharacter.currentWeapon != null)
             {
