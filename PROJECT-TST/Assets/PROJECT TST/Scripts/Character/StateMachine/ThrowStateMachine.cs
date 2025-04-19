@@ -18,7 +18,6 @@ namespace TST
                     animator.SetBool("IsThrown", false);
                     if (character.currentThrowObject == null)
                         character.IsThrowMode = true;
-                    
                 }
             }
         }

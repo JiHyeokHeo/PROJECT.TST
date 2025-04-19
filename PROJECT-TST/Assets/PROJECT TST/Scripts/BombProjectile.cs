@@ -55,38 +55,57 @@ namespace TST
             {
                 DrawTrajectory();
             }
+
         }
 
-        Vector3 CalculateParabolicVelocity(Vector3 startPoint, Vector3 targetPoint, float flightTime)
+        Vector3 CalculateParabolicVelocity(Vector3 startPoint, Vector3 targetPoint, float flightTime = 1.0f, float maxDistance = 10.0f)
         {
+            Ray screenCenterRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+            Debug.DrawRay(screenCenterRay.origin, screenCenterRay.direction * maxDistance, Color.red);
+            if (Physics.Raycast(screenCenterRay, out RaycastHit Hitinfo, maxDistance))
+            {
+                targetPoint = Hitinfo.point;
+            }
+            else
+            {
+                targetPoint = Camera.main.transform.position + Camera.main.transform.forward * maxDistance;
+            }
+
             Vector3 toTarget = targetPoint - startPoint;
-            Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z);
+            Vector3 toTargetXZ = new Vector3(toTarget.x, 0, toTarget.z); // 수평 거리
 
-            float y = toTarget.y;
-            float xz = toTargetXZ.magnitude;
+            if (toTarget.magnitude > maxDistance)
+            {
+                toTarget = toTarget.normalized * maxDistance;
+            }
 
-            float vxz = xz / flightTime;
+            float y = toTarget.y; // 수직 방향
+            float xz = toTargetXZ.magnitude; // 수평 거리의 길이
+
+            // 수평 속도 구하는 공식
+            float vxz = xz / flightTime; // 속도 = 거리 / 시간 
+
+            // 중력이 작용하는 가속 운동
             float vy = y / flightTime + 0.5f * Mathf.Abs(Physics.gravity.y) * flightTime;
 
-            Vector3 result = toTargetXZ.normalized * vxz;
-            result.y = vy;
+            Vector3 result = toTargetXZ.normalized * vxz; // 수평 방향 속도
+            result.y = vy; // 수직 방향 속도 추가
 
             return result;
         }
 
-        public void Throw(Vector3 throwStartPoint)
+        public void Throw(Vector3 throwStartPoint, Vector3 targetPosition)
         {
             this.isThrown = true;
             rigid.isKinematic = false;
+            lineRenderer.enabled = false;
 
-            //Vector3 velocity = CalculateParabolicVelocity(throwStartPoint, targetPosition, 1.0f);
+            Vector3 velocity = CalculateParabolicVelocity(throwStartPoint, targetPosition);
 
-            Vector3 direction = Camera.main.transform.forward;
-            direction.y += 1.0f; // 곡선 비율 조정
-            direction.Normalize();
+            rigid.velocity = velocity;
 
-            rigid.AddForce(direction * 6.0f, ForceMode.Impulse);
-            Destroy(this, lifeTime);
+            //rigid.AddForce(velocity * rigid.mass, ForceMode.Impulse);
+            Destroy(this.gameObject, lifeTime);
         }
 
         void OnCollisionEnter(Collision collision)
@@ -101,7 +120,8 @@ namespace TST
         void DrawTrajectory()
         {
             Vector3 startPos = startPosition.position;
-            Vector3 velocity = Camera.main.transform.forward * 6.0f; // 던지는 힘 * 6
+            Vector3 velocity = CalculateParabolicVelocity(startPosition.position, 
+                CharacterController.Instance.linkedCharacter.aimingPoint.position);   // 던지는 힘 * 6
             Vector3 gravity = Physics.gravity;
 
             lineRenderer.positionCount = pointCount;

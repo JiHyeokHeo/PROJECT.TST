@@ -746,13 +746,17 @@ namespace TST
                 return;
             if (!isThrowMode)
                 return;
+            if (currentThrowObject == null)
+                return;
+
 
             animator.SetTrigger("Throw Trigger");
             animator.SetBool("IsThrown", true);
             currentThrowObject.transform.SetParent(null);
             currentThrowObject.transform.position = throwStartPoint.position;
 
-            currentThrowObject.Throw(throwStartPoint.position);
+            currentThrowObject.Throw(throwStartPoint.position, aimingPoint.position);
+            currentThrowObject = null;
         }
 
         public bool isLoot = false;

@@ -30,6 +30,7 @@ namespace TST
         PlayerEquipmentUI,
         CraftingUI,
         DamageNumberUI,
+        NpcScriptUI,
 
         UI_POPUP_END,
     }

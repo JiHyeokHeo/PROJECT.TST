@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace TST
 {
+    public enum NpcType
+    {
+        Store,
+        Start,
+        Ending,
+    }
+
     public class NPCController : MonoBehaviour, IInteractable
     {
         private Animator animator;
@@ -13,6 +20,7 @@ namespace TST
         [field: SerializeField] public string NpcName { get; set; }
         public string Message => "NPC Interact";
         public InteractType InteractType => InteractType.NPC;
+        [field: SerializeField] public NpcType npcType { get; set; }
 
         void Start()
         {
@@ -42,12 +50,36 @@ namespace TST
         public void Interact(GameObject go)
         {
             // 관련된 상점 UI 팝업
-            UIManager.Show<NpcShopUI>(UIList.NpcShopUI);
+            switch (npcType)
+            {
+                case NpcType.Store:
+                    UIManager.Show<NpcShopUI>(UIList.NpcShopUI);
+                    break;
+                case NpcType.Start:
+                    UIManager.Show<NpcTextScript>(UIList.NpcScriptUI).RegisterDialogue(this);
+                    break;
+                case NpcType.Ending:
+                    UIManager.Show<NpcTextScript>(UIList.NpcScriptUI).RegisterDialogue(this); 
+                    break;
+            }
         }
 
-        public void OnCollisionExit(Collision collision)
+        public void OnTriggerExit(Collider other)
         {
-            UIManager.Hide<NpcShopUI>(UIList.NpcShopUI);
+            // 관련된 상점 UI 팝업
+            switch (npcType)
+            {
+                case NpcType.Store:
+                    UIManager.Hide<NpcShopUI>(UIList.NpcShopUI);
+                    break;
+                case NpcType.Start:
+                    UIManager.Hide<NpcTextScript>(UIList.NpcScriptUI); 
+                    break;
+                case NpcType.Ending:
+                    UIManager.Hide<NpcTextScript>(UIList.NpcScriptUI); 
+                    break;
+            }
+            
         }
     }
 }
