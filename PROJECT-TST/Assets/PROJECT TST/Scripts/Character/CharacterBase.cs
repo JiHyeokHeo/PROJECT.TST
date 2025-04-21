@@ -96,7 +96,7 @@ namespace TST
         public GameObject multiParent;
         public Transform leftHandTarget;
         public Transform leftHandHint;
-        public Rig throwRig;
+        //public Rig throwRig;
 
         public Vector3 offsetPosition;
         public Vector3 offsetRotation;
@@ -400,7 +400,7 @@ namespace TST
             float value = isActive ? 1f : 0f;
             aimingRigWeightBlend = value;
             lefthandRigWeightBlend = value;
-            throwRig.weight = value;
+            //throwRig.weight = value;
         }
         #endregion
 
@@ -408,7 +408,7 @@ namespace TST
         {
             aimingRig.weight = 0f;
             lefthandRig.weight = 0f;
-            throwRig.weight = 0f;
+            //throwRig.weight = 0f;
             rigBuilder.Build();
             SubscribeEventActions();
             // 데이터 관련
@@ -509,12 +509,12 @@ namespace TST
             lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isRolling && !isThrowMode ? 1f : 0f, Time.deltaTime * 10f);
             lefthandRig.weight = lefthandRigWeightBlend;
 
-            throwRig.weight = isThrowMode ? 1f : 0f;
+            //throwRig.weight = isThrowMode ? 1f : 0f;
         }
 
         private bool CheckIKSuccess()
         {
-            if (!isArmedCompleted || isRolling && isReloading)
+            if (!isArmedCompleted || isRolling && isReloading || isThrowMode)
                 return false;
 
             return true;

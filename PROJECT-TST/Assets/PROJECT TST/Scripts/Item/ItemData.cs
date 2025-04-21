@@ -42,6 +42,7 @@ namespace TST
         HealingKit,
         Ammo,
         Money,
+        Key,
     }
 
     [CreateAssetMenu(fileName = "New Item Data", menuName = "PROJECT TST/Item/Item Data")]
