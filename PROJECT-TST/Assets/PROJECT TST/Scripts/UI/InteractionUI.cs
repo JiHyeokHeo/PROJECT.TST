@@ -11,8 +11,9 @@ namespace TST
         {
             get
             {
-                return UIManager.Singleton.GetUI<InteractionUI>(UIList.InteractionUI);
+                return UIManager.Show<InteractionUI>(UIList.InteractionUI);
             }
+            private set { }
         }
 
         public void ShowInteraction(IInteractable interactable)
@@ -44,6 +45,7 @@ namespace TST
 
         private void Awake()
         {
+            Instance = this;
             itemRoot.gameObject.SetActive(false);
         }
     }

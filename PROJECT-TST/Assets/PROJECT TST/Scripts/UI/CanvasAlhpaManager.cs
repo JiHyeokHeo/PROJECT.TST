@@ -46,6 +46,9 @@ namespace TST
 
         public void Start()
         {
+            if (Instance == null)
+                Instance = this;
+
             uiGroups.Add(UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI).GetComponent<CanvasGroup>());
             uiGroups.Add(UIManager.Singleton.GetUI<IngameUI>(UIList.IngameUI).GetComponent<CanvasGroup>());
             uiGroups.Add(UIManager.Singleton.GetUI<ShortCutUI>(UIList.ShortCutUI).GetComponent<CanvasGroup>());

@@ -66,7 +66,7 @@ namespace TST
 
         private bool UpdateFindTarget()
         {
-            if (linkedCharacterController.sensor.Objects.Count > 0)
+            if (linkedCharacterController.sensor.Objects.Count > 0 )
             {
                 linkedCharacterController.Target = linkedCharacterController.sensor.Objects[0];
                 return true;
@@ -90,6 +90,10 @@ namespace TST
                 if (linkedCharacterController.patrolPoints.Length > 0)
                 {
                     currentIndex = (currentIndex + 1) % linkedCharacterController.patrolPoints.Length;
+
+                    if (linkedCharacterController.patrolPoints[currentIndex] == null)
+                        return;
+
                     targetPosition = linkedCharacterController.patrolPoints[currentIndex].position;
                     targetPosition.y = linkedCharacter.transform.position.y;
                 }
