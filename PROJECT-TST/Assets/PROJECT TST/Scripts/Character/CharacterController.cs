@@ -77,7 +77,7 @@ namespace TST
             InputSystem.Singleton.OnInput_ShortCutItemUse += OnExecutePlayerShortCutItem;
            // += CommandExecuteSkill // input ¿¬µ¿
 
-           MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI);
+            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI);
             mainHud.SetLinkedCharacter(linkedCharacter);
 
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);

@@ -7,7 +7,13 @@ namespace TST
 {
     public class InteractionUI : UIBase
     {
-        public static InteractionUI Instance => UIManager.Singleton.GetUI<InteractionUI>(UIList.InteractionUI);
+        public static InteractionUI Instance
+        {
+            get
+            {
+                return UIManager.Singleton.GetUI<InteractionUI>(UIList.InteractionUI);
+            }
+        }
 
         public void ShowInteraction(IInteractable interactable)
         {
