@@ -45,17 +45,17 @@ namespace TST
                 UpdatePatrolDestination();
             }
 
-            // 하지만 너무 멀리 떨어져있으면 그냥 다시 제자리로 돌아가도록 명령
-            float dist = Vector3.SqrMagnitude(linkedCharacter.transform.position - linkedCharacterController.AISpawnPosition);
-            if (dist >= patrolMaxRange * patrolMaxRange)
-            {
-                returnToInitPos = true;
-            }
+            //// 하지만 너무 멀리 떨어져있으면 그냥 다시 제자리로 돌아가도록 명령
+            //float dist = Vector3.SqrMagnitude(linkedCharacter.transform.position - linkedCharacterController.AISpawnPosition);
+            //if (dist >= patrolMaxRange * patrolMaxRange)
+            //{
+            //    returnToInitPos = true;
+            //}
             
-            if (dist < 1.0f)
-            {
-                returnToInitPos = false;
-            }
+            //if (dist < 1.0f)
+            //{
+            //    returnToInitPos = false;
+            //}
 
 
             if (UpdateFindTarget())
@@ -75,31 +75,23 @@ namespace TST
             return false;
         }
 
-        private int currentIndex = 0;
+        private int currentIndex = -1;
         // bool 형 returnToInitPos 에 의해 스폰 위치로 갈지 랜덤 위치로 움직일지 결정
         private void UpdatePatrolDestination()
         {
             lastPatrolTime = Time.time;
 
-            if (returnToInitPos)
+            if (linkedCharacterController.patrolPoints.Length > 0)
             {
-                targetPosition = linkedCharacterController.AISpawnPosition;
-            }
-            else
-            {
-                if (linkedCharacterController.patrolPoints.Length > 0)
-                {
-                    currentIndex = (currentIndex + 1) % linkedCharacterController.patrolPoints.Length;
+                // 넘어서면 0 
+                currentIndex = currentIndex + 1 >= linkedCharacterController.patrolPoints.Length ? 0 : currentIndex + 1;
 
-                    if (linkedCharacterController.patrolPoints[currentIndex] == null)
-                        return;
+                if (linkedCharacterController.patrolPoints[currentIndex] == null)
+                    return;
 
-                    targetPosition = linkedCharacterController.patrolPoints[currentIndex].position;
-                    targetPosition.y = linkedCharacter.transform.position.y;
-                }
+                targetPosition = linkedCharacterController.patrolPoints[currentIndex].position;
             }
 
-            
             // 목표 위치 설정
             linkedCharacterController.SetDestination(targetPosition);
         }

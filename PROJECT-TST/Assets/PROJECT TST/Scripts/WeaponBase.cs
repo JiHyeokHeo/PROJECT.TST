@@ -85,10 +85,9 @@ namespace TST
             {
                 ammo = null; 
             }
-                
 
-            if (ammo != null)
-                Debug.Log($"{ammo.data.name}");
+            //if (ammo != null)
+            //    Debug.Log($"{ammo.data.name}");
 
             if (loadedAmmo.Count > 0)
             {

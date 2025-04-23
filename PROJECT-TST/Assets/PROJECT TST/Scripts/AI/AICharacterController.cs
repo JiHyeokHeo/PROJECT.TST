@@ -111,14 +111,7 @@ namespace TST
             currentState.Update();
 
             // NavAgent의 다음 위치 값을, 현재 위치로 설정
-            if (isTargetPositionOn)
-            {
-                navAgent.nextPosition = targetPosition;
-            }
-            else
-            {
-                navAgent.nextPosition = transform.position;
-            }
+            navAgent.nextPosition = transform.position;
 
             if (navAgent.pathStatus == NavMeshPathStatus.PathComplete && RemainingDistance() <= navAgent.stoppingDistance)
             {
@@ -152,7 +145,6 @@ namespace TST
                 else // 경로가 없는 경우 => NavAgent가 목적지로 이동하지 않는 경우엔 스탑
                 {
                     characterBase.Move(Vector2.zero, 0);
-                    isTargetPositionOn = false;
                 }
             }
 
@@ -189,7 +181,6 @@ namespace TST
         {
             if (isTargetPositionOn == false)
             {
-                targetPosition = destination; // 실제 움직임을 위한 변수
                 navAgent.SetDestination(destination);
             }
 
@@ -213,7 +204,9 @@ namespace TST
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmosSelected()
+        //private void OnDrawGizmosSelected()
+
+        private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
             if (patrolPoints != null && patrolPoints.Length > 1)

@@ -17,6 +17,7 @@ namespace TST
         // Content Scenes
         Title,
         Ingame,
+        IngameMap,
     }
 
     public class Main : SingletonBase<Main>

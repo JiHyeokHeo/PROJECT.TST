@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3193654714934298975}
   - component: {fileID: 8953539908358763075}
-  - component: {fileID: 7300035092616290618}
   - component: {fileID: 4150212522581752534}
   - component: {fileID: 8969436764347688947}
   m_Layer: 0
@@ -54,19 +53,6 @@ MonoBehaviour:
   moveForce: 20
   lifeTime: 3
   isPlayerBullet: 1
---- !u!114 &7300035092616290618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3748479675798709396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0500a8aa0573634f95fd9045a6f3ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 40fbbc1e0683f924593dbd14de143caf, type: 2}
 --- !u!54 &4150212522581752534
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -160,7 +146,7 @@ PrefabInstance:
     - target: {fileID: 3788105146438680960, guid: 6f2dd4dce15bbd44d9394577c9c559d6,
         type: 3}
       propertyPath: m_Name
-      value: APC Rifle Bullet
+      value: APC Rifle Bullet Visual
       objectReference: {fileID: 0}
     - target: {fileID: 6947188137387063618, guid: 6f2dd4dce15bbd44d9394577c9c559d6,
         type: 3}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4042509671139259682}
   - component: {fileID: 2297832461824817572}
   m_Layer: 0
-  m_Name: APC Rifle Bullet
+  m_Name: APC Rifle Bullet Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

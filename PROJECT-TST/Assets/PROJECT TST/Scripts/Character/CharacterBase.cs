@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
@@ -305,8 +306,9 @@ namespace TST
 
         #region Ammo
         [Title("Ammo", titleAlignment: TitleAlignments.Centered)]
-        public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
-        public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
+
+        public List<AmmoBase> rifleAmmos;
+        public List<AmmoBase> pistolAmmos;
 
         #region event
         public event Action onWeaponSwap;
@@ -358,6 +360,19 @@ namespace TST
 
         private void Awake()
         {
+            rifleAmmos = new List<AmmoBase>();
+            pistolAmmos = new List<AmmoBase>();
+
+            AssetManager.Singleton.GetItemAmmoPrefab("APC Ammo", out GameObject rifleResult);
+            AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult);
+
+
+            GameObject rifleBullet = Instantiate(rifleResult, transform);
+            GameObject pistolBullet = Instantiate(pistolResult);
+
+            rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
+
             InitAmmos();
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
             primaryWeapon.InitializeWeapon(rifleAmmos);
@@ -375,6 +390,7 @@ namespace TST
             eventHandler = GetComponent<EventHandler>();
 
             SetRagdollActive(false);
+
 
             //hitVolume = hitVolumeObject.GetComponent<Volume>();
 
@@ -403,7 +419,7 @@ namespace TST
             //throwRig.weight = value;
         }
         #endregion
-
+  
         private void Start()
         {
             aimingRig.weight = 0f;
@@ -515,7 +531,7 @@ namespace TST
 
         private bool CheckIKSuccess()
         {
-            if (!isReloading || !isArmedCompleted || isRolling || isThrowMode || !isGrounded)
+            if (isReloading || !isArmedCompleted || isRolling || isThrowMode || !isGrounded)
                 return false;
 
             return true;

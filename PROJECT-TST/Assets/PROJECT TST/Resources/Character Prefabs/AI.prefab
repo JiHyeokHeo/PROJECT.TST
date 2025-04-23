@@ -1729,7 +1729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &286403882645033974
 Transform:
   m_ObjectHideFlags: 0
@@ -1789,6 +1789,7 @@ MonoBehaviour:
   multiAimConstraint_RightHand: {fileID: 0}
   multiAimConstraint_Body: {fileID: 0}
   multiAimConstraint_LeftHand: {fileID: 0}
+  currentThrowObject: {fileID: 0}
   throwObject: {fileID: 0}
   throwStartPoint: {fileID: 0}
   animator: {fileID: 0}
@@ -1816,7 +1817,6 @@ MonoBehaviour:
   multiParent: {fileID: 0}
   leftHandTarget: {fileID: 677789474118868281}
   leftHandHint: {fileID: 1231090920910050296}
-  throwRig: {fileID: 3134649226854703100}
   offsetPosition: {x: 0.0742, y: -0.034, z: 0.0147}
   offsetRotation: {x: 0, y: 90, z: 90}
   subOffsetPosition: {x: 0, y: 0, z: 0}
@@ -1852,6 +1852,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   isSprint: 1
   crouchOffset: {x: 0, y: 0, z: 0}
+  settedtrifleAmmos: []
+  settedpistolAmmos: []
   rifleAmmos:
   - {fileID: 7300035092616290618, guid: 04ac0b7087cdff047b0104769c29d78a, type: 3}
   pistolAmmos: []

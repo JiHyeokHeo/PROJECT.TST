@@ -27,6 +27,9 @@ namespace TST
             return LoadAsset($"Item Base Prefabs/Drop Item [{item_id}]", out result);
         }
 
-        
+        public bool GetItemAmmoPrefab(string item_id, out GameObject result)
+        {
+            return LoadAsset($"Ammo Prefab/{item_id}", out result);
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace TST
             Main.Singleton.Initialize();
             OptionManager.Singleton.Initialize();
             // TODO : Custom BootStrapper Logic
-            SceneManager.LoadScene(SceneType.Ingame.ToString(), LoadSceneMode.Additive);
+            SceneManager.LoadScene(SceneType.IngameMap.ToString(), LoadSceneMode.Single);
             Main.Singleton.StartCoroutine(DelayBoot());
 
             IEnumerator DelayBoot()
