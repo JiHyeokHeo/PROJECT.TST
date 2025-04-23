@@ -503,10 +503,11 @@ namespace TST
 
         private void SetHandsIK()
         {
-            aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, CheckIKSuccess() ? 1f : 0f, Time.deltaTime * 10f);
+            //aimingRigWeightBlend = CheckIKSuccess() ? 1f : 0f;
+            aimingRigWeightBlend = Mathf.Lerp(aimingRigWeightBlend, CheckIKSuccess() ? 1f : 0f, Time.deltaTime * 30f);
             aimingRig.weight = aimingRigWeightBlend;
 
-            lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, isArmedCompleted && !isRolling && !isThrowMode ? 1f : 0f, Time.deltaTime * 10f);
+            lefthandRigWeightBlend = Mathf.Lerp(lefthandRigWeightBlend, CheckIKSuccess() ? 1f : 0f, Time.deltaTime * 10f);
             lefthandRig.weight = lefthandRigWeightBlend;
 
             //throwRig.weight = isThrowMode ? 1f : 0f;
@@ -514,7 +515,7 @@ namespace TST
 
         private bool CheckIKSuccess()
         {
-            if (!isArmedCompleted || isRolling && isReloading || isThrowMode)
+            if (!isReloading || !isArmedCompleted || isRolling || isThrowMode || !isGrounded)
                 return false;
 
             return true;
