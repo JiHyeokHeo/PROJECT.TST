@@ -42,7 +42,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7086128788874669349}
   - component: {fileID: 3835706297198097918}
-  - component: {fileID: 6800235615755024040}
   - component: {fileID: 435316709999729735}
   - component: {fileID: 7816589089114770829}
   m_Layer: 0
@@ -86,19 +85,6 @@ MonoBehaviour:
   moveForce: 20
   lifeTime: 3
   isPlayerBullet: 1
---- !u!114 &6800235615755024040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2702075012824313059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0500a8aa0573634f95fd9045a6f3ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: e434c9b9c7a2bc1418b307080516bc7f, type: 2}
 --- !u!54 &435316709999729735
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -118,7 +104,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2112
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0

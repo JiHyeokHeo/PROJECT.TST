@@ -68,7 +68,7 @@ namespace TST
             // Ä«¸Þ¶ó offset
             cameraCrouchOffset.m_Offset = Vector3.Lerp(cameraCrouchOffset.m_Offset, cameraoffSetTarget, Time.deltaTime * 10.0f);
         }
-
+            
         public void SetCrouchOffSet(Vector3 offSet)
         {
             cameraoffSetTarget = offSet;

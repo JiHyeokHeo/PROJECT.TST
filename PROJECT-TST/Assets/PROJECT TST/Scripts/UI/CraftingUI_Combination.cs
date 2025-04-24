@@ -14,11 +14,13 @@ namespace TST
 
         private List<CraftingUI_Slot> craftingUI_Slots = new List<CraftingUI_Slot>();
 
+        public Transform contentRootTransform;
+        public Transform slotRootTransform;
         public Image resultUISlotImage;
         public TextMeshProUGUI resultItemName;
         public TextMeshProUGUI resultRequirementText;
 
-        public void Awake()
+        public void Start()
         {
             // 이미지 설정
 
@@ -42,7 +44,7 @@ namespace TST
                     {
                         GameDataModel.Singleton.GetItemData(itemId, out ItemData data);
 
-                        CraftingUI_Slot slotObject = Instantiate(craftingUI_Slot_Prefab, this.transform);
+                        CraftingUI_Slot slotObject = Instantiate(craftingUI_Slot_Prefab, slotRootTransform);
                         slotObject.gameObject.SetActive(true);
                         craftingUI_Slots.Add(slotObject);
                         slotObject.SetData(itemId);
@@ -93,6 +95,11 @@ namespace TST
         {
             if (craftingId != null)
                 craftingUI.OnNotifyCraftingItem(craftingId);
+        }
+
+        public void SetCraftingID(string id)
+        {
+            craftingId = id;
         }
     }
 }

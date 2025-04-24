@@ -21,7 +21,7 @@ namespace TST
         public void Awake()
         {
             dropItemFlyingduration = 1.0f;
-            delayAfterSequence = 0.5f;
+            delayAfterSequence = 0.1f;
         }
 
         public void OnEnable()

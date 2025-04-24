@@ -288,6 +288,7 @@ namespace TST
             get => isZip;
             set => isZip = value;
         }
+
         #endregion
 
         #region Boolean & Crouch
@@ -307,8 +308,8 @@ namespace TST
         #region Ammo
         [Title("Ammo", titleAlignment: TitleAlignments.Centered)]
 
-        public List<AmmoBase> rifleAmmos;
-        public List<AmmoBase> pistolAmmos;
+        public List<AmmoBase> rifleAmmos = new List<AmmoBase>();
+        public List<AmmoBase> pistolAmmos = new List<AmmoBase>();
 
         #region event
         public event Action onWeaponSwap;
@@ -360,11 +361,9 @@ namespace TST
 
         private void Awake()
         {
-            rifleAmmos = new List<AmmoBase>();
-            pistolAmmos = new List<AmmoBase>();
-
             GameObject rifleBullet;
             GameObject pistolBullet;
+
             if (AssetManager.Singleton.GetItemAmmoPrefab("Rifle Ammo", out GameObject rifleResult))
             {
                 rifleBullet = Instantiate(rifleResult, transform);
@@ -380,7 +379,7 @@ namespace TST
                 rifleBullet = Instantiate(rifleApcResult, transform);
                 rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
             }
-            if (AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult))
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Pistol Ammo", out GameObject pistolResult))
             {
                 pistolBullet = Instantiate(pistolResult);
                 pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
@@ -499,6 +498,9 @@ namespace TST
             animator.SetFloat("Horizontal", horizontal);
             animator.SetFloat("Vertical", vertical);
             animator.SetFloat("Crouch", crouchBlend);
+
+            // 플레이어 속도 조절
+            CurrentSpeed = isCrouch ? currentStat.crouchSpeed : currentStat.runSpeed;
 
             if (isRolling)
                 StartRoll();

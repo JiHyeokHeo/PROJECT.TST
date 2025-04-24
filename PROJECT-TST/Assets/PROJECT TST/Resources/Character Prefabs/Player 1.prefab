@@ -5294,12 +5294,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   isSprint: 1
   crouchOffset: {x: 0, y: -0.7, z: 0}
-  rifleAmmos:
-  - {fileID: 7300035092616290618, guid: 04ac0b7087cdff047b0104769c29d78a, type: 3}
-  - {fileID: 6800235615755024040, guid: 6cf0acda988e561408ea6c8281593dda, type: 3}
-  - {fileID: 959470945546687452, guid: 65a3606caded1eb4f98ec8a5d9cf856e, type: 3}
-  pistolAmmos:
-  - {fileID: 8462256899862794492, guid: d08200cc6dff1ee4981b3c4687b77b94, type: 3}
+  rifleAmmos: []
+  pistolAmmos: []
   isLoot: 0
   jumpHeight: 1.2
   gravity: -15
@@ -5310,7 +5306,7 @@ MonoBehaviour:
   groundedRadius: 0.28
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1655
+    m_Bits: 531
   eventHandler: {fileID: 3282908263527049447}
   restorationTime: 3
   effectVolumeBlend: 0
@@ -5331,7 +5327,7 @@ MonoBehaviour:
   fpsCameraPivot: {fileID: 1649046271058585775}
   aimingLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1665
   trajectoryRenderer: {fileID: 0}
   topClampLimit: 80
   bottomClampLimit: -80

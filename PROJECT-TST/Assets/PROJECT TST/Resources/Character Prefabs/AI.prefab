@@ -1729,7 +1729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &286403882645033974
 Transform:
   m_ObjectHideFlags: 0
@@ -1852,10 +1852,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   isSprint: 1
   crouchOffset: {x: 0, y: 0, z: 0}
-  settedtrifleAmmos: []
-  settedpistolAmmos: []
-  rifleAmmos:
-  - {fileID: 7300035092616290618, guid: 04ac0b7087cdff047b0104769c29d78a, type: 3}
+  rifleAmmos: []
   pistolAmmos: []
   isLoot: 0
   jumpHeight: 1.2
