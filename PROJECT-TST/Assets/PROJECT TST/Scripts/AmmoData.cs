@@ -15,7 +15,8 @@ namespace TST
     {
         Normal, // ¿œπ›≈∫
         Incendiary, // º“¿Ã≈∫
-        ArmourPiercing // √∂∞©≈∫
+        ArmourPiercing, // √∂∞©≈∫
+        End,
     }
 
     [CreateAssetMenu(fileName = "New Ammo Data", menuName = "PROJECT TST/Ammo/Ammo Data")]

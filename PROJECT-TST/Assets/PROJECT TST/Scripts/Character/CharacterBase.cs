@@ -363,15 +363,28 @@ namespace TST
             rifleAmmos = new List<AmmoBase>();
             pistolAmmos = new List<AmmoBase>();
 
-            AssetManager.Singleton.GetItemAmmoPrefab("APC Ammo", out GameObject rifleResult);
-            AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult);
-
-
-            GameObject rifleBullet = Instantiate(rifleResult, transform);
-            GameObject pistolBullet = Instantiate(pistolResult);
-
-            rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
-            pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
+            GameObject rifleBullet;
+            GameObject pistolBullet;
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Rifle Ammo", out GameObject rifleResult))
+            {
+                rifleBullet = Instantiate(rifleResult, transform);
+                rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Incendiary Rifle Ammo", out GameObject rifleIncenResult))
+            {
+                rifleBullet = Instantiate(rifleIncenResult, transform);
+                rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            if (AssetManager.Singleton.GetItemAmmoPrefab("APC Rifle Ammo", out GameObject rifleApcResult))
+            {
+                rifleBullet = Instantiate(rifleApcResult, transform);
+                rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult))
+            {
+                pistolBullet = Instantiate(pistolResult);
+                pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
+            }
 
             InitAmmos();
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;

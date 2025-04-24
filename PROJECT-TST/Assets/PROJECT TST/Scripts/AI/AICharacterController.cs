@@ -77,6 +77,29 @@ namespace TST
             // 상태 객체를 미리 생성해 둠
             currentState = new AIState_Patrol(this);
             characterBase.ToggleEquipPrimaryWeapon();
+
+            GameObject rifleBullet;
+            GameObject pistolBullet;
+            //if (AssetManager.Singleton.GetItemAmmoPrefab("Rifle Ammo", out GameObject rifleResult))
+            //{
+            //    rifleBullet = Instantiate(rifleResult, transform);
+            //    characterBase.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            //}
+            //if (AssetManager.Singleton.GetItemAmmoPrefab("Incendiary Rifle Ammo", out GameObject rifleIncenResult))
+            //{
+            //    rifleBullet = Instantiate(rifleIncenResult, transform);
+            //    characterBase.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            //}
+            if (AssetManager.Singleton.GetItemAmmoPrefab("APC Rifle Ammo", out GameObject rifleApcResult))
+            {
+                rifleBullet = Instantiate(rifleApcResult, transform);
+                characterBase.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            //if (AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult))
+            //{
+            //    pistolBullet = Instantiate(pistolResult);
+            //    characterBase.pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
+            //}
             //characterBase.OnDamaged += (target) => SetState(new AIState_Combat(this));
             //characterBase.OnDamaged += (target) => SetTarget(target);
 

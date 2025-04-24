@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8530719255858276219}
   - component: {fileID: -4549236599573186162}
   m_Layer: 0
-  m_Name: APC Ammo
+  m_Name: Rifle Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0500a8aa0573634f95fd9045a6f3ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 40fbbc1e0683f924593dbd14de143caf, type: 2}
+  data: {fileID: 11400000, guid: 2e000d2067ae42844bad57bb42730adf, type: 2}

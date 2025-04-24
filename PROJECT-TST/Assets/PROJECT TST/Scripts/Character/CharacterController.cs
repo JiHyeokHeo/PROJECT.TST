@@ -84,7 +84,35 @@ namespace TST
             inventoryUI.SetLinkedCharacter(linkedCharacter);
             // 
             //PlayerEquipmentUI equipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
-        
+
+
+            linkedCharacter.rifleAmmos = new List<AmmoBase>();
+            linkedCharacter.pistolAmmos = new List<AmmoBase>();
+
+            #region 캐릭터 총기 관련
+            GameObject rifleBullet;
+            GameObject pistolBullet;
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Rifle Ammo", out GameObject rifleResult))
+            {
+                rifleBullet = Instantiate(rifleResult, transform);
+                linkedCharacter.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Incendiary Rifle Ammo", out GameObject rifleIncenResult))
+            {
+                rifleBullet = Instantiate(rifleIncenResult, transform);
+                linkedCharacter.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            if (AssetManager.Singleton.GetItemAmmoPrefab("APC Rifle Ammo", out GameObject rifleApcResult))
+            {
+                rifleBullet = Instantiate(rifleApcResult, transform);
+                linkedCharacter.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
+            }
+            if (AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult))
+            {
+                pistolBullet = Instantiate(pistolResult);
+                linkedCharacter.pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
+            }
+            #endregion
 
             #region Skill 
             //GameDataModel.Singleton.GetSkillData("SlingShot", out SkillData slingShotData);
