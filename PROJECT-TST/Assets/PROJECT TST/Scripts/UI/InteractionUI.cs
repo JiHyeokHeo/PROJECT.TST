@@ -30,6 +30,12 @@ namespace TST
                 itemRoot.gameObject.SetActive(true);
                 nameText.text = $"{npc.NpcName} Talk" ;
             }
+            else
+            {
+                itemRoot.gameObject.SetActive(true);
+                nameText.text = interactable.Message;
+            }
+            
         }
 
         public void HideInteractionItem()

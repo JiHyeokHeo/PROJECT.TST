@@ -11,7 +11,7 @@ namespace TST
         public InteractType InteractType => InteractType.Item;
 
         // 키에 고유한 번호를 추가한다..? (방 access 관련된 정보?)
-        public int openingMapKey;
+        public string openingMapKey;
 
         public void Interact(GameObject go)
         {
