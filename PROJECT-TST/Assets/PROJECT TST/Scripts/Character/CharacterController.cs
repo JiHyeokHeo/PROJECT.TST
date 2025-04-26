@@ -56,6 +56,12 @@ namespace TST
 
         private void Start()
         {
+            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI);
+            mainHud.SetLinkedCharacter(linkedCharacter);
+            linkedCharacter.onWeaponSwap += mainHud.SetHud;
+            linkedCharacter.eventHandler.OnPulseAction += mainHud.SetPulse;
+            mainHud.SetHud();
+
             //transform.position = UserDataModel.Singleton.IngamePlayerData.Values[0].Position;
             //transform.rotation = UserDataModel.Singleton.IngamePlayerData.PlayerRotation;
             InputSystem.Singleton.OnInput_Jump += OnExecuteJump;
@@ -76,9 +82,6 @@ namespace TST
             InputSystem.Singleton.OnInput_WorldMap += OnExecuteWorldMap;
             InputSystem.Singleton.OnInput_ShortCutItemUse += OnExecutePlayerShortCutItem;
            // += CommandExecuteSkill // input ¿¬µ¿
-
-            MainHudUI mainHud = UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI);
-            mainHud.SetLinkedCharacter(linkedCharacter);
 
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
             inventoryUI.SetLinkedCharacter(linkedCharacter);

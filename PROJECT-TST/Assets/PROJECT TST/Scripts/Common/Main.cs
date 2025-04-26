@@ -45,6 +45,10 @@ namespace TST
 
             isInitialized = true;
 
+            var newEventSystemPrefab = Resources.Load<GameObject>("TST.EventSystem");
+            var newInstEventSystem = Instantiate(newEventSystemPrefab);
+            DontDestroyOnLoad(newInstEventSystem);
+
             // 필요한 기본 시스템 초기화
             UIManager.Singleton.Initialize();
             UserDataModel.Singleton.Initialize();

@@ -23,14 +23,6 @@ namespace TST
         public TextMeshProUGUI bulletTypeText;
         public CharacterBase linkedCharacter;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            CharacterController.Instance.linkedCharacter.onWeaponSwap += SetHud;
-            CharacterController.Instance.linkedCharacter.eventHandler.OnPulseAction += SetPulse;
-            SetHud();
-        }
-
         public void SetHud()
         {
             WeaponType type = WeaponType.None;
@@ -64,7 +56,6 @@ namespace TST
             }
         }
 
-        // Update is called once per frame
         void Update()
         {
             if (linkedCharacter == null)
