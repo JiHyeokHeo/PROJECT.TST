@@ -1225,7 +1225,7 @@ namespace TST
         private bool isHit = false;
         public float effectVolumeBlend;
 
-        private void CaculateDamage()
+        private void CaculateDamage(GameObject attacker)
         {
             
         }

@@ -63,6 +63,9 @@ namespace TST
 
         public bool IsInSight(GameObject obj, float searchDist = 0.0f)
         {
+            if (obj == null)
+                return false;
+
             Vector3 origin = transform.position;
             Vector3 dest = obj.transform.position;
             Vector3 direction = dest - origin;

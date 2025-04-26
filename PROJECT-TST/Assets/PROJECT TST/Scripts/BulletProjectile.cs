@@ -45,7 +45,7 @@ namespace TST
 
             if (collision.transform.root.TryGetComponent(out IDamage damageInterface))
             {
-                damageInterface.ApplyDamage(10, this.gameObject);
+                damageInterface.ApplyDamage(10, CharacterController.Instance.gameObject);
             }
 
             Destroy(gameObject);

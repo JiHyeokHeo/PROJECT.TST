@@ -10,7 +10,7 @@ namespace TST
     public class EventHandler : MonoBehaviour
     {
         private CharacterBase linkedCharacter;
-        public event Action OnDamagedAction;
+        public event Action<GameObject> OnDamagedAction;
         public event Action OnDeadEvent;
         public event Action<float> OnPulseAction;
 
@@ -126,7 +126,7 @@ namespace TST
         {
             linkedCharacter.CurrentHp -= damage;
 
-            OnDamagedAction?.Invoke();
+            OnDamagedAction?.Invoke(attacker);
 
             if (linkedCharacter.CurrentHp <= 0 )
             {

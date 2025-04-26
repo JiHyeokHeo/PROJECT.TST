@@ -16,12 +16,13 @@ namespace TST
 
         [SerializeField] private int slotid;
         [SerializeField] private Image equipmentIcon;
+        [SerializeField] private Image backgroundIcon;
         [SerializeField] private TextMeshProUGUI equipmentNameText;
 
         // Start is called before the first frame update
         void Start()
         {
-            
+            SetItem(-1);
         }
 
         private void Update()
@@ -38,9 +39,9 @@ namespace TST
         public void SetItem(int slotId)
         {
             this.slotid = slotId;   
-            gameObject.SetActive(slotId >= 0);
             if (slotid >= 0)
             {
+                gameObject.SetActive(slotId >= 0);  
                 var targetUserItemData = UserDataModel.Singleton.UserItemData.Items.Find(x => x.slotID == slotId);
                 GameDataModel.Singleton.GetItemData(targetUserItemData.itemID, out this.itemData);
                 if (AssetManager.Singleton.GetItemIcon(itemData.ItemID, out Sprite iconImage))
@@ -49,11 +50,15 @@ namespace TST
 
                 }
                 equipmentNameText.text = itemData.ItemID;
+                equipmentIcon.color = new Color(equipmentIcon.color.r, equipmentIcon.color.g, equipmentIcon.color.b, 1f);
+                backgroundIcon.color = new Color(0f, 255f, 0f, 0.3f); ;
             }
             else
             {
                 equipmentIcon.sprite = null;
+                equipmentIcon.color = new Color(equipmentIcon.color.r, equipmentIcon.color.g, equipmentIcon.color.b, 0f);
                 equipmentNameText.text = string.Empty;
+                backgroundIcon.color = new Color(255f, 0f, 0f, 0.3f);
             }
         }
 

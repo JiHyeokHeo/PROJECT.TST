@@ -46,7 +46,7 @@ namespace TST
             Instance = null;
         }
 
-        private void OnLinkedCharacterDamaged()
+        private void OnLinkedCharacterDamaged(GameObject attacker)
         {
             if (linkedCharacter.CurrentHp <= 0)
             {

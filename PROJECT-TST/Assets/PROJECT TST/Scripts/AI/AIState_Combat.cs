@@ -84,12 +84,21 @@ namespace TST
 
         private void UpdateCheckSensor()
         {
-            GameObject aiTarget = linkedCharacterController.Target;
+            GameObject aiTarget = null;
+            if (linkedCharacterController.isDamaged)
+            {
+
+            }
+            else
+            {
+                aiTarget = linkedCharacterController.Target;
+            }
+
 
             if (linkedCharacterController.LinkedCharacter.CurrentHp <= 0)
                 linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
 
-            if (linkedCharacterController.sensor.IsInSight(aiTarget, attackRange) == false)
+            if (linkedCharacterController.sensor.IsInSight(aiTarget, attackRange) == false && linkedCharacterController.isDamaged == false)
                 linkedCharacterController.SetState(new AIState_Move(linkedCharacterController));
         }
 

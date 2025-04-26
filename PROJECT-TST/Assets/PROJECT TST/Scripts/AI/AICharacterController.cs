@@ -42,7 +42,11 @@ namespace TST
                 return target;
             }
 
-            set { target = value; }
+            set 
+            {
+                if (isDamaged == false)
+                    target = value; 
+            }
         }
 
         [SerializeReference]
@@ -62,6 +66,8 @@ namespace TST
         public float patrolFailedTime = 3.0f;
         public Transform[] patrolPoints;
 
+        public bool isDamaged = false;
+        public float previousHp;
         private void Awake()
         {
             characterBase = GetComponent<CharacterBase>();
@@ -91,7 +97,13 @@ namespace TST
             // 상태 객체를 미리 생성해 둠
             currentState = new AIState_Patrol(this);
             characterBase.ToggleEquipPrimaryWeapon();
+            previousHp = LinkedCharacter.CurrentHp;
 
+            // 데미지 액션 이벤트 추가 // 데미지 입을 시 타겟 강제 설정
+            characterBase.eventHandler.OnDamagedAction += (GameObject attacker) =>
+            {
+                target = attacker;
+            };
 
             //if (AssetManager.Singleton.GetItemAmmoPrefab("Rifle Ammo", out GameObject rifleResult))
             //{
@@ -124,15 +136,25 @@ namespace TST
             // 결론 처음엔 Patrol 진입 하지만 센서로 인해 Combat or Idle 상태로 진입 // Idle 상태에서 특정 시간이 되면 다시 Patrol 진입
         }
 
-        // 스크립트를 끄고 키는 것으로 조절을 해볼까?..
+
         private void OnEnable()
         {
             isItemGenerated = false;
         }
 
+        private void OnDisable()
+        {
+            
+        }
+
+        public float battleMaximunTime;
+        public float battleElapsedTime;
         private void Update()
         {
+            // 데미지를 지속적으로 입고 있다는 체크해야함
             AIDropCheck();
+
+            UpdateBattleDamageState();
 
             currentState.Update();
 
@@ -175,6 +197,25 @@ namespace TST
             }
 
             Debug.Log($"{currentState}");
+        }
+
+        private void UpdateBattleDamageState()
+        {
+            // 체력 변화 감지
+            if (previousHp != LinkedCharacter.CurrentHp)
+            {
+                previousHp = LinkedCharacter.CurrentHp;
+                isDamaged = true;
+                battleElapsedTime = Time.time; // 데미지 입으면 시간 초기화
+                SetState(new AIState_Combat(this));
+            }
+
+            // 데미지 후 경과 시간 체크
+            if (isDamaged && Time.time - battleElapsedTime >= battleMaximunTime)
+            {
+                isDamaged = false;
+                SetState(new AIState_Patrol(this));
+            }
         }
 
         public float RemainingDistance()
@@ -226,7 +267,7 @@ namespace TST
                 GameManager.Instance.GenerateItem(transform.position);
 
                 GetComponent<AICharacterController>().enabled = false;
-                Destroy(this.gameObject);
+                LinkedCharacter.SetRagdollActive(true);
             }
         }
 
