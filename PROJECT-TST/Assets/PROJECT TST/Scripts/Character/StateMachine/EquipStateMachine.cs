@@ -4,11 +4,10 @@ using UnityEngine;
 
 namespace TST
 {
-    public class EquipStateMachine : StateMachineBehaviour
+    public class EquipStateMachine : StateMachineBase
     {
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            var character = animator.GetComponent<CharacterBase>();
             if (character != null)
             {
                 character.EquipFinished();

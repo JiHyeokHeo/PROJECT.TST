@@ -266,8 +266,8 @@ namespace TST
                 // 아이템 움직임 이펙트
                 GameManager.Instance.GenerateItem(transform.position);
 
-                GetComponent<AICharacterController>().enabled = false;
                 LinkedCharacter.SetRagdollActive(true);
+                GetComponent<AICharacterController>().enabled = false;
             }
         }
 

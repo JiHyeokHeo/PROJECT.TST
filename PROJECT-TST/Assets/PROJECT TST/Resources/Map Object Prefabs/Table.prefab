@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 775908050679377130}
   - component: {fileID: 2746340224087016861}
+  - component: {fileID: 796500820994828358}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &775908050679377130
 Transform:
@@ -51,12 +52,24 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 3, y: 3, z: 5}
   m_Center: {x: 0, y: 1, z: 0.4}
+--- !u!114 &796500820994828358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3335416359142212451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc785d52545d00e43882bfef97820dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3512788483425959796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -139,6 +152,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Scaffolding (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554546450463614763, guid: 0e914915baaabbe41a16912739bc3a66,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -234,6 +252,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scaffolding (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8554546450463614763, guid: 0e914915baaabbe41a16912739bc3a66,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -328,6 +351,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scaffolding (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8554546450463614763, guid: 0e914915baaabbe41a16912739bc3a66,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -421,6 +449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Scaffolding
+      objectReference: {fileID: 0}
+    - target: {fileID: 8554546450463614763, guid: 0e914915baaabbe41a16912739bc3a66,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

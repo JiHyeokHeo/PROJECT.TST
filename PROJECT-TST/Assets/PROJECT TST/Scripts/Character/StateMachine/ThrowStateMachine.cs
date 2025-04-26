@@ -5,14 +5,12 @@ using UnityEngine;
 
 namespace TST
 {
-    public class ThrowStateMachine : StateMachineBehaviour
+    public class ThrowStateMachine : StateMachineBase
     {
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             if (animator != null)
             {
-                var character = animator.GetComponent<CharacterBase>();
-
                 if (character != null) 
                 {
                     animator.SetBool("IsThrown", false);

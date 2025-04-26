@@ -95,6 +95,10 @@ namespace TST
                     ChangeScene<IngameScene>(SceneType.Ingame, onSceneLoadCompleted);
                     currentScene = SceneType.Ingame;
                     break;
+                case SceneType.IngameMap:
+                    ChangeScene<IngameMapScene>(SceneType.IngameMap, onSceneLoadCompleted);
+                    currentScene = SceneType.IngameMap;
+                    break;
             }
         }
 

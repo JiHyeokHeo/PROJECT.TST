@@ -58,27 +58,35 @@ namespace TST
 
         void Update()
         {
-            if (linkedCharacter == null)
-                return;
+            //#region Heart Pulse
+            //float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; // 0~1
+            //heartImage.color = Color.Lerp(startColor, endColor, t);
+            //heartImage.rectTransform.sizeDelta = Vector2.Lerp(startRectSize, endRectSize, t);
+            //#endregion
+        }
 
-            hpText.text = $" {linkedCharacter.CurrentHp}";
-
-            if (linkedCharacter.currentWeapon != null)
+        public void SetBulletTextImage()
+        {
+            if (linkedCharacter.weaponToEquip != null)
             {
-                bulletText.text = $"{linkedCharacter.currentWeapon.WeaponCurrentBulletAmount} / {linkedCharacter.currentWeapon.MaxBulletAmount}";
-                bulletTypeText.text = $"{linkedCharacter.currentWeapon.GetFirstLoadedBulletName()}";
+                bulletText.text = $"{linkedCharacter.weaponToEquip.WeaponCurrentBulletAmount} / {linkedCharacter.weaponToEquip.MaxBulletAmount}";
+                bulletTypeText.text = $"{linkedCharacter.weaponToEquip.GetFirstLoadedBulletName()}";
             }
-            else
+            else if (linkedCharacter.currentWeapon == null && linkedCharacter.weaponToEquip == null)
             {
                 bulletText.text = $"1 / 1";
                 bulletTypeText.text = $"Knife";
             }
+            else if (linkedCharacter.currentWeapon != null)
+            {
+                bulletText.text = $"{linkedCharacter.currentWeapon.WeaponCurrentBulletAmount} / {linkedCharacter.currentWeapon.MaxBulletAmount}";
+                bulletTypeText.text = $"{linkedCharacter.currentWeapon.GetFirstLoadedBulletName()}";
+            }
+        }
 
-            #region Heart Pulse
-            float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; // 0~1
-            heartImage.color = Color.Lerp(startColor, endColor, t);
-            heartImage.rectTransform.sizeDelta = Vector2.Lerp(startRectSize, endRectSize, t);
-            #endregion
+        public void SetHpTextImage()
+        {
+            hpText.text = $" {linkedCharacter.CurrentHp}";
         }
 
         // 추후 뭐 캐릭터가 늘어난다면 이런식으로 동적 연동을 해야할듯?

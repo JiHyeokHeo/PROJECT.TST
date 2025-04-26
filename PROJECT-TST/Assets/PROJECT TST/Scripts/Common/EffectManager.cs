@@ -28,6 +28,11 @@ namespace TST
         Dirt_Impact,
         Metal_Impact,
         IMPACTS_END,
+
+        BLOOD_START,
+        Blood_Impact,
+        Blood_Smash,
+        BLOOD_END,
     }
 
     [System.Serializable]
@@ -54,6 +59,18 @@ namespace TST
                 EffectData effectData = new EffectData();
                 effectData.type = effectType;
                 effectData.prefab = Resources.Load<GameObject>(EFFECT_PREFAB_PATH + "Flashes/" + effectName);
+                effectData.duration = 3.0f;
+                effectContainer.Add(effectData);
+            }
+
+            for (int idx = (int)EffectType.BLOOD_START + 1; idx < (int)EffectType.BLOOD_END; idx++)
+            {
+                EffectType effectType = (EffectType)idx;
+                string effectName = effectType.ToString();
+
+                EffectData effectData = new EffectData();
+                effectData.type = effectType;
+                effectData.prefab = Resources.Load<GameObject>(EFFECT_PREFAB_PATH + "Bloods/" + effectName);
                 effectData.duration = 3.0f;
                 effectContainer.Add(effectData);
             }

@@ -34,6 +34,7 @@ namespace TST
 
         private float recoilMaxThreshold = 20.0f;
 
+        public event Action OnShootEvent;
         private void Awake()
         {
             Instance = this;
@@ -61,6 +62,10 @@ namespace TST
             linkedCharacter.onWeaponSwap += mainHud.SetHud;
             linkedCharacter.eventHandler.OnPulseAction += mainHud.SetPulse;
             mainHud.SetHud();
+            linkedCharacter.eventHandler.OnDamagedAction += (_) =>mainHud.SetHpTextImage();
+            OnShootEvent += mainHud.SetBulletTextImage;
+            mainHud.SetBulletTextImage();
+            mainHud.SetHpTextImage();
 
             //transform.position = UserDataModel.Singleton.IngamePlayerData.Values[0].Position;
             //transform.rotation = UserDataModel.Singleton.IngamePlayerData.PlayerRotation;
@@ -85,7 +90,7 @@ namespace TST
 
             InventoryUI inventoryUI = UIManager.Singleton.GetUI<InventoryUI>(UIList.InventoryUI);
             inventoryUI.SetLinkedCharacter(linkedCharacter);
-            // 
+
             //PlayerEquipmentUI equipmentUI = UIManager.Singleton.GetUI<PlayerEquipmentUI>(UIList.PlayerEquipmentUI);
 
 
@@ -118,6 +123,7 @@ namespace TST
         void OnExecuteShoot()
         {
             linkedCharacter.Shoot();
+            OnShootEvent?.Invoke();
         }
 
         void OnExecuteReload()
@@ -127,7 +133,7 @@ namespace TST
 
         void OnExecuteCrouch()
         {
-            linkedCharacter.Crouch();
+            linkedCharacter.IsCrouch = !linkedCharacter.IsCrouch;
         }
 
         void FinishShoot()
@@ -161,7 +167,7 @@ namespace TST
             // 1번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipPrimaryWeapon();
             linkedCharacter.IsThrowMode = false;
-
+            OnShootEvent?.Invoke();
             ReturnToTPSModeCheck();
         }
 
@@ -171,7 +177,7 @@ namespace TST
             // 2번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipSecondaryWeapon();
             linkedCharacter.IsThrowMode = false;
-
+            OnShootEvent?.Invoke();
             ReturnToTPSModeCheck();
         }
 
@@ -284,6 +290,10 @@ namespace TST
         //        UIManager.Hide<PopupA_UI>(UIList.PopupA_UI);
         //    }
         //}
+        public void OnExecuteReloadFinishEvent()
+        {
+            OnShootEvent?.Invoke();
+        }
 
         private void Update()
         {

@@ -172,6 +172,8 @@ namespace TST
             {
                 if (isWalk)
                     return currentStat.walkSpeed;
+                else if (isCrouch)
+                    return currentStat.crouchSpeed;
                 else
                     return currentStat.runSpeed;
                 
@@ -289,6 +291,24 @@ namespace TST
             set => isZip = value;
         }
 
+        public bool IsCrouch
+        {
+            get => isCrouch;
+            set
+            {
+                isCrouch = value;
+
+                if (isCrouch)
+                {
+                    CameraSystem.Instance.SetCrouchOffSet(crouchOffset);
+                }
+                else
+                {
+                    CameraSystem.Instance.SetCrouchOffSet(Vector3.zero);
+                }
+            }
+        }
+
         #endregion
 
         #region Boolean & Crouch
@@ -403,6 +423,11 @@ namespace TST
 
             SetRagdollActive(false);
 
+            StateMachineBase[] stateBases = animator.GetBehaviours<StateMachineBase>();
+            foreach (var sm in stateBases) 
+            {
+                sm.Init(this);
+            }
 
             //hitVolume = hitVolumeObject.GetComponent<Volume>();
 
@@ -498,9 +523,6 @@ namespace TST
             animator.SetFloat("Horizontal", horizontal);
             animator.SetFloat("Vertical", vertical);
             animator.SetFloat("Crouch", crouchBlend);
-
-            // 플레이어 속도 조절
-            CurrentSpeed = isCrouch ? currentStat.crouchSpeed : currentStat.runSpeed;
 
             if (isRolling)
                 StartRoll();
@@ -650,26 +672,6 @@ namespace TST
                 animator.SetTrigger("Roll Trigger");
                 isRolling = true;
             }
-        }
-
-        public void Crouch()
-        {
-            if (BehaviorExceptionCheck())
-                return;
-
-            // 카메라 위치를 조금 낮춥시다
-            if (!isCrouch)
-            {
-                CameraSystem.Instance.SetCrouchOffSet(crouchOffset);
-                animator.SetFloat("Crouch", 1.0f);
-            }
-            else
-            {
-                CameraSystem.Instance.SetCrouchOffSet(Vector3.zero);
-                animator.SetFloat("Crouch", 0.0f);
-            }
-
-            isCrouch = !isCrouch;
         }
 
         private bool BehaviorExceptionCheck()
@@ -867,6 +869,7 @@ namespace TST
         {
             currentWeapon.Reload();
             isReloading = false;
+            characterController.OnExecuteReloadFinishEvent();
             //multiParent.SetActive(false);
         }
 

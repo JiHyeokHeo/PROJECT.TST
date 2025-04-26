@@ -25,28 +25,33 @@ namespace TST
         private void OnCollisionEnter(Collision collision)
         {
             GameObject effect = null;
-            if (collision.collider.material.name.Contains("Metal"))
-            {
-                // Metal Effect Spawn
-                effect = EffectManager.Singleton.SpawnEffect(EffectType.Metal_Impact);
-            }
-            else if (collision.collider.material.name.Contains("Brick"))
-            {
-                // Dirt Effect Spawn
-                effect = EffectManager.Singleton.SpawnEffect(EffectType.Brick_Impact);
-            }
-            else
-            {
-                // Default Effect Spawn
-                effect = EffectManager.Singleton.SpawnEffect(EffectType.Dirt_Impact);   
-            }
-
-            effect.transform.SetPositionAndRotation(collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));
 
             if (collision.transform.root.TryGetComponent(out IDamage damageInterface))
             {
                 damageInterface.ApplyDamage(10, CharacterController.Instance.gameObject);
+
+                effect = EffectManager.Singleton.SpawnEffect(EffectType.Blood_Impact);
             }
+            else
+            {
+                if (collision.collider.material.name.Contains("Metal"))
+                {
+                    // Metal Effect Spawn
+                    effect = EffectManager.Singleton.SpawnEffect(EffectType.Metal_Impact);
+                }
+                else if (collision.collider.material.name.Contains("Brick"))
+                {
+                    // Dirt Effect Spawn
+                    effect = EffectManager.Singleton.SpawnEffect(EffectType.Brick_Impact);
+                }
+                else
+                {
+                    // Default Effect Spawn
+                    effect = EffectManager.Singleton.SpawnEffect(EffectType.Dirt_Impact);
+                }
+            }
+            
+            effect.transform.SetPositionAndRotation(collision.contacts[0].point, Quaternion.LookRotation(collision.contacts[0].normal));
 
             Destroy(gameObject);
         }
