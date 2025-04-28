@@ -1093,7 +1093,6 @@ namespace TST
 
         public void RollingFinished(int flag)
         {
-            SetIKActive(true);
             isRolling = false;
             rollTime = 0.0f;
         }

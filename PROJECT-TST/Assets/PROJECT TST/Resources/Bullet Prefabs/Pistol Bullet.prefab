@@ -51,7 +51,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   rigid: {fileID: 0}
   startPosition: {fileID: 0}
-  moveForce: 20
+  moveForce: 40
   lifeTime: 3
   isPlayerBullet: 1
 --- !u!114 &3650358389368719835

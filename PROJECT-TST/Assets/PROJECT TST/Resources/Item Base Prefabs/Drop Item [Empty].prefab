@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7144208829267110860}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 404558536086381152}
   - component: {fileID: 4144545839606644234}
   - component: {fileID: 7130912336427912044}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Drop Item [Empty]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,6 +79,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ItemData>k__BackingField: {fileID: 0}
+  dropItemFlyingduration: 2
+  delayAfterSequence: 1
+  movementEase: 0
 --- !u!114 &4144545839606644234
 MonoBehaviour:
   m_ObjectHideFlags: 0

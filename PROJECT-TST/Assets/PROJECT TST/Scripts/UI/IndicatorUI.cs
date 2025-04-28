@@ -9,12 +9,11 @@ namespace TST
         public static IndicatorUI Instance { get; private set; }
 
         public IndicatorUI_Item indicatorPrefab;
-        public Dictionary<Transform, IndicatorUI_Item> indicatorItems = new Dictionary<Transform, IndicatorUI_Item>();
+        public SerializableWrapDictionary<Transform, IndicatorUI_Item> indicatorItems = new SerializableWrapDictionary<Transform, IndicatorUI_Item>();
 
         private void Awake()
         {
             Instance = this;
-
         }
 
         private void Update()

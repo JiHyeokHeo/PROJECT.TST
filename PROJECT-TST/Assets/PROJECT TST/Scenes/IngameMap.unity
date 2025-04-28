@@ -5429,6 +5429,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [SilverShoes] (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: fc9862e45e1bd844aad12fb14efb4fc8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7094,6 +7099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drop Item [Key] (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 41bbd35889f5cb445a6d8d32e2b157b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17296,7 +17306,7 @@ PrefabInstance:
     - target: {fileID: 6523369397229085836, guid: fc9862e45e1bd844aad12fb14efb4fc8,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22930,7 +22940,7 @@ MonoBehaviour:
   m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -22944,7 +22954,7 @@ MonoBehaviour:
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
-  m_AllowXRRendering: 0
+  m_AllowXRRendering: 1
   m_AllowHDROutput: 1
   m_UseScreenCoordOverride: 0
   m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -23001,7 +23011,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -23334,7 +23344,7 @@ PrefabInstance:
     - target: {fileID: 6523369397229085836, guid: 6d18fd185c092ce40abcef7077228f9a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33032,6 +33042,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Key] (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 41bbd35889f5cb445a6d8d32e2b157b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36091,6 +36106,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Key] (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 41bbd35889f5cb445a6d8d32e2b157b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38141,7 +38161,7 @@ PrefabInstance:
     - target: {fileID: 6523369397229085836, guid: 34ea3a96bc5a70d488e149ef1fd3343d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -42772,7 +42792,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 1
   m_RequiresOpaqueTextureOption: 1
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 859569773}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -47437,6 +47458,76 @@ PrefabInstance:
         type: 3}
       propertyPath: crouchOffset.y
       value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[1].time
+      value: 0.796375
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[2].time
+      value: 1.0010943
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[1].value
+      value: 1.3208514
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[2].value
+      value: 0.41854408
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[0].inSlope
+      value: 7.5329103
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[1].inSlope
+      value: -3.243515
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[0].outSlope
+      value: 7.5329103
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[1].outSlope
+      value: -3.243515
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[0].outWeight
+      value: 0.020285036
+      objectReference: {fileID: 0}
+    - target: {fileID: 7017118815457618851, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: rollSpeedCurve.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 7246080088329909332, guid: 0b3690c495cd4694f936638cf5829ca9,
         type: 3}
@@ -53959,6 +54050,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [Key]
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 41bbd35889f5cb445a6d8d32e2b157b7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -57674,6 +57770,7 @@ MonoBehaviour:
   tpsCamera: {fileID: 971450085}
   fpsCamera: {fileID: 230642572}
   worldCamera: {fileID: 434123003}
+  uiCamera: {fileID: 859569773}
   cameraDistance: {x: 2, y: 1}
 --- !u!4 &2136901704
 Transform:
@@ -58262,6 +58359,8 @@ SceneRoots:
   - {fileID: 393432496}
   - {fileID: 2073595193}
   - {fileID: 967471769}
+  - {fileID: 146832991}
+  - {fileID: 206390539}
   - {fileID: 2007465830}
   - {fileID: 1452076515}
   - {fileID: 867994158}
@@ -59047,5 +59146,3 @@ SceneRoots:
   - {fileID: 1566347794}
   - {fileID: 1548097119}
   - {fileID: 1485115035}
-  - {fileID: 146832991}
-  - {fileID: 206390539}

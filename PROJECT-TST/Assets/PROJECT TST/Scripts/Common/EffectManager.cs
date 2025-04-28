@@ -92,7 +92,7 @@ namespace TST
 
         public GameObject SpawnEffect(GameObject effectObject)
         {
-            EffectData data = effectContainer.Find(x => x.prefab.name == effectObject.name);
+            EffectData data = effectContainer.Find(x => x.prefab.name.Equals(effectObject.name));
 
             if (data == null)
             {

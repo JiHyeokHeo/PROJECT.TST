@@ -13,10 +13,9 @@ namespace TST
         public Image weaponImage;
         public Image heartImage;
 
-        public Color startColor = new Color(1f, 0f, 0f, 0.5f);  // 약간 투명한 빨강
-        public Color endColor = new Color(1f, 0f, 0f, 1f);       // 완전 불투명 빨강
         public Vector2 startRectSize = new Vector2(60.0f, 60.0f);
         public Vector2 endRectSize = new Vector2(120.0f, 120.0f);
+        public float targetFillAmount;
         public float pulseSpeed = 2f;
 
         public TextMeshProUGUI bulletText;
@@ -68,11 +67,7 @@ namespace TST
 
         void Update()
         {
-            //#region Heart Pulse
-            //float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) / 2f; // 0~1
-            //heartImage.color = Color.Lerp(startColor, endColor, t);
-            //heartImage.rectTransform.sizeDelta = Vector2.Lerp(startRectSize, endRectSize, t);
-            //#endregion
+            heartImage.fillAmount = Mathf.Lerp(heartImage.fillAmount, targetFillAmount, Time.deltaTime * 10.0f);
         }
 
         public void SetBulletTextImage()
@@ -97,6 +92,7 @@ namespace TST
         public void SetHpTextImage()
         {
             hpText.text = $" {linkedCharacter.CurrentHp}";
+            targetFillAmount = linkedCharacter.CurrentHp / linkedCharacter.MaxHp;
         }
 
         // 추후 뭐 캐릭터가 늘어난다면 이런식으로 동적 연동을 해야할듯?

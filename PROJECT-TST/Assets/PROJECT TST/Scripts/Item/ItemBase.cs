@@ -24,6 +24,11 @@ namespace TST
             delayAfterSequence = 0.1f;
         }
 
+        public void Start()
+        {
+            IndicatorUI.Instance.RegistIndicator(this.transform);
+        }
+
         public void OnEnable()
         {
             if (GameManager.Instance)

@@ -38,6 +38,7 @@ namespace TST
         private void Awake()
         {
             Instance = this;
+            UIManager.Singleton.GetUI<IndicatorUI>(UIList.Indicator_UI);
             linkedCharacter = GetComponent<CharacterBase>();
             linkedCharacter.eventHandler.OnDamagedAction += OnLinkedCharacterDamaged;
         }
