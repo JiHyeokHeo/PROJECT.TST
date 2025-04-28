@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace TST
 {
@@ -38,10 +39,10 @@ namespace TST
         }
 
         private bool isFpsMode;
+        public Camera mainCamera;
         public Cinemachine.CinemachineVirtualCamera tpsCamera;
         public Cinemachine.CinemachineVirtualCamera fpsCamera;
         public Cinemachine.CinemachineVirtualCamera worldCamera;
-        public Camera uiCamera;
 
         public Vector2 cameraDistance = new Vector2(2f, 1.0f);
 
@@ -52,11 +53,19 @@ namespace TST
         private CinemachineCameraOffset cameraCrouchOffset;
         Vector3 cameraoffSetTarget;
 
+        public void Initialize()
+        {
+            
+        }
+
         private void Awake()
         {
             Instance = this;
             tpsCameraFollow = tpsCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
             cameraCrouchOffset = tpsCamera.gameObject.GetComponent<CinemachineCameraOffset>();
+
+            var cameraData = mainCamera.GetUniversalAdditionalCameraData();
+            cameraData.cameraStack.Add(UIManager.Singleton.UICamera);
         }
 
         private void Update()

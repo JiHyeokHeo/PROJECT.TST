@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 5587137742814388021}
   - component: {fileID: 7042730183664283260}
   - component: {fileID: 1219330846702116958}
+  - component: {fileID: 1591818767330023742}
   m_Layer: 5
   m_Name: UI.MainHudUI
   m_TagString: Untagged
@@ -487,10 +488,9 @@ MonoBehaviour:
   hpText: {fileID: 6649822598396472029}
   weaponImage: {fileID: 5879923610847662403}
   heartImage: {fileID: 2999533278227194464}
-  startColor: {r: 1, g: 0, b: 0, a: 0.49019608}
-  endColor: {r: 0.3018868, g: 0, b: 0, a: 1}
   startRectSize: {x: 80, y: 80}
   endRectSize: {x: 100, y: 100}
+  targetFillAmount: 0
   pulseSpeed: 2
   bulletText: {fileID: 1887407950740420883}
   bulletTypeText: {fileID: 5374788026149026121}
@@ -507,6 +507,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1591818767330023742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4852191743220272343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3d867dffe8e13428ac9bd510bd5e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5359307762752094750
 GameObject:
   m_ObjectHideFlags: 0

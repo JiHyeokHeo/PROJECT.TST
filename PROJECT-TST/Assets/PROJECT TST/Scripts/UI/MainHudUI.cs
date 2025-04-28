@@ -62,7 +62,6 @@ namespace TST
 
         public void Start()
         {
-            GetComponent<Canvas>().worldCamera = CameraSystem.Instance.uiCamera;
         }
 
         void Update()
