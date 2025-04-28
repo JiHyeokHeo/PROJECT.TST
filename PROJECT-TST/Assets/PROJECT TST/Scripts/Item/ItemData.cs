@@ -55,6 +55,7 @@ namespace TST
         [field: SerializeField] public ItemCategory ItemCategory { get; private set; }
         [field: SerializeField] public int ItemSubCategory { get; private set; }
         [field: SerializeField] public int ItemMaxStack { get; private set; } = 1;
+        [field: SerializeField] public int lootTime { get; private set; } = 4;
 
         [SerializeReference]
         public ItemStatBase ItemStat;

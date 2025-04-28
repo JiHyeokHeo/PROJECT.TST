@@ -56,6 +56,16 @@ namespace TST
             }
         }
 
+        public void Awake()
+        {
+           
+        }
+
+        public void Start()
+        {
+            GetComponent<Canvas>().worldCamera = CameraSystem.Instance.uiCamera;
+        }
+
         void Update()
         {
             //#region Heart Pulse
@@ -72,7 +82,7 @@ namespace TST
                 bulletText.text = $"{linkedCharacter.weaponToEquip.WeaponCurrentBulletAmount} / {linkedCharacter.weaponToEquip.MaxBulletAmount}";
                 bulletTypeText.text = $"{linkedCharacter.weaponToEquip.GetFirstLoadedBulletName()}";
             }
-            else if (linkedCharacter.currentWeapon == null && linkedCharacter.weaponToEquip == null)
+            else if (linkedCharacter.weaponToEquip == null && linkedCharacter.IsSwitchingWeapon == true)
             {
                 bulletText.text = $"1 / 1";
                 bulletTypeText.text = $"Knife";

@@ -487,6 +487,7 @@ MonoBehaviour:
   hpText: {fileID: 6649822598396472029}
   weaponImage: {fileID: 5879923610847662403}
   heartImage: {fileID: 0}
+  UICamera: {fileID: 0}
   startColor: {r: 1, g: 0, b: 0, a: 0.49019608}
   endColor: {r: 0.3018868, g: 0, b: 0, a: 1}
   startRectSize: {x: 80, y: 80}

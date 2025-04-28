@@ -38,7 +38,7 @@ namespace TST
 
         public void Interact(GameObject go)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, ItemData.lootTime);
 
             Debug.Log("<color=#FFFFFF>Item Interacted !!</color>");
 

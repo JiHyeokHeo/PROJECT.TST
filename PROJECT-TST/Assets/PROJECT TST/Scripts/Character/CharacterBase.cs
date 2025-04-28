@@ -309,11 +309,18 @@ namespace TST
             }
         }
 
+        public bool IsLooting
+        {
+            get => isLooting;
+            set => isLooting = value;
+        }
+
         #endregion
 
         #region Boolean & Crouch
         [Title("Boolean & Crouch", titleAlignment: TitleAlignments.Centered)]
         [field: SerializeField] private bool isSprint = true;
+        private bool isLooting = false;
         private bool isAutoRunMode = false;
         private bool isWalk = false;
         private bool isRolling = false;
@@ -568,10 +575,18 @@ namespace TST
 
         private bool CheckIKSuccess()
         {
-            if (isReloading || !isArmedCompleted || isRolling || isThrowMode || !isGrounded)
+            if (isReloading || !isArmedCompleted || isRolling || isThrowMode || !isGrounded || isLooting)
                 return false;
 
             return true;
+        }
+
+        private bool CheckBehaviorLock()
+        {
+            if (isRolling || isLooting)
+                return true;
+
+            return false;
         }
 
         public void AIMove(bool isMove)
@@ -582,7 +597,7 @@ namespace TST
 
         public void Move(Vector2 input, float yAxisAngle)
         {
-            if (isRolling)
+            if (CheckBehaviorLock())
                 return;
 
             if (isZip)
@@ -663,7 +678,7 @@ namespace TST
 
         public void Roll()
         {
-            if (BehaviorExceptionCheck())
+            if (CheckBehaviorLock())
                 return;
 
             if (!isRolling)
@@ -674,20 +689,10 @@ namespace TST
             }
         }
 
-        private bool BehaviorExceptionCheck()
-        {
-            if (isLoot)
-                return true;
-            if (isZip)
-                return true;
-
-            return false;
-        }
-
         public bool Rotate(Vector3 targetPoint)
         {
             // 타겟은 일단 에이밍 걸린 포인트이다
-            if (isRolling)
+            if (CheckBehaviorLock())
                 return false;
 
             if (CurrentHp <= 0)
@@ -721,9 +726,7 @@ namespace TST
 
         public void AIShoot()
         {
-            if (isLoot)
-                return;
-            if (isRolling)
+            if (CheckBehaviorLock())
                 return;
 
             if (isThrowMode)
@@ -746,9 +749,7 @@ namespace TST
 
         public void Shoot()
         {
-            if (isLoot)
-                return;
-            if (isRolling)
+            if (CheckBehaviorLock())
                 return;
 
             if (isThrowMode)
@@ -776,7 +777,7 @@ namespace TST
 
         private void Throw()
         {
-            if (isLoot)
+            if (CheckBehaviorLock())
                 return;
             if (!isThrowMode)
                 return;
@@ -793,7 +794,6 @@ namespace TST
             currentThrowObject = null;
         }
 
-        public bool isLoot = false;
         public void SetLootType(float lootType)
         {
             animator.SetFloat("Loot Type", lootType);
@@ -842,7 +842,7 @@ namespace TST
 
         public void Reload()
         {
-            if (isLoot)
+            if (isLooting)
                 return;
 
             if (currentWeapon == null)
@@ -1068,6 +1068,11 @@ namespace TST
         {
             isArmedCompleted = true;
             isSwitchingWeapon = false;
+        }
+
+        public void LootFinisehd()
+        {
+            isLooting = false;
         }
 
         /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>

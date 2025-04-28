@@ -41,6 +41,8 @@ namespace TST
         public Cinemachine.CinemachineVirtualCamera tpsCamera;
         public Cinemachine.CinemachineVirtualCamera fpsCamera;
         public Cinemachine.CinemachineVirtualCamera worldCamera;
+        public Camera uiCamera;
+
         public Vector2 cameraDistance = new Vector2(2f, 1.0f);
 
         private Cinemachine3rdPersonFollow tpsCameraFollow;
