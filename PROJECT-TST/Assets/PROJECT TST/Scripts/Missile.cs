@@ -12,19 +12,19 @@ namespace TST
         [SerializeField] private GameObject explosionPrefab;
 
         [Header("MOVEMENT")]
-        [SerializeField] private float speed = 3;
-        [SerializeField] private float rotateSpeed = 95;
+        [SerializeField] private float speed = 5f;
+        [SerializeField] private float rotateSpeed = 180f;
 
         // 예측
         [Header("PREDICTION")]
         [SerializeField] private float maxDistancePredict = 100;
-        [SerializeField] private float minDistancePredict = 5;
+        [SerializeField] private float minDistancePredict = 0.1f;
         [SerializeField] private float maxTimePrediction = 5;
         private Vector3 standardPrediction, deviatedPrediction;
 
         // 편차
         [Header("DEVIATION")]
-        [SerializeField] private float _deviationAmount = 50;
+        [SerializeField] private float _deviationAmount = 5;
         [SerializeField] private float _deviationSpeed = 2;
 
         private float initLaunctTime = 0f;
@@ -38,6 +38,9 @@ namespace TST
             //new Vector3(-40.0f, 66.0f, 0.0f)
             Quaternion initialRotation = Quaternion.Euler(initRotation);
             transform.rotation = initialRotation;
+            GameObject obj = EffectManager.Singleton.SpawnEffect(EffectType.SmokeTrail);
+            obj.transform.parent = transform;
+            obj.transform.localPosition = Vector3.zero;
         }
 
         private void FixedUpdate()
@@ -50,7 +53,7 @@ namespace TST
 
             initLaunctTime += Time.fixedDeltaTime;
 
-            if (target == null || initLaunctTime >= initMaxLaunchTime)
+            if (target == null /*|| initLaunctTime >= initMaxLaunchTime*/)
                 return;
             // 정규화 a~b 0~1 value
             // 가까울 수록 편차가 줄고, 멀수록 편차가 커짐

@@ -471,6 +471,7 @@ namespace TST
             if (linkedCharacter.IsArmed && linkedCharacter.currentWeapon.WeaponCurrentBulletAmount > 0)
             {
                 currentRecoil += recoilAmount * Time.deltaTime;
+                OptionManager.Singleton.crossHairCanvas.SetCrossHairRecoil(OptionManager.Singleton.CurrentCrossHairType, true);
             }
 
             currentRecoil = Mathf.Clamp(currentRecoil, 0.0f, recoilMaxThreshold);
@@ -479,6 +480,8 @@ namespace TST
         public void PauseRecoil()
         {
             currentRecoil = 0.0f;
+
+            OptionManager.Singleton.crossHairCanvas.SetCrossHairRecoil(OptionManager.Singleton.CurrentCrossHairType, false);
         }
 
         private void CameraRotation()

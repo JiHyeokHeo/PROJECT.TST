@@ -20,6 +20,7 @@ namespace TST
         MuzzleFlash7,
         MuzzleFlash8,
         MuzzleFlash9,
+        SmokeTrail,
 
         FLASHES_END,
 
