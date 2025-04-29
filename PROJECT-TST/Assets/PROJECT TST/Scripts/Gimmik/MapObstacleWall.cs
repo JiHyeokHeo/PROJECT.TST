@@ -6,6 +6,7 @@ namespace TST
     {
         public string Message => "키를 사용해주세요";
 
+        public Animator doorAnimator;
         public InteractType InteractType => InteractType.Door;
 
         public void Interact(GameObject go)
@@ -16,7 +17,7 @@ namespace TST
                 if (GameDataModel.Singleton.GetItemData("KeyA", out ItemData resultData))
                 {
                     GameManager.Instance.UseItem(-1, resultData);
-                    Destroy(this.gameObject);
+                        doorAnimator.SetTrigger("DoorOpen");
                 }
             }
         }

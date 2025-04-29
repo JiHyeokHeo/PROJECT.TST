@@ -45,24 +45,30 @@ namespace TST
             }
         }
 
-        public void UseItem(int slotId, ItemData itemData, int count = 1)
+        public bool UseItem(int slotId, ItemData itemData, int count = 1)
         {
+            bool result = true;
             switch (itemData.ItemCategory)
             {
                 case ItemCategory.Equipment:
                     EquipmentItem(slotId, itemData);
                     break;
                 case ItemCategory.Material:
-                    UserDataModel.Singleton.UseInventoryItem(itemData, count);
+                    result = UserDataModel.Singleton.UseInventoryItem(itemData, count);
                     break;
                 case ItemCategory.Consumable:
                      UseConsumable(slotId, itemData, count);
-                    UserDataModel.Singleton.UseInventoryItem(itemData, count);
+                    result = UserDataModel.Singleton.UseInventoryItem(itemData, count);
                     break;
             }
 
+            if (result == false)
+                return result;
+
             // 마지막에 사용한 아이템을 UserDataModel에서 삭제하도록 처리를 불러주자
             OnUsedItem?.Invoke(itemData, count);
+
+            return result;
         }
 
         public void UnEquipmentItem(ItemEquipmentCategory category, int slotId)

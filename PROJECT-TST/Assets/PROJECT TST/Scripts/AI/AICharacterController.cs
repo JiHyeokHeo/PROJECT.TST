@@ -95,7 +95,7 @@ namespace TST
             //}
 
             // 상태 객체를 미리 생성해 둠
-            currentState = new AIState_Patrol(this);
+            currentState = new AIState_Idle(this);
             characterBase.ToggleEquipPrimaryWeapon();
             previousHp = LinkedCharacter.CurrentHp;
 

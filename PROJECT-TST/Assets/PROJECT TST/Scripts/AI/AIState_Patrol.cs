@@ -10,7 +10,7 @@ namespace TST
     public class AIState_Patrol : AIStateBase
     {
         private CharacterBase linkedCharacter;
-
+        
         public float patrolInterval = 4.0f; // 순찰 시간 간격
         private float lastPatrolTime;
 
@@ -30,6 +30,7 @@ namespace TST
         {
             // 패트롤 상태로 갔으면 일단 자기 원래 있던 위치로 이동 시키자
             UpdatePatrolDestination();
+            patrolInterval = UnityEngine.Random.Range(3.0f, 6.0f);
         }
 
         public override void Exit()
