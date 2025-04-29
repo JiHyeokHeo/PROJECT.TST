@@ -49,6 +49,7 @@ namespace TST
 
                 SoundManager.Singleton.PlayBGM("BGM_Ingame", true);
                 UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
+                UIManager.Show<Minimap_UI>(UIList.Minimap_UI);
                 UIManager.Show<IndicatorUI>(UIList.Indicator_UI);
                 UIManager.Show<IngameUI>(UIList.IngameUI);
                 UIManager.Show<MainHudUI>(UIList.MainHudUI);
