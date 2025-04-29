@@ -29,6 +29,9 @@ namespace TST
         private bool isThrown = false;
         private bool hasLanded = false;
 
+        public Action effectInvoke;
+        private float elapsedLifeTime = 0.0f; 
+
         protected override void Init()
         {
             rigid = GetComponent<Rigidbody>();
@@ -36,6 +39,10 @@ namespace TST
                 rigid = this.AddComponent<Rigidbody>();
 
             lifeTime = 3.0f;
+            effectInvoke += () =>
+            {
+                EffectManager.Singleton.SpawnEffect(EffectType.BombEffect, this.transform.position, new Vector3(-90.0f, 0.0f, 0.0f));
+            };
         }
 
         public void SetStartTransform(Transform transform)
@@ -54,6 +61,16 @@ namespace TST
             if (!this.isThrown)
             {
                 DrawTrajectory();
+            }
+
+            if (this.isThrown)
+            {
+                elapsedLifeTime += Time.deltaTime;
+
+                if (elapsedLifeTime >= lifeTime)
+                {
+                    OnLifeTimeExpired();
+                }
             }
 
         }
@@ -101,11 +118,16 @@ namespace TST
             lineRenderer.enabled = false;
 
             Vector3 velocity = CalculateParabolicVelocity(throwStartPoint, targetPosition);
-
             rigid.velocity = velocity;
 
             //rigid.AddForce(velocity * rigid.mass, ForceMode.Impulse);
-            Destroy(this.gameObject, lifeTime);
+        }
+
+        private void OnLifeTimeExpired()
+        {
+            effectInvoke?.Invoke();        
+            lineRenderer.enabled = false;  
+            Destroy(this.gameObject);       
         }
 
         void OnCollisionEnter(Collision collision)
@@ -119,6 +141,9 @@ namespace TST
 
         void DrawTrajectory()
         {
+            if (startPosition == null)
+                return;
+
             Vector3 startPos = startPosition.position;
             Vector3 velocity = CalculateParabolicVelocity(startPosition.position, 
                 CharacterController.Instance.linkedCharacter.aimingPoint.position);   // ´øÁö´Â Èû * 6

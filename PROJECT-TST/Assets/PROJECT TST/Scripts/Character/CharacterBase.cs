@@ -575,7 +575,7 @@ namespace TST
 
         private bool CheckIKSuccess()
         {
-            if (isReloading || !isArmedCompleted || isRolling || isThrowMode || !isGrounded || isLooting)
+            if (isReloading || !isArmedCompleted || isRolling || isThrowMode || isJumping || isLooting)
                 return false;
 
             return true;
@@ -869,7 +869,9 @@ namespace TST
         {
             currentWeapon.Reload();
             isReloading = false;
-            characterController.OnExecuteReloadFinishEvent();
+
+            if (characterController != null) 
+                characterController.OnExecuteReloadFinishEvent();
             //multiParent.SetActive(false);
         }
 
@@ -1089,6 +1091,7 @@ namespace TST
         public void JumpFinished()
         {
             SetIKActive(true);
+            isJumping = false;
         }
 
         public void RollingFinished(int flag)
@@ -1114,7 +1117,7 @@ namespace TST
         #region Jump
         [Title("JumpStatus", titleAlignment: TitleAlignments.Centered)]
         public float jumpHeight = 1.2f;          // JumpHeight : 점프력 최대 올라갈 수 있는 높이.
-        public float gravity = -15.0f;           // Gravity : Rigidbody를 사용하지 않기 때문에, 별도 중력 값
+        public float gravity = - 15.0f;           // Gravity : Rigidbody를 사용하지 않기 때문에, 별도 중력 값
         public float jumpTimeout = 0.3f;         // JumpTimeout : 점프 후 - 다시 점프 입력을 받을 수 있는 텀[:시간]
         public float fallTimeout = 0.15f;        // FallTimeout : 점프가 아닌, 절벽에서 떨어지는 경우, 떨어지는 중력을 적용받기까지의 텀[:시간]
         public float terminalVelocity = 53.0f;   // terminalVelocity : 최대 속도 For 점프하는 가속도에 영향을 준다.
@@ -1129,18 +1132,19 @@ namespace TST
 
         private int jumpCnt = 0;
         private int jumpMaxCnt = 2;
+        private bool isJumpClicked = false;
         public void Jump()
         {
-            if ((!isJumping /*&& isGrounded*/))
-            {
-                if (jumpCnt >= jumpMaxCnt)
-                    return;
+            if (jumpCnt >= jumpMaxCnt)
+                return;
 
-                isJumping = true;
-                //if (jumpCnt <= 0)
-                animator.SetTrigger("Jump Trigger");
-                jumpCnt++;
-            }
+            isJumping = true;
+            isGrounded = false;
+            isJumpClicked = true;
+            //if (jumpCnt <= 0)
+            animator.SetTrigger("Jump Trigger");
+            jumpCnt++;
+
         }
         private void JumpAndGravity()
         {
@@ -1154,28 +1158,25 @@ namespace TST
                 {
                     jumpTimeoutDelta = jumpTimeout;
                     verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                    isJumping = false;
                 }
                 if (jumpTimeoutDelta >= 0f)
                 {
                     jumpTimeoutDelta -= Time.deltaTime;
                 }
-
-                if (jumpCnt >= jumpMaxCnt)
-                {
+               
+                if (isJumping == false)
                     jumpCnt = 0;
-                }
+               
             }
             else
             {
-                if (isJumping == true && jumpCnt <= jumpMaxCnt)
+                if (isJumping == true && jumpCnt <= jumpMaxCnt && isJumpClicked)
                 {
-                    verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    isJumpClicked = false;
+                    verticalVelocity = Mathf.Sqrt(jumpHeight * jumpCnt * - 2f * gravity);
                 }
 
-                jumpTimeoutDelta = jumpTimeout;
-                jumpTimeoutDelta = jumpTimeout;
-                isJumping = false;
+                //jumpTimeoutDelta = jumpTimeout;
             }
             if (verticalVelocity < terminalVelocity)
             {

@@ -22,7 +22,6 @@ namespace TST
                 if (go.TryGetComponent<UnityEngine.CharacterController>(out var controller))
                 {
                     agent.enabled = true;
-                    controller.enabled = false;
                 }
 
                 go.GetComponent<CharacterBase>().Jump();
@@ -71,8 +70,8 @@ namespace TST
             }
 
             agent.CompleteOffMeshLink();
-            agent.updatePosition = true;
-            agent.updateRotation = true;
+            //agent.updatePosition = true;
+            //agent.updateRotation = true;
         }
     }
 }
