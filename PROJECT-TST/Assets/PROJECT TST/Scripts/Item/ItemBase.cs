@@ -17,6 +17,7 @@ namespace TST
         public float delayAfterSequence; // 회전 움직임 이후 이펙트 생성 딜레이 시간
 
         public Ease movementEase;
+        public GameObject effect;
 
         public void Awake()
         {
@@ -45,6 +46,7 @@ namespace TST
         {
             IndicatorUI.Instance.RemoveIndicator(this.transform);
             Destroy(gameObject, ItemData.lootTime);
+            Destroy(effect);
 
             Debug.Log("<color=#FFFFFF>Item Interacted !!</color>");
 
@@ -86,7 +88,7 @@ namespace TST
                 DOVirtual.DelayedCall(delayAfterSequence, () =>
                 {
                     if (AssetManager.Singleton.GetItemPrefab("Visual", out GameObject visualObject))
-                        Instantiate(visualObject, startPosition, Quaternion.identity);
+                        effect = Instantiate(visualObject, startPosition, Quaternion.identity);
                 });
             });
 

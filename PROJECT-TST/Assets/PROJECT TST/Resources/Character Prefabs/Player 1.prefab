@@ -646,7 +646,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7845913605500499366}
   m_Father: {fileID: 3347355838109619811}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1270998754920794901
@@ -2208,12 +2209,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3519663456541045784}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0.0000000018626449, z: -0.0000000019167727, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3347355838109619811}
+  m_Father: {fileID: 6920931334985395541}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &2356111380592757611
 Camera:
@@ -5130,7 +5131,6 @@ Transform:
   - {fileID: 4416041348843977521}
   - {fileID: 7823375530388629718}
   - {fileID: 4071405634929441088}
-  - {fileID: 7845913605500499366}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &8065061456100010199
@@ -5268,6 +5268,7 @@ MonoBehaviour:
   crouchOffset: {x: 0, y: -0.2, z: 0}
   rifleAmmos: []
   pistolAmmos: []
+  hipsTransform: {fileID: 0}
   jumpHeight: 1.2
   gravity: -15
   jumpTimeout: 0.3

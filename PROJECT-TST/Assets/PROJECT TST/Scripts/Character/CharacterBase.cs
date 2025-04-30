@@ -1,3 +1,4 @@
+using Gpm.Common.ThirdParty.MessagePack.Resolvers;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -387,6 +388,9 @@ namespace TST
 
         List<CharacterSkillBase> characterSkills = new List<CharacterSkillBase>();
 
+        public bool isAlive => CurrentHp > 0;
+        public Transform hipsTransform;
+
         private void Awake()
         {
             GameObject rifleBullet;
@@ -431,6 +435,7 @@ namespace TST
             characterController = GetComponent<CharacterController>();
             ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
             eventHandler = GetComponent<EventHandler>();
+            hipsTransform = animator.GetBoneTransform(HumanBodyBones.Hips);
 
             SetRagdollActive(false);
 
@@ -445,6 +450,8 @@ namespace TST
             // AI 관련코드 이거 추후에 클래스 나누는 리팩토링 작업이 필요할듯함
             //aiSpawnPosition = gameObject.transform.position;
         }
+
+
 
         #region Ragdoll & IK
         public void SetRagdollActive(bool isActive)
@@ -538,12 +545,30 @@ namespace TST
             if (isRolling)
                 StartRoll();
 
+            if (false == isAlive)
+            {
+                AlignPositionToHips();
+            }
+
             #region Legacy
             for (int i = 0; i < characterSkills.Count; i++)
             {
 
             }
             #endregion
+        }
+
+        private void AlignPositionToHips()
+        {
+            Vector3 originalHipPosition = hipsTransform.position;
+            transform.position = hipsTransform.position;
+
+            if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfo))
+            {
+                transform.position = new Vector3(transform.position.x, hitInfo.point.y, transform.position.z);
+            }
+
+            hipsTransform.position = originalHipPosition;
         }
 
         private void CheckPlayerStatus()

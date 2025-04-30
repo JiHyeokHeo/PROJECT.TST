@@ -62,6 +62,7 @@ namespace TST
 
         public void Start()
         {
+            UseScreenSpaceCamera = true;
         }
 
         void Update()

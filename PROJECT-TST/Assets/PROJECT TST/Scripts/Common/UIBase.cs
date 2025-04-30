@@ -8,6 +8,20 @@ namespace TST
     {
         public virtual bool IsVisibleCursor { get; set; } = false;
 
+        public virtual bool UseScreenSpaceCamera
+        {
+            get => useScreenSpaceCamera;
+            set
+            {
+                useScreenSpaceCamera = value;
+                if (useScreenSpaceCamera)
+                {
+                    GetComponent<Canvas>().worldCamera = UIManager.Singleton.UICamera;
+                }
+}
+        }
+        private bool useScreenSpaceCamera = false;
+
         public virtual void Show()
         {
             gameObject.SetActive(true);
