@@ -16,7 +16,6 @@ namespace TST
     public class WeaponBase : MonoBehaviour
     {
         public WeaponType WeaponType => weaponType;
-
         [SerializeField] private WeaponType weaponType;
 
         public int WeaponCurrentBulletAmount
@@ -34,25 +33,32 @@ namespace TST
             }
         }
 
-        public List<AmmoBase> LoadedAmmo { get { return loadedAmmo; } private set { } }
-
         public int MaxBulletAmount
         {
             get => maxBulletAmount;
             private set { }
         }
 
+        public CharacterBase Owner
+        {
+            get => owner;
+            set => owner = value;
+        }
+
+        public List<AmmoBase> LoadedAmmo { get { return loadedAmmo; } private set { } }
+
+        private CharacterBase owner;
         public int clipSize = 30;
         private int weaponCurrentBulletAmount = 0;
         private int maxBulletAmount = 0;
 
-        private AmmoBase ammo;
         public Transform firePoint;
         public float fireRate = 0.1f; // 연사 속도
         private float lastFireTime; // 마지막 발사 시간
+        private AmmoBase ammo;
+        private List<AmmoBase> loadedAmmo = new List<AmmoBase>();
 
         public event Func<AmmoBase, AmmoBase> SetPlayerAmmo_Event;
-        private List<AmmoBase> loadedAmmo = new List<AmmoBase>();
 
         private void Awake()
         {
@@ -106,8 +112,9 @@ namespace TST
                 weaponCurrentBulletAmount--;
                 loadedAmmo[0].LoadedBulletAmount--;
 
-                GameObject newBullet = Instantiate(loadedAmmo[0].data.AmmoVisualPrefab, firePoint.transform.position, firePoint.transform.rotation);
+                var newBullet = Instantiate(loadedAmmo[0].data.AmmoVisualPrefab, firePoint.transform.position, firePoint.transform.rotation);
                 newBullet.gameObject.SetActive(true);
+                newBullet.Init(owner);
 
                 var effect = EffectManager.Singleton.SpawnEffect(loadedAmmo[0].data.AmmoEffectPrefab);
                 effect.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);

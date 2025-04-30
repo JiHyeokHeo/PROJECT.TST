@@ -32,8 +32,10 @@ namespace TST
         public Action effectInvoke;
         private float elapsedLifeTime = 0.0f; 
 
-        protected override void Init()
+        public override void Init(CharacterBase owner)
         {
+            this.owner = owner;
+
             rigid = GetComponent<Rigidbody>();
             if (rigid == null )
                 rigid = this.AddComponent<Rigidbody>();
@@ -52,6 +54,9 @@ namespace TST
 
         void Update()
         {
+            if (rigid == null)
+                return;
+
             if (hasLanded && rigid.velocity.magnitude < 0.1f)
             {
                 rigid.velocity = Vector3.zero;

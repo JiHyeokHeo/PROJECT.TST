@@ -13,6 +13,19 @@ namespace TST
         public event System.Action<ItemData, int> OnUsedItem;
         public event System.Action <GameObject, Vector3>OnItemGenerateEvent;
 
+        private Dictionary<ItemList, int> itemWeights = new Dictionary<ItemList, int>()
+    {
+        { ItemList.APCBullet, 5 },
+        { ItemList.Alchemical, 10 },
+        { ItemList.Fluid, 10 },
+        { ItemList.Money, 30 },
+        { ItemList.GunPowder, 10 },
+        { ItemList.Healing_Kit, 15 },
+        { ItemList.Incendiary_Bullet, 5 },
+        { ItemList.Normal_AR_Bullet, 10 },
+        { ItemList.Normal_Pistol_Bullet, 5 }
+    };
+
         // 아이템 번호로 하면 좋더 좋았을듯
         public void BuyItem(ItemData itemData)
         {
@@ -43,6 +56,27 @@ namespace TST
                 GameObject gameObject = Instantiate(result, position, Quaternion.identity);
                 OnItemGenerateEvent?.Invoke(gameObject, position);
             }
+        }
+
+        private ItemList GetWeightedRandomItem()
+        {
+            int totalWeight = 0;
+            foreach (var weight in itemWeights.Values)
+                totalWeight += weight;
+
+            int rand = UnityEngine.Random.Range(0, totalWeight);
+
+            // 누적 수치
+            int cumulative = 0;
+
+            foreach (var kvp in itemWeights)
+            {
+                cumulative += kvp.Value;
+                if (rand < cumulative)
+                    return kvp.Key;
+            }
+
+            return ItemList.Money;
         }
 
         public bool UseItem(int slotId, ItemData itemData, int count = 1)

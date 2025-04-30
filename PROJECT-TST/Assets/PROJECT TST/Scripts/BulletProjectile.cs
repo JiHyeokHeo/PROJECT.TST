@@ -7,10 +7,11 @@ namespace TST
 {
     public class BulletProjectile : ProjectileBase
     {
-        public bool isPlayerBullet = true;
+        public bool isPlayerBullet = false;
 
-        protected override void Init()
+        public override void Init(CharacterBase owner)
         {
+            this.owner = owner;
             if (rigid == null)
                 rigid = GetComponent<Rigidbody>();
 
@@ -28,7 +29,8 @@ namespace TST
 
             if (collision.transform.root.TryGetComponent(out IDamage damageInterface))
             {
-                damageInterface.ApplyDamage(10, CharacterController.Instance.gameObject);
+                if (owner != null)
+                    damageInterface.ApplyDamage(data.damage, owner.gameObject);
 
                 effect = EffectManager.Singleton.SpawnEffect(EffectType.Blood_Impact);
             }

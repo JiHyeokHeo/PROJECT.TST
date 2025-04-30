@@ -108,10 +108,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
+  data: {fileID: 11400000, guid: 2e000d2067ae42844bad57bb42730adf, type: 2}
   rigid: {fileID: 0}
   startPosition: {fileID: 0}
   moveForce: 40
   lifeTime: 3
+  damage: 0
   isPlayerBullet: 1
 --- !u!136 &1544597213780299105
 CapsuleCollider:

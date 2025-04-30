@@ -11,6 +11,7 @@ namespace TST
     {
         private CharacterBase linkedCharacter;
         public event Action<GameObject> OnDamagedAction;
+        public event Func<float, GameObject, float> OnDamageCalculate;
         public event Action OnDeadEvent;
         public event Action<float> OnPulseAction;
 
@@ -86,6 +87,7 @@ namespace TST
                     linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Gloves:
+                    linkedCharacter.CurrentDamage += equipmentStat.attackBuff;
                     linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Weapon:
@@ -95,6 +97,7 @@ namespace TST
                     linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Shoes:
+                    linkedCharacter.CurrentDefence += equipmentStat.defenseBuff;
                     linkedCharacter.CurrentSpeed += equipmentStat.speedBuff;
                     break;
             }
@@ -108,6 +111,7 @@ namespace TST
                     linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Gloves:
+                    linkedCharacter.CurrentDamage -= equipmentStat.attackBuff;
                     linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Weapon:
@@ -117,6 +121,7 @@ namespace TST
                     linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     break;
                 case (int)ItemEquipmentCategory.Shoes:
+                    linkedCharacter.CurrentDefence -= equipmentStat.defenseBuff;
                     linkedCharacter.CurrentSpeed -= equipmentStat.speedBuff;
                     break;
             }
@@ -124,9 +129,15 @@ namespace TST
 
         public void OnDamaged(float damage, GameObject attacker)
         {
-            linkedCharacter.CurrentHp -= damage;
 
             OnDamagedAction?.Invoke(attacker);
+
+            float? totalDamage = OnDamageCalculate?.Invoke(damage, attacker);
+
+            if (totalDamage.HasValue)
+                linkedCharacter.CurrentHp -= (float)totalDamage;
+            else
+                linkedCharacter.CurrentHp -= damage;
 
             if (linkedCharacter.CurrentHp <= 0 )
             {

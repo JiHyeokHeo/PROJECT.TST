@@ -8,7 +8,10 @@ namespace TST
     {
         ITEMLIST_START,
         APCBullet,
-        Component,
+        Alchemical,
+        Fluid,
+        Money,
+        GunPowder,
         Healing_Kit,
         Incendiary_Bullet,
         Normal_AR_Bullet,

@@ -43,6 +43,7 @@ namespace TST
 
         public void Interact(GameObject go)
         {
+            IndicatorUI.Instance.RemoveIndicator(this.transform);
             Destroy(gameObject, ItemData.lootTime);
 
             Debug.Log("<color=#FFFFFF>Item Interacted !!</color>");

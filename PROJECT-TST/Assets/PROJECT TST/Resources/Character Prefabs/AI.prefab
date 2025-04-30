@@ -1618,8 +1618,8 @@ RectTransform:
   m_GameObject: {fileID: 2780898320041905166}
   m_LocalRotation: {x: 0.7046001, y: -0.0594875, z: 0.0594875, w: 0.7046001}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 802074709941668014}
   m_Father: {fileID: 286403882645033974}
@@ -2146,6 +2146,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   isDamaged: 0
   previousHp: 0
   battleMaximunTime: 0
@@ -2490,7 +2492,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1, y: 1}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2523545745858790087
 CanvasRenderer:

@@ -105,6 +105,7 @@ namespace TST
                 target = attacker;
             };
 
+
             //if (AssetManager.Singleton.GetItemAmmoPrefab("Rifle Ammo", out GameObject rifleResult))
             //{
             //    rifleBullet = Instantiate(rifleResult, transform);

@@ -246,6 +246,7 @@ namespace TST
                     currentThrowObject.SetStartTransform(throwStartPoint);
                     currentThrowObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
                     currentThrowObject.gameObject.SetActive(true);
+                    currentThrowObject.Init(this);
                 }
                 else
                 {
@@ -411,6 +412,9 @@ namespace TST
                 pistolBullet = Instantiate(pistolResult);
                 pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
             }
+
+            primaryWeapon.Owner = this;
+            subWeapon.Owner = this;
 
             InitAmmos();
             primaryWeapon.SetPlayerAmmo_Event += SetRifleAmmo;
@@ -1233,14 +1237,18 @@ namespace TST
         private bool isHit = false;
         public float effectVolumeBlend;
 
-        private void CaculateDamage(GameObject attacker)
+        private float CaculateDamage(float damage, GameObject attacker)
         {
-            
+            float totalDamage = 0;
+
+            totalDamage = currentStat.damamge + damage;
+
+            return totalDamage;
         }
 
         private void SubscribeEventActions()
         {
-            eventHandler.OnDamagedAction += CaculateDamage;
+            eventHandler.OnDamageCalculate += CaculateDamage;
         }
 
         // hit°¡ µÆÀ¸¸é Äð È®ÀÎ

@@ -144,6 +144,9 @@ namespace TST
 
         void OnExectuePlayerInteract()
         {
+            if (linkedCharacter.IsLooting)
+                return;
+
             if (currentInteractables.Count > 0)
             {
                 currentInteractables[0].Interact(linkedCharacter.gameObject);

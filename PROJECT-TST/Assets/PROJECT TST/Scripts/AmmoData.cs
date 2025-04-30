@@ -24,10 +24,11 @@ namespace TST
     {
         [field: SerializeField] public string DataID { get; private set; } 
         [field: SerializeField] public string DataName { get; private set; } 
-        [field: SerializeField] public GameObject AmmoVisualPrefab { get; private set; } 
+        [field: SerializeField] public BulletProjectile AmmoVisualPrefab { get; private set; } 
         [field: SerializeField] public GameObject AmmoEffectPrefab { get; private set; } 
         [field: SerializeField] public AmmoType AmmoType { get; private set; }
         [field: SerializeField] public AmmoEquipMentType AmmoEquipmentType { get; private set; }
         [field: SerializeField] public int initAmmoCount { get; private set; }
+        [field: SerializeField] public int damage { get; private set; }
     }
 }

@@ -71,6 +71,9 @@ namespace TST
 
         public void SetBulletTextImage()
         {
+            if (linkedCharacter == null)
+                return;
+
             if (linkedCharacter.weaponToEquip != null)
             {
                 bulletText.text = $"{linkedCharacter.weaponToEquip.WeaponCurrentBulletAmount} / {linkedCharacter.weaponToEquip.MaxBulletAmount}";
