@@ -9,6 +9,8 @@ namespace TST
 {
     public class NpcTextScript : UIBase
     {
+        public override bool IsVisibleCursor => true;
+
         public NPCController npcController;
         public TextMeshProUGUI npcName;
         public TextMeshProUGUI npcDialogue;

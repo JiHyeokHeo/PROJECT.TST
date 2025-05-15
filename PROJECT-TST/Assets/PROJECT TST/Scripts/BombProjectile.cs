@@ -130,6 +130,25 @@ namespace TST
 
         private void OnLifeTimeExpired()
         {
+            Collider[] overlapped = Physics.OverlapSphere(transform.position, 5f);
+            List<CharacterBase> registedCharacters = new List<CharacterBase>();
+            for (int i = 0; i < overlapped.Length; i++)
+            {
+                if (overlapped[i].transform.root.TryGetComponent(out CharacterBase character))
+                {
+                    bool isExist = registedCharacters.Exists(x => x == character);
+                    if (!isExist)
+                    {
+                        registedCharacters.Add(character);
+                    }
+                }
+            }
+
+            foreach (var character in registedCharacters)
+            {
+                character.ApplyDamage(100f, owner.gameObject);
+            }
+
             effectInvoke?.Invoke();        
             lineRenderer.enabled = false;  
             Destroy(this.gameObject);       
