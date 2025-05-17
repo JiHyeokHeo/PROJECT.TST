@@ -45,12 +45,19 @@ namespace TST
         public void Interact(GameObject go)
         {
             IndicatorUI.Instance.RemoveIndicator(this.transform);
-            Destroy(gameObject, ItemData.lootTime);
             Destroy(effect);
 
             Debug.Log("<color=#FFFFFF>Item Interacted !!</color>");
 
+            //UserDataModel.Singleton.AddItemToInventory(ItemData);
+            StartCoroutine(AddItem());
+        }
+
+        public IEnumerator AddItem()
+        {
+            yield return new WaitForSeconds(ItemData.lootTime);
             UserDataModel.Singleton.AddItemToInventory(ItemData);
+            Destroy(gameObject);
         }
 
         public virtual void UseItem(CharacterBase user)

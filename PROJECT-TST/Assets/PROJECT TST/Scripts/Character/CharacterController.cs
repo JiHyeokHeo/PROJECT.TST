@@ -123,8 +123,11 @@ namespace TST
 
         void OnExecuteShoot()
         {
-            linkedCharacter.Shoot();
-            MainHudChangeEvent?.Invoke();
+            if (IsControlLocked == false)
+            {
+                linkedCharacter.Shoot();
+                MainHudChangeEvent?.Invoke();
+            }
         }
 
         void OnExecuteReload()
