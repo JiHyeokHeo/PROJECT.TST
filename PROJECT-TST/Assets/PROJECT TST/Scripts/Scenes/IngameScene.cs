@@ -19,6 +19,7 @@ namespace TST
             UIManager.Show<ShortCutUI>(UIList.ShortCutUI);
             UIManager.Show<IngameUI>(UIList.IngameUI);
             SoundManager.Singleton.PlayBGM("BGM_Ingame", true);
+            CanvasAlhpaManager.Instance.FadeIn();
             //UIManager.Show<InventoryUI>(UIList.InventoryUI);
             //UIManager.Show<IngameUI>(UIList.IngameUI);
             //UIManager.Show<MinimapUI>(UIList.MinimapUI);

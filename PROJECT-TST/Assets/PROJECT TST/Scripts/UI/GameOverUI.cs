@@ -12,6 +12,8 @@ namespace TST
         {
             CharacterController.Instance.linkedCharacter.eventHandler.ResetCharacter();
             UIManager.Hide<GameOverUI>(UIList.GameOverUI);
+            InputSystem.Singleton.ChangeCursorVisibility(false);
+
         }
 
         public void OnClickGoBackToLobby()

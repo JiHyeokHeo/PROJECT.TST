@@ -758,6 +758,9 @@ namespace TST
             if (CheckBehaviorLock())
                 return;
 
+            if (isReloading)
+                return;
+
             if (isThrowMode)
             {
                 Throw();
@@ -766,7 +769,9 @@ namespace TST
             {
                 if (IsArmed && isArmedCompleted)
                 {
-                    bool isFireSuccess = currentWeapon.Fire();
+                    bool isFireSuccess = true;
+                    if (currentWeapon.MaxBulletAmount > 0)
+                        isFireSuccess = currentWeapon.Fire();
                     if (!isFireSuccess && currentWeapon.WeaponCurrentBulletAmount <= 0)
                     {
                         Reload();

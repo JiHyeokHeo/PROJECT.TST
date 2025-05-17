@@ -302,11 +302,10 @@ namespace TST
 
         private void Update()
         {
-            //if (Input.GetKeyDown(KeyCode.J)) 
-            //{
-            //    //IngameStartCinematic.Instance.StartCinematic();
-            //    CanvasAlhpaManager.Instance.FadeIn();
-            //}
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                InputSystem.Singleton.ChangeCursorVisibility(false);
+            }
 
             //if (Input.GetKeyDown(KeyCode.K))
             //{

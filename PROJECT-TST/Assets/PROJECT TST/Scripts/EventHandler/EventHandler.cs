@@ -129,7 +129,6 @@ namespace TST
 
         public void OnDamaged(float damage, GameObject attacker)
         {
-
             OnDamagedAction?.Invoke(attacker);
 
             float? totalDamage = OnDamageCalculate?.Invoke(damage, attacker);
@@ -162,6 +161,7 @@ namespace TST
         public void ResetCharacter()
         {
             linkedCharacter.CurrentHp = 100;
+            OnDamagedAction?.Invoke(null);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace TST
 
             // 사운드 실행
             SoundManager.Singleton.PlayBGM("BGM_Ingame_Battle");
-            CanvasAlhpaManager.Instance.FadeIn();
+            CanvasAlhpaManager.Instance.FadeOut();
 #if UNITY_EDITOR
             float totalChance = 0f;
             foreach (var chance in boneTargetChances.Values)
@@ -62,7 +62,7 @@ namespace TST
         {
             SoundManager.Singleton.PlayBGM(SoundManager.Singleton.IngameStageStandardSoundName);
             currentTargetBone = null;
-            CanvasAlhpaManager.Instance.FadeOut();
+            CanvasAlhpaManager.Instance.FadeIn();
         }
 
         public LayerMask aimingLayer;

@@ -16,7 +16,9 @@ namespace TST
                 if (result.IsVisibleCursor)
                 {
                     InputSystem.Singleton.ChangeCursorVisibility(true);
-                    Singleton.cursorVisibleUIs.Add(result);
+
+                    if (Singleton.cursorVisibleUIs.Contains(result) == false)
+                        Singleton.cursorVisibleUIs.Add(result);
                 }
 
                 return result;
