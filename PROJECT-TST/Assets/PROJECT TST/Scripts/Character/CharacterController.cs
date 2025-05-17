@@ -302,17 +302,17 @@ namespace TST
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.J)) 
-            {
-                //IngameStartCinematic.Instance.StartCinematic();
-                CanvasAlhpaManager.Instance.FadeIn();
-            }
+            //if (Input.GetKeyDown(KeyCode.J)) 
+            //{
+            //    //IngameStartCinematic.Instance.StartCinematic();
+            //    CanvasAlhpaManager.Instance.FadeIn();
+            //}
 
-            if (Input.GetKeyDown(KeyCode.K))
-            {
-                //IngameStartCinematic.Instance.SkipCinematic();
-                CanvasAlhpaManager.Instance.FadeOut();
-            }
+            //if (Input.GetKeyDown(KeyCode.K))
+            //{
+            //    //IngameStartCinematic.Instance.SkipCinematic();
+            //    CanvasAlhpaManager.Instance.FadeOut();
+            //}
 
             if (Input.GetKeyDown(KeyCode.B))
             {
@@ -327,6 +327,11 @@ namespace TST
             if (Input.GetKeyDown(KeyCode.H))
             {
                 linkedCharacter.DroneSetting();
+            }
+
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                NightVisionController.Instance.IsActiveVision = !NightVisionController.Instance.IsActiveVision;
             }
 
             if (Input.GetKeyDown(KeyCode.G))

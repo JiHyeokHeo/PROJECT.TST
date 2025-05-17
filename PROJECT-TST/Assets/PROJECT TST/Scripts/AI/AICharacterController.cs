@@ -78,21 +78,14 @@ namespace TST
             navAgent.updateRotation = false;
         }
 
+        public void Init()
+        {
+            battleMaximunTime = 10.0f;
+        }
+
         private void Start()
         {
-            //GameObject rifleBullet;
-            //GameObject pistolBullet;
-
-            //if (AssetManager.Singleton.GetItemAmmoPrefab("APC Rifle Ammo", out GameObject rifleApcResult))
-            //{
-            //    rifleBullet = Instantiate(rifleApcResult, transform);
-            //    characterBase.rifleAmmos.Add(rifleBullet.GetComponent<AmmoBase>());
-            //}
-            //if (AssetManager.Singleton.GetItemAmmoPrefab("Pistol Bullet", out GameObject pistolResult))
-            //{
-            //    pistolBullet = Instantiate(pistolResult);
-            //    characterBase.pistolAmmos.Add(pistolBullet.GetComponent<AmmoBase>());
-            //}
+            Init();
 
             // 상태 객체를 미리 생성해 둠
             currentState = new AIState_Idle(this);

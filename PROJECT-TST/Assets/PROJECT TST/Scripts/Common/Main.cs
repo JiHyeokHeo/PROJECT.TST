@@ -56,6 +56,13 @@ namespace TST
             SoundManager.Singleton.Initialize();
         }
 
+        public void SetBootStrapperState<T>() where T : SceneBase
+        {
+            GameObject newSceneBase = new GameObject(typeof(T).Name);
+            newSceneBase.transform.SetParent(transform);
+            currentSceneController = newSceneBase.AddComponent<T>();
+        }
+
         public void SystemQuit()
         {
             // TODO : 만약에 게임 종료 전에 자동으로 처리해야할 내용이 있다면, 여기서 처리할 것.

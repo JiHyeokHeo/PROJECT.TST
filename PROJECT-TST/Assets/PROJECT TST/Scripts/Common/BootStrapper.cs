@@ -39,14 +39,16 @@ namespace TST
             Main.Singleton.Initialize();
             OptionManager.Singleton.Initialize();
             // TODO : Custom BootStrapper Logic
+
             SceneManager.LoadScene(SceneType.IngameMap.ToString(), LoadSceneMode.Single);
+            Main.Singleton.SetBootStrapperState<IngameScene>();
+
             Main.Singleton.StartCoroutine(DelayBoot());
 
             IEnumerator DelayBoot()
             {
                 yield return new WaitForEndOfFrame();
                 yield return new WaitForEndOfFrame();
-
                 SoundManager.Singleton.PlayBGM("BGM_Ingame", true);
                 UIManager.Show<CrossHair_UI>(UIList.CrossHair_UI);
                 UIManager.Show<Minimap_UI>(UIList.Minimap_UI);

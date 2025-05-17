@@ -16,10 +16,16 @@ namespace TST
         public Transform outsideImageRotation;
         public bool isOutSight;
         int layerMask;
+        private Camera mainCamera;
 
         public void Awake()
         {
             layerMask = (1 << 0) | (1 << 7) | (1 << 13);
+        }
+
+        private void Start()
+        {
+            mainCamera = Camera.main;
         }
 
         public void ItemUpdate()
@@ -27,10 +33,9 @@ namespace TST
             if (target == null)
                 return;
             
-            float distance = Vector3.Distance(Camera.main.transform.position, target.position);
-            Vector3 direction = (target.position - Camera.main.transform.position).normalized;
-            Debug.DrawRay(Camera.main.transform.position, direction * distance,  Color.red);
-            if (Physics.Raycast(Camera.main.transform.position, target.position - Camera.main.transform.position, out RaycastHit hitInfo, distance, layerMask))
+            float distance = Vector3.Distance(mainCamera.transform.position, target.position);
+            Vector3 direction = (target.position - mainCamera.transform.position).normalized;
+            if (Physics.Raycast(mainCamera.transform.position, target.position - mainCamera.transform.position, out RaycastHit hitInfo, distance, layerMask))
             {
                 if (hitInfo.transform.gameObject.layer != target.gameObject.layer 
                     || distance >= 50.0f)
@@ -40,8 +45,9 @@ namespace TST
                     return;
                 }
             }
+            Debug.DrawRay(mainCamera.transform.position, direction * distance,  Color.red);
 
-            Vector3 viewportPos = Camera.main.WorldToViewportPoint(target.position);
+            Vector3 viewportPos = mainCamera.WorldToViewportPoint(target.position);
             if (viewportPos.z < 0 || viewportPos.x < 0.1 || viewportPos.x > 0.9 || viewportPos.y < 0.1 || viewportPos.y > 0.9 )
             {
                 insideGroup.gameObject.SetActive(false);

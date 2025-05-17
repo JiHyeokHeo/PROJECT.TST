@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace TST
 {
@@ -25,8 +26,25 @@ namespace TST
         void Start()
         {
              animator = GetComponent<Animator>();
-            
-            //Animator speed
+
+            switch (npcType)
+            {
+                case NpcType.Store:
+                    break;
+                case NpcType.Start:
+                    break;
+                case NpcType.Ending:
+                    RegisterEndingEvent();
+                    break;
+            }
+        }
+
+        void RegisterEndingEvent()
+        {
+            UIManager.Singleton.GetUI<NpcTextScript>(UIList.NpcScriptUI).OnDialogueFinished += () =>
+            {
+                Main.Singleton.ChangeScene(SceneType.Title);
+            };
         }
 
         public void Ani_Reverse()

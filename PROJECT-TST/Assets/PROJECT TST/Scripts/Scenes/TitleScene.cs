@@ -11,6 +11,7 @@ namespace TST
         {
             AsyncOperation asyncToTitle = SceneManager.LoadSceneAsync(SceneType.Title.ToString(), LoadSceneMode.Single);
             yield return new WaitUntil(() => asyncToTitle.isDone);
+            UIManager.Singleton.HideAllUI();
 
             UIManager.Show<TitleUI>(UIList.TitleUI);
         }

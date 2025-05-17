@@ -10,6 +10,18 @@ namespace TST
         public static NightVisionController Instance { get; private set; }
 
         private Volume volume;
+
+        public bool IsActiveVision
+        {
+            get => isActiveVision;
+            set
+            {
+                isActiveVision = value;
+                SetActiveNightVision(isActiveVision);
+            }
+
+        }
+
         private bool isActiveVision = false;
 
         private void Awake()

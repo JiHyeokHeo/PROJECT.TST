@@ -27,9 +27,8 @@ namespace TST
 
         public override IEnumerator OnEnd() 
         {
-            //UIManager.Hide<IngameUI>(UIList.IngameUI);
-            //UIManager.Hide<MinimapUI>(UIList.MinimapUI);
-            //UIManager.Hide<IndicatorUI>(UIList.IndicatorUI);
+            UIManager.Singleton.HideAllUI();
+            SoundManager.Singleton.StopAllSound();
 
             yield return null;
         }

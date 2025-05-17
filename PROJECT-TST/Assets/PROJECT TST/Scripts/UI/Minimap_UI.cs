@@ -10,7 +10,6 @@ namespace TST
         public RectTransform[] coordinates = new RectTransform[4];
 
         public Transform cameraTransform;
-
         public void Start()
         {
             cameraTransform = Camera.main.transform;
