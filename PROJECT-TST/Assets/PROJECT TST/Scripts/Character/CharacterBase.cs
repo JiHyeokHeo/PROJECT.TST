@@ -626,7 +626,7 @@ namespace TST
 
         public void Move(Vector2 input, float yAxisAngle)
         {
-            if (CheckBehaviorLock())
+            if (isRolling)
                 return;
 
             if (isZip)
@@ -1106,9 +1106,15 @@ namespace TST
             isSwitchingWeapon = false;
         }
 
+        public void LootLoopStopped()
+        {
+            isLooting = false;
+        }
+
         public void LootFinisehd()
         {
             isLooting = false;
+            characterController.currentInteractables[0].Interact(gameObject);
         }
 
         /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>

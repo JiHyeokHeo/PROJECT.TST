@@ -152,8 +152,7 @@ namespace TST
 
             if (currentInteractables.Count > 0)
             {
-                currentInteractables[0].Interact(linkedCharacter.gameObject);
-
+                //currentInteractables[0].Interact(linkedCharacter.gameObject);
                 InteractType interactType = currentInteractables[0].InteractType;
 
                 switch (interactType)
@@ -325,7 +324,7 @@ namespace TST
             {
                 UIManager.Hide<CraftingUI>(UIList.CraftingUI);
             }
-
+            
             if (Input.GetKeyDown(KeyCode.H))
             {
                 linkedCharacter.DroneSetting();
@@ -345,60 +344,60 @@ namespace TST
                 || InputSystem.Singleton.IsActiveCursorVisible 
                 || CameraSystem.Instance.IsActiveWorldCamera;
 
-            float inputX = Input.GetAxis("Horizontal");
-            float inputY = Input.GetAxis("Vertical");
+                float inputX = Input.GetAxis("Horizontal");
+                float inputY = Input.GetAxis("Vertical");
 
-            if (currentInteractables.Count > 0)
-            {
-                InteractionUI.Instance.ShowInteraction(currentInteractables[0]);
-            }
-            else
-            {
-                InteractionUI.Instance.HideInteractionItem();
-            }
+                if (currentInteractables.Count > 0)
+                {
+                    InteractionUI.Instance.ShowInteraction(currentInteractables[0]);
+                }
+                else
+                {
+                    InteractionUI.Instance.HideInteractionItem();
+                }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                linkedCharacter.IsSprint = !linkedCharacter.IsSprint;
-            }
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                {
+                    linkedCharacter.IsSprint = !linkedCharacter.IsSprint;
+                }
             
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                linkedCharacter.IsAutoRunMode = !linkedCharacter.IsAutoRunMode;
-            }
+                if (Input.GetKeyDown(KeyCode.T))
+                {
+                    linkedCharacter.IsAutoRunMode = !linkedCharacter.IsAutoRunMode;
+                }
 
-            if (Input.GetKeyDown(KeyCode.CapsLock))
-            {
-                linkedCharacter.IsWalk = !linkedCharacter.IsWalk;
-            }
+                if (Input.GetKeyDown(KeyCode.CapsLock))
+                {
+                    linkedCharacter.IsWalk = !linkedCharacter.IsWalk;
+                }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                OptionManager.Singleton.IsGameStopped = !OptionManager.Singleton.IsGameStopped;
-            }
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    OptionManager.Singleton.IsGameStopped = !OptionManager.Singleton.IsGameStopped;
+                }
 
-            Vector3 aimingPoint = Vector3.zero;
-            Ray screenCenterRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-            Debug.DrawRay(screenCenterRay.origin, screenCenterRay.direction * 1000.0f, Color.red);
-            if (Physics.Raycast(screenCenterRay, out RaycastHit hitInfo, 1000f, aimingLayer, QueryTriggerInteraction.Ignore))
-            {
-                aimingPoint = hitInfo.point;
-            }
-            else
-            {
-                aimingPoint = screenCenterRay.GetPoint(1000f);
-            }
+                Vector3 aimingPoint = Vector3.zero;
+                Ray screenCenterRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+                Debug.DrawRay(screenCenterRay.origin, screenCenterRay.direction * 1000.0f, Color.red);
+                if (Physics.Raycast(screenCenterRay, out RaycastHit hitInfo, 1000f, aimingLayer, QueryTriggerInteraction.Ignore))
+                {
+                    aimingPoint = hitInfo.point;
+                }
+                else
+                {
+                    aimingPoint = screenCenterRay.GetPoint(1000f);
+                }
             
-            if (IsActiveControl_Movement && !IsControlLocked)
-            {
-                linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
-                bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
-                linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
-            }
-            else
-            {
-                linkedCharacter.Move(Vector2.zero, Camera.main.transform.eulerAngles.y);
-            }
+                if (IsActiveControl_Movement && !IsControlLocked)
+                {
+                    linkedCharacter.Move(new Vector2(inputX, inputY), Camera.main.transform.eulerAngles.y);
+                    bool rotateSuccess = linkedCharacter.Rotate(aimingPoint);
+                    linkedCharacter.AimingPosition = rotateSuccess ? aimingPoint : screenCenterRay.GetPoint(1000f);
+                }
+                else
+                {
+                    linkedCharacter.Move(Vector2.zero, Camera.main.transform.eulerAngles.y);
+                }
 
             #region Test
             //if (Input.GetKeyDown(KeyCode.H))
