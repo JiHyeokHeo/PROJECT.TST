@@ -50,11 +50,7 @@ namespace TST
 
         public void OnClickShutDownGame()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit(); 
-#endif
+            Main.Singleton.SystemQuit();
         }
 
         public void OnQualityChange(int value)

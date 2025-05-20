@@ -13,6 +13,8 @@ namespace TST
             yield return new WaitUntil(() => asyncToTitle.isDone);
             UIManager.Singleton.HideAllUI();
 
+            SoundManager.Singleton.PlayBGM("BGM_Lobby");
+            SoundManager.Singleton.PlaySFX("WaterDrop", Vector3.zero);
             UIManager.Show<TitleUI>(UIList.TitleUI);
         }
 
