@@ -196,7 +196,7 @@ namespace TST
         private void UpdateBattleDamageState()
         {
             // 체력 변화 감지
-            if (previousHp != LinkedCharacter.CurrentHp)
+            if (previousHp != LinkedCharacter.CurrentHp && currentState.ToString().Equals("TST.AIState_Combat") == false)
             {
                 previousHp = LinkedCharacter.CurrentHp;
                 isDamaged = true;
@@ -259,7 +259,7 @@ namespace TST
 
                 // 아이템 움직임 이펙트
                 GameManager.Instance.GenerateItem(transform.position);
-
+                currentState.Exit();
                 LinkedCharacter.SetRagdollActive(true);
                 GetComponent<AICharacterController>().enabled = false;
             }

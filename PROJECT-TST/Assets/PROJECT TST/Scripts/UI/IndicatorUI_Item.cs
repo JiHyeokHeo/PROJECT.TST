@@ -45,7 +45,7 @@ namespace TST
                     return;
                 }
             }
-            Debug.DrawRay(mainCamera.transform.position, direction * distance,  Color.red);
+            //Debug.DrawRay(mainCamera.transform.position, direction * distance,  Color.red);
 
             Vector3 viewportPos = mainCamera.WorldToViewportPoint(target.position);
             if (viewportPos.z < 0 || viewportPos.x < 0.1 || viewportPos.x > 0.9 || viewportPos.y < 0.1 || viewportPos.y > 0.9 )

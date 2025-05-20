@@ -60,7 +60,7 @@ namespace TST
 
         public override void Exit()
         {
-            SoundManager.Singleton.PlayBGM(SoundManager.Singleton.IngameStageStandardSoundName);
+            SoundManager.Singleton.PlayBGM("BGM_Ingame");
             currentTargetBone = null;
             CanvasAlhpaManager.Instance.FadeIn();
         }

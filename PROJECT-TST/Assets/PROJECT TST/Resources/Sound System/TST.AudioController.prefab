@@ -105,7 +105,7 @@ MonoBehaviour:
         RandomStartPosition: 0
         individualSettings: []
     - Name: BGM_Ingame
-      Loop: 1
+      Loop: 0
       loopSequenceCount: 0
       loopSequenceOverlap: 0
       loopSequenceRandomDelay: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
       Volume: 1
-      SubItemPickMode: 2
+      SubItemPickMode: 1
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 0
       Delay: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
       loopSequenceRandomVolume: 0
       DestroyOnLoad: 1
       Volume: 1
-      SubItemPickMode: 2
+      SubItemPickMode: 1
       MinTimeBetweenPlayCalls: 0.1
       MaxInstanceCount: 0
       Delay: 0
@@ -1257,8 +1257,8 @@ MonoBehaviour:
   _audioDisabled: 0
   _volume: 1
   _currentInspectorSelection:
-    currentCategoryIndex: 1
-    currentItemIndex: 8
+    currentCategoryIndex: 0
+    currentItemIndex: 1
     currentSubitemIndex: 0
     currentPlaylistEntryIndex: 0
     currentPlaylistIndex: 0
