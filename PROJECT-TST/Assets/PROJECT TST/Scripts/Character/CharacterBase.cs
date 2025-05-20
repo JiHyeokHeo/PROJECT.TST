@@ -1114,7 +1114,11 @@ namespace TST
         public void LootFinisehd()
         {
             isLooting = false;
-            characterController.currentInteractables[0].Interact(gameObject);
+
+            if (characterController.currentInteractables.Count > 0)
+            {
+                characterController.currentInteractables[0].Interact(gameObject);
+            }
         }
 
         /// <summary> Animator - StateMachineBehaviour 를 통해서 호출 됨 </summary>

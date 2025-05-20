@@ -58,6 +58,26 @@ namespace TST
             }
         }
 
+        public void GenerateItem(Vector3 position, ItemList type)
+        {
+            // 미만         이하
+            // int 파라미터 float 파라미터 Range Inclusive Exclusive 
+            int randItemID = (int)type;
+            if (randItemID <= (int)ItemList.ITEMLIST_START || randItemID >= (int)ItemList.ITEMLIST_END)
+                return;
+
+            var itemEnum = (ItemList)randItemID;
+            string itemName = itemEnum.ToString();
+
+            AssetManager.Singleton.GetItemPrefab(itemName, out GameObject result);
+
+            if (result)
+            {
+                GameObject gameObject = Instantiate(result, position, Quaternion.identity);
+                OnItemGenerateEvent?.Invoke(gameObject, position);
+            }
+        }
+
         private ItemList GetWeightedRandomItem()
         {
             int totalWeight = 0;
@@ -163,6 +183,8 @@ namespace TST
                                 user.pistolAmmos[existPistolIndex].CurrentBulletAmount += consumableStat.bulletAmount;
                                 user.subWeapon.AddMaxAmountBullet(consumableStat.bulletAmount);
                             }
+
+                            UIManager.Singleton.GetUI<MainHudUI>(UIList.MainHudUI).SetBulletTextImage();
                         }
                         break;
                     }

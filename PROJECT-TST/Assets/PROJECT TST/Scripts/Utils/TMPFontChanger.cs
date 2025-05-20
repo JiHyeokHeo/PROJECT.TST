@@ -1,8 +1,8 @@
 using UnityEngine;
-using UnityEditor;
 using TMPro;
-using System.IO;
 
+#if UNITY_EDITOR
+using UnityEditor;
 public class TMPFontChanger : EditorWindow
 {
     private TMP_FontAsset newTMPFont;
@@ -64,3 +64,4 @@ public class TMPFontChanger : EditorWindow
         AssetDatabase.Refresh();
     }
 }
+#endif

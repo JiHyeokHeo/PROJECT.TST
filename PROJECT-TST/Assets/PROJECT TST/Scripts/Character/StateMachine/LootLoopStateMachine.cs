@@ -10,7 +10,12 @@ namespace TST
         {
             if (character != null)
             {
-                character.LootLoopStopped();
+                float magnitude = animator.GetFloat("Magnitude");
+
+                if (magnitude > 0.001f)
+                {
+                    character.LootLoopStopped();
+                }
             }
         }
     }

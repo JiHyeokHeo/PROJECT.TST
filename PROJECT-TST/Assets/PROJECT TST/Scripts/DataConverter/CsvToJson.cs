@@ -3,16 +3,17 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 namespace TST
 {
+#if UNITY_EDITOR
     public class CsvToJson : EditorWindow
     {
-#if UNITY_EDITOR
         // Add a menu item named "Do Something" to MyMenu in the menu bar.
         [MenuItem("TST/CsvToJson %#K")]
         public static void CsvDataConvertToJson()
@@ -157,8 +158,8 @@ namespace TST
         }
         #endregion
 
-#endif
     }
+#endif
 
     #region Vector3, QuaternionConverter
     public class Vector3Converter : JsonConverter<Vector3>

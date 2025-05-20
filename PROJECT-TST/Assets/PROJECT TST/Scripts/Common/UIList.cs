@@ -32,7 +32,7 @@ namespace TST
         DamageNumberUI,
         NpcScriptUI,
         OptionUI,
-
+        CheatUI,
         UI_POPUP_END,
     }
 }

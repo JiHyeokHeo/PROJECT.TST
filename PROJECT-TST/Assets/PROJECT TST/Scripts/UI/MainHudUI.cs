@@ -67,7 +67,7 @@ namespace TST
 
         void Update()
         {
-            heartImage.fillAmount = Mathf.Lerp(heartImage.fillAmount, targetFillAmount, Time.deltaTime * 10.0f);
+            //heartImage.fillAmount = Mathf.Lerp(heartImage.fillAmount, targetFillAmount, Time.deltaTime * 10.0f);
         }
 
         public void SetBulletTextImage()

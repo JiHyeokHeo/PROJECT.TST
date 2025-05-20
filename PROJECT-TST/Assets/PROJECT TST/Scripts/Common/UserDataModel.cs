@@ -245,7 +245,7 @@ namespace TST
 #if UNITY_EDITOR
             string path = $"Assets/PROJECT TST/Anothers/Editor Saved Data/Json/{typeof(T).Name}.json";
 #else
-            string path = $"{Application.persistentDataPath}/{innerType.Name}.json";
+            string path = $"{Application.persistentDataPath}/{typeof(T).Name}.json";
 #endif
             if (FileManager.ReadFileData(path, out string loadedEditorData))
             {

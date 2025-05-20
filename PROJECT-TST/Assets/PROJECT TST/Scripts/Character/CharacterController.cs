@@ -152,7 +152,6 @@ namespace TST
 
             if (currentInteractables.Count > 0)
             {
-                //currentInteractables[0].Interact(linkedCharacter.gameObject);
                 InteractType interactType = currentInteractables[0].InteractType;
 
                 switch (interactType)
@@ -162,7 +161,10 @@ namespace TST
                         PlayLootAnimation();
                         break;
                     case InteractType.NPC:
-
+                        currentInteractables[0].Interact(linkedCharacter.gameObject);
+                        break;
+                    case InteractType.None:
+                        currentInteractables[0].Interact(linkedCharacter.gameObject);
                         break;
                 }
             }
@@ -170,9 +172,12 @@ namespace TST
 
         void OnExecuteMainWeaponSwap()
         {
+            if (IsControlLocked)
+                return;
+            
             // 1번 키를 눌럿을 때, 들어오는 이벤트
             // 1번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
-            linkedCharacter.ToggleEquipPrimaryWeapon();
+                linkedCharacter.ToggleEquipPrimaryWeapon();
             linkedCharacter.IsThrowMode = false;
             MainHudChangeEvent?.Invoke();
             ReturnToTPSModeCheck();
@@ -180,6 +185,8 @@ namespace TST
 
         void OnExecuteSubWeaponSwap()
         {
+            if (IsControlLocked)
+                return;
             // 2번 키를 눌럿을 때, 들어오는 이벤트
             // 2번 키를 눌렀을 때 => 1번 무기로 변경하는 명령만 CharacterBase 에게 전달
             linkedCharacter.ToggleEquipSecondaryWeapon();
@@ -190,7 +197,10 @@ namespace TST
 
         void OnExcuteFpsZoomTransition()
         {
-            if (linkedCharacter != null && linkedCharacter.currentWeapon == linkedCharacter.primaryWeapon)
+            if (IsControlLocked)
+                return;
+
+                if (linkedCharacter != null && linkedCharacter.currentWeapon == linkedCharacter.primaryWeapon)
             {
                 CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
             }
@@ -213,17 +223,31 @@ namespace TST
 
         void OnExecuteThirdRightLeftViewChange()
         {
+            if (IsControlLocked)
+                return;
             CameraSystem.Instance.IsCameraSideOnRight = !CameraSystem.Instance.IsCameraSideOnRight;
         }
 
         void OnExecuteMaintainZoom()
         {
+            if (IsControlLocked)
+                return;
             CameraSystem.Instance.IsCameraZoom = true;
         }
 
         void OnExecuteReturnToTps()
         {
+            if (IsControlLocked)
+                return;
             CameraSystem.Instance.IsCameraZoom = false;
+        }
+
+        private void ReturnToTPSModeCheck()
+        {
+            if (IsControlLocked)
+                return;
+            if (CameraSystem.Instance.IsFpsMode == true)
+                CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
         }
 
         bool OnExecuteInventoryUI()
@@ -274,11 +298,6 @@ namespace TST
             }
         }
 
-        private void ReturnToTPSModeCheck()
-        {
-            if (CameraSystem.Instance.IsFpsMode == true)
-                CameraSystem.Instance.IsFpsMode = !CameraSystem.Instance.IsFpsMode;
-        }
 
         //void OnExecuteHelpPopup()
         //{
@@ -314,6 +333,16 @@ namespace TST
             //    //IngameStartCinematic.Instance.SkipCinematic();
             //    CanvasAlhpaManager.Instance.FadeOut();
             //}
+
+            if (Input.GetKeyDown(KeyCode.F9))
+            {
+                UIManager.Show<CheatUI>(UIList.CheatUI);
+            }
+
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
+                UIManager.Hide<CheatUI>(UIList.CheatUI);
+            }
 
             if (Input.GetKeyDown(KeyCode.B))
             {

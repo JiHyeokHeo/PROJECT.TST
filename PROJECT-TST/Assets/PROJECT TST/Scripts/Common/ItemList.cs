@@ -18,5 +18,4 @@ namespace TST
         Normal_Pistol_Bullet,
         ITEMLIST_END,
     }
-
 }

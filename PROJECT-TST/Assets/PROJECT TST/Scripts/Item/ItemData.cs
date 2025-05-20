@@ -1,5 +1,7 @@
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace TST
@@ -65,6 +67,7 @@ namespace TST
 
     #region ItemDataEditor
     // 에디터 관련
+#if UNITY_EDITOR
     [CustomEditor(typeof(ItemData))]
     public class ItemDataEditor : Editor
     {
@@ -136,5 +139,6 @@ namespace TST
             }
         }
     }
-    #endregion
+#endif
+#endregion
 }
