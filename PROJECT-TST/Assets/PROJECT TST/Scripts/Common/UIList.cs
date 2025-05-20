@@ -31,6 +31,7 @@ namespace TST
         CraftingUI,
         DamageNumberUI,
         NpcScriptUI,
+        OptionUI,
 
         UI_POPUP_END,
     }

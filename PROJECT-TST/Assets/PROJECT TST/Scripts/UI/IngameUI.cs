@@ -23,7 +23,7 @@ namespace TST
 
         public void OnClickShowSettingUIButton()
         {
-
+            UIManager.Show<OptionUI>(UIList.OptionUI);
         }
     }
 }

@@ -23,5 +23,16 @@ namespace TST
             //    Debug.Log(resolution[i].refreshRateRatio.value);
             //}
         }
+
+        public void SetQuality(int qualityLevel)
+        {
+            //int currentQuality = QualitySettings.GetQualityLevel();
+            QualitySettings.SetQualityLevel(qualityLevel);
+        }
+
+        public int GetCurrentQuality()
+        {
+            return QualitySettings.GetQualityLevel();
+        }
     }
 }
