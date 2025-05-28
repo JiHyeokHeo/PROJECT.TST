@@ -17,7 +17,6 @@ namespace TST
         // Content Scenes
         Title,
         Ingame,
-        IngameMap,
     }
 
     public class Main : SingletonBase<Main>
@@ -99,12 +98,8 @@ namespace TST
                     currentScene = SceneType.Title;
                     break;
                 case SceneType.Ingame:
-                    ChangeScene<IngameScene>(SceneType.Ingame, onSceneLoadCompleted);
+                    ChangeScene<IngameMapScene>(SceneType.Ingame, onSceneLoadCompleted);
                     currentScene = SceneType.Ingame;
-                    break;
-                case SceneType.IngameMap:
-                    ChangeScene<IngameMapScene>(SceneType.IngameMap, onSceneLoadCompleted);
-                    currentScene = SceneType.IngameMap;
                     break;
             }
         }

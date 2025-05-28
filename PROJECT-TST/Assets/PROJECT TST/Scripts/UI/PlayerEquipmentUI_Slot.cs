@@ -86,6 +86,9 @@ namespace TST
 
         public void OnClickRightButton()
         {
+            if (itemData == null)
+                return;
+
             if (itemData.ItemCategory == ItemCategory.Equipment)
             {
                 InventoryEquipMenuUI invenEquipmentUI = UIManager.Show<InventoryEquipMenuUI>(UIList.InventoryEquipMenuUI);

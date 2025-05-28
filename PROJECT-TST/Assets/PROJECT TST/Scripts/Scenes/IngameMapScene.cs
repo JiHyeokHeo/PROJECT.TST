@@ -10,7 +10,7 @@ namespace TST
 
         public override IEnumerator OnStart()
         {
-            AsyncOperation asyncToTitle = SceneManager.LoadSceneAsync(SceneType.IngameMap.ToString(), LoadSceneMode.Single);
+            AsyncOperation asyncToTitle = SceneManager.LoadSceneAsync(SceneType.Ingame.ToString(), LoadSceneMode.Single);
             yield return new WaitUntil(() => asyncToTitle.isDone);
 
             UIManager.Show<InteractionUI>(UIList.InteractionUI);
@@ -25,7 +25,7 @@ namespace TST
 
         public override IEnumerator OnEnd()
         {
-            return null;
+            yield return null;
         }
     }
 }

@@ -402,7 +402,7 @@ namespace TST
 
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    OptionManager.Singleton.IsGameStopped = !OptionManager.Singleton.IsGameStopped;
+                    UIManager.Show<OptionUI>(UIList.OptionUI);
                 }
 
                 Vector3 aimingPoint = Vector3.zero;

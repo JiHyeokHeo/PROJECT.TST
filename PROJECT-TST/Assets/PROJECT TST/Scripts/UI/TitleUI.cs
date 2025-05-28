@@ -8,7 +8,7 @@ namespace TST
     {
         public void OnEnterGame()
         {
-            Main.Singleton.ChangeScene(SceneType.IngameMap);
+            Main.Singleton.ChangeScene(SceneType.Ingame);
         }
 
         public void OnLeaveGame()

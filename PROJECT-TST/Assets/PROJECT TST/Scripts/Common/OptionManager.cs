@@ -45,7 +45,7 @@ namespace TST
                 else
                     Time.timeScale = 1.0f;
                 // ¿É¼Ç ¶ç¿ì±â
-                ShowOption();
+                //ShowOption();
             }
         }
 

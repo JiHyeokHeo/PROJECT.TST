@@ -190,6 +190,20 @@ namespace TST
                 }
             }
 
+   
+
+            //Vector3 origin = transform.position; // 시체 중심 또는 원하는 기준
+            //Vector3 rayOrigin = origin + Vector3.up * 2f;
+
+            //if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit rayHit, 10f))
+            //{
+            //    if (NavMesh.SamplePosition(rayHit.point, out NavMeshHit navHit, 2.0f, NavMesh.AllAreas))
+            //    {
+            //        transform.position = navHit.position;
+            //        navAgent.Warp(navHit.position);
+            //    }
+            //}
+
             Debug.Log($"{currentState}");
         }
 
@@ -256,7 +270,6 @@ namespace TST
             if (LinkedCharacter.CurrentHp <= 0)
             {
                 isItemGenerated = true;
-
                 // 아이템 움직임 이펙트
                 GameManager.Instance.GenerateItem(transform.position);
                 currentState.Exit();

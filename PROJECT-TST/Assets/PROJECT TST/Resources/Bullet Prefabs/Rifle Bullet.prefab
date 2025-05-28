@@ -107,7 +107,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d58c5d2e462142f4abb104ac61f5e92f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
   data: {fileID: 11400000, guid: 2e000d2067ae42844bad57bb42730adf, type: 2}
   rigid: {fileID: 0}
   startPosition: {fileID: 0}

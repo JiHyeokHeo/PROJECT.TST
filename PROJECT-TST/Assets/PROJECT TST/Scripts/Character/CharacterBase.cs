@@ -445,12 +445,16 @@ namespace TST
                 sm.Init(this);
             }
 
+            //foreach (var rb in ragdollRigidbodies)
+            //{
+            //    rb.isKinematic = false;
+            //}
+
             //hitVolume = hitVolumeObject.GetComponent<Volume>();
 
             // AI 관련코드 이거 추후에 클래스 나누는 리팩토링 작업이 필요할듯함
             //aiSpawnPosition = gameObject.transform.position;
         }
-
 
 
         #region Ragdoll & IK
@@ -733,14 +737,18 @@ namespace TST
                 Vector3 target = targetPoint;
                 target.y = transform.position.y;
                 Vector3 pos = transform.position;
-                Vector3 direction = (target - pos).normalized;
+                Vector3 direction = (target - pos).normalized; // 벡터의 길이를 단위벡터로 변형
 
-                Vector3 viewForward = Camera.main.transform.forward;
+                Vector3 viewForward = Camera.main.transform.forward; // 단위벡터
                 viewForward.y = 0.0f;
-
-                float dotResult = Vector3.Dot(viewForward, direction);
-                // 내적값이 음수가 나오면 forward를 카메라 정면 방향으로 변경
-                // targetPoint와 플레이어의 거리에 따라 예외처리가 필요할지..?
+                
+                // 정사영 (Projection)을 통해 내적값을 구한다. -> 내장 함수를 쓰자 
+                // 내적(실수 값) = 1[단위벡터] * 1 * cos세타
+                float dotResult = Vector3.Dot(viewForward, direction); // 내장 함수를 통해 실수 값 증명
+                // 만약 각도를 구하고 싶다면? acos을 활용 가능 -> Rad2Degree 내장함수 활용 60분법으로 변환
+                // 내적 value 양수 -> 같은 방향
+                // 내적 value 음수 -> 반대 방향
+                // 내적 value 0 -> 직교
                 if (dotResult < 0.9)
                 {
                     transform.rotation = Quaternion.LookRotation(Vector3.Lerp(transform.forward, viewForward, Time.deltaTime * 10f));
