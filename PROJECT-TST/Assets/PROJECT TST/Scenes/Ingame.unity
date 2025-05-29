@@ -4584,6 +4584,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [GoldenShoes] (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 6d18fd185c092ce40abcef7077228f9a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8733,6 +8738,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drop Item [BlackArmor]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: cc71170a25fe7944abbae58864e19f54,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -27090,6 +27100,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [BlackGloves]
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 6f59ab2ed67ca4140aff8559e610674c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -38846,6 +38861,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drop Item [BlackShoes]
       objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: eb9b7e792eef85d42b09c29c14cf5c60,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -49676,10 +49696,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2871719114132656314, guid: 0b3690c495cd4694f936638cf5829ca9,
+    - target: {fileID: 500022347407758373, guid: 0b3690c495cd4694f936638cf5829ca9,
         type: 3}
-      propertyPath: m_Radius
-      value: 0.4
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 500022347407758373, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 500022347407758373, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 500022347407758373, guid: 0b3690c495cd4694f936638cf5829ca9,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.28409004
       objectReference: {fileID: 0}
     - target: {fileID: 3347355838109619811, guid: 0b3690c495cd4694f936638cf5829ca9,
         type: 3}
@@ -53382,6 +53417,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Drop Item [BlackHelmet]
+      objectReference: {fileID: 0}
+    - target: {fileID: 6523369397229085836, guid: 66f621d8c21b9b14ba229cc65d2b1db3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

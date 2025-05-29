@@ -80,6 +80,11 @@ namespace TST
 
         }
 
+        public void OffTrajectory()
+        {
+            lineRenderer.enabled = false;
+        }
+
         Vector3 CalculateParabolicVelocity(Vector3 startPoint, Vector3 targetPoint, float flightTime = 1.0f, float maxDistance = 10.0f)
         {
             Ray screenCenterRay = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));

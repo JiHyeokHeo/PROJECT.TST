@@ -364,10 +364,10 @@ namespace TST
                 NightVisionController.Instance.IsActiveVision = !NightVisionController.Instance.IsActiveVision;
             }
 
-            //if (Input.GetKeyDown(KeyCode.G))
-            //{
-            //    linkedCharacter.IsThrowMode = !linkedCharacter.IsThrowMode;
-            //}
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                linkedCharacter.IsThrowMode = !linkedCharacter.IsThrowMode;
+            }
 
             IsControlLocked = UIManager.Singleton.ActiveCursorVisibleUIsCount > 0 
                 || InputSystem.Singleton.IsActiveCursorVisible 

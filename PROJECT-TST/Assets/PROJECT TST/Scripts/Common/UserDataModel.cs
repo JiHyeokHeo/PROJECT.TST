@@ -143,7 +143,7 @@ namespace TST
             }
         }
 
-        // 여기서 Get을 하면 되려나
+        
         public bool UseInventoryItem(ItemData itemData, int useCount)
         {
             var itemDataTemp = UserItemData.Items.Find(x => x.itemID.Equals(itemData.ItemID));
@@ -188,7 +188,6 @@ namespace TST
             OnPlayerEquipmentChanagedEvent?.Invoke(category, beforeSlotID, afterSlotID);
         }
 
-        // 이건 추후에 약간 수정 합시다. 예외처리를 조금 더 일찍 해서 재귀 탈출을 빠르게 하는게 좋을듯?
         private bool RecursiveSearch(ItemData itemData, int useCount)
         {
             int existedItemDataIndex = UserItemData.Items.FindLastIndex(x => x.itemID.Equals(itemData.ItemID));

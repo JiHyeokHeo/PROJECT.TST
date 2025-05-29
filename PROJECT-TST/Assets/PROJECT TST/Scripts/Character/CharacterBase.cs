@@ -245,13 +245,14 @@ namespace TST
                     Transform handTransform = animator.GetBoneTransform(HumanBodyBones.LeftHand);
                     currentThrowObject = Instantiate(throwObject, handTransform);
                     currentThrowObject.SetStartTransform(throwStartPoint);
-                    currentThrowObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+                    currentThrowObject.transform.SetLocalPositionAndRotation(new Vector3(-0.036f, 0.087f, 0.028f), Quaternion.Euler(new Vector3(260f, -180f, -180f)));
                     currentThrowObject.gameObject.SetActive(true);
                     currentThrowObject.Init(this);
                 }
                 else
                 {
-                    Destroy(currentThrowObject);
+                    currentThrowObject.OffTrajectory();
+                    Destroy(currentThrowObject.gameObject);
                 }
             }
         }
