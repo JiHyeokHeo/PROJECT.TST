@@ -96,18 +96,61 @@ All logs are written weekly and updated in GitHub Repository.
 ## Week 7 (2024.12.13)
 
 - 📌 **Today’s Focus**
-  - *(No specific tasks documented)*
+  - NavMeshAgent
+    - Jump Area [NavMesh Link]
+  - FSM Class
+    - AIController [currentState]
+    - Idle/Move/Patorl/Combat/Dead
+  - URP - Pipeline Changed
+    - Outline/Decal/SreenSpaceFeature/BehindRender
+  - Rendering Layer Mask Added
+    - Camera -> Additional Data
+    - Light -> Additional Data
 
+  - PostProcessing
 ---
 
 ## Week 8 (2024.12.20)
 
 - 📌 **Today’s Focus**
-  - *(No specific tasks documented)*
-
+  - Scriptbale Object
+  - NavAgent Advanced
+    - 경로 서치시에만 NavAgent 활용, Move는 CharacterController 활용
+  - UI
+    - GameData
+    - ItemData <-> Item Prefab
+    - Inventory
+      - 아이템 획득 시 UserDataModel
+      - Item Added Event
+      - Item Uses Event
+      - Infinite Scroll
 ---
 
 ## Week 9 (2024.12.27)
-
+  
 - 📌 **Today’s Focus**
-  - *(No specific tasks documented)*
+  - Character Jump
+    - Gravity
+    - Animation -> Jump Start -> Falling -> Landing
+      - Freefall
+      - CheckGround
+  - Inventory Item Added UI Event
+    - MainHud Update
+    - UserDataModel Update
+    - Log
+---
+
+## Week 10 (2025.01.02)
+  
+- 📌 **Today’s Focus**
+  - Camera FOV 조절
+  - BootStrapper
+  - Pistol Added
+  - Special Ammo Added
+  - Level Design Started
+  - AI
+    - LOS
+    - FSM Modify
+  - Equipment UI
+  - Data Added
+---
